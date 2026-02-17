@@ -13,7 +13,7 @@
 
   // ── Configuration ─────────────────────────────────────────────────────
   // SET THIS to your Vercel deployment URL (no trailing slash)
-  var API_BASE = "https://CHANGE-ME.vercel.app";
+  var API_BASE = "https://vercel.com/bengts-projects-1f26266d/nextjs-with-supabase-mbpb/4EVHtHruwhop8Mk6oGN9rJKdqie4";
 
   // ── State ─────────────────────────────────────────────────────────────
   var state = {
