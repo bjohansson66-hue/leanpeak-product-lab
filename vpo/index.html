@@ -4,6 +4,26 @@
   <meta charset="utf-8">
   <title>Visual Project Objectives Lab</title>
   <link rel="stylesheet" href="../leanpeak-theme.css">
+  <style>
+    .lp-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--lp-space-lg);
+    }
+    @media (max-width: 768px) {
+      .lp-grid-2 { grid-template-columns: minmax(0, 1fr); }
+    }
+    @keyframes lp-spin { to { transform: rotate(360deg); } }
+    .lp-spinner {
+      width: 24px; height: 24px;
+      border: 3px solid var(--lp-color-border-subtle);
+      border-top-color: var(--lp-color-secondary);
+      border-radius: 50%;
+      animation: lp-spin 0.8s linear infinite;
+    }
+    @keyframes lp-pulse { 50% { opacity: 0.5; } }
+    .lp-pulse { animation: lp-pulse 2s ease-in-out infinite; }
+  </style>
 </head>
 <body>
   <div class="lp-page">
@@ -38,38 +58,14 @@
     </div>
   </div>
 </section>
-<section class="lp-section" id="pretotype-suite">
+<section class="lp-section" id="vpo-pipeline">
   <div class="lp-section-inner">
-    <h2 class="lp-section-title">Pretotype Tool Suite</h2>
-    <p>
-      Here you will configure and run pretotypes for your Visual Project Objectives.
+    <h2 class="lp-section-title">VPO Pipeline</h2>
+    <p style="color: var(--lp-color-text-muted); margin-bottom: var(--lp-space-lg);">
+      Generate a sales brochure, map opportunities, and run a pre-mortem analysis &mdash; all powered by AI.
     </p>
-
-    <div class="lp-grid lp-grid-3">
-      <article class="lp-card">
-        <h3 class="lp-card-title">Pretotype Builder</h3>
-        <p class="lp-card-body">
-          Define hypothesis, target users, expected behaviors, and success criteria.
-        </p>
-        <div id="pretotype-builder-root"></div>
-      </article>
-
-      <article class="lp-card">
-        <h3 class="lp-card-title">Survey Designer</h3>
-        <p class="lp-card-body">
-          Draft lean surveys linked to each objective and pretotyping experiment.
-        </p>
-        <div id="survey-designer-root"></div>
-      </article>
-
-      <article class="lp-card">
-        <h3 class="lp-card-title">Opportunity Mapper</h3>
-        <p class="lp-card-body">
-          Visualize opportunities and prioritize options using evidence from tests.
-        </p>
-        <div id="opportunity-mapper-root"></div>
-      </article>
-    </div>
+    <div id="vpo-step-nav"></div>
+    <div id="vpo-content"></div>
   </div>
 </section>
     </main>
