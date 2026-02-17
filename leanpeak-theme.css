@@ -96,6 +96,24 @@ body {
   padding-inline: var(--lp-space-md);
 }
 
+/* Center and constrain main content column */
+.lp-main {
+  max-width: 960px;        /* match your landing width */
+  margin: 0 auto;
+  padding: 2rem 1.5rem;    /* horizontal breathing room */
+}
+
+/* Make hero text centered on VPO like landing */
+.lp-section-hero {
+  text-align: center;
+}
+
+/* Optional: keep hero inner from being too wide on large screens */
+.lp-hero-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
 /* Typography */
 
 .lp-eyebrow {
@@ -379,3 +397,4 @@ body {
   border: 1px dashed rgba(148, 163, 184, 0.4);
   background: rgba(15, 23, 42, 0.85);
 }
+
