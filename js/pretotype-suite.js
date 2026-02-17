@@ -1,39 +1,45 @@
 /**
  * pretotype-suite.js
- * Full VPO Pipeline for LeanPeak Product Lab (static site).
- * Calls a Vercel-deployed Next.js backend for AI generation.
+ * Fully offline Pretotype Tool Suite for LeanPeak Product Lab.
+ * No API calls — everything runs in the browser with optional localStorage.
  *
  * Renders into:
- *   #vpo-step-nav   — step tab buttons
- *   #vpo-content    — active step content
+ *   #vpo-step-nav   — tool tab buttons
+ *   #vpo-content    — active tool content
  */
 
 (function () {
   "use strict";
 
-  // ── Configuration ─────────────────────────────────────────────────────
-  // SET THIS to your Vercel deployment URL (no trailing slash)
-  var API_BASE = "https://nextjs-with-supabase-mbpb-bengts-projects-1f26266d.vercel.app/";
+  // ── localStorage keys ─────────────────────────────────────────────────
+  var LS_BUILDER  = "lp-pretotype-builder";
+  var LS_SURVEY   = "lp-survey-designer";
+  var LS_MAPPER   = "lp-opportunity-mapper";
 
   // ── State ─────────────────────────────────────────────────────────────
   var state = {
-    currentStep: 1,
-    inputs: null,
-    brochure: null,
-    brochureText: null,
-    images: {},
-    imageErrors: {},
-    step3Result: null,
-    step4Result: null,
-    isGenerating: false,
+    activeTab: "builder",
+    builder: loadJSON(LS_BUILDER, {
+      hypothesis: "", target: "", behaviors: "", criteria: "",
+    }),
+    survey: loadJSON(LS_SURVEY, { questions: [], nextId: 1 }),
+    mapper: loadJSON(LS_MAPPER, { items: [], nextId: 1 }),
   };
 
-  // ── DOM refs ──────────────────────────────────────────────────────────
   var navEl, contentEl;
 
   // ═══════════════════════════════════════════════════════════════════════
   //  UTILITY HELPERS
   // ═══════════════════════════════════════════════════════════════════════
+
+  function loadJSON(key, fallback) {
+    try { var d = JSON.parse(localStorage.getItem(key)); return d || fallback; }
+    catch (e) { return fallback; }
+  }
+
+  function save(key, data) {
+    try { localStorage.setItem(key, JSON.stringify(data)); } catch (e) { /* quota */ }
+  }
 
   function el(tag, attrs, children) {
     var node = document.createElement(tag);
@@ -90,17 +96,28 @@
     };
   }
 
-  function inputField(labelText, id, placeholder, type) {
+  function inputField(labelText, id, placeholder, type, value) {
+    var field = type === "textarea"
+      ? el("textarea", { id: id, placeholder: placeholder || "", rows: "3", style: inputStyle() })
+      : el("input", { id: id, type: type || "text", placeholder: placeholder || "", style: inputStyle() });
+    if (value) field.value = value;
     return el("div", { style: { marginBottom: "0.75rem" } }, [
       el("label", { htmlFor: id, style: labelStyle() }, labelText),
-      type === "textarea"
-        ? el("textarea", { id: id, placeholder: placeholder || "", rows: "3", style: inputStyle() })
-        : el("input", { id: id, type: type || "text", placeholder: placeholder || "", style: inputStyle() }),
+      field,
     ]);
   }
 
   function btn(text, onClick, variant, disabled) {
     var isPrimary = variant === "primary";
+    var isDanger = variant === "danger";
+    var bgColor = isPrimary
+      ? "linear-gradient(135deg, var(--lp-color-secondary), #f97316)"
+      : isDanger
+        ? "rgba(239, 68, 68, 0.15)"
+        : "rgba(15, 23, 42, 0.9)";
+    var textColor = isPrimary ? "#0b1120" : isDanger ? "#fca5a5" : "var(--lp-color-text-soft)";
+    var borderColor = isPrimary ? "transparent" : isDanger ? "rgba(239,68,68,0.4)" : "rgba(148, 163, 184, 0.4)";
+
     var node = el("button", {
       type: "button",
       onClick: disabled ? null : onClick,
@@ -113,16 +130,14 @@
         fontWeight: "600",
         borderRadius: "var(--lp-radius-pill)",
         padding: "0.6rem 1.3rem",
-        border: isPrimary ? "1px solid transparent" : "1px solid rgba(148, 163, 184, 0.4)",
+        border: "1px solid " + borderColor,
         cursor: disabled ? "not-allowed" : "pointer",
         whiteSpace: "nowrap",
         fontFamily: "inherit",
         opacity: disabled ? "0.5" : "1",
-        background: isPrimary
-          ? "linear-gradient(135deg, var(--lp-color-secondary), #f97316)"
-          : "rgba(15, 23, 42, 0.9)",
-        color: isPrimary ? "#0b1120" : "var(--lp-color-text-soft)",
-        transition: "transform 0.15s ease, box-shadow 0.15s ease",
+        background: bgColor,
+        color: textColor,
+        transition: "transform 0.15s ease",
       },
     }, text);
     if (!disabled) {
@@ -138,6 +153,7 @@
       border: "1px solid var(--lp-color-border-subtle)",
       background: "radial-gradient(circle at top left, #020617, #020617 55%)",
       padding: "var(--lp-space-md)",
+      marginBottom: "var(--lp-space-lg)",
     };
     if (extraStyle) Object.assign(s, extraStyle);
     return el("div", { style: s }, children);
@@ -161,73 +177,38 @@
   }
 
   function heading(text, level) {
-    var sizes = { 1: "var(--lp-font-size-3xl)", 2: "var(--lp-font-size-2xl)", 3: "var(--lp-font-size-xl)" };
+    var sizes = { 2: "var(--lp-font-size-2xl)", 3: "var(--lp-font-size-xl)" };
     return el("h" + level, {
       style: { fontSize: sizes[level] || "var(--lp-font-size-lg)", margin: "0 0 0.5rem", lineHeight: "1.2" },
     }, text);
   }
 
-  function errorBox(msg) {
-    return el("p", {
-      style: { fontSize: "var(--lp-font-size-sm)", color: "var(--lp-color-danger)", marginTop: "0.75rem" },
-    }, msg);
-  }
-
-  function spinner() {
-    return el("div", { className: "lp-spinner" });
-  }
-
-  function loadingCard(text) {
-    return card([
-      el("div", {
-        className: "lp-pulse",
-        style: { display: "flex", alignItems: "center", justifyContent: "center", minHeight: "200px", gap: "0.75rem" },
-      }, [spinner(), el("span", { style: { color: "var(--lp-color-text-muted)" } }, text)]),
-    ]);
-  }
-
-  // ── API helper ────────────────────────────────────────────────────────
-
-  async function apiPost(endpoint, body) {
-    var res = await fetch(API_BASE + endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+  function copyToClipboard(text, button) {
+    navigator.clipboard.writeText(text).then(function () {
+      var orig = button.textContent;
+      button.textContent = "Copied!";
+      setTimeout(function () { button.textContent = orig; }, 1500);
     });
-    if (!res.ok) {
-      var data = {};
-      try { data = await res.json(); } catch (e) { /* ignore */ }
-      throw new Error(data.error || "Request failed (" + res.status + ")");
-    }
-    return res.json();
   }
 
   // ═══════════════════════════════════════════════════════════════════════
-  //  STEP NAVIGATION
+  //  TAB NAVIGATION
   // ═══════════════════════════════════════════════════════════════════════
 
-  var steps = [
-    { num: 1, label: "Step 1: Sales Brochure" },
-    { num: 3, label: "Step 3: Opportunity Map" },
-    { num: 4, label: "Step 4: Pre-Mortem" },
+  var tabs = [
+    { id: "builder", label: "Pretotype Builder" },
+    { id: "survey",  label: "Survey Designer" },
+    { id: "mapper",  label: "Opportunity Mapper" },
   ];
 
-  function isStepEnabled(num) {
-    if (num === 1) return true;
-    if (num === 3) return !!state.brochure;
-    if (num === 4) return !!state.step3Result;
-    return false;
-  }
-
-  function renderStepNav() {
+  function renderNav() {
     navEl.innerHTML = "";
     navEl.style.cssText = "display:flex;gap:var(--lp-space-xs);margin-bottom:var(--lp-space-xl);flex-wrap:wrap;";
-    steps.forEach(function (s) {
-      var active = state.currentStep === s.num;
-      var enabled = isStepEnabled(s.num);
+    tabs.forEach(function (t) {
+      var active = state.activeTab === t.id;
       var tabBtn = el("button", {
         type: "button",
-        onClick: enabled ? function () { switchStep(s.num); } : null,
+        onClick: function () { switchTab(t.id); },
         style: {
           display: "inline-flex",
           alignItems: "center",
@@ -236,8 +217,7 @@
           borderRadius: "var(--lp-radius-pill)",
           padding: "0.55rem 1.2rem",
           border: active ? "1px solid transparent" : "1px solid rgba(148, 163, 184, 0.4)",
-          cursor: enabled ? "pointer" : "not-allowed",
-          opacity: enabled ? "1" : "0.35",
+          cursor: "pointer",
           background: active
             ? "linear-gradient(135deg, var(--lp-color-secondary), #f97316)"
             : "rgba(15, 23, 42, 0.9)",
@@ -245,8 +225,8 @@
           fontFamily: "inherit",
           transition: "transform 0.15s ease",
         },
-      }, s.label);
-      if (enabled && !active) {
+      }, t.label);
+      if (!active) {
         tabBtn.addEventListener("mouseenter", function () { tabBtn.style.transform = "translateY(-1px)"; });
         tabBtn.addEventListener("mouseleave", function () { tabBtn.style.transform = ""; });
       }
@@ -254,506 +234,352 @@
     });
   }
 
-  function switchStep(num) {
-    state.currentStep = num;
-    renderStepNav();
+  function switchTab(id) {
+    state.activeTab = id;
+    renderNav();
     contentEl.innerHTML = "";
-    if (num === 1) renderStep1();
-    else if (num === 3) renderStep3();
-    else if (num === 4) renderStep4();
+    if (id === "builder") renderBuilder();
+    else if (id === "survey") renderSurvey();
+    else if (id === "mapper") renderMapper();
   }
 
   // ═══════════════════════════════════════════════════════════════════════
-  //  STEP 1: SALES BROCHURE GENERATOR
+  //  1. PRETOTYPE BUILDER
   // ═══════════════════════════════════════════════════════════════════════
 
-  function renderStep1() {
-    var wrap = el("div");
+  function renderBuilder() {
+    var b = state.builder;
 
-    // Header
+    var wrap = el("div");
     wrap.appendChild(el("div", { style: { marginBottom: "var(--lp-space-lg)" } }, [
-      badge("Step 1"),
-      heading("Sales Brochure Generator", 2),
+      heading("Pretotype Builder", 2),
       el("p", { style: { color: "var(--lp-color-text-muted)", fontSize: "var(--lp-font-size-sm)" } },
-        "Fill in the 8 fields below, then generate a sales-brochure preview to sharpen your product vision."),
+        "Define your hypothesis, target users, expected behaviors, and success criteria. Data is saved automatically in your browser."),
     ]));
 
-    // Two-column layout
-    var grid = el("div", {
-      style: {
-        display: "grid",
-        gap: "var(--lp-space-xl)",
-        gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.4fr)",
-      },
-    });
-
-    // ── Left: Form ──
     var formCard = card([
-      el("div", { style: { fontSize: "var(--lp-font-size-lg)", fontWeight: "700", marginBottom: "var(--lp-space-md)" } }, "Product / Idea Inputs"),
-      inputField("1. Product / Idea Name", "s1-productName", "e.g. FitTrack Pro"),
-      inputField("2. Idea Summary", "s1-ideaSummary", "One-sentence elevator pitch"),
-      inputField("3. Problem Description", "s1-problemDescription", "What pain does the customer feel?", "textarea"),
-      inputField("4. Target Customer / Segment", "s1-targetCustomer", "e.g. Busy professionals aged 30-45"),
-      inputField("5. Current Alternatives / Competitors", "s1-alternatives", "e.g. MyFitnessPal, pen & paper"),
-      inputField("6. Core Solution", "s1-coreSolution", "What does your product actually do?", "textarea"),
-      inputField("7. Main Value Proposition", "s1-valueProposition", "Why is this better than alternatives?", "textarea"),
-      inputField("8. Top 3 Uncertainties", "s1-uncertainties", "e.g. Will users pay? Is market big enough?", "textarea"),
-      el("div", { id: "s1-error" }),
-      el("div", { id: "s1-btn-wrap", style: { marginTop: "var(--lp-space-sm)" } }),
+      inputField("Hypothesis", "pb-hypothesis", "We believe that\u2026", "textarea", b.hypothesis),
+      inputField("Target Users", "pb-target", "Who are we testing with?", "text", b.target),
+      inputField("Expected Behaviors", "pb-behaviors", "What do we expect them to do?", "textarea", b.behaviors),
+      inputField("Success Criteria", "pb-criteria", "How do we measure success?", "textarea", b.criteria),
+      el("div", { style: { display: "flex", gap: "0.5rem", flexWrap: "wrap", marginTop: "var(--lp-space-xs)" } }, [
+        btn("Generate Summary", function () { saveBuilderAndRender(); }, "primary"),
+        btn("Clear All", function () { clearBuilder(); }, "danger"),
+      ]),
     ]);
+    wrap.appendChild(formCard);
 
-    // ── Right: Preview ──
-    var previewArea = el("div", { id: "s1-preview" });
-
-    grid.appendChild(formCard);
-    grid.appendChild(previewArea);
-    wrap.appendChild(grid);
+    wrap.appendChild(el("div", { id: "pb-output" }));
     contentEl.appendChild(wrap);
 
-    // Render generate button
-    renderStep1Button();
-
-    // If brochure already generated, show it
-    if (state.brochure) {
-      renderBrochurePreview();
-    } else {
-      renderBrochurePlaceholder();
-    }
-
-    // Pre-fill form if inputs exist
-    if (state.inputs) {
-      var fields = ["productName", "ideaSummary", "problemDescription", "targetCustomer",
-                     "alternatives", "coreSolution", "valueProposition", "uncertainties"];
-      fields.forEach(function (f) {
-        var inp = document.getElementById("s1-" + f);
-        if (inp && state.inputs[f]) inp.value = state.inputs[f];
-      });
-    }
-  }
-
-  function renderStep1Button() {
-    var wrap = document.getElementById("s1-btn-wrap");
-    if (!wrap) return;
-    wrap.innerHTML = "";
-    wrap.appendChild(
-      btn(
-        state.isGenerating ? "Generating\u2026" : "Generate Sales Brochure",
-        handleGenerateBrochure,
-        "primary",
-        state.isGenerating
-      )
-    );
-  }
-
-  function renderBrochurePlaceholder() {
-    var preview = document.getElementById("s1-preview");
-    if (!preview) return;
-    preview.innerHTML = "";
-    preview.appendChild(card([
-      el("div", {
-        style: { display: "flex", alignItems: "center", justifyContent: "center", minHeight: "300px" },
-      }, [
-        el("p", { style: { color: "var(--lp-color-text-muted)", textAlign: "center", padding: "0 2rem" } },
-          "Your 4-page sales brochure will appear here after you click Generate."),
-      ]),
-    ]));
-  }
-
-  function getFormFields() {
-    var fields = {};
-    var keys = ["productName", "ideaSummary", "problemDescription", "targetCustomer",
-                "alternatives", "coreSolution", "valueProposition", "uncertainties"];
-    keys.forEach(function (k) {
-      var inp = document.getElementById("s1-" + k);
-      fields[k] = inp ? inp.value.trim() : "";
+    // Auto-save on input
+    ["pb-hypothesis", "pb-target", "pb-behaviors", "pb-criteria"].forEach(function (id) {
+      var inp = document.getElementById(id);
+      if (inp) inp.addEventListener("input", saveBuilderState);
     });
-    return fields;
-  }
 
-  async function handleGenerateBrochure() {
-    var fields = getFormFields();
-    if (!fields.productName || !fields.ideaSummary || !fields.problemDescription ||
-        !fields.targetCustomer || !fields.coreSolution || !fields.valueProposition) {
-      var errEl = document.getElementById("s1-error");
-      if (errEl) { errEl.innerHTML = ""; errEl.appendChild(errorBox("Please fill in all required fields (1-4, 6-7).")); }
-      return;
-    }
-
-    state.isGenerating = true;
-    state.images = {};
-    state.imageErrors = {};
-    renderStep1Button();
-
-    var errEl = document.getElementById("s1-error");
-    if (errEl) errEl.innerHTML = "";
-
-    var preview = document.getElementById("s1-preview");
-    if (preview) { preview.innerHTML = ""; preview.appendChild(loadingCard("Generating brochure\u2026")); }
-
-    try {
-      var data = await apiPost("/api/generate-brochure", fields);
-      state.inputs = fields;
-      state.brochure = data.brochure;
-      state.brochureText = JSON.stringify(data.brochure);
-
-      renderBrochurePreview();
-      renderStepNav(); // unlock Step 3
-
-      // Fire image generation in parallel
-      generateImages(data.brochure);
-    } catch (err) {
-      if (preview) { preview.innerHTML = ""; }
-      if (errEl) { errEl.innerHTML = ""; errEl.appendChild(errorBox(err.message)); }
-      renderBrochurePlaceholder();
-    } finally {
-      state.isGenerating = false;
-      renderStep1Button();
+    // Show summary if data exists
+    if (b.hypothesis || b.target || b.behaviors || b.criteria) {
+      renderBuilderSummary();
     }
   }
 
-  function renderBrochurePreview() {
-    var preview = document.getElementById("s1-preview");
-    if (!preview || !state.brochure) return;
-    preview.innerHTML = "";
-
-    var b = state.brochure;
-
-    var brochureCardStyle = {
-      borderRadius: "var(--lp-radius-lg)",
-      border: "2px solid var(--lp-color-border-strong)",
-      background: "linear-gradient(180deg, #0f172a, #020617)",
-      padding: "var(--lp-space-lg)",
-      aspectRatio: "9/16",
-      display: "flex",
-      flexDirection: "column",
-      overflow: "hidden",
-      marginBottom: "var(--lp-space-lg)",
+  function saveBuilderState() {
+    state.builder = {
+      hypothesis: val("pb-hypothesis"),
+      target: val("pb-target"),
+      behaviors: val("pb-behaviors"),
+      criteria: val("pb-criteria"),
     };
-
-    // ── Page 1: Front Cover ──
-    preview.appendChild(el("div", { style: Object.assign({}, brochureCardStyle) }, [
-      badge("Page 1 \u2014 Front Cover", "rgba(15,23,42,0.85)", "var(--lp-color-text-muted)"),
-      el("div", {
-        style: { flex: "1", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", gap: "0.75rem" },
-      }, [
-        el("h2", { style: { fontSize: "var(--lp-font-size-3xl)", fontWeight: "800", margin: "0" } }, b.page1.productName),
-        el("p", { style: { fontSize: "var(--lp-font-size-xl)", fontStyle: "italic", color: "var(--lp-color-secondary)", margin: "0" } }, b.page1.tagline),
-        el("p", { style: { color: "var(--lp-color-text-muted)", margin: "0" } }, b.page1.supportingLine),
-      ]),
-      imageSlot("page1", b.page1.visualConcept),
-    ]));
-
-    // ── Page 2: Benefits ──
-    var benefitsList = el("ul", { style: { listStyle: "none", padding: "0", margin: "0" } });
-    (b.page2.benefits || []).forEach(function (item) {
-      benefitsList.appendChild(el("li", {
-        style: { display: "flex", alignItems: "flex-start", gap: "0.5rem", marginBottom: "0.5rem", fontSize: "var(--lp-font-size-sm)", color: "var(--lp-color-text-soft)" },
-      }, [
-        el("span", { style: { color: "var(--lp-color-accent)", fontWeight: "700", marginTop: "0.1rem" } }, "\u2713"),
-        el("span", null, item),
-      ]));
-    });
-
-    preview.appendChild(el("div", { style: Object.assign({}, brochureCardStyle) }, [
-      badge("Page 2 \u2014 Benefits", "rgba(15,23,42,0.85)", "var(--lp-color-text-muted)"),
-      el("h2", { style: { fontSize: "var(--lp-font-size-2xl)", fontWeight: "700", margin: "var(--lp-space-sm) 0" } }, b.page2.title),
-      benefitsList,
-      el("div", { style: { marginTop: "auto" } }, [imageSlot("page2", b.page2.visualConcept)]),
-    ]));
-
-    // ── Page 3: Features ──
-    var featuresWrap = el("div", { style: { display: "flex", flexDirection: "column", gap: "0.75rem" } });
-    (b.page3.features || []).forEach(function (f) {
-      featuresWrap.appendChild(el("div", null, [
-        el("h4", { style: { fontSize: "var(--lp-font-size-sm)", fontWeight: "700", margin: "0 0 0.15rem" } }, f.name),
-        el("p", { style: { fontSize: "var(--lp-font-size-xs)", color: "var(--lp-color-text-muted)", margin: "0" } }, f.description),
-      ]));
-    });
-
-    preview.appendChild(el("div", { style: Object.assign({}, brochureCardStyle) }, [
-      badge("Page 3 \u2014 Features", "rgba(15,23,42,0.85)", "var(--lp-color-text-muted)"),
-      el("h2", { style: { fontSize: "var(--lp-font-size-2xl)", fontWeight: "700", margin: "var(--lp-space-sm) 0" } }, b.page3.title),
-      featuresWrap,
-      el("div", { style: { marginTop: "auto" } }, [imageSlot("page3", b.page3.visualConcept)]),
-    ]));
-
-    // ── Page 4: Testimonials ──
-    var testiGrid = el("div", {
-      style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--lp-space-sm)", flex: "1", alignContent: "center" },
-    });
-    (b.page4.testimonials || []).forEach(function (t) {
-      testiGrid.appendChild(el("div", {
-        style: {
-          border: "1px solid var(--lp-color-border-subtle)",
-          borderRadius: "var(--lp-radius-md)",
-          padding: "var(--lp-space-sm)",
-          display: "flex",
-          flexDirection: "column",
-          gap: "0.5rem",
-        },
-      }, [
-        el("div", { style: { display: "flex", alignItems: "center", gap: "0.5rem" } }, [
-          el("div", {
-            style: {
-              width: "32px", height: "32px", borderRadius: "50%",
-              background: "rgba(148, 163, 184, 0.2)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              fontSize: "var(--lp-font-size-xs)", fontWeight: "700",
-            },
-          }, t.portrait),
-          el("span", { style: { fontSize: "var(--lp-font-size-xs)", fontWeight: "600" } }, t.role),
-        ]),
-        el("p", { style: { fontSize: "var(--lp-font-size-xs)", fontStyle: "italic", color: "var(--lp-color-text-muted)", margin: "0" } },
-          "\u201C" + t.quote + "\u201D"),
-      ]));
-    });
-
-    preview.appendChild(el("div", { style: Object.assign({}, brochureCardStyle) }, [
-      badge("Page 4 \u2014 Testimonials", "rgba(15,23,42,0.85)", "var(--lp-color-text-muted)"),
-      el("h2", { style: { fontSize: "var(--lp-font-size-2xl)", fontWeight: "700", margin: "var(--lp-space-sm) 0" } }, b.page4.title),
-      testiGrid,
-    ]));
-
-    // ── Continue button ──
-    preview.appendChild(el("div", { style: { display: "flex", justifyContent: "flex-end", marginTop: "var(--lp-space-sm)" } }, [
-      btn("Continue to Step 3: Opportunity Map \u2192", function () { switchStep(3); }),
-    ]));
+    save(LS_BUILDER, state.builder);
   }
 
-  function imageSlot(key, description) {
-    var container = el("div", { id: "img-" + key, style: { marginTop: "var(--lp-space-sm)" } });
-    renderImageState(container, key, description);
-    return container;
+  function saveBuilderAndRender() {
+    saveBuilderState();
+    renderBuilderSummary();
   }
 
-  function renderImageState(container, key, description) {
-    container.innerHTML = "";
-    if (state.images[key]) {
-      container.appendChild(el("img", {
-        src: state.images[key],
-        alt: description,
-        style: { width: "100%", borderRadius: "var(--lp-radius-md)", border: "1px solid var(--lp-color-border-subtle)" },
-      }));
-      container.appendChild(el("p", {
-        style: { fontSize: "var(--lp-font-size-xs)", color: "var(--lp-color-text-muted)", marginTop: "0.25rem" },
-      }, description));
-    } else if (state.imageErrors[key]) {
-      container.appendChild(el("div", {
-        style: {
-          border: "1px dashed var(--lp-color-border-subtle)", borderRadius: "var(--lp-radius-md)",
-          padding: "var(--lp-space-sm)", background: "rgba(15,23,42,0.5)",
-        },
-      }, [
-        el("p", { style: { fontSize: "var(--lp-font-size-xs)", color: "var(--lp-color-text-muted)", margin: "0" } }, [
-          el("strong", null, "Visual concept: "), description,
-        ]),
-        el("p", { style: { fontSize: "var(--lp-font-size-xs)", color: "var(--lp-color-danger)", marginTop: "0.25rem" } },
-          "Image generation failed: " + state.imageErrors[key]),
-      ]));
-    } else {
-      container.appendChild(el("div", {
-        style: {
-          border: "1px dashed var(--lp-color-border-subtle)", borderRadius: "var(--lp-radius-md)",
-          padding: "var(--lp-space-lg)", display: "flex", flexDirection: "column",
-          alignItems: "center", justifyContent: "center", gap: "0.5rem",
-          background: "rgba(15,23,42,0.5)",
-        },
-      }, [spinner(), el("p", { style: { fontSize: "var(--lp-font-size-xs)", color: "var(--lp-color-text-muted)" } }, "Generating image\u2026")]));
-    }
+  function clearBuilder() {
+    state.builder = { hypothesis: "", target: "", behaviors: "", criteria: "" };
+    save(LS_BUILDER, state.builder);
+    switchTab("builder");
   }
 
-  async function generateImages(brochure) {
-    var concepts = [
-      { key: "page1", prompt: brochure.page1.visualConcept },
-      { key: "page2", prompt: brochure.page2.visualConcept },
-      { key: "page3", prompt: brochure.page3.visualConcept },
-    ];
+  function val(id) {
+    var e = document.getElementById(id);
+    return e ? e.value.trim() : "";
+  }
 
-    var results = await Promise.allSettled(
-      concepts.map(async function (c) {
-        var data = await apiPost("/api/generate-image", { prompt: c.prompt });
-        return { key: c.key, url: data.imageUrl };
-      })
+  function renderBuilderSummary() {
+    var out = document.getElementById("pb-output");
+    if (!out) return;
+    out.innerHTML = "";
+
+    var b = state.builder;
+    if (!b.hypothesis && !b.target && !b.behaviors && !b.criteria) return;
+
+    var lines = [];
+    if (b.hypothesis) lines.push(el("p", { style: lineStyle() }, [el("strong", null, "Hypothesis: "), b.hypothesis]));
+    if (b.target)     lines.push(el("p", { style: lineStyle() }, [el("strong", null, "Target Users: "), b.target]));
+    if (b.behaviors)  lines.push(el("p", { style: lineStyle() }, [el("strong", null, "Expected Behaviors: "), b.behaviors]));
+    if (b.criteria)   lines.push(el("p", { style: lineStyle() }, [el("strong", null, "Success Criteria: "), b.criteria]));
+
+    var summaryCard = card(
+      [
+        el("div", {
+          style: { fontSize: "var(--lp-font-size-xs)", textTransform: "uppercase", letterSpacing: "0.16em", color: "var(--lp-color-text-muted)", marginBottom: "0.5rem" },
+        }, "Pretotype Summary"),
+      ].concat(lines),
+      { background: "linear-gradient(135deg, rgba(30, 64, 175, 0.25), rgba(15, 23, 42, 0.95))" }
     );
 
-    results.forEach(function (r, i) {
-      var key = concepts[i].key;
-      if (r.status === "fulfilled") {
-        state.images[key] = r.value.url;
-      } else {
-        state.imageErrors[key] = r.reason ? r.reason.message : "Failed";
-      }
-      var container = document.getElementById("img-" + key);
-      if (container) renderImageState(container, key, concepts[i].prompt);
+    var copyBtn = btn("Copy as Text", function () {
+      var text = "";
+      if (b.hypothesis) text += "Hypothesis: " + b.hypothesis + "\n";
+      if (b.target)     text += "Target Users: " + b.target + "\n";
+      if (b.behaviors)  text += "Expected Behaviors: " + b.behaviors + "\n";
+      if (b.criteria)   text += "Success Criteria: " + b.criteria + "\n";
+      copyToClipboard(text.trim(), copyBtn);
     });
+
+    out.appendChild(summaryCard);
+    out.appendChild(el("div", { style: { marginTop: "-0.75rem" } }, [copyBtn]));
+  }
+
+  function lineStyle() {
+    return { fontSize: "var(--lp-font-size-sm)", color: "var(--lp-color-text-soft)", margin: "0.3rem 0", lineHeight: "1.5" };
   }
 
   // ═══════════════════════════════════════════════════════════════════════
-  //  STEP 3: OPPORTUNITY MAP & KEY DECISIONS
+  //  2. SURVEY DESIGNER
   // ═══════════════════════════════════════════════════════════════════════
 
-  var areaColors = {
-    problem:      { bg: "rgba(239,68,68,0.15)",  text: "#fca5a5", border: "rgba(239,68,68,0.4)" },
-    segment:      { bg: "rgba(59,130,246,0.15)",  text: "#93c5fd", border: "rgba(59,130,246,0.4)" },
-    solution:     { bg: "rgba(34,197,94,0.15)",   text: "#86efac", border: "rgba(34,197,94,0.4)" },
-    "value prop": { bg: "rgba(168,85,247,0.15)",  text: "#c4b5fd", border: "rgba(168,85,247,0.4)" },
-  };
+  var questionTypes = [
+    { value: "open",     label: "Open-ended" },
+    { value: "yesno",    label: "Yes / No" },
+    { value: "scale",    label: "Scale (1\u20135)" },
+    { value: "multiple", label: "Multiple Choice" },
+  ];
 
-  var priorityColors = {
-    Now:   { bg: "rgba(239,68,68,0.15)",   text: "#fca5a5", border: "rgba(239,68,68,0.4)" },
-    Next:  { bg: "rgba(234,179,8,0.15)",   text: "#fde68a", border: "rgba(234,179,8,0.4)" },
-    Later: { bg: "rgba(148,163,184,0.15)", text: "#94a3b8", border: "rgba(148,163,184,0.4)" },
-  };
+  function renderSurvey() {
+    var wrap = el("div");
+    wrap.appendChild(el("div", { style: { marginBottom: "var(--lp-space-lg)" } }, [
+      heading("Survey Designer", 2),
+      el("p", { style: { color: "var(--lp-color-text-muted)", fontSize: "var(--lp-font-size-sm)" } },
+        "Draft lean survey questions linked to your pretotyping experiments. Questions are saved automatically."),
+    ]));
 
-  function renderStep3() {
-    if (!state.brochure || !state.inputs) {
-      contentEl.appendChild(card([
-        el("p", { style: { color: "var(--lp-color-text-muted)", textAlign: "center", padding: "2rem" } },
-          "No product data found. Please complete Step 1 first."),
-        el("div", { style: { textAlign: "center" } }, [
-          btn("\u2190 Go to Step 1", function () { switchStep(1); }),
+    // Add question form
+    var typeSelect = el("select", { id: "sd-type", style: Object.assign({}, inputStyle(), { padding: "0.5rem" }) });
+    questionTypes.forEach(function (qt) {
+      typeSelect.appendChild(el("option", { value: qt.value }, qt.label));
+    });
+
+    wrap.appendChild(card([
+      el("div", { style: { display: "flex", gap: "0.5rem", flexWrap: "wrap", alignItems: "flex-end" } }, [
+        el("div", { style: { flex: "1", minWidth: "200px" } }, [
+          inputField("New Question", "sd-question", "e.g. How often do you\u2026?"),
         ]),
-      ]));
+        el("div", { style: { minWidth: "140px", marginBottom: "0.75rem" } }, [
+          el("label", { style: labelStyle() }, "Type"),
+          typeSelect,
+        ]),
+        el("div", { style: { marginBottom: "0.75rem" } }, [
+          btn("Add Question", function () { addSurveyQuestion(); }, "primary"),
+        ]),
+      ]),
+    ]));
+
+    // Question list
+    wrap.appendChild(el("div", { id: "sd-list" }));
+    wrap.appendChild(el("div", { id: "sd-actions" }));
+
+    contentEl.appendChild(wrap);
+    renderSurveyList();
+  }
+
+  function addSurveyQuestion() {
+    var qInput = document.getElementById("sd-question");
+    var tSelect = document.getElementById("sd-type");
+    var text = qInput.value.trim();
+    if (!text) return;
+
+    state.survey.questions.push({ id: state.survey.nextId++, text: text, type: tSelect.value });
+    save(LS_SURVEY, state.survey);
+    qInput.value = "";
+    renderSurveyList();
+  }
+
+  function removeSurveyQuestion(id) {
+    state.survey.questions = state.survey.questions.filter(function (q) { return q.id !== id; });
+    save(LS_SURVEY, state.survey);
+    renderSurveyList();
+  }
+
+  function typeLabel(val) {
+    var m = questionTypes.find(function (qt) { return qt.value === val; });
+    return m ? m.label : val;
+  }
+
+  function renderSurveyList() {
+    var list = document.getElementById("sd-list");
+    var actions = document.getElementById("sd-actions");
+    if (!list || !actions) return;
+    list.innerHTML = "";
+    actions.innerHTML = "";
+
+    if (state.survey.questions.length === 0) {
+      list.appendChild(el("p", {
+        style: { color: "var(--lp-color-text-muted)", fontSize: "var(--lp-font-size-sm)", textAlign: "center", padding: "var(--lp-space-lg) 0" },
+      }, "No questions yet. Add your first question above."));
       return;
     }
 
-    var wrap = el("div");
-
-    // Header
-    wrap.appendChild(el("div", { style: { marginBottom: "var(--lp-space-lg)" } }, [
-      badge("Step 3"),
-      heading("Opportunity Mapping & Key Decisions", 2),
-      el("p", { style: { color: "var(--lp-color-text-muted)", fontSize: "var(--lp-font-size-sm)" } },
-        "Review your product inputs, then generate an AI-powered opportunity map and decision framework."),
-    ]));
-
-    // Input summary
-    var summaryGrid = el("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--lp-space-sm)" } });
-    var summaryFields = [
-      ["Product Name", state.inputs.productName],
-      ["Idea Summary", state.inputs.ideaSummary],
-      ["Problem", state.inputs.problemDescription],
-      ["Target Customer", state.inputs.targetCustomer],
-      ["Alternatives", state.inputs.alternatives],
-      ["Core Solution", state.inputs.coreSolution],
-      ["Value Proposition", state.inputs.valueProposition],
-      ["Uncertainties", state.inputs.uncertainties],
-    ];
-    summaryFields.forEach(function (pair) {
-      summaryGrid.appendChild(el("div", null, [
-        el("span", { style: { fontSize: "var(--lp-font-size-xs)", color: "var(--lp-color-text-muted)", fontWeight: "600" } }, pair[0]),
-        el("p", { style: { fontSize: "var(--lp-font-size-sm)", color: "var(--lp-color-text-soft)", margin: "0.15rem 0 0" } }, pair[1] || "Not provided"),
+    state.survey.questions.forEach(function (q, idx) {
+      list.appendChild(el("div", {
+        style: {
+          display: "flex",
+          alignItems: "center",
+          gap: "0.5rem",
+          padding: "0.6rem 0.75rem",
+          borderRadius: "var(--lp-radius-sm)",
+          background: "rgba(15, 23, 42, 0.6)",
+          border: "1px solid rgba(148, 163, 184, 0.2)",
+          marginBottom: "0.4rem",
+        },
+      }, [
+        el("span", {
+          style: { fontSize: "var(--lp-font-size-xs)", color: "var(--lp-color-text-muted)", minWidth: "1.8rem" },
+        }, String(idx + 1) + "."),
+        el("span", { style: { flex: "1", fontSize: "var(--lp-font-size-sm)", color: "var(--lp-color-text-soft)" } }, q.text),
+        badge(typeLabel(q.type), "rgba(245,158,11,0.1)", "var(--lp-color-secondary)", "rgba(245,158,11,0.3)"),
+        el("button", {
+          type: "button",
+          onClick: function () { removeSurveyQuestion(q.id); },
+          title: "Remove",
+          style: {
+            background: "none", border: "none", color: "var(--lp-color-danger)",
+            cursor: "pointer", fontSize: "1.1rem", padding: "0 0.3rem", fontFamily: "inherit",
+          },
+        }, "\u00D7"),
       ]));
     });
 
-    var summaryCard = card([
-      el("div", { style: { fontSize: "var(--lp-font-size-lg)", fontWeight: "700", marginBottom: "var(--lp-space-sm)" } }, "Product Inputs Summary"),
-      el("p", { style: { fontSize: "var(--lp-font-size-xs)", color: "var(--lp-color-text-muted)", marginBottom: "var(--lp-space-sm)" } },
-        "From Step 1 \u2014 " + state.inputs.productName),
-      summaryGrid,
-      state.brochureText ? el("p", { style: { fontSize: "var(--lp-font-size-xs)", color: "var(--lp-color-text-muted)", marginTop: "var(--lp-space-sm)" } },
-        "Brochure data from Step 1 will also be included in the analysis.") : null,
-      el("div", { id: "s3-error" }),
-      el("div", { id: "s3-btn-wrap", style: { marginTop: "var(--lp-space-sm)" } }),
-    ]);
-    wrap.appendChild(summaryCard);
+    var copyBtn = btn("Copy Survey as Text", function () {
+      var text = state.survey.questions.map(function (q, i) {
+        return (i + 1) + ". [" + typeLabel(q.type) + "] " + q.text;
+      }).join("\n");
+      copyToClipboard(text, copyBtn);
+    });
+    var clearBtn = btn("Clear All Questions", function () {
+      state.survey.questions = [];
+      state.survey.nextId = 1;
+      save(LS_SURVEY, state.survey);
+      renderSurveyList();
+    }, "danger");
 
-    // Results area
-    wrap.appendChild(el("div", { id: "s3-results", style: { marginTop: "var(--lp-space-lg)" } }));
+    actions.appendChild(el("div", { style: { display: "flex", gap: "0.5rem", flexWrap: "wrap", marginTop: "var(--lp-space-sm)" } }, [
+      copyBtn, clearBtn,
+    ]));
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════
+  //  3. OPPORTUNITY MAPPER
+  // ═══════════════════════════════════════════════════════════════════════
+
+  function renderMapper() {
+    var wrap = el("div");
+    wrap.appendChild(el("div", { style: { marginBottom: "var(--lp-space-lg)" } }, [
+      heading("Opportunity Mapper", 2),
+      el("p", { style: { color: "var(--lp-color-text-muted)", fontSize: "var(--lp-font-size-sm)" } },
+        "Add opportunities and prioritize them by impact and effort. Table auto-sorts by priority score."),
+    ]));
+
+    // Add row form
+    var impactSelect = el("select", { id: "om-impact", style: Object.assign({}, inputStyle(), { padding: "0.5rem" }) });
+    ["High", "Medium", "Low"].forEach(function (o) { impactSelect.appendChild(el("option", { value: o }, o)); });
+
+    var effortSelect = el("select", { id: "om-effort", style: Object.assign({}, inputStyle(), { padding: "0.5rem" }) });
+    ["Low", "Medium", "High"].forEach(function (o) { effortSelect.appendChild(el("option", { value: o }, o)); });
+
+    wrap.appendChild(card([
+      el("div", { style: { display: "flex", gap: "0.5rem", flexWrap: "wrap", alignItems: "flex-end" } }, [
+        el("div", { style: { flex: "1", minWidth: "180px" } }, [
+          inputField("Opportunity", "om-name", "e.g. Partner channel"),
+        ]),
+        el("div", { style: { minWidth: "100px", marginBottom: "0.75rem" } }, [
+          el("label", { style: labelStyle() }, "Impact"),
+          impactSelect,
+        ]),
+        el("div", { style: { minWidth: "100px", marginBottom: "0.75rem" } }, [
+          el("label", { style: labelStyle() }, "Effort"),
+          effortSelect,
+        ]),
+        el("div", { style: { marginBottom: "0.75rem" } }, [
+          btn("Add", function () { addOpportunity(); }, "primary"),
+        ]),
+      ]),
+    ]));
+
+    wrap.appendChild(el("div", { id: "om-table" }));
+    wrap.appendChild(el("div", { id: "om-actions" }));
 
     contentEl.appendChild(wrap);
-
-    renderStep3Button();
-
-    if (state.step3Result) {
-      renderStep3Results();
-    }
+    renderMapperTable();
   }
 
-  function renderStep3Button() {
-    var wrap = document.getElementById("s3-btn-wrap");
-    if (!wrap) return;
-    wrap.innerHTML = "";
-    if (!state.step3Result) {
-      wrap.appendChild(
-        btn(
-          state.isGenerating ? "Generating\u2026" : "Generate Opportunity Map",
-          handleGenerateOpportunityMap,
-          "primary",
-          state.isGenerating
-        )
-      );
-    }
+  function priorityScore(impact, effort) {
+    var iMap = { High: 3, Medium: 2, Low: 1 };
+    var eMap = { Low: 3, Medium: 2, High: 1 };
+    return (iMap[impact] || 1) * (eMap[effort] || 1);
   }
 
-  async function handleGenerateOpportunityMap() {
-    state.isGenerating = true;
-    renderStep3Button();
-
-    var errEl = document.getElementById("s3-error");
-    if (errEl) errEl.innerHTML = "";
-
-    var results = document.getElementById("s3-results");
-    if (results) { results.innerHTML = ""; results.appendChild(loadingCard("Analyzing opportunities and decisions\u2026")); }
-
-    try {
-      var data = await apiPost("/api/generate-opportunity-map", Object.assign({}, state.inputs, { brochureText: state.brochureText }));
-      state.step3Result = data.result;
-      renderStep3Results();
-      renderStep3Button();
-      renderStepNav(); // unlock Step 4
-    } catch (err) {
-      if (results) results.innerHTML = "";
-      if (errEl) { errEl.innerHTML = ""; errEl.appendChild(errorBox(err.message)); }
-    } finally {
-      state.isGenerating = false;
-      renderStep3Button();
-    }
+  function priorityLabel(score) {
+    if (score >= 6) return { text: "High",   color: "#22c55e", bg: "rgba(34,197,94,0.15)",  border: "rgba(34,197,94,0.4)" };
+    if (score >= 3) return { text: "Medium", color: "#f59e0b", bg: "rgba(245,158,11,0.15)", border: "rgba(245,158,11,0.4)" };
+    return              { text: "Low",    color: "#ef4444", bg: "rgba(239,68,68,0.15)",  border: "rgba(239,68,68,0.4)" };
   }
 
-  function renderStep3Results() {
-    var results = document.getElementById("s3-results");
-    if (!results || !state.step3Result) return;
-    results.innerHTML = "";
+  function addOpportunity() {
+    var nameInput = document.getElementById("om-name");
+    var name = nameInput.value.trim();
+    if (!name) return;
 
-    var r = state.step3Result;
+    var impact = document.getElementById("om-impact").value;
+    var effort = document.getElementById("om-effort").value;
+    var score = priorityScore(impact, effort);
 
-    // ── Opportunity Map ──
-    results.appendChild(el("div", { style: { marginBottom: "var(--lp-space-lg)" } }, [
-      heading("Opportunity Map", 3),
-    ]));
+    state.mapper.items.push({ id: state.mapper.nextId++, name: name, impact: impact, effort: effort, score: score });
+    state.mapper.items.sort(function (a, b) { return b.score - a.score; });
+    save(LS_MAPPER, state.mapper);
+    nameInput.value = "";
+    renderMapperTable();
+  }
 
-    var oppGrid = el("div", { className: "lp-grid-2" });
-    (r.opportunityMap || []).forEach(function (c) {
-      var ac = areaColors[c.area] || { bg: "rgba(148,163,184,0.15)", text: "#94a3b8", border: "rgba(148,163,184,0.4)" };
-      oppGrid.appendChild(card([
-        el("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" } }, [
-          el("strong", { style: { fontSize: "var(--lp-font-size-md)" } }, c.title),
-          badge(c.area, ac.bg, ac.text, ac.border),
-        ]),
-        el("p", { style: { fontSize: "var(--lp-font-size-sm)", color: "var(--lp-color-text-muted)", marginBottom: "0.5rem" } }, c.description),
-        el("div", { style: { display: "flex", gap: "var(--lp-space-sm)" } }, [
-          el("span", { style: { fontSize: "var(--lp-font-size-xs)", color: "var(--lp-color-text-muted)" } }, [
-            "Impact: ", el("strong", null, c.impact),
-          ]),
-          el("span", { style: { fontSize: "var(--lp-font-size-xs)", color: "var(--lp-color-text-muted)" } }, [
-            "Confidence: ", el("strong", null, c.confidence),
-          ]),
-        ]),
-      ]));
-    });
-    results.appendChild(oppGrid);
+  function removeOpportunity(id) {
+    state.mapper.items = state.mapper.items.filter(function (o) { return o.id !== id; });
+    save(LS_MAPPER, state.mapper);
+    renderMapperTable();
+  }
 
-    // ── Key Decisions Table ──
-    results.appendChild(el("div", { style: { marginTop: "var(--lp-space-xl)", marginBottom: "var(--lp-space-sm)" } }, [
-      heading("Key Decisions & Knowledge Gaps", 3),
-    ]));
+  function renderMapperTable() {
+    var tableWrap = document.getElementById("om-table");
+    var actionsWrap = document.getElementById("om-actions");
+    if (!tableWrap || !actionsWrap) return;
+    tableWrap.innerHTML = "";
+    actionsWrap.innerHTML = "";
+
+    if (state.mapper.items.length === 0) {
+      tableWrap.appendChild(el("p", {
+        style: { color: "var(--lp-color-text-muted)", fontSize: "var(--lp-font-size-sm)", textAlign: "center", padding: "var(--lp-space-lg) 0" },
+      }, "No opportunities yet. Add your first one above."));
+      return;
+    }
 
     var cellStyle = {
-      padding: "0.6rem 0.75rem",
+      padding: "0.5rem 0.65rem",
       fontSize: "var(--lp-font-size-sm)",
-      borderBottom: "1px solid rgba(148,163,184,0.15)",
-      verticalAlign: "top",
+      borderBottom: "1px solid rgba(148, 163, 184, 0.15)",
     };
     var headerStyle = Object.assign({}, cellStyle, {
       fontSize: "var(--lp-font-size-xs)",
@@ -763,259 +589,53 @@
       fontWeight: "600",
     });
 
-    var headers = ["Decision", "Related Uncertainty", "What to Learn", "Suggested Experiment", "Priority"];
+    var headers = ["Opportunity", "Impact", "Effort", "Priority", ""];
     var thead = el("tr");
-    headers.forEach(function (h) {
-      thead.appendChild(el("th", { style: Object.assign({}, headerStyle, { textAlign: "left" }) }, h));
+    headers.forEach(function (h, i) {
+      thead.appendChild(el("th", { style: Object.assign({}, headerStyle, { textAlign: i === 0 ? "left" : "center" }) }, h));
     });
 
     var tbody = el("tbody");
-    (r.keyDecisions || []).forEach(function (d) {
-      var pc = priorityColors[d.priority] || priorityColors.Later;
+    state.mapper.items.forEach(function (opp) {
+      var p = priorityLabel(opp.score);
       tbody.appendChild(el("tr", null, [
-        el("td", { style: Object.assign({}, cellStyle, { color: "var(--lp-color-text-soft)" }) }, d.decisionStatement),
-        el("td", { style: Object.assign({}, cellStyle, { color: "var(--lp-color-text-muted)" }) }, d.relatedUncertainty),
-        el("td", { style: Object.assign({}, cellStyle, { color: "var(--lp-color-text-soft)" }) }, d.whatToLearn),
-        el("td", { style: Object.assign({}, cellStyle, { color: "var(--lp-color-text-soft)" }) }, d.suggestedExperiment),
-        el("td", { style: cellStyle }, [badge(d.priority, pc.bg, pc.text, pc.border)]),
+        el("td", { style: Object.assign({}, cellStyle, { textAlign: "left", color: "var(--lp-color-text-soft)" }) }, opp.name),
+        el("td", { style: Object.assign({}, cellStyle, { textAlign: "center", color: "var(--lp-color-text-muted)" }) }, opp.impact),
+        el("td", { style: Object.assign({}, cellStyle, { textAlign: "center", color: "var(--lp-color-text-muted)" }) }, opp.effort),
+        el("td", { style: Object.assign({}, cellStyle, { textAlign: "center" }) }, [
+          badge(p.text + " (" + opp.score + ")", p.bg, p.color, p.border),
+        ]),
+        el("td", { style: Object.assign({}, cellStyle, { textAlign: "center" }) }, [
+          el("button", {
+            type: "button",
+            onClick: function () { removeOpportunity(opp.id); },
+            title: "Remove",
+            style: {
+              background: "none", border: "none", color: "var(--lp-color-danger)",
+              cursor: "pointer", fontSize: "1.1rem", padding: "0 0.3rem", fontFamily: "inherit",
+            },
+          }, "\u00D7"),
+        ]),
       ]));
     });
 
-    results.appendChild(card([
+    tableWrap.appendChild(card([
       el("div", { style: { overflowX: "auto" } }, [
-        el("table", { style: { width: "100%", borderCollapse: "collapse", color: "var(--lp-color-text-soft)" } }, [
+        el("table", { style: { width: "100%", borderCollapse: "collapse" } }, [
           el("thead", null, [thead]),
           tbody,
         ]),
       ]),
     ]));
 
-    // ── Continue to Step 4 ──
-    results.appendChild(el("div", { style: { display: "flex", justifyContent: "flex-end", marginTop: "var(--lp-space-lg)" } }, [
-      btn("Continue to Step 4: Pre-Mortem \u2192", function () { switchStep(4); }),
-    ]));
-  }
+    var clearBtn = btn("Clear All Opportunities", function () {
+      state.mapper.items = [];
+      state.mapper.nextId = 1;
+      save(LS_MAPPER, state.mapper);
+      renderMapperTable();
+    }, "danger");
 
-  // ═══════════════════════════════════════════════════════════════════════
-  //  STEP 4: PRE-MORTEM ANALYSIS
-  // ═══════════════════════════════════════════════════════════════════════
-
-  var riskColors = {
-    High:   { bg: "rgba(239,68,68,0.15)",   text: "#fca5a5", border: "rgba(239,68,68,0.4)" },
-    Medium: { bg: "rgba(234,179,8,0.15)",   text: "#fde68a", border: "rgba(234,179,8,0.4)" },
-    Low:    { bg: "rgba(34,197,94,0.15)",    text: "#86efac", border: "rgba(34,197,94,0.4)" },
-  };
-
-  function renderStep4() {
-    if (!state.inputs || !state.step3Result) {
-      contentEl.appendChild(card([
-        el("p", { style: { color: "var(--lp-color-text-muted)", textAlign: "center", padding: "2rem" } },
-          "No project data found. Please complete Steps 1 and 3 first."),
-        el("div", { style: { textAlign: "center" } }, [
-          btn("\u2190 Go to Step 3", function () { switchStep(3); }),
-        ]),
-      ]));
-      return;
-    }
-
-    var wrap = el("div");
-
-    // Header
-    wrap.appendChild(el("div", { style: { marginBottom: "var(--lp-space-lg)" } }, [
-      badge("Step 4"),
-      heading("Pre-Mortem Analysis", 2),
-      el("p", { style: { color: "var(--lp-color-text-muted)", fontSize: "var(--lp-font-size-sm)" } },
-        "Imagine this project has failed badly in 2\u20133 years. What went wrong? Identify risks before they become reality."),
-    ]));
-
-    // Context summary
-    var contextCard = card([
-      el("div", { style: { fontSize: "var(--lp-font-size-lg)", fontWeight: "700", marginBottom: "var(--lp-space-sm)" } }, "Analysis Context"),
-      el("p", { style: { fontSize: "var(--lp-font-size-xs)", color: "var(--lp-color-text-muted)", marginBottom: "var(--lp-space-sm)" } },
-        "Using data from Steps 1 & 3 \u2014 " + state.inputs.productName),
-      el("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "var(--lp-space-sm)" } }, [
-        el("div", null, [
-          el("span", { style: { fontSize: "var(--lp-font-size-xs)", color: "var(--lp-color-text-muted)" } }, "Opportunities identified"),
-          el("p", { style: { fontWeight: "700", margin: "0.15rem 0 0" } }, String(state.step3Result.opportunityMap.length)),
-        ]),
-        el("div", null, [
-          el("span", { style: { fontSize: "var(--lp-font-size-xs)", color: "var(--lp-color-text-muted)" } }, "Key decisions"),
-          el("p", { style: { fontWeight: "700", margin: "0.15rem 0 0" } }, String(state.step3Result.keyDecisions.length)),
-        ]),
-        el("div", null, [
-          el("span", { style: { fontSize: "var(--lp-font-size-xs)", color: "var(--lp-color-text-muted)" } }, "Uncertainties"),
-          el("p", { style: { fontWeight: "700", margin: "0.15rem 0 0" } }, state.inputs.uncertainties ? "Provided" : "None"),
-        ]),
-      ]),
-      el("div", { id: "s4-error" }),
-      el("div", { id: "s4-btn-wrap", style: { marginTop: "var(--lp-space-sm)" } }),
-    ]);
-    wrap.appendChild(contextCard);
-
-    // Results area
-    wrap.appendChild(el("div", { id: "s4-results", style: { marginTop: "var(--lp-space-lg)" } }));
-
-    contentEl.appendChild(wrap);
-
-    renderStep4Button();
-
-    if (state.step4Result) {
-      renderStep4Results();
-    }
-  }
-
-  function renderStep4Button() {
-    var wrap = document.getElementById("s4-btn-wrap");
-    if (!wrap) return;
-    wrap.innerHTML = "";
-    if (!state.step4Result) {
-      wrap.appendChild(
-        btn(
-          state.isGenerating ? "Analyzing\u2026" : "Run Pre-Mortem Analysis",
-          handleGeneratePreMortem,
-          "primary",
-          state.isGenerating
-        )
-      );
-    }
-  }
-
-  async function handleGeneratePreMortem() {
-    state.isGenerating = true;
-    renderStep4Button();
-
-    var errEl = document.getElementById("s4-error");
-    if (errEl) errEl.innerHTML = "";
-
-    var results = document.getElementById("s4-results");
-    if (results) { results.innerHTML = ""; results.appendChild(loadingCard("Imagining failure scenarios\u2026")); }
-
-    try {
-      var data = await apiPost("/api/generate-premortem", Object.assign({}, state.inputs, {
-        brochureText: state.brochureText,
-        opportunityMap: state.step3Result.opportunityMap,
-        keyDecisions: state.step3Result.keyDecisions,
-      }));
-      state.step4Result = data.result;
-      renderStep4Results();
-      renderStep4Button();
-    } catch (err) {
-      if (results) results.innerHTML = "";
-      if (errEl) { errEl.innerHTML = ""; errEl.appendChild(errorBox(err.message)); }
-    } finally {
-      state.isGenerating = false;
-      renderStep4Button();
-    }
-  }
-
-  function renderStep4Results() {
-    var results = document.getElementById("s4-results");
-    if (!results || !state.step4Result) return;
-    results.innerHTML = "";
-
-    var r = state.step4Result;
-
-    // ── Failure Narrative ──
-    results.appendChild(card([
-      el("div", { style: { display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" } }, [
-        el("span", { style: { color: "var(--lp-color-danger)", fontSize: "1.1rem" } }, "\u26A0"),
-        el("strong", { style: { fontSize: "var(--lp-font-size-lg)" } }, "Failure Narrative"),
-      ]),
-      el("p", { style: { fontSize: "var(--lp-font-size-xs)", color: "var(--lp-color-text-muted)", marginBottom: "var(--lp-space-sm)" } },
-        "Looking back from 2\u20133 years in the future\u2026"),
-      el("p", { style: { fontSize: "var(--lp-font-size-sm)", color: "var(--lp-color-text-soft)", lineHeight: "1.7", whiteSpace: "pre-line" } }, r.narrative),
-    ], { borderColor: "rgba(239,68,68,0.4)" }));
-
-    // ── Risk Themes ──
-    results.appendChild(el("div", { style: { margin: "var(--lp-space-xl) 0 var(--lp-space-sm)" } }, [
-      heading("Risk Themes", 3),
-    ]));
-
-    var riskGrid = el("div", { className: "lp-grid-2" });
-    (r.riskThemes || []).forEach(function (theme) {
-      var rc = riskColors[theme.riskLevel] || riskColors.Medium;
-
-      // Related items badges
-      var relatedWrap = null;
-      if (theme.relatedItems && theme.relatedItems.length > 0) {
-        relatedWrap = el("div", { style: { marginBottom: "0.5rem" } }, [
-          el("span", { style: { fontSize: "var(--lp-font-size-xs)", color: "var(--lp-color-text-muted)", fontWeight: "600" } }, "Related to:"),
-          el("div", { style: { display: "flex", flexWrap: "wrap", gap: "0.3rem", marginTop: "0.25rem" } },
-            theme.relatedItems.map(function (item) { return badge(item); })),
-        ]);
-      }
-
-      // Mitigations
-      var mitigations = el("div", { style: { marginBottom: "0.5rem" } }, [
-        el("div", { style: { display: "flex", alignItems: "center", gap: "0.3rem", marginBottom: "0.25rem" } }, [
-          el("span", { style: { fontSize: "var(--lp-font-size-xs)", color: "var(--lp-color-text-muted)", fontWeight: "600" } }, "Mitigations"),
-        ]),
-        el("ul", { style: { listStyle: "none", padding: "0", margin: "0" } },
-          (theme.mitigations || []).map(function (m) {
-            return el("li", { style: { fontSize: "var(--lp-font-size-xs)", display: "flex", alignItems: "flex-start", gap: "0.35rem", marginBottom: "0.2rem" } }, [
-              el("span", { style: { color: "var(--lp-color-accent)" } }, "\u2192"),
-              el("span", { style: { color: "var(--lp-color-text-soft)" } }, m),
-            ]);
-          })),
-      ]);
-
-      // Experiments
-      var experiments = el("div", null, [
-        el("div", { style: { display: "flex", alignItems: "center", gap: "0.3rem", marginBottom: "0.25rem" } }, [
-          el("span", { style: { fontSize: "var(--lp-font-size-xs)", color: "var(--lp-color-text-muted)", fontWeight: "600" } }, "Experiments"),
-        ]),
-        el("ul", { style: { listStyle: "none", padding: "0", margin: "0" } },
-          (theme.experiments || []).map(function (e) {
-            return el("li", { style: { fontSize: "var(--lp-font-size-xs)", display: "flex", alignItems: "flex-start", gap: "0.35rem", marginBottom: "0.2rem" } }, [
-              el("span", { style: { color: "#60a5fa" } }, "\u2192"),
-              el("span", { style: { color: "var(--lp-color-text-soft)" } }, e),
-            ]);
-          })),
-      ]);
-
-      riskGrid.appendChild(card([
-        el("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" } }, [
-          el("strong", { style: { fontSize: "var(--lp-font-size-md)" } }, theme.name),
-          badge(theme.riskLevel, rc.bg, rc.text, rc.border),
-        ]),
-        el("p", { style: { fontSize: "var(--lp-font-size-sm)", color: "var(--lp-color-text-muted)", marginBottom: "0.5rem" } }, theme.description),
-        relatedWrap,
-        mitigations,
-        experiments,
-      ]));
-    });
-    results.appendChild(riskGrid);
-
-    // ── Top 3 Killers ──
-    results.appendChild(el("div", { style: { marginTop: "var(--lp-space-xl)" } }, [
-      card([
-        el("div", { style: { display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "var(--lp-space-sm)" } }, [
-          el("span", { style: { fontSize: "1.1rem" } }, "\u2620"),
-          el("strong", { style: { fontSize: "var(--lp-font-size-lg)" } }, "If We Had to Bet on 3 Things That Would Kill This Project\u2026"),
-        ]),
-        el("ol", { style: { listStyle: "none", padding: "0", margin: "0", display: "flex", flexDirection: "column", gap: "0.75rem" } },
-          (r.topKillers || []).map(function (killer, i) {
-            return el("li", { style: { display: "flex", alignItems: "flex-start", gap: "0.75rem" } }, [
-              badge(String(i + 1), "rgba(239,68,68,0.15)", "#fca5a5", "rgba(239,68,68,0.4)"),
-              el("span", { style: { fontSize: "var(--lp-font-size-sm)", fontWeight: "600", color: "var(--lp-color-text-soft)" } }, killer),
-            ]);
-          })),
-      ], { borderColor: "rgba(239,68,68,0.3)", background: "linear-gradient(135deg, rgba(127,29,29,0.15), rgba(15,23,42,0.95))" }),
-    ]));
-  }
-
-  // ═══════════════════════════════════════════════════════════════════════
-  //  RESPONSIVE: collapse grid on mobile
-  // ═══════════════════════════════════════════════════════════════════════
-
-  function applyResponsive() {
-    var style = document.getElementById("vpo-responsive-style");
-    if (!style) {
-      style = document.createElement("style");
-      style.id = "vpo-responsive-style";
-      style.textContent = "@media(max-width:900px){#vpo-content .lp-grid-2{grid-template-columns:1fr !important;}}@media(max-width:900px){#vpo-content>div>div[style*='grid-template-columns: minmax']{grid-template-columns:1fr !important;}}";
-      document.head.appendChild(style);
-    }
+    actionsWrap.appendChild(el("div", { style: { marginTop: "var(--lp-space-xs)" } }, [clearBtn]));
   }
 
   // ═══════════════════════════════════════════════════════════════════════
@@ -1027,9 +647,8 @@
     contentEl = document.getElementById("vpo-content");
     if (!navEl || !contentEl) return;
 
-    applyResponsive();
-    renderStepNav();
-    renderStep1();
+    renderNav();
+    renderBuilder();
   }
 
   if (document.readyState === "loading") {
