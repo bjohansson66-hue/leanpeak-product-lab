@@ -1,0 +1,381 @@
+/* ===========================
+   LeanPeak Product Lab Theme
+   File: leanpeak-theme.css
+   =========================== */
+
+/* Design tokens */
+:root {
+  /* Brand colors */
+  --lp-color-primary: #16355b;          /* Main brand blue */
+  --lp-color-primary-soft: #1f4778;     /* Softer hero gradient */
+  --lp-color-secondary: #f59e0b;        /* Accent (CTA, badges) */
+  --lp-color-accent: #22c55e;           /* Success / positive metrics */
+  --lp-color-danger: #ef4444;           /* Risks / warnings */
+
+  --lp-color-bg: #0b1120;               /* Overall page background (deep blue/ink) */
+  --lp-color-surface: #020617;          /* Panels, cards */
+  --lp-color-surface-alt: #111827;      /* Alternate panels/sections */
+
+  --lp-color-text-main: #f9fafb;
+  --lp-color-text-muted: #9ca3af;
+  --lp-color-text-soft: #e5e7eb;
+
+  --lp-color-border-subtle: rgba(148, 163, 184, 0.3);
+  --lp-color-border-strong: rgba(148, 163, 184, 0.6);
+
+  /* Typography */
+  --lp-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --lp-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo,
+    Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  --lp-font-size-xs: 0.75rem;
+  --lp-font-size-sm: 0.875rem;
+  --lp-font-size-md: 1rem;
+  --lp-font-size-lg: 1.125rem;
+  --lp-font-size-xl: 1.5rem;
+  --lp-font-size-2xl: 2rem;
+  --lp-font-size-3xl: 2.5rem;
+
+  /* Spacing */
+  --lp-space-2xs: 0.25rem;
+  --lp-space-xs: 0.5rem;
+  --lp-space-sm: 0.75rem;
+  --lp-space-md: 1rem;
+  --lp-space-lg: 1.5rem;
+  --lp-space-xl: 2rem;
+  --lp-space-2xl: 3rem;
+
+  /* Radius */
+  --lp-radius-sm: 0.25rem;
+  --lp-radius-md: 0.75rem;
+  --lp-radius-lg: 1.25rem;
+  --lp-radius-pill: 999px;
+
+  /* Shadows */
+  --lp-shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.8);
+
+  /* Layout width */
+  --lp-max-width: 1120px;
+}
+
+/* Global base styles */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--lp-font-sans);
+  font-size: var(--lp-font-size-md);
+  color: var(--lp-color-text-main);
+  background: radial-gradient(circle at top, #1f2933 0, #020617 45%, #020617 100%);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Layout helpers */
+
+.lp-page {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #1f2933 0, #020617 45%, #020617 100%);
+  color: var(--lp-color-text-main);
+}
+
+.lp-container {
+  width: 100%;
+  max-width: var(--lp-max-width);
+  margin: 0 auto;
+  padding-inline: var(--lp-space-md);
+}
+
+/* Typography */
+
+.lp-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--lp-font-size-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lp-color-text-muted);
+}
+
+.lp-eyebrow-pill {
+  border-radius: var(--lp-radius-pill);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  padding: 0.25rem 0.75rem;
+  background: linear-gradient(
+    90deg,
+    rgba(248, 250, 252, 0.01),
+    rgba(15, 23, 42, 0.85)
+  );
+}
+
+.lp-heading-xl {
+  font-size: var(--lp-font-size-3xl);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: var(--lp-space-md) 0 var(--lp-space-md);
+}
+
+.lp-heading-lg {
+  font-size: var(--lp-font-size-2xl);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--lp-space-sm);
+}
+
+.lp-heading-md {
+  font-size: var(--lp-font-size-xl);
+  line-height: 1.25;
+  margin: 0 0 var(--lp-space-xs);
+}
+
+.lp-body-main {
+  font-size: var(--lp-font-size-lg);
+  color: var(--lp-color-text-soft);
+  line-height: 1.6;
+}
+
+.lp-body-muted {
+  font-size: var(--lp-font-size-sm);
+  color: var(--lp-color-text-muted);
+  line-height: 1.6;
+}
+
+/* Buttons */
+
+.lp-button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--lp-space-sm);
+  margin-top: var(--lp-space-lg);
+}
+
+.lp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: var(--lp-font-size-sm);
+  font-weight: 600;
+  border-radius: var(--lp-radius-pill);
+  padding: 0.75rem 1.5rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.lp-btn-primary {
+  background: linear-gradient(
+    135deg,
+    var(--lp-color-secondary),
+    #f97316
+  );
+  color: #0b1120;
+  box-shadow: 0 14px 30px rgba(248, 148, 31, 0.35);
+}
+
+.lp-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 40px rgba(248, 148, 31, 0.48);
+}
+
+.lp-btn-secondary {
+  background: rgba(15, 23, 42, 0.9);
+  border-color: rgba(148, 163, 184, 0.4);
+  color: var(--lp-color-text-soft);
+}
+
+.lp-btn-secondary:hover {
+  background: rgba(15, 23, 42, 1);
+  border-color: rgba(148, 163, 184, 0.7);
+  transform: translateY(-1px);
+}
+
+/* Hero section */
+
+.lp-hero {
+  padding: var(--lp-space-2xl) 0 var(--lp-space-xl);
+}
+
+.lp-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: var(--lp-space-xl);
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .lp-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Hero right “module stack” */
+
+.lp-hero-panel {
+  position: relative;
+  border-radius: var(--lp-radius-lg);
+  background: radial-gradient(circle at top left, #1f2933, #020617 55%);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  box-shadow: var(--lp-shadow-soft);
+  padding: var(--lp-space-lg);
+  overflow: hidden;
+}
+
+.lp-hero-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--lp-space-md);
+}
+
+.lp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--lp-font-size-xs);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--lp-radius-pill);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  background: radial-gradient(circle at top left, #1f2933, #020617 80%);
+}
+
+.lp-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, #bbf7d0, #22c55e);
+}
+
+.lp-hero-metric-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--lp-space-md);
+  margin-top: var(--lp-space-md);
+}
+
+.lp-metric-pill {
+  flex: 1 1 140px;
+  border-radius: var(--lp-radius-md);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  padding: var(--lp-space-sm) var(--lp-space-md);
+  background: linear-gradient(
+    135deg,
+    rgba(30, 64, 175, 0.45),
+    rgba(15, 23, 42, 0.95)
+  );
+}
+
+.lp-metric-label {
+  font-size: var(--lp-font-size-xs);
+  color: var(--lp-color-text-muted);
+}
+
+.lp-metric-value {
+  font-size: var(--lp-font-size-lg);
+  font-weight: 600;
+}
+
+/* Section shell */
+
+.lp-section {
+  padding: var(--lp-space-2xl) 0;
+}
+
+.lp-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lp-space-xs);
+  margin-bottom: var(--lp-space-xl);
+}
+
+.lp-section-header-right {
+  max-width: 520px;
+}
+
+/* Cards / modules grid */
+
+.lp-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--lp-space-lg);
+}
+
+@media (max-width: 980px) {
+  .lp-grid-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .lp-grid-3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.lp-card {
+  border-radius: var(--lp-radius-md);
+  border: 1px solid var(--lp-color-border-subtle);
+  background: radial-gradient(circle at top left, #020617, #020617 55%);
+  padding: var(--lp-space-md);
+}
+
+.lp-card-label {
+  font-size: var(--lp-font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--lp-color-text-muted);
+  margin-bottom: var(--lp-space-xs);
+}
+
+.lp-card-title {
+  font-size: var(--lp-font-size-lg);
+  margin-bottom: var(--lp-space-xs);
+}
+
+.lp-card-body {
+  font-size: var(--lp-font-size-sm);
+  color: var(--lp-color-text-muted);
+}
+
+/* Utility classes */
+
+.lp-pill {
+  border-radius: var(--lp-radius-pill);
+  padding: 0.25rem 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.lp-tag-success {
+  color: #bbf7d0;
+  background: rgba(22, 163, 74, 0.15);
+  border-color: rgba(34, 197, 94, 0.4);
+}
+
+.lp-kpi-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--lp-space-md);
+  margin-top: var(--lp-space-md);
+}
+
+.lp-kpi {
+  flex: 1 1 180px;
+  padding: var(--lp-space-sm) var(--lp-space-md);
+  border-radius: var(--lp-radius-md);
+  border: 1px dashed rgba(148, 163, 184, 0.4);
+  background: rgba(15, 23, 42, 0.85);
+}
