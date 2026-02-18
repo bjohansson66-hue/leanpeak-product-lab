@@ -4,26 +4,6 @@
   <meta charset="utf-8">
   <title>Visual Project Objectives Lab</title>
   <link rel="stylesheet" href="../leanpeak-theme.css">
-  <style>
-    .lp-grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: var(--lp-space-lg);
-    }
-    @media (max-width: 768px) {
-      .lp-grid-2 { grid-template-columns: minmax(0, 1fr); }
-    }
-    @keyframes lp-spin { to { transform: rotate(360deg); } }
-    .lp-spinner {
-      width: 24px; height: 24px;
-      border: 3px solid var(--lp-color-border-subtle);
-      border-top-color: var(--lp-color-secondary);
-      border-radius: 50%;
-      animation: lp-spin 0.8s linear infinite;
-    }
-    @keyframes lp-pulse { 50% { opacity: 0.5; } }
-    .lp-pulse { animation: lp-pulse 2s ease-in-out infinite; }
-  </style>
 </head>
 <body>
   <div class="lp-page">
@@ -60,16 +40,26 @@
 </section>
 <section class="lp-section" id="vpo-pipeline">
   <div class="lp-section-inner">
-    <h2 class="lp-section-title">Pretotype Tool Suite</h2>
+    <h2 class="lp-section-title">VPO Pipeline &mdash; Alpha Test</h2>
     <p style="color: var(--lp-color-text-muted); margin-bottom: var(--lp-space-lg);">
-      Design pretotypes, draft surveys, and map opportunities &mdash; all in the browser, no account needed.
+      Walk through the full VPO pipeline: fill in 8 product inputs, generate an AI Sales Brochure with images,
+      map opportunities &amp; key decisions, and run a Pre-Mortem analysis.
     </p>
-    <div id="vpo-step-nav"></div>
-    <div id="vpo-content"></div>
+    <div style="position: relative; width: 100%; height: 85vh; min-height: 600px; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;">
+      <iframe
+        id="vpo-app-frame"
+        src="https://nextjs-with-supabase-mbpb-bengts-projects-1f26266d.vercel.app/vpo/step1"
+        title="VPO Pipeline — Alpha Test"
+        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+        allow="clipboard-write"
+      ></iframe>
+    </div>
+    <p style="color: var(--lp-color-text-muted); font-size: 0.85rem; margin-top: var(--lp-space-sm); text-align: center;">
+      Powered by AI (Claude &amp; DALL-E). Navigation between steps happens inside the frame.
+    </p>
   </div>
 </section>
     </main>
   </div>
-  <script src="../js/pretotype-suite.js"></script>
 </body>
 </html>
