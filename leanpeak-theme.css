@@ -398,3 +398,8 @@ body {
   background: rgba(15, 23, 42, 0.85);
 }
 
+.lp-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
