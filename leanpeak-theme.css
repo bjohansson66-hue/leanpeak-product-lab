@@ -409,7 +409,7 @@ body {
 }
 
 .lp-header-inner {
-  max-width: 960px;
+  max-width: 32px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -424,3 +424,4 @@ body {
   width: auto;
   display: block;
 }
+
