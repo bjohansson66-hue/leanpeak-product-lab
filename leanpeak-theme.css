@@ -420,11 +420,12 @@ body {
 }
 
 .lp-logo-image {
-  max-height: 32px;  /* adjust to taste */
-  max-width: 160px;
+  max-height: 64px;  /* adjust to taste */
+  max-width: 240px;
   width: auto;
   height: auto;
   display: block;
 }
+
 
 
