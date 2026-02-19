@@ -427,9 +427,45 @@ body {
   display: block;
 }
 
+.lp-footer {
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  padding: 1.25rem 1.5rem;
+  margin-top: 3rem;
+}
 
+.lp-footer-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: rgba(15, 23, 42, 0.7);
+}
 
+.lp-footer-text {
+  opacity: 0.8;
+}
 
+.lp-footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  color: inherit;
+}
 
+.lp-footer-link:hover .lp-footer-brand {
+  text-decoration: underline;
+}
 
+.lp-footer-logo {
+  height: 20px;
+  width: auto;
+  display: block;
+}
+
+.lp-footer-brand {
+  font-weight: 500;
+}
 
