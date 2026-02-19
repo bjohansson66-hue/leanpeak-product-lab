@@ -409,7 +409,7 @@ body {
 }
 
 .lp-header-inner {
-  max-width: 32px;
+  max-width: 960px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -420,8 +420,11 @@ body {
 }
 
 .lp-logo-image {
-  height: 40px;  /* adjust to taste */
+  max-height: 32px;  /* adjust to taste */
+  max-width: 160px;
   width: auto;
+  height: auto;
   display: block;
 }
+
 
