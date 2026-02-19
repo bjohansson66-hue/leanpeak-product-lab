@@ -403,3 +403,24 @@ body {
   color: inherit;
   display: block;
 }
+
+.lp-header {
+  padding: 1.25rem 1.5rem;
+}
+
+.lp-header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.lp-header-spacer {
+  flex: 1; /* pushes logo to the right */
+}
+
+.lp-logo-image {
+  height: 40px;  /* adjust to taste */
+  width: auto;
+  display: block;
+}
