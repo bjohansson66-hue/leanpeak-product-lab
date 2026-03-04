@@ -8,11 +8,16 @@
 <body>
   <header class="lp-header">
   <div class="lp-header-inner">
-    <img
-      src="../LPPL Logo.png"
-      alt="LeanPeak Product Lab"
-      class="lp-logo-image"
-    >
+    <a href="/" style="display:inline-flex;align-items:center;">
+      <img
+        src="../LPPL Logo.png"
+        alt="LeanPeak Product Lab"
+        class="lp-logo-image"
+        style="max-height:48px;"
+      >
+    </a>
+    <div class="lp-header-spacer"></div>
+    <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
   </div>
 </header>
 
@@ -88,5 +93,8 @@
   </div>
 </footer>
 
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/portal-auth.js"></script>
 </body>
 </html>

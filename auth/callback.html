@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Confirming your account… — LeanPeak Product Lab</title>
+  <link rel="stylesheet" href="/leanpeak-theme.css">
+  <style>
+    .callback-card {
+      max-width: 400px;
+      margin: 5rem auto;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      background: radial-gradient(circle at top left, #1f2933, #020617 55%);
+      border: 1px solid var(--lp-color-border-subtle);
+      border-radius: var(--lp-radius-lg);
+      box-shadow: var(--lp-shadow-soft);
+    }
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid rgba(245, 158, 11, 0.2);
+      border-top-color: var(--lp-color-secondary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1.5rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .status-error { color: var(--lp-color-danger); }
+  </style>
+</head>
+<body>
+
+  <header class="lp-header">
+    <div class="lp-header-inner">
+      <a href="/" style="display:inline-flex;align-items:center;">
+        <img src="/LPPL Logo.png" alt="LeanPeak Product Lab" class="lp-logo-image" style="max-height:48px;">
+      </a>
+    </div>
+  </header>
+
+  <main class="lp-main">
+    <div class="callback-card">
+      <div class="spinner" id="spinner"></div>
+      <p class="lp-body-muted" id="status-text">Confirming your account…</p>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = "https://ulbfjoamggmgceaqtdht.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_BA_3F4IkxM7cqFlMyG24Wg_l91GnUON";
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const spinner = document.getElementById("spinner");
+    const statusText = document.getElementById("status-text");
+
+    async function handleCallback() {
+      // Supabase automatically exchanges the URL hash tokens on createClient.
+      // We listen for the resulting auth state change.
+      const { data: { session }, error } = await sb.auth.getSession();
+
+      if (session) {
+        statusText.textContent = "Account confirmed! Redirecting…";
+        setTimeout(() => { window.location.href = "/vpo/"; }, 1000);
+        return;
+      }
+
+      // If no session yet, listen for the auth event
+      sb.auth.onAuthStateChange((event, session) => {
+        if (event === "SIGNED_IN" && session) {
+          statusText.textContent = "Account confirmed! Redirecting…";
+          spinner.style.display = "none";
+          setTimeout(() => { window.location.href = "/vpo/"; }, 1000);
+        }
+      });
+
+      // Fallback: if after 5s we still have no session, show error
+      setTimeout(() => {
+        sb.auth.getSession().then(({ data: { session } }) => {
+          if (!session) {
+            spinner.style.display = "none";
+            statusText.innerHTML =
+              '<span class="status-error">Confirmation failed or link expired.</span>' +
+              '<br><a href="/sign-up.html" style="color:var(--lp-color-secondary)">Try signing up again</a>';
+          }
+        });
+      }, 5000);
+    }
+
+    handleCallback();
+  </script>
+</body>
+</html>

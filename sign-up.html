@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign up — LeanPeak Product Lab</title>
+  <link rel="stylesheet" href="/leanpeak-theme.css">
+  <style>
+    .auth-card {
+      max-width: 400px;
+      margin: 4rem auto;
+      padding: 2rem;
+      background: radial-gradient(circle at top left, #1f2933, #020617 55%);
+      border: 1px solid var(--lp-color-border-subtle);
+      border-radius: var(--lp-radius-lg);
+      box-shadow: var(--lp-shadow-soft);
+    }
+    .auth-input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.625rem 0.75rem;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--lp-color-border-strong);
+      border-radius: var(--lp-radius-sm);
+      color: var(--lp-color-text-main);
+      font-size: 0.9rem;
+      font-family: var(--lp-font-sans);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .auth-input:focus {
+      border-color: var(--lp-color-secondary);
+    }
+    .auth-label {
+      display: block;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      color: var(--lp-color-text-muted);
+      margin-bottom: 0.4rem;
+    }
+    .auth-field {
+      margin-bottom: 1.25rem;
+    }
+    .auth-error {
+      display: none;
+      color: var(--lp-color-danger);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      padding: 0.5rem 0.75rem;
+      background: rgba(239, 68, 68, 0.08);
+      border-radius: var(--lp-radius-sm);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .auth-success {
+      display: none;
+      color: var(--lp-color-accent);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      padding: 0.75rem 1rem;
+      background: rgba(34, 197, 94, 0.08);
+      border-radius: var(--lp-radius-sm);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      line-height: 1.5;
+    }
+    .auth-footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.875rem;
+      color: var(--lp-color-text-muted);
+    }
+    .auth-link {
+      color: var(--lp-color-secondary);
+      text-decoration: none;
+    }
+    .auth-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="lp-header">
+    <div class="lp-header-inner">
+      <a href="/" style="display:inline-flex;align-items:center;">
+        <img src="/LPPL Logo.png" alt="LeanPeak Product Lab" class="lp-logo-image" style="max-height:48px;">
+      </a>
+      <div class="lp-header-spacer"></div>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <main class="lp-main">
+    <div class="auth-card">
+      <h1 class="lp-heading-md" style="margin-bottom:0.25rem;">Create your account</h1>
+      <p class="lp-body-muted" style="margin-bottom:1.75rem;">
+        Free forever — save your VPO projects and track your work.
+      </p>
+
+      <form id="sign-up-form" novalidate>
+        <div class="auth-field">
+          <label class="auth-label" for="email">Email address</label>
+          <input class="auth-input" type="email" id="email" name="email"
+            autocomplete="email" placeholder="you@example.com" required>
+        </div>
+        <div class="auth-field">
+          <label class="auth-label" for="password">Password</label>
+          <input class="auth-input" type="password" id="password" name="password"
+            autocomplete="new-password" placeholder="At least 8 characters" required minlength="8">
+        </div>
+
+        <div id="error-msg" class="auth-error"></div>
+        <div id="success-msg" class="auth-success"></div>
+
+        <button type="submit" id="submit-btn" class="lp-btn lp-btn-primary" style="width:100%;">
+          Create account
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        Already have an account?
+        <a href="/sign-in.html" class="auth-link">Sign in</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = "https://ulbfjoamggmgceaqtdht.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_BA_3F4IkxM7cqFlMyG24Wg_l91GnUON";
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const form = document.getElementById("sign-up-form");
+    const errorMsg = document.getElementById("error-msg");
+    const successMsg = document.getElementById("success-msg");
+    const submitBtn = document.getElementById("submit-btn");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      errorMsg.style.display = "none";
+      successMsg.style.display = "none";
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Creating account…";
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (password.length < 8) {
+        errorMsg.textContent = "Password must be at least 8 characters.";
+        errorMsg.style.display = "block";
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Create account";
+        return;
+      }
+
+      const { error } = await sb.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: "https://leanpeakproductlab.com/auth/callback.html",
+        },
+      });
+
+      if (error) {
+        errorMsg.textContent = error.message;
+        errorMsg.style.display = "block";
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Create account";
+        return;
+      }
+
+      // Show confirmation message — email confirmation required
+      form.style.display = "none";
+      successMsg.innerHTML =
+        "<strong>Almost there!</strong><br>Check your email and click the confirmation link to activate your account.";
+      successMsg.style.display = "block";
+    });
+  </script>
+  <script src="/js/portal-auth.js"></script>
+</body>
+</html>
