@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Feature Mapping Suite — LeanPeak Product Lab</title>
+  <link rel="stylesheet" href="../leanpeak-theme.css">
+</head>
+<body>
+  <header class="lp-header">
+    <div class="lp-header-inner">
+      <a href="/" style="display:inline-flex;align-items:center;">
+        <img
+          src="../LPPL Logo.png"
+          alt="LeanPeak Product Lab"
+          class="lp-logo-image"
+          style="max-height:48px;"
+        >
+      </a>
+      <div class="lp-header-spacer"></div>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <main class="lp-main">
+    <section class="lp-section-hero">
+      <div class="lp-hero-inner">
+        <h1 class="lp-hero-title">Feature Mapping Suite</h1>
+        <p class="lp-hero-subtitle">
+          Turn your validated pretotype into a Story Brief, Feature Story Map, and Lean Release Plan.
+        </p>
+        <a class="lp-button lp-button-primary" href="#start">
+          Start Feature Mapping
+        </a>
+      </div>
+    </section>
+
+    <section class="lp-section" id="start">
+      <div class="lp-section-inner">
+        <h2 class="lp-section-title">Feature Mapping Suite &mdash; Alpha Test</h2>
+        <p style="color: var(--lp-color-text-muted); margin-bottom: var(--lp-space-lg);">
+          Pick a completed VPO project, generate a Story Brief with AI, map the full user journey,
+          then slice it into a lean release plan with learning and delivery increments.
+        </p>
+        <div style="position: relative; width: 100%; height: 85vh; min-height: 600px; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;">
+          <iframe
+            id="fm-app-frame"
+            src="https://nextjs-with-supabase-mbpb-bengts-projects-1f26266d.vercel.app/fm"
+            title="Feature Mapping Suite"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+            allow="clipboard-write"
+          ></iframe>
+        </div>
+        <p style="color: var(--lp-color-text-muted); font-size: 0.85rem; margin-top: var(--lp-space-sm); text-align: center;">
+          Powered by AI (Claude). Navigation between steps happens inside the frame.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a
+        href="https://www.lean-peak-solutions.se/"
+        class="lp-footer-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="../LeanPeak Logo.png"
+          alt="Lean-Peak Solutions AB"
+          class="lp-footer-logo"
+        >
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/portal-auth.js"></script>
+</body>
+</html>
