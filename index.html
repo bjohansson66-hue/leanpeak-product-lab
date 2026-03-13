@@ -8,12 +8,14 @@
   </head>
   <body class="lp-page">
     <header class="lp-hero">
-  <div class="lp-hero-header">
+  <div class="lp-hero-header" style="display:flex;align-items:center;">
     <img
       src="LPPL Logo.png"
       alt="LeanPeak Product Lab"
       class="lp-logo-image"
     >
+    <div style="flex:1;"></div>
+    <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
   </div>
 
   <div class="lp-container lp-hero-grid">
@@ -164,6 +166,9 @@
   </div>
 </footer>
   <!-- ... your existing content ... -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/portal-auth.js"></script>
 
   <!-- Virtual Bengt – CustomGPT widget -->
   <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>

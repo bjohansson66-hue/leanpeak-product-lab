@@ -1,8 +1,8 @@
 /**
- * portal-auth.js — LeanPeak Product Lab unified authentication
+ * portal-auth.js — LeanPeak Product Lab header auth UI
  *
- * Handles sign-in/sign-up state for the entire static site and
- * broadcasts the Supabase session to embedded VPO iframes via postMessage.
+ * Shows the signed-in user's email + sign-out button, or sign-in/sign-up
+ * links that point to the app at app.leanpeakproductlab.com.
  *
  * Requires: Supabase JS CDN loaded before this script.
  * e.g. <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -10,9 +10,7 @@
 
 const LP_SUPABASE_URL = "https://ulbfjoamggmgceaqtdht.supabase.co";
 const LP_SUPABASE_KEY = "sb_publishable_BA_3F4IkxM7cqFlMyG24Wg_l91GnUON";
-
-// Target origin for the embedded VPO app (Next.js on Vercel)
-const LP_VPO_ORIGIN = "https://nextjs-with-supabase-mbpb-bengts-projects-1f26266d.vercel.app";
+const LP_APP_ORIGIN = "https://app.leanpeakproductlab.com";
 
 // ─── Supabase client (singleton) ──────────────────────────────────────────────
 let _lpSb = null;
@@ -21,17 +19,6 @@ function getLPClient() {
     _lpSb = window.supabase.createClient(LP_SUPABASE_URL, LP_SUPABASE_KEY);
   }
   return _lpSb;
-}
-
-// ─── Broadcast session to VPO iframe ──────────────────────────────────────────
-function broadcastSession(session) {
-  const frame = document.getElementById("vpo-app-frame");
-  if (frame && frame.contentWindow) {
-    frame.contentWindow.postMessage(
-      { type: "lp:session", session: session ?? null },
-      LP_VPO_ORIGIN
-    );
-  }
 }
 
 // ─── Update header auth UI ─────────────────────────────────────────────────────
@@ -44,6 +31,7 @@ function updateHeaderUI(session) {
     const short = email.length > 22 ? email.slice(0, 20) + "…" : email;
     el.innerHTML = `
       <span style="font-size:0.8rem;color:var(--lp-color-text-muted);margin-right:0.75rem;">${short}</span>
+      <a href="${LP_APP_ORIGIN}/workspace" class="lp-btn lp-btn-secondary" style="padding:0.4rem 1rem;font-size:0.8rem;">My workspace</a>
       <button id="lp-sign-out-btn" class="lp-btn lp-btn-secondary" style="padding:0.4rem 1rem;font-size:0.8rem;">Sign out</button>
     `;
     document.getElementById("lp-sign-out-btn")?.addEventListener("click", async () => {
@@ -51,18 +39,9 @@ function updateHeaderUI(session) {
     });
   } else {
     el.innerHTML = `
-      <a href="/sign-in.html" class="lp-btn lp-btn-secondary" style="padding:0.4rem 1rem;font-size:0.8rem;">Sign in</a>
-      <a href="/sign-up.html" class="lp-btn lp-btn-primary" style="padding:0.4rem 1rem;font-size:0.8rem;">Sign up free</a>
+      <a href="${LP_APP_ORIGIN}/sign-in" class="lp-btn lp-btn-secondary" style="padding:0.4rem 1rem;font-size:0.8rem;">Sign in</a>
+      <a href="${LP_APP_ORIGIN}/sign-up" class="lp-btn lp-btn-primary" style="padding:0.4rem 1rem;font-size:0.8rem;">Sign up free</a>
     `;
-  }
-}
-
-// ─── Handle messages from the VPO iframe ──────────────────────────────────────
-async function handleIframeMessage(event) {
-  if (event.origin !== LP_VPO_ORIGIN) return;
-  if (event.data?.type === "lp:request-session") {
-    const { data: { session } } = await getLPClient().auth.getSession();
-    broadcastSession(session);
   }
 }
 
@@ -70,17 +49,11 @@ async function handleIframeMessage(event) {
 async function initPortalAuth() {
   const sb = getLPClient();
 
-  // Reflect current session in UI
   const { data: { session } } = await sb.auth.getSession();
   updateHeaderUI(session);
 
-  // Listen for iframe session requests
-  window.addEventListener("message", handleIframeMessage);
-
-  // React to auth changes (sign-in / sign-out from any tab)
-  sb.onAuthStateChange((event, session) => {
+  sb.onAuthStateChange((_event, session) => {
     updateHeaderUI(session);
-    broadcastSession(session);
   });
 }
 
