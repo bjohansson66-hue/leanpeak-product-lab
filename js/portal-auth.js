@@ -31,7 +31,7 @@ function updateHeaderUI(session) {
     const short = email.length > 22 ? email.slice(0, 20) + "…" : email;
     el.innerHTML = `
       <span style="font-size:0.8rem;color:var(--lp-color-text-muted);margin-right:0.75rem;">${short}</span>
-      <a href="${LP_APP_ORIGIN}/workspace" class="lp-btn lp-btn-secondary" style="padding:0.4rem 1rem;font-size:0.8rem;">My workspace</a>
+      <a href="${LP_APP_ORIGIN}/vpo/dashboard" class="lp-btn lp-btn-secondary" style="padding:0.4rem 1rem;font-size:0.8rem;">My workspace</a>
       <button id="lp-sign-out-btn" class="lp-btn lp-btn-secondary" style="padding:0.4rem 1rem;font-size:0.8rem;">Sign out</button>
     `;
     document.getElementById("lp-sign-out-btn")?.addEventListener("click", async () => {
