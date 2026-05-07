@@ -188,6 +188,37 @@
       margin: 0;
     }
 
+    /* ── Section images ── */
+    .pb-section-img {
+      margin: 1.75rem 0;
+      border-radius: var(--lp-radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--lp-color-border-subtle);
+      background: var(--lp-color-surface);
+    }
+
+    .pb-section-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .pb-chapter-img {
+      margin: 0 0 2.5rem;
+      border-radius: var(--lp-radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--lp-color-border-subtle);
+    }
+
+    .pb-chapter-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 340px;
+      object-fit: cover;
+      object-position: center top;
+    }
+
     /* ── Principles ── */
     .pb-principles {
       display: flex;
@@ -427,12 +458,27 @@
 </head>
 <body>
 
-  <header class="lp-header">
-    <div class="lp-header-inner">
-      <a href="/" style="display:inline-flex;align-items:center;">
-        <img src="../../LPPL Logo.png" alt="LeanPeak Product Lab" class="lp-logo-image" style="max-height:48px;">
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)">
+            <rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect>
+            <rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect>
+            <rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect>
+          </g>
+          <g transform="translate(150 46)">
+            <text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text>
+            <text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text>
+            <text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text>
+          </g>
+        </svg>
       </a>
-      <div class="lp-header-spacer"></div>
+
+      <div style="flex:1;"></div>
       <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
         <a href="/playbook/foundations/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
       </nav>
@@ -449,6 +495,10 @@
         The mental models and principles that underpin every play in this playbook.
         Start here to build the shared language your team needs before moving on.
       </p>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="img/foundations.png" alt="Foundations of Lean PPD overview">
     </div>
 
     <div class="pb-layout">
@@ -479,6 +529,10 @@
         <section class="pb-section" id="what-is-lppd">
           <p class="pb-section-eyebrow">Section 2.1</p>
           <h2 class="pb-section-title">What is Lean PPD?</h2>
+          <div class="pb-section-img">
+            <img src="img/why-lppd-exists.png" alt="Why LPPD exists">
+          </div>
+
           <div class="pb-prose">
             <p>
               Lean Product &amp; Process Development (LPPD) is a systems approach for creating new products,
@@ -515,6 +569,10 @@
             <p>Six principles form the foundation of how effective LPPD organizations think about value, people,
               decisions, and flow. They come from lean thinking, tuned for the unique challenges of development work
               — where uncertainty is high, knowledge is the currency, and people drive innovation.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/principles.png" alt="The six guiding principles of Lean PPD">
           </div>
 
           <div class="pb-principles">
@@ -593,6 +651,10 @@
               <div class="pb-prose">
                 <p>Before designing architectures, parts, and processes, teams need clarity on <em>who</em> they are serving and <em>what problem</em> they are really solving. The pyramid anchors development in real customer value instead of an internal wish list. LPPD adds one layer beyond typical product thinking: you also design the value stream that delivers and supports the product.</p>
               </div>
+              <div class="pb-section-img">
+                <img src="img/product-market-pyramid.png" alt="Product–Market Fit Pyramid diagram">
+              </div>
+
               <!-- Pyramid visual: rendered top → bottom (UX at top, Target Customer at foundation) -->
               <div class="pb-pyramid" role="img" aria-label="Product–Market Fit Pyramid: 5 layers from UX at top to Target Customer at the base">
                 <div class="pb-pyramid-layer">
@@ -630,6 +692,10 @@
               <div class="pb-prose">
                 <p>Traditional projects pick one concept early and keep "fixing" it as problems appear. Set-based development keeps multiple options open longer, learns about them quickly, and removes options only when they are proven inferior or infeasible. Decisions move from <em>"we believe"</em> to <em>"we know."</em></p>
               </div>
+              <div class="pb-section-img">
+                <img src="img/set-based-design.png" alt="Set-Based Concurrent Engineering diagram">
+              </div>
+
               <div class="pb-compare">
                 <div class="pb-compare-card pb-compare-old">
                   <p class="pb-compare-label">Point-based (Traditional)</p>
@@ -658,6 +724,9 @@
             <div class="pb-model" id="a3-thinking">
               <h3 class="pb-model-title">A3 Thinking</h3>
               <p class="pb-model-purpose">Create a shared, visual way of framing problems, decisions, and learning.</p>
+              <div class="pb-section-img">
+                <img src="img/a3-thinking.png" alt="A3 Thinking template overview">
+              </div>
               <div class="pb-prose">
                 <p>A3 thinking turns complex problems and decisions into a single structured page: current situation, root cause analysis, options, experiments, and follow-up. The goal is better <em>conversations</em> and better <em>decisions</em> — not better documents. Every completed A3 becomes a reusable knowledge artifact for future projects, surfacing assumptions and knowledge gaps that can be tested rather than debated.</p>
               </div>
@@ -667,6 +736,9 @@
             <div class="pb-model" id="obeya">
               <h3 class="pb-model-title">Obeya — Big Room</h3>
               <p class="pb-model-purpose">Provide a shared visual space to coordinate complex development work and decisions.</p>
+              <div class="pb-section-img">
+                <img src="img/obeya.png" alt="Obeya big room layout">
+              </div>
               <div class="pb-prose">
                 <p>Obeya (Japanese for "big room") is a physical or digital space where the most important information about a development effort is visible and current — north star and customer needs, plan and flow, design risks, and learning in progress. Instead of each function optimizing in its own tools, the team sees the whole picture and makes better, faster decisions together. It reduces email traffic and creates a regular cadence for cross-functional alignment.</p>
               </div>
@@ -676,6 +748,9 @@
             <div class="pb-model" id="dev-value-stream">
               <h3 class="pb-model-title">Development Value Stream</h3>
               <p class="pb-model-purpose">See LPPD as a continuous flow from idea to sustained lifecycle — not isolated projects and departments.</p>
+              <div class="pb-section-img">
+                <img src="img/development-value-stream.png" alt="Development Value Stream map">
+              </div>
               <div class="pb-prose">
                 <p>The development value stream is the end-to-end flow of work and knowledge from first insight through to a stable, supported product in the field. Mapping it reveals delays, rework, hand-offs, and bottlenecks that slow learning and value creation. It links individual projects to the bigger system — from portfolio to launch — and gives a home for applying lean concepts like pull, WIP limits, and cadence inside development work.</p>
               </div>
