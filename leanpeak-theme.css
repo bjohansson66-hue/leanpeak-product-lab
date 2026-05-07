@@ -545,5 +545,23 @@ img {
     width: 100%;
   }
 }
+.lp-hero-header {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
 
+.lp-logo-image {
+  display: block;
+  height: 64px;
+  width: auto;
+  max-width: min(100%, 360px);
+}
+
+@media (max-width: 640px) {
+  .lp-logo-image {
+    height: 48px;
+    max-width: 250px;
+  }
+}
 
