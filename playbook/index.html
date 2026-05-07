@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lean PPD Playbook — LeanPeak Product Lab</title>
+  <link rel="stylesheet" href="../leanpeak-theme.css">
+  <style>
+    .pb-page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+    }
+
+    .pb-header {
+      padding: 3.5rem 0 2.5rem;
+      border-bottom: 1px solid var(--lp-color-border-subtle);
+      margin-bottom: 3rem;
+    }
+
+    .pb-eyebrow {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      margin: 0 0 0.75rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-3xl);
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--lp-color-text-main);
+      margin: 0 0 1rem;
+    }
+
+    .pb-lead {
+      font-size: var(--lp-font-size-lg);
+      color: var(--lp-color-text-muted);
+      line-height: 1.7;
+      max-width: 60ch;
+      margin: 0;
+    }
+
+    /* ── Chapter list ── */
+    .pb-toc {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .pb-toc-item {
+      display: grid;
+      grid-template-columns: 3.5rem minmax(0, 1fr) auto;
+      gap: 1.25rem;
+      align-items: center;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--lp-color-border-subtle);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s;
+      border-radius: var(--lp-radius-md);
+      margin: 0 -0.75rem;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+
+    .pb-toc-item:hover {
+      background: var(--lp-color-surface);
+    }
+
+    .pb-toc-item:hover .pb-toc-arrow {
+      transform: translateX(3px);
+      color: var(--lp-color-primary);
+    }
+
+    .pb-toc-num {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-2xl);
+      font-weight: 400;
+      color: var(--lp-color-border-strong);
+      line-height: 1;
+      user-select: none;
+    }
+
+    .pb-toc-body {}
+
+    .pb-toc-chapter {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      font-family: var(--lp-font-sans);
+      margin: 0 0 0.25rem;
+    }
+
+    .pb-toc-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-xl);
+      font-weight: 400;
+      color: var(--lp-color-text-main);
+      margin: 0 0 0.35rem;
+      line-height: 1.2;
+    }
+
+    .pb-toc-desc {
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .pb-toc-arrow {
+      font-size: 1.25rem;
+      color: var(--lp-color-text-soft);
+      transition: transform 0.15s, color 0.15s;
+      flex-shrink: 0;
+    }
+
+    /* ── Coming soon ── */
+    .pb-toc-item.pb-coming-soon {
+      opacity: 0.45;
+      pointer-events: none;
+      cursor: default;
+    }
+
+    .pb-toc-badge {
+      font-size: var(--lp-font-size-xs);
+      font-family: var(--lp-font-sans);
+      color: var(--lp-color-text-soft);
+      border: 1px solid var(--lp-color-border-subtle);
+      border-radius: var(--lp-radius-pill);
+      padding: 0.15rem 0.6rem;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 640px) {
+      .pb-title { font-size: 2rem; }
+      .pb-toc-item { grid-template-columns: 2.5rem minmax(0, 1fr); }
+      .pb-toc-arrow { display: none; }
+      .pb-toc-num { font-size: var(--lp-font-size-xl); }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)">
+            <rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect>
+            <rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect>
+            <rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect>
+          </g>
+          <g transform="translate(150 46)">
+            <text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text>
+            <text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text>
+            <text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text>
+          </g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-header">
+      <p class="pb-eyebrow">LeanPeak Product Lab</p>
+      <h1 class="pb-title">Lean PPD Playbook</h1>
+      <p class="pb-lead">
+        A practical guide to Lean Product &amp; Process Development — shared language,
+        core mental models, and plays you can use with your team today.
+      </p>
+    </div>
+
+    <nav class="pb-toc" aria-label="Playbook chapters">
+
+      <a class="pb-toc-item" href="/playbook/introduction/">
+        <span class="pb-toc-num">1</span>
+        <div class="pb-toc-body">
+          <p class="pb-toc-chapter">Chapter 1</p>
+          <p class="pb-toc-title">Why This Playbook Exists</p>
+          <p class="pb-toc-desc">Who it's for, how to use it, and the working agreements that make it stick. A short read — start here.</p>
+        </div>
+        <span class="pb-toc-arrow">&rarr;</span>
+      </a>
+
+      <a class="pb-toc-item" href="/playbook/foundations/">
+        <span class="pb-toc-num">2</span>
+        <div class="pb-toc-body">
+          <p class="pb-toc-chapter">Chapter 2</p>
+          <p class="pb-toc-title">Foundations</p>
+          <p class="pb-toc-desc">The six guiding principles and core mental models — Product–Market Pyramid, Set-Based Design, A3 Thinking, Obeya, and more.</p>
+        </div>
+        <span class="pb-toc-arrow">&rarr;</span>
+      </a>
+
+      <a class="pb-toc-item" href="/playbook/strategy/">
+        <span class="pb-toc-num">3</span>
+        <div class="pb-toc-body">
+          <p class="pb-toc-chapter">Chapter 3</p>
+          <p class="pb-toc-title">Strategy and Value Creation</p>
+          <p class="pb-toc-desc">True North, value streams, portfolio bets, strategy gemba, deployment, and the measures that tell you if it's working.</p>
+        </div>
+        <span class="pb-toc-arrow">&rarr;</span>
+      </a>
+
+      <div class="pb-toc-item pb-coming-soon">
+        <span class="pb-toc-num">4</span>
+        <div class="pb-toc-body">
+          <p class="pb-toc-chapter">Chapter 4</p>
+          <p class="pb-toc-title">Discover</p>
+          <p class="pb-toc-desc">Deep customer understanding, gemba visits, and translating insights into validated problem frames.</p>
+        </div>
+        <span class="pb-toc-badge">Coming soon</span>
+      </div>
+
+      <div class="pb-toc-item pb-coming-soon">
+        <span class="pb-toc-num">5</span>
+        <div class="pb-toc-body">
+          <p class="pb-toc-chapter">Chapter 5</p>
+          <p class="pb-toc-title">Design</p>
+          <p class="pb-toc-desc">Set-based concurrent engineering in practice — exploring, narrowing, and converging on robust solutions.</p>
+        </div>
+        <span class="pb-toc-badge">Coming soon</span>
+      </div>
+
+      <div class="pb-toc-item pb-coming-soon">
+        <span class="pb-toc-num">6</span>
+        <div class="pb-toc-body">
+          <p class="pb-toc-chapter">Chapter 6</p>
+          <p class="pb-toc-title">Flow</p>
+          <p class="pb-toc-desc">Designing the development value stream for speed, quality, and continuous learning.</p>
+        </div>
+        <span class="pb-toc-badge">Coming soon</span>
+      </div>
+
+      <div class="pb-toc-item pb-coming-soon">
+        <span class="pb-toc-num">7</span>
+        <div class="pb-toc-body">
+          <p class="pb-toc-chapter">Chapter 7</p>
+          <p class="pb-toc-title">Validate</p>
+          <p class="pb-toc-desc">Experiments, prototypes, and the evidence-based decision gates that keep development on track.</p>
+        </div>
+        <span class="pb-toc-badge">Coming soon</span>
+      </div>
+
+    </nav>
+
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/portal-auth.js"></script>
+
+  <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
+  <script defer>
+    (function () {
+      function init() { CustomGPT.init({ p_id: '89818', p_key: '263a30f8ca292918be27e31bd50d1074' }); }
+      document.readyState === 'complete' ? init() : window.addEventListener('load', init);
+    })();
+  </script>
+
+</body>
+</html>
