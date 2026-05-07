@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Foundations of Lean PPD — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    /* ── Page shell ── */
+    .pb-page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+    }
+
+    .pb-chapter-header {
+      padding: 3rem 0 2.5rem;
+      border-bottom: 1px solid var(--lp-color-border-subtle);
+      margin-bottom: 2.5rem;
+    }
+
+    .pb-chapter-eyebrow {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      margin: 0 0 0.75rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-chapter-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-3xl);
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--lp-color-text-main);
+      margin: 0 0 1rem;
+    }
+
+    .pb-chapter-lead {
+      font-size: var(--lp-font-size-lg);
+      color: var(--lp-color-text-muted);
+      line-height: 1.7;
+      max-width: 66ch;
+      margin: 0;
+    }
+
+    /* ── Two-column layout ── */
+    .pb-layout {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    /* ── Sidebar ── */
+    .pb-sidebar {
+      position: sticky;
+      top: 2rem;
+    }
+
+    .pb-sidebar-label {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      margin: 0 0 0.75rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-nav {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .pb-nav > li > a {
+      display: block;
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      text-decoration: none;
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--lp-radius-sm);
+      border-left: 2px solid transparent;
+      line-height: 1.4;
+      transition: color 0.15s, background 0.15s, border-color 0.15s;
+    }
+
+    .pb-nav > li > a:hover,
+    .pb-nav > li > a.active {
+      color: var(--lp-color-primary);
+      background: var(--lp-color-primary-soft);
+    }
+
+    .pb-nav > li > a.active {
+      border-left-color: var(--lp-color-primary);
+    }
+
+    .pb-nav-sub {
+      list-style: none;
+      margin: 0.1rem 0 0.25rem;
+      padding: 0 0 0 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .pb-nav-sub a {
+      display: block;
+      font-size: var(--lp-font-size-xs);
+      color: var(--lp-color-text-soft);
+      text-decoration: none;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--lp-radius-sm);
+      border-left: 2px solid transparent;
+      line-height: 1.4;
+      transition: color 0.15s, background 0.15s, border-color 0.15s;
+    }
+
+    .pb-nav-sub a:hover,
+    .pb-nav-sub a.active {
+      color: var(--lp-color-primary);
+      background: var(--lp-color-primary-soft);
+    }
+
+    .pb-nav-sub a.active {
+      border-left-color: var(--lp-color-primary);
+    }
+
+    /* ── Content sections ── */
+    .pb-section {
+      scroll-margin-top: 5rem;
+      margin-bottom: 4rem;
+    }
+
+    .pb-section + .pb-section {
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--lp-color-border-subtle);
+    }
+
+    .pb-section-eyebrow {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      margin: 0 0 0.5rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-section-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-2xl);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--lp-color-text-main);
+      margin: 0 0 1.25rem;
+      line-height: 1.15;
+    }
+
+    .pb-prose {
+      font-size: var(--lp-font-size-md);
+      color: var(--lp-color-text-muted);
+      line-height: 1.75;
+      max-width: 68ch;
+    }
+
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+
+    /* ── Pull quote ── */
+    .pb-pullquote {
+      margin: 2rem 0;
+      padding: 1.25rem 1.5rem;
+      border-left: 3px solid var(--lp-color-primary);
+      background: var(--lp-color-surface);
+      border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0;
+    }
+
+    .pb-pullquote p {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-lg);
+      line-height: 1.5;
+      color: var(--lp-color-text-main);
+      margin: 0;
+    }
+
+    /* ── Principles ── */
+    .pb-principles {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .pb-principle {
+      display: grid;
+      grid-template-columns: 2.5rem minmax(0, 1fr);
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .pb-principle-num {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: var(--lp-radius-md);
+      background: var(--lp-color-primary-soft);
+      color: var(--lp-color-primary);
+      font-size: var(--lp-font-size-sm);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-principle-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-lg);
+      color: var(--lp-color-text-main);
+      margin: 0 0 0.2rem;
+      line-height: 1.3;
+    }
+
+    .pb-principle-subtitle {
+      font-size: var(--lp-font-size-sm);
+      font-style: italic;
+      color: var(--lp-color-primary);
+      margin: 0 0 0.5rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-principle-body {
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      line-height: 1.65;
+      margin: 0;
+      max-width: 60ch;
+    }
+
+    /* ── Mental models ── */
+    .pb-models {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      margin-top: 1.5rem;
+    }
+
+    .pb-model {
+      scroll-margin-top: 5rem;
+    }
+
+    .pb-model-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-xl);
+      font-weight: 400;
+      color: var(--lp-color-text-main);
+      margin: 0 0 0.35rem;
+    }
+
+    .pb-model-purpose {
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-soft);
+      font-style: italic;
+      margin: 0 0 1rem;
+    }
+
+    /* ── Pyramid visual ── */
+    .pb-pyramid {
+      margin: 1.5rem 0;
+      padding: 1rem 1.25rem;
+      background: var(--lp-color-surface);
+      border: 1px solid var(--lp-color-border-subtle);
+      border-radius: var(--lp-radius-lg);
+    }
+
+    .pb-pyramid-layer {
+      display: grid;
+      grid-template-columns: 1.5rem 10rem minmax(0, 1fr);
+      gap: 0.75rem;
+      align-items: center;
+      padding: 0.65rem 0.75rem;
+      border-radius: var(--lp-radius-sm);
+      margin-bottom: 0.2rem;
+    }
+
+    .pb-pyramid-layer:last-child { margin-bottom: 0; }
+
+    /* Top = UX (apex), bottom = Target Customer (foundation) */
+    .pb-pyramid-layer:nth-child(1) { background: rgba(47, 107, 103, 0.16); }
+    .pb-pyramid-layer:nth-child(2) { background: rgba(47, 107, 103, 0.12); }
+    .pb-pyramid-layer:nth-child(3) { background: rgba(47, 107, 103, 0.08); }
+    .pb-pyramid-layer:nth-child(4) { background: rgba(47, 107, 103, 0.04); }
+    .pb-pyramid-layer:nth-child(5) { background: rgba(47, 107, 103, 0.02); }
+
+    .pb-pyramid-num {
+      font-size: var(--lp-font-size-xs);
+      font-weight: 700;
+      color: var(--lp-color-primary);
+      font-family: var(--lp-font-sans);
+      text-align: center;
+    }
+
+    .pb-pyramid-label {
+      font-size: var(--lp-font-size-sm);
+      font-weight: 600;
+      color: var(--lp-color-text-main);
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-pyramid-desc {
+      font-size: var(--lp-font-size-xs);
+      color: var(--lp-color-text-muted);
+      line-height: 1.5;
+    }
+
+    /* ── SBCE comparison ── */
+    .pb-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .pb-compare-card {
+      padding: 1rem 1.25rem;
+      border-radius: var(--lp-radius-md);
+      border: 1px solid var(--lp-color-border-subtle);
+    }
+
+    .pb-compare-card.pb-compare-old {
+      background: var(--lp-color-surface-alt);
+    }
+
+    .pb-compare-card.pb-compare-new {
+      background: var(--lp-color-primary-soft);
+      border-color: rgba(47, 107, 103, 0.3);
+    }
+
+    .pb-compare-label {
+      font-size: var(--lp-font-size-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--lp-color-text-soft);
+      margin: 0 0 0.6rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-compare-card.pb-compare-new .pb-compare-label {
+      color: var(--lp-color-primary);
+    }
+
+    .pb-compare-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .pb-compare-list li {
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      line-height: 1.4;
+      padding-left: 1.1rem;
+      position: relative;
+    }
+
+    .pb-compare-list li::before {
+      content: "–";
+      position: absolute;
+      left: 0;
+      color: var(--lp-color-text-soft);
+    }
+
+    .pb-compare-card.pb-compare-new .pb-compare-list li::before {
+      content: "→";
+      color: var(--lp-color-primary);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .pb-layout {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .pb-sidebar {
+        position: static;
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid var(--lp-color-border-subtle);
+      }
+
+      .pb-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+      }
+
+      .pb-nav > li > a {
+        border-left: none;
+        border-bottom: 2px solid transparent;
+        padding: 0.3rem 0.6rem;
+      }
+
+      .pb-nav > li > a.active {
+        border-left-color: transparent;
+        border-bottom-color: var(--lp-color-primary);
+      }
+
+      .pb-nav-sub { display: none; }
+
+      .pb-compare { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .pb-chapter-title { font-size: 2rem; }
+      .pb-pyramid-layer { grid-template-columns: 1.25rem 8rem minmax(0, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="lp-header">
+    <div class="lp-header-inner">
+      <a href="/" style="display:inline-flex;align-items:center;">
+        <img src="../../LPPL Logo.png" alt="LeanPeak Product Lab" class="lp-logo-image" style="max-height:48px;">
+      </a>
+      <div class="lp-header-spacer"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/foundations/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Lean PPD Playbook &mdash; Chapter 2</p>
+      <h1 class="pb-chapter-title">Foundations</h1>
+      <p class="pb-chapter-lead">
+        The mental models and principles that underpin every play in this playbook.
+        Start here to build the shared language your team needs before moving on.
+      </p>
+    </div>
+
+    <div class="pb-layout">
+
+      <!-- ── Sidebar nav ── -->
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#what-is-lppd">What is Lean PPD?</a></li>
+          <li><a href="#principles">Guiding Principles</a></li>
+          <li>
+            <a href="#mental-models">Core Mental Models</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#pmf-pyramid">Product–Market Pyramid</a></li>
+              <li><a href="#set-based">Set-Based Design</a></li>
+              <li><a href="#a3-thinking">A3 Thinking</a></li>
+              <li><a href="#obeya">Obeya</a></li>
+              <li><a href="#dev-value-stream">Development Value Stream</a></li>
+            </ul>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- ── Main content ── -->
+      <main>
+
+        <!-- What is Lean PPD? -->
+        <section class="pb-section" id="what-is-lppd">
+          <p class="pb-section-eyebrow">Section 2.1</p>
+          <h2 class="pb-section-title">What is Lean PPD?</h2>
+          <div class="pb-prose">
+            <p>
+              Lean Product &amp; Process Development (LPPD) is a systems approach for creating new products,
+              services, and the processes that deliver them — with the aim of maximizing customer value while
+              minimizing waste. It combines lean principles, collaborative ways of working, and fast learning
+              cycles to improve <em>what</em> you develop and <em>how</em> you develop it.
+            </p>
+            <p>
+              Traditional phase-gate development locks in decisions early, pushes work through silos, and
+              discovers major problems late. LPPD flips this: invest time up front, explore options before
+              committing, and treat development as a learning and problem-solving process — not a linear checklist.
+            </p>
+          </div>
+
+          <blockquote class="pb-pullquote">
+            <p>"You never design the product alone. You design the product <em>and</em> the value stream that delivers it — as one integrated system."</p>
+          </blockquote>
+
+          <div class="pb-prose">
+            <p>
+              In manufacturing, lean focuses on flow, waste elimination, and respect for people on the shop floor.
+              LPPD applies the same spirit to high-uncertainty work: deep customer understanding, rapid experiments,
+              and concurrent exploration before commitment. Knowledge is a first-class output — captured and reused
+              so each new project starts stronger than the last.
+            </p>
+          </div>
+        </section>
+
+        <!-- Guiding Principles -->
+        <section class="pb-section" id="principles">
+          <p class="pb-section-eyebrow">Section 2.2</p>
+          <h2 class="pb-section-title">Guiding Principles</h2>
+          <div class="pb-prose">
+            <p>Six principles form the foundation of how effective LPPD organizations think about value, people,
+              decisions, and flow. They come from lean thinking, tuned for the unique challenges of development work
+              — where uncertainty is high, knowledge is the currency, and people drive innovation.</p>
+          </div>
+
+          <div class="pb-principles">
+
+            <div class="pb-principle">
+              <div class="pb-principle-num">1</div>
+              <div>
+                <p class="pb-principle-title">Put People First</p>
+                <p class="pb-principle-subtitle">Develop the developers so they can develop great products.</p>
+                <p class="pb-principle-body">People — not processes or tools — create value. Design your system so engineers, designers, and cross-functional teams can do their best work: give them the knowledge, authority, and environment to solve problems and make decisions.</p>
+              </div>
+            </div>
+
+            <div class="pb-principle">
+              <div class="pb-principle-num">2</div>
+              <div>
+                <p class="pb-principle-title">Understand Before Executing</p>
+                <p class="pb-principle-subtitle">Front-load knowledge, back-load decisions.</p>
+                <p class="pb-principle-body">Invest time up front to deeply understand customers, context, constraints, and trade-offs. Use rapid experiments and set-based exploration to build knowledge cheaply before locking in costly decisions.</p>
+              </div>
+            </div>
+
+            <div class="pb-principle">
+              <div class="pb-principle-num">3</div>
+              <div>
+                <p class="pb-principle-title">Develop as a Team Sport</p>
+                <p class="pb-principle-subtitle">Cross-functional collaboration beats sequential hand-offs.</p>
+                <p class="pb-principle-body">Development isn't a relay race. Bring customer insight, design, engineering, manufacturing, and service together from concept to launch — and keep them synchronized through visual management and rhythmic communication.</p>
+              </div>
+            </div>
+
+            <div class="pb-principle">
+              <div class="pb-principle-num">4</div>
+              <div>
+                <p class="pb-principle-title">Synchronize Workflows</p>
+                <p class="pb-principle-subtitle">Establish cadence and "good enough" interfaces so work can flow.</p>
+                <p class="pb-principle-body">Instead of waiting for perfect information, define stable points where teams can exchange knowledge and work concurrently. Cadenced cycles create predictable rhythm and reduce waiting — enabling flow even in high-uncertainty environments.</p>
+              </div>
+            </div>
+
+            <div class="pb-principle">
+              <div class="pb-principle-num">5</div>
+              <div>
+                <p class="pb-principle-title">Build in Learning and Knowledge Reuse</p>
+                <p class="pb-principle-subtitle">Make learning visible, capture it, and use it again.</p>
+                <p class="pb-principle-body">Every project generates valuable knowledge about customers, technologies, and trade-offs — but in traditional systems this stays tacit and is lost. Make learning explicit through A3s, trade-off curves, and design standards. Reusing knowledge is a core competitive advantage.</p>
+              </div>
+            </div>
+
+            <div class="pb-principle">
+              <div class="pb-principle-num">6</div>
+              <div>
+                <p class="pb-principle-title">Design the Value Stream</p>
+                <p class="pb-principle-subtitle">Optimize the whole, not the parts.</p>
+                <p class="pb-principle-body">Make decisions that improve flow, quality, and speed across the entire value stream — from customer insight through manufacturing ramp-up and service — not just what's best for one department. This prevents local optimization that creates bottlenecks downstream.</p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Core Mental Models -->
+        <section class="pb-section" id="mental-models">
+          <p class="pb-section-eyebrow">Section 2.3</p>
+          <h2 class="pb-section-title">Core Mental Models</h2>
+          <div class="pb-prose">
+            <p>These mental models make LPPD concrete in everyday work. Each play in the playbook connects back to one or more of them. You don't need to master every concept before moving on — return here when you need to unlock a current problem.</p>
+          </div>
+
+          <div class="pb-models">
+
+            <!-- Product–Market Fit Pyramid -->
+            <div class="pb-model" id="pmf-pyramid">
+              <h3 class="pb-model-title">Product–Market Fit Pyramid</h3>
+              <p class="pb-model-purpose">Connect LPPD to value creation by making customer, problem, and solution explicit.</p>
+              <div class="pb-prose">
+                <p>Before designing architectures, parts, and processes, teams need clarity on <em>who</em> they are serving and <em>what problem</em> they are really solving. The pyramid anchors development in real customer value instead of an internal wish list. LPPD adds one layer beyond typical product thinking: you also design the value stream that delivers and supports the product.</p>
+              </div>
+              <!-- Pyramid visual: rendered top → bottom (UX at top, Target Customer at foundation) -->
+              <div class="pb-pyramid" role="img" aria-label="Product–Market Fit Pyramid: 5 layers from UX at top to Target Customer at the base">
+                <div class="pb-pyramid-layer">
+                  <span class="pb-pyramid-num">5</span>
+                  <span class="pb-pyramid-label">UX / Experience</span>
+                  <span class="pb-pyramid-desc">How customers interact across the journey — usability, reliability, serviceability, and emotional cues.</span>
+                </div>
+                <div class="pb-pyramid-layer">
+                  <span class="pb-pyramid-num">4</span>
+                  <span class="pb-pyramid-label">Feature Set</span>
+                  <span class="pb-pyramid-desc">Minimum coherent capabilities needed to deliver the value proposition — prioritized by impact on needs, not stakeholder power.</span>
+                </div>
+                <div class="pb-pyramid-layer">
+                  <span class="pb-pyramid-num">3</span>
+                  <span class="pb-pyramid-label">Value Proposition</span>
+                  <span class="pb-pyramid-desc">How the product solves those needs in a meaningfully better way. Clear "why us" compared to alternatives.</span>
+                </div>
+                <div class="pb-pyramid-layer">
+                  <span class="pb-pyramid-num">2</span>
+                  <span class="pb-pyramid-label">Underserved Needs</span>
+                  <span class="pb-pyramid-desc">Specific problems, goals, or constraints that matter to this customer — from gemba, interviews, and usage data, not internal assumptions.</span>
+                </div>
+                <div class="pb-pyramid-layer">
+                  <span class="pb-pyramid-num">1</span>
+                  <span class="pb-pyramid-label">Target Customer</span>
+                  <span class="pb-pyramid-desc">A clearly defined group — not "everyone." Personas, Jobs-to-be-Done, and the key context they live in.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Set-Based Design -->
+            <div class="pb-model" id="set-based">
+              <h3 class="pb-model-title">Set-Based Concurrent Engineering</h3>
+              <p class="pb-model-purpose">Reduce late changes and rework by exploring options in parallel and narrowing based on knowledge, not opinion.</p>
+              <div class="pb-prose">
+                <p>Traditional projects pick one concept early and keep "fixing" it as problems appear. Set-based development keeps multiple options open longer, learns about them quickly, and removes options only when they are proven inferior or infeasible. Decisions move from <em>"we believe"</em> to <em>"we know."</em></p>
+              </div>
+              <div class="pb-compare">
+                <div class="pb-compare-card pb-compare-old">
+                  <p class="pb-compare-label">Point-based (Traditional)</p>
+                  <ul class="pb-compare-list">
+                    <li>Pick one concept early</li>
+                    <li>Fix problems as they appear</li>
+                    <li>Late changes = expensive rework</li>
+                    <li>Decisions based on opinion</li>
+                    <li>One function at a time</li>
+                  </ul>
+                </div>
+                <div class="pb-compare-card pb-compare-new">
+                  <p class="pb-compare-label">Set-based (LPPD)</p>
+                  <ul class="pb-compare-list">
+                    <li>Start with multiple options in parallel</li>
+                    <li>Narrow by learning, not consensus</li>
+                    <li>Front-load experiments, back-load commitment</li>
+                    <li>Decisions based on evidence</li>
+                    <li>Cross-functional collaboration from day one</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- A3 Thinking -->
+            <div class="pb-model" id="a3-thinking">
+              <h3 class="pb-model-title">A3 Thinking</h3>
+              <p class="pb-model-purpose">Create a shared, visual way of framing problems, decisions, and learning.</p>
+              <div class="pb-prose">
+                <p>A3 thinking turns complex problems and decisions into a single structured page: current situation, root cause analysis, options, experiments, and follow-up. The goal is better <em>conversations</em> and better <em>decisions</em> — not better documents. Every completed A3 becomes a reusable knowledge artifact for future projects, surfacing assumptions and knowledge gaps that can be tested rather than debated.</p>
+              </div>
+            </div>
+
+            <!-- Obeya -->
+            <div class="pb-model" id="obeya">
+              <h3 class="pb-model-title">Obeya — Big Room</h3>
+              <p class="pb-model-purpose">Provide a shared visual space to coordinate complex development work and decisions.</p>
+              <div class="pb-prose">
+                <p>Obeya (Japanese for "big room") is a physical or digital space where the most important information about a development effort is visible and current — north star and customer needs, plan and flow, design risks, and learning in progress. Instead of each function optimizing in its own tools, the team sees the whole picture and makes better, faster decisions together. It reduces email traffic and creates a regular cadence for cross-functional alignment.</p>
+              </div>
+            </div>
+
+            <!-- Development Value Stream -->
+            <div class="pb-model" id="dev-value-stream">
+              <h3 class="pb-model-title">Development Value Stream</h3>
+              <p class="pb-model-purpose">See LPPD as a continuous flow from idea to sustained lifecycle — not isolated projects and departments.</p>
+              <div class="pb-prose">
+                <p>The development value stream is the end-to-end flow of work and knowledge from first insight through to a stable, supported product in the field. Mapping it reveals delays, rework, hand-offs, and bottlenecks that slow learning and value creation. It links individual projects to the bigger system — from portfolio to launch — and gives a home for applying lean concepts like pull, WIP limits, and cadence inside development work.</p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+
+  <!-- Sidebar scroll tracking -->
+  <script>
+    (function () {
+      const allLinks = document.querySelectorAll('.pb-nav a, .pb-nav-sub a');
+      const sections = Array.from(allLinks)
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const id = '#' + entry.target.id;
+              allLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+            }
+          });
+        },
+        { rootMargin: '-15% 0px -75% 0px', threshold: 0 }
+      );
+
+      sections.forEach(s => observer.observe(s));
+    })();
+  </script>
+
+  <!-- Virtual Bengt – CustomGPT widget -->
+  <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
+  <script defer>
+    (function () {
+      function init() {
+        CustomGPT.init({ p_id: '89818', p_key: '263a30f8ca292918be27e31bd50d1074' });
+      }
+      document.readyState === 'complete' ? init() : window.addEventListener('load', init);
+    })();
+  </script>
+
+</body>
+</html>
