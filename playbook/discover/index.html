@@ -1,0 +1,1030 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Discover – Customer, Context, and System — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+    }
+
+    .pb-chapter-header {
+      padding: 3rem 0 2.5rem;
+      border-bottom: 1px solid var(--lp-color-border-subtle);
+      margin-bottom: 2.5rem;
+    }
+
+    .pb-chapter-eyebrow {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      margin: 0 0 0.75rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-chapter-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-3xl);
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--lp-color-text-main);
+      margin: 0 0 1rem;
+    }
+
+    .pb-chapter-lead {
+      font-size: var(--lp-font-size-lg);
+      color: var(--lp-color-text-muted);
+      line-height: 1.7;
+      max-width: 66ch;
+      margin: 0;
+    }
+
+    .pb-chapter-img {
+      margin: 0 0 2.5rem;
+      border-radius: var(--lp-radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--lp-color-border-subtle);
+    }
+
+    .pb-chapter-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 340px;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    /* ── Two-column layout ── */
+    .pb-layout {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    /* ── Sidebar ── */
+    .pb-sidebar {
+      position: sticky;
+      top: 2rem;
+      max-height: calc(100vh - 4rem);
+      overflow-y: auto;
+    }
+
+    .pb-sidebar-label {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      margin: 0 0 0.75rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-nav {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .pb-nav > li > a {
+      display: block;
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      text-decoration: none;
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--lp-radius-sm);
+      border-left: 2px solid transparent;
+      line-height: 1.4;
+      transition: color 0.15s, background 0.15s, border-color 0.15s;
+    }
+
+    .pb-nav > li > a:hover,
+    .pb-nav > li > a.active {
+      color: var(--lp-color-primary);
+      background: var(--lp-color-primary-soft);
+    }
+
+    .pb-nav > li > a.active { border-left-color: var(--lp-color-primary); }
+
+    .pb-nav-sub {
+      list-style: none;
+      margin: 0.1rem 0 0.25rem;
+      padding: 0 0 0 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .pb-nav-sub a {
+      display: block;
+      font-size: var(--lp-font-size-xs);
+      color: var(--lp-color-text-soft);
+      text-decoration: none;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--lp-radius-sm);
+      border-left: 2px solid transparent;
+      line-height: 1.4;
+      transition: color 0.15s, background 0.15s, border-color 0.15s;
+    }
+
+    .pb-nav-sub a:hover,
+    .pb-nav-sub a.active {
+      color: var(--lp-color-primary);
+      background: var(--lp-color-primary-soft);
+    }
+
+    .pb-nav-sub a.active { border-left-color: var(--lp-color-primary); }
+
+    .pb-chapter-nav {
+      margin-top: 2rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--lp-color-border-subtle);
+    }
+
+    .pb-chapter-nav-label {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      margin: 0 0 0.6rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-chapter-nav a {
+      display: block;
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      text-decoration: none;
+      padding: 0.3rem 0.75rem;
+      border-radius: var(--lp-radius-sm);
+      line-height: 1.4;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .pb-chapter-nav a:hover { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-chapter-nav a.current { font-weight: 600; color: var(--lp-color-text-main); }
+
+    /* ── Sections ── */
+    .pb-section {
+      scroll-margin-top: 5rem;
+      margin-bottom: 4rem;
+    }
+
+    .pb-section + .pb-section {
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--lp-color-border-subtle);
+    }
+
+    .pb-subsection { scroll-margin-top: 5rem; margin-top: 2.5rem; }
+
+    .pb-section-eyebrow {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      margin: 0 0 0.5rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-section-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-2xl);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--lp-color-text-main);
+      margin: 0 0 1.25rem;
+      line-height: 1.15;
+    }
+
+    .pb-subsection-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-xl);
+      font-weight: 400;
+      color: var(--lp-color-text-main);
+      margin: 0 0 0.75rem;
+      line-height: 1.2;
+    }
+
+    .pb-prose {
+      font-size: var(--lp-font-size-md);
+      color: var(--lp-color-text-muted);
+      line-height: 1.75;
+      max-width: 68ch;
+    }
+
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+
+    /* ── Images ── */
+    .pb-section-img {
+      margin: 1.75rem 0;
+      border-radius: var(--lp-radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--lp-color-border-subtle);
+      background: var(--lp-color-surface);
+    }
+
+    .pb-section-img img { width: 100%; height: auto; display: block; }
+
+    /* ── Pull quote ── */
+    .pb-pullquote {
+      margin: 2rem 0;
+      padding: 1.25rem 1.5rem;
+      border-left: 3px solid var(--lp-color-primary);
+      background: var(--lp-color-surface);
+      border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0;
+    }
+
+    .pb-pullquote p {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-lg);
+      line-height: 1.5;
+      color: var(--lp-color-text-main);
+      margin: 0;
+    }
+
+    /* ── Arrow list ── */
+    .pb-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-width: 68ch;
+    }
+
+    .pb-list li {
+      font-size: var(--lp-font-size-md);
+      color: var(--lp-color-text-muted);
+      line-height: 1.65;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .pb-list li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--lp-color-primary);
+      font-size: 0.85em;
+      top: 0.15em;
+    }
+
+    .pb-list li strong { color: var(--lp-color-text-main); }
+
+    /* ── Key shifts ── */
+    .pb-shifts {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin: 1.25rem 0;
+      max-width: 68ch;
+    }
+
+    .pb-shift {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 0.75rem;
+      align-items: center;
+      padding: 0.65rem 1rem;
+      background: var(--lp-color-surface);
+      border: 1px solid var(--lp-color-border-subtle);
+      border-radius: var(--lp-radius-md);
+      font-size: var(--lp-font-size-sm);
+    }
+
+    .pb-shift-from { color: var(--lp-color-text-muted); }
+    .pb-shift-arrow { color: var(--lp-color-primary); font-size: 1.1em; text-align: center; }
+    .pb-shift-to { color: var(--lp-color-text-main); font-weight: 500; }
+
+    /* ── 3-card grid ── */
+    .pb-card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .pb-info-card {
+      padding: 1rem 1.25rem;
+      background: var(--lp-color-surface);
+      border: 1px solid var(--lp-color-border-subtle);
+      border-radius: var(--lp-radius-md);
+    }
+
+    .pb-info-card-label {
+      font-size: var(--lp-font-size-xs);
+      font-weight: 700;
+      color: var(--lp-color-primary);
+      font-family: var(--lp-font-sans);
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pb-info-card-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-md);
+      color: var(--lp-color-text-main);
+      margin: 0 0 0.4rem;
+    }
+
+    .pb-info-card-body {
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── Canvas / structured box ── */
+    .pb-canvas {
+      margin: 1.5rem 0;
+      padding: 1.25rem 1.5rem;
+      background: var(--lp-color-surface);
+      border: 1px solid var(--lp-color-border-subtle);
+      border-radius: var(--lp-radius-lg);
+      max-width: 68ch;
+    }
+
+    .pb-canvas-label {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--lp-color-primary);
+      font-family: var(--lp-font-sans);
+      margin: 0 0 0.875rem;
+    }
+
+    .pb-canvas-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .pb-canvas-row {
+      display: grid;
+      grid-template-columns: 9rem minmax(0, 1fr);
+      gap: 0.75rem;
+      font-size: var(--lp-font-size-sm);
+      line-height: 1.55;
+    }
+
+    .pb-canvas-field {
+      font-weight: 600;
+      color: var(--lp-color-text-main);
+      padding-top: 0.05rem;
+    }
+
+    .pb-canvas-value { color: var(--lp-color-text-muted); }
+
+    /* ── Numbered steps ── */
+    .pb-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+      max-width: 68ch;
+    }
+
+    .pb-step {
+      display: grid;
+      grid-template-columns: 2rem minmax(0, 1fr);
+      gap: 0.875rem;
+      align-items: start;
+    }
+
+    .pb-step-num {
+      width: 2rem;
+      height: 2rem;
+      border-radius: var(--lp-radius-md);
+      background: var(--lp-color-primary-soft);
+      color: var(--lp-color-primary);
+      font-size: var(--lp-font-size-xs);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-step-body {
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      line-height: 1.65;
+      padding-top: 0.2rem;
+    }
+
+    .pb-step-body strong { color: var(--lp-color-text-main); }
+
+    /* ── Brochure anatomy ── */
+    .pb-anatomy {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      max-width: 68ch;
+    }
+
+    .pb-anatomy-item {
+      padding: 0.75rem 1rem;
+      background: var(--lp-color-surface);
+      border: 1px solid var(--lp-color-border-subtle);
+      border-left: 3px solid var(--lp-color-primary);
+      border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0;
+    }
+
+    .pb-anatomy-title {
+      font-size: var(--lp-font-size-sm);
+      font-weight: 600;
+      color: var(--lp-color-text-main);
+      margin: 0 0 0.2rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-anatomy-desc {
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* ── Artefact cards ── */
+    .pb-artefacts {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+      max-width: 68ch;
+    }
+
+    .pb-artefact {
+      display: grid;
+      grid-template-columns: 7rem minmax(0, 1fr);
+      gap: 1rem;
+      align-items: start;
+      padding: 0.875rem 1rem;
+      background: var(--lp-color-surface);
+      border: 1px solid var(--lp-color-border-subtle);
+      border-radius: var(--lp-radius-md);
+    }
+
+    .pb-artefact-name {
+      font-size: var(--lp-font-size-sm);
+      font-weight: 600;
+      color: var(--lp-color-primary);
+      font-family: var(--lp-font-sans);
+      padding-top: 0.05rem;
+    }
+
+    .pb-artefact-desc {
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .pb-layout { grid-template-columns: 1fr; gap: 0; }
+
+      .pb-sidebar {
+        position: static;
+        max-height: none;
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid var(--lp-color-border-subtle);
+      }
+
+      .pb-nav { flex-direction: row; flex-wrap: wrap; gap: 0.25rem; }
+
+      .pb-nav > li > a {
+        border-left: none;
+        border-bottom: 2px solid transparent;
+        padding: 0.3rem 0.6rem;
+      }
+
+      .pb-nav > li > a.active {
+        border-left-color: transparent;
+        border-bottom-color: var(--lp-color-primary);
+      }
+
+      .pb-nav-sub { display: none; }
+      .pb-chapter-nav { display: none; }
+      .pb-card-grid { grid-template-columns: 1fr; }
+      .pb-shift { grid-template-columns: 1fr; }
+      .pb-shift-arrow { display: none; }
+      .pb-canvas-row { grid-template-columns: 1fr; gap: 0.2rem; }
+      .pb-artefact { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .pb-chapter-title { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)">
+            <rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect>
+            <rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect>
+            <rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect>
+          </g>
+          <g transform="translate(150 46)">
+            <text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text>
+            <text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text>
+            <text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text>
+          </g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Lean PPD Playbook &mdash; Chapter 4</p>
+      <h1 class="pb-chapter-title">Discover</h1>
+      <p class="pb-chapter-lead">
+        Customer, context, and system — seeing the world as your customers and teams
+        experience it before locking in decisions.
+      </p>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="img/discover-customer-context-and-system.png" alt="Discover: Customer, Context, and System">
+    </div>
+
+    <div class="pb-layout">
+
+      <!-- ── Sidebar ── -->
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#intro">Introduction</a></li>
+          <li>
+            <a href="#customer-problem">4.1 Customer &amp; Problem</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#outside-in">Outside-in Shifts</a></li>
+              <li><a href="#problem-canvas">Problem Framing Canvas</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#system-context">4.2 System &amp; Context</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#value-streams">Product &amp; Knowledge Streams</a></li>
+              <li><a href="#context-input">Context as Design Input</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#gemba">4.3 Gemba Practices</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#ppp">Purpose–Process–People</a></li>
+              <li><a href="#gemba-questions">Gemba Questions</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#pretotype">4.4 Pretotype Brochures</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#brochure-anatomy">Anatomy</a></li>
+              <li><a href="#signals">Behavioural Signals</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#knowledge">4.5 Capturing &amp; Reusing Knowledge</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#artefacts">Lightweight Artefacts</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="pb-chapter-nav">
+          <p class="pb-chapter-nav-label">Chapters</p>
+          <a href="/playbook/introduction/">1. Why This Playbook Exists</a>
+          <a href="/playbook/foundations/">2. Foundations</a>
+          <a href="/playbook/strategy/">3. Strategy &amp; Value Creation</a>
+          <a href="/playbook/discover/" class="current">4. Discover</a>
+        </div>
+      </aside>
+
+      <!-- ── Main content ── -->
+      <main>
+
+        <!-- Intro -->
+        <section class="pb-section" id="intro">
+          <p class="pb-section-eyebrow">Chapter 4</p>
+          <h2 class="pb-section-title">Customer, Context, and System</h2>
+          <div class="pb-prose">
+            <p>Developing the right products and processes starts with seeing the world as our customers and teams experience it — not as it looks in our internal documents. Discovery in LPPD is about deeply understanding customers, the jobs they are trying to get done, and the system of product, process, and ecosystem around them, before we lock in decisions.</p>
+            <p>The goal is not to fall in love with solutions, but to fall in love with learning: to come back from gemba with sharper questions, clearer problem framing, and stronger pretotype brochures and bets.</p>
+          </div>
+
+          <blockquote class="pb-pullquote">
+            <p>"What do we actually know — and what are we still guessing — about our customers, their context, and the constraints of our system?"</p>
+          </blockquote>
+        </section>
+
+        <!-- 4.1 Customer & Problem -->
+        <section class="pb-section" id="customer-problem">
+          <p class="pb-section-eyebrow">Section 4.1</p>
+          <h2 class="pb-section-title">Customer &amp; Problem Understanding</h2>
+          <div class="pb-prose">
+            <p>LPPD discovery starts with understanding customers and problems before we execute — not fitting customer quotes around a solution we already like. The aim is a shared, evidence-based view of who we serve, what jobs they are trying to get done, and where they struggle today.</p>
+          </div>
+
+          <div class="pb-subsection" id="outside-in">
+            <h3 class="pb-subsection-title">Outside-in, Not Inside-out</h3>
+
+            <div class="pb-section-img">
+              <img src="img/outsidein-not-insideout.png" alt="Outside-in, not inside-out">
+            </div>
+
+            <div class="pb-shifts">
+              <div class="pb-shift">
+                <span class="pb-shift-from">"What can we build?"</span>
+                <span class="pb-shift-arrow">→</span>
+                <span class="pb-shift-to">"What important problem or job could we help with?"</span>
+              </div>
+              <div class="pb-shift">
+                <span class="pb-shift-from">"What features do stakeholders want?"</span>
+                <span class="pb-shift-arrow">→</span>
+                <span class="pb-shift-to">"Where are customers underserved and why?"</span>
+              </div>
+              <div class="pb-shift">
+                <span class="pb-shift-from">"We know our market."</span>
+                <span class="pb-shift-arrow">→</span>
+                <span class="pb-shift-to">"We continually refresh our understanding at gemba."</span>
+              </div>
+            </div>
+
+            <h3 class="pb-subsection-title" style="margin-top:2rem;">Jobs, Journeys, and Contexts</h3>
+            <div class="pb-prose">
+              <p>Three complementary views help teams see customers more clearly. You don't need heavy research to start — a few well-run interviews, gemba visits, and simple maps can dramatically improve shared understanding.</p>
+            </div>
+
+            <div class="pb-card-grid">
+              <div class="pb-info-card">
+                <p class="pb-info-card-label">View 1</p>
+                <p class="pb-info-card-title">Jobs to Be Done</p>
+                <p class="pb-info-card-body">Focus on the underlying job customers are trying to accomplish, independent of today's solutions. Capture functional, emotional, and social dimensions; note steps and struggle points.</p>
+              </div>
+              <div class="pb-info-card">
+                <p class="pb-info-card-label">View 2</p>
+                <p class="pb-info-card-title">Customer Journeys</p>
+                <p class="pb-info-card-body">Map key steps in how customers discover, choose, use, and maintain your product. Highlight moments of friction, workaround behaviour, and hand-offs between people or systems.</p>
+              </div>
+              <div class="pb-info-card">
+                <p class="pb-info-card-label">View 3</p>
+                <p class="pb-info-card-title">Context &amp; Constraints</p>
+                <p class="pb-info-card-body">Note environments, tools, regulations, skills, and habits that shape behaviour. These constraints often become key design inputs for both product and process.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Problem framing canvas -->
+          <div class="pb-subsection" id="problem-canvas">
+            <h3 class="pb-subsection-title">Problem Framing Canvas</h3>
+            <div class="pb-prose">
+              <p>To keep teams aligned, use a lightweight problem framing canvas before jumping into solutions. This becomes the front page for discovery work and later connects directly to your pretotype brochure.</p>
+            </div>
+
+            <div class="pb-section-img">
+              <img src="img/problem-framing-canvas.png" alt="Problem Framing Canvas">
+            </div>
+
+            <div class="pb-canvas">
+              <p class="pb-canvas-label">Canvas elements</p>
+              <div class="pb-canvas-rows">
+                <div class="pb-canvas-row">
+                  <span class="pb-canvas-field">Who</span>
+                  <span class="pb-canvas-value">The specific customer / user segment in a specific context.</span>
+                </div>
+                <div class="pb-canvas-row">
+                  <span class="pb-canvas-field">Job / situation</span>
+                  <span class="pb-canvas-value">Short description of the job or situation you are focusing on.</span>
+                </div>
+                <div class="pb-canvas-row">
+                  <span class="pb-canvas-field">Where they struggle</span>
+                  <span class="pb-canvas-value">Concrete pains, frictions, risks, or unmet aspirations — preferably with quotes or observations.</span>
+                </div>
+                <div class="pb-canvas-row">
+                  <span class="pb-canvas-field">Why it matters</span>
+                  <span class="pb-canvas-value">Impact for the customer and for your business or value stream if this is addressed.</span>
+                </div>
+                <div class="pb-canvas-row">
+                  <span class="pb-canvas-field">Assumptions</span>
+                  <span class="pb-canvas-value">Key assumptions and open questions that must be tested before investing.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pb-prose" style="margin-top:1.25rem;">
+              <p><strong>Cross-functional discovery:</strong> customer and problem understanding is not just a product or UX job. Bring 2–3 different functions to key interviews or gemba visits, debrief together immediately afterward, and invite teams to challenge assumptions from their perspective. Cross-functional discovery feeds better bets, better pretotype brochures, and more realistic design and flow decisions.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4.2 System & Context -->
+        <section class="pb-section" id="system-context">
+          <p class="pb-section-eyebrow">Section 4.2</p>
+          <h2 class="pb-section-title">System &amp; Context</h2>
+          <div class="pb-prose">
+            <p>In LPPD we never look at the product in isolation. We design the whole system: product, development process, production and delivery processes, and the wider ecosystem they live in. Understanding this context early helps us avoid local optimizations that create problems elsewhere and reveals constraints that should shape our bets and designs.</p>
+            <p>Every product sits inside a socio-technical system — people, technology, processes, information flows, and policies that all interact. System discovery asks: who and what touches this product from concept to end of life? How do information, decisions, and materials actually flow between them today? Where do delays, hand-offs, and hidden constraints show up?</p>
+          </div>
+
+          <div class="pb-subsection" id="value-streams">
+            <h3 class="pb-subsection-title">Mapping Product and Knowledge Value Streams</h3>
+
+            <div class="pb-section-img">
+              <img src="img/mapping-product-and-knowledge-value-streams.png" alt="Mapping Product and Knowledge Value Streams">
+            </div>
+
+            <div class="pb-prose">
+              <p>LPPD distinguishes two intertwined value streams for discovery mapping:</p>
+            </div>
+
+            <ul class="pb-list">
+              <li><strong>Product value stream:</strong> the flow of work that creates the specific product — concepts, designs, BOMs, process specs, tooling, software. Sketch it from opportunity/idea to launch, showing major steps, queues, and rework loops.</li>
+              <li><strong>Knowledge value stream:</strong> how knowledge about markets, technologies, manufacturing, and previous projects is created, captured, and reused. Identify where knowledge is created and whether it is reused or lost after each project.</li>
+            </ul>
+          </div>
+
+          <div class="pb-subsection" id="context-input">
+            <h3 class="pb-subsection-title">Context as a First-Class Design Input</h3>
+
+            <div class="pb-section-img">
+              <img src="img/context-as-a-firstclass-input.png" alt="Context as a First-Class Input">
+            </div>
+
+            <div class="pb-prose">
+              <p>Context is not background noise — it is a design input. When you understand context early, you can make better choices about architectures, interfaces, and processes that will work in the real world. Capture these factors explicitly in problem framing, concept choices, and pretotype brochures.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li><strong>Operational realities:</strong> cycle times, variability, skill levels, maintenance practices, supplier reliability.</li>
+              <li><strong>Regulatory and safety requirements</strong> that affect both product and process.</li>
+              <li><strong>Existing platforms, tooling, and IT systems</strong> you must integrate with or can leverage.</li>
+              <li><strong>Cultural patterns:</strong> how people actually collaborate, escalate, and solve problems.</li>
+            </ul>
+
+            <div class="pb-prose" style="margin-top:1.25rem;">
+              <p>To make this tangible, use a one-page <strong>system &amp; context map</strong>: customer at the top, product in the middle, key system elements surrounding it (development teams, manufacturing, suppliers, IT, service, regulators), and only the most important flows drawn. The goal is a shared picture of "the system we are changing" — not exhaustive detail.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4.3 Gemba -->
+        <section class="pb-section" id="gemba">
+          <p class="pb-section-eyebrow">Section 4.3</p>
+          <h2 class="pb-section-title">Gemba Practices for Discovery</h2>
+          <div class="pb-prose">
+            <p>Gemba — going to the actual place where work is done or value is experienced — is one of the most powerful discovery tools in LPPD. Used well, it gives first-hand insight into customer reality and the real development and delivery system, far beyond what surveys and reports can show.</p>
+            <p>Gemba in discovery is not a management walk-around or audit. It is a disciplined way of seeing, grounded in three behaviours: <em>go and see, ask why,</em> and <em>show respect.</em> The aim is to come back with sharper questions, not instant solutions.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/gemba-practices-for-discovery.png" alt="Gemba Practices for Discovery">
+          </div>
+
+          <!-- Purpose–Process–People -->
+          <div class="pb-subsection" id="ppp">
+            <h3 class="pb-subsection-title">Purpose – Process – People</h3>
+            <div class="pb-prose">
+              <p>A practical way to structure LPPD gemba is the Purpose–Process–People checklist. Before going, agree the purpose of your gemba and sketch a high-level value stream so you know where to walk. During the visit, write short notes under each heading instead of long narratives — this makes debriefs faster and more focused.</p>
+            </div>
+
+            <div class="pb-card-grid">
+              <div class="pb-info-card">
+                <p class="pb-info-card-label">Purpose</p>
+                <p class="pb-info-card-title">Why does this exist?</p>
+                <p class="pb-info-card-body">Why does this place or activity exist? What value is it trying to create for whom?</p>
+              </div>
+              <div class="pb-info-card">
+                <p class="pb-info-card-label">Process</p>
+                <p class="pb-info-card-title">How does work flow?</p>
+                <p class="pb-info-card-body">How does work actually flow here? What are the main steps, hand-offs, and failure modes?</p>
+              </div>
+              <div class="pb-info-card">
+                <p class="pb-info-card-label">People</p>
+                <p class="pb-info-card-title">Who is doing the work?</p>
+                <p class="pb-info-card-body">What gets in their way? What ideas and concerns do they have?</p>
+              </div>
+            </div>
+
+            <div class="pb-prose" style="margin-top:1.25rem;">
+              <p><strong>Turning gemba into plays, not tourism.</strong> Immediately after the visit, debrief as a team: "What did we see?", "What surprised us?", "What questions did this raise?", "What ideas does this spark?" Capture 5–10 concrete insights. Within a week, connect insights to action — update problem framing canvases, propose 1–3 adjustments to current bets, and take them to the next portfolio/obeya review.</p>
+            </div>
+          </div>
+
+          <!-- Gemba questions -->
+          <div class="pb-subsection" id="gemba-questions">
+            <h3 class="pb-subsection-title">Gemba Questions for LPPD</h3>
+
+            <div class="pb-section-img">
+              <img src="img/gemba-questions-for-lppd.png" alt="Gemba Questions for LPPD">
+            </div>
+
+            <ul class="pb-list">
+              <li>"Walk me through what you're trying to do here."</li>
+              <li>"Where does this often go wrong or take longer than it should?"</li>
+              <li>"What workarounds have you invented?"</li>
+              <li>"What makes your work harder than it needs to be?"</li>
+              <li>"Where do requests or information arrive too late or unclear?"</li>
+              <li>"If you could change one thing in this process, what would it be?"</li>
+            </ul>
+
+            <div class="pb-prose" style="margin-top:0.75rem;">
+              <p style="font-size:var(--lp-font-size-sm);color:var(--lp-color-text-soft);font-style:italic;">Avoid "why don't you like our product?" or leading questions that confirm your existing solution ideas.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4.4 Pretotype Brochures -->
+        <section class="pb-section" id="pretotype">
+          <p class="pb-section-eyebrow">Section 4.4</p>
+          <h2 class="pb-section-title">Pretotype Sales Brochures &amp; Early Signals</h2>
+          <div class="pb-prose">
+            <p>Before committing serious time and money, LPPD teams use pretotype sales brochures to test whether customers care about a concept at all. A brochure is a fast, low-cost way to simulate the offer and observe real behaviour, instead of relying on opinions or internal enthusiasm.</p>
+            <p>Compared to building prototypes or full business cases, it is much cheaper and faster, surfaces whether customers understand and value the promise, and generates concrete behavioural signals — clicks, sign-ups, callbacks, pre-orders — rather than just "that sounds nice." In LPPD, the brochure is the front door for a bet: if we can't get promising early signals on the brochure, we don't scale the investment.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/pretotype-sales-brochures-early-signals.png" alt="Pretotype Sales Brochures and Early Signals">
+          </div>
+
+          <!-- Anatomy -->
+          <div class="pb-subsection" id="brochure-anatomy">
+            <h3 class="pb-subsection-title">Anatomy of a Strong Brochure</h3>
+            <div class="pb-prose">
+              <p>A good brochure can be a one-pager PDF, a simple landing page, or even a physical sheet — as long as it clearly answers these questions.</p>
+            </div>
+
+            <div class="pb-anatomy">
+              <div class="pb-anatomy-item">
+                <p class="pb-anatomy-title">Headline promise</p>
+                <p class="pb-anatomy-desc">A clear, outcome-focused headline that states the main benefit for the target customer.</p>
+              </div>
+              <div class="pb-anatomy-item">
+                <p class="pb-anatomy-title">Who it's for</p>
+                <p class="pb-anatomy-desc">A short description of the specific segment or situation — tied back to the problem framing canvas.</p>
+              </div>
+              <div class="pb-anatomy-item">
+                <p class="pb-anatomy-title">The problem or job</p>
+                <p class="pb-anatomy-desc">Plain-language description of the job, pain, or opportunity — ideally with one or two real quotes from gemba.</p>
+              </div>
+              <div class="pb-anatomy-item">
+                <p class="pb-anatomy-title">How this helps (core benefits)</p>
+                <p class="pb-anatomy-desc">3–5 bullets that describe benefits, not technical features.</p>
+              </div>
+              <div class="pb-anatomy-item">
+                <p class="pb-anatomy-title">Minimal solution sketch</p>
+                <p class="pb-anatomy-desc">A single diagram, photo, or short list that makes the offering credible, without over-specifying details.</p>
+              </div>
+              <div class="pb-anatomy-item">
+                <p class="pb-anatomy-title">Next step / call to action</p>
+                <p class="pb-anatomy-desc">A very concrete ask that lets you measure behaviour: book a call, sign up for early access, request a pilot, pre-order, or commit a small deposit.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Signals -->
+          <div class="pb-subsection" id="signals">
+            <h3 class="pb-subsection-title">Designing for Behavioural Signals</h3>
+            <div class="pb-prose">
+              <p>The power of a pretotype brochure is in the signals it generates. In LPPD, you explicitly decide what signal you need to treat the bet as worth scaling, and what threshold you expect — e.g., "At least 10% of invited customers request a follow-up within two weeks."</p>
+            </div>
+
+            <ul class="pb-list">
+              <li><strong>Attention:</strong> views or opens (weak signal).</li>
+              <li><strong>Engagement:</strong> clicks on "learn more", time spent, replies to emails.</li>
+              <li><strong>Commitment:</strong> sign-ups for pilots, demo bookings, "fake door" pre-orders, small deposits, or letters of intent.</li>
+            </ul>
+
+            <div class="pb-section-img">
+              <img src="img/connecting-brochures-back-to-strategy-and-gemba.png" alt="Connecting Brochures Back to Strategy and Gemba">
+            </div>
+
+            <div class="pb-prose">
+              <p>Pretotype brochures are not side experiments — they connect directly to strategy and discovery. Inputs come from gemba and problem framing. Each brochure is tied to a specific bet in the portfolio with a clear learning objective. Results feed into the next portfolio review: continue, pivot, or stop the bet based on real customer behaviour.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4.5 Knowledge -->
+        <section class="pb-section" id="knowledge">
+          <p class="pb-section-eyebrow">Section 4.5</p>
+          <h2 class="pb-section-title">Capturing and Reusing Discovery Knowledge</h2>
+          <div class="pb-prose">
+            <p>Discovery work is expensive: interviews, gemba, experiments, pretotypes. LPPD treats the knowledge generated as a primary deliverable, not a by-product. When discovery knowledge is captured and reused, later projects start further ahead, risks are lower, and teams can focus their creativity on the parts that truly need new thinking.</p>
+            <p>In many organisations, teams say "we learned a lot" at the end of a project — but the learning lives in people's heads or buried in slide decks. The next team then repeats interviews, rediscovers the same constraints, and reruns old experiments. LPPD aims for <em>reusable knowledge</em>: insights, patterns, and decisions that are easy to find, easy to understand, and safe to apply in new contexts.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/capturing-and-reusing-discovery-knowledge.png" alt="Capturing and Reusing Discovery Knowledge">
+          </div>
+
+          <div class="pb-prose">
+            <p><strong>What to capture:</strong> focus on knowledge that is likely to matter again — customer and job insights that are stable over time, context and system constraints that shape design and process decisions, experiment results (especially when they invalidate a plausible idea), and design rules and patterns that emerge. A helpful rule: if you would be annoyed to discover your organisation has already learned this but you didn't know, capture it.</p>
+          </div>
+
+          <!-- Artefacts -->
+          <div class="pb-subsection" id="artefacts">
+            <h3 class="pb-subsection-title">Lightweight Knowledge Artefacts</h3>
+
+            <div class="pb-section-img">
+              <img src="img/lightweight-knowledge-artefacts.png" alt="Lightweight Knowledge Artefacts">
+            </div>
+
+            <div class="pb-artefacts">
+              <div class="pb-artefact">
+                <span class="pb-artefact-name">Insight cards</span>
+                <p class="pb-artefact-desc">One key insight per card: short statement, evidence (quote/data), implications for product and process.</p>
+              </div>
+              <div class="pb-artefact">
+                <span class="pb-artefact-name">Experiment sheets</span>
+                <p class="pb-artefact-desc">What was tested, assumptions, method, result, and "so what" for future projects.</p>
+              </div>
+              <div class="pb-artefact">
+                <span class="pb-artefact-name">Design rules</span>
+                <p class="pb-artefact-desc">Distilled "if…then" rules or checklists that teams can apply during design and planning.</p>
+              </div>
+            </div>
+
+            <div class="pb-prose" style="margin-top:1.25rem;">
+              <p><strong>Making reuse easy.</strong> At the start of a new bet or pretotype brochure, teams explicitly search for prior insight cards, experiments, and rules related to the same customers, jobs, or technologies. During concept and set-based work, teams check existing knowledge before launching new tests. Portfolio and strategy reviews include a "knowledge view": where recent learning came from and where it is being reused. Good reuse systems are simple and embedded into routines so that using them is easier than starting from scratch.</p>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+
+  <script>
+    (function () {
+      const allLinks = document.querySelectorAll('.pb-nav a, .pb-nav-sub a');
+      const sections = Array.from(allLinks)
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const id = '#' + entry.target.id;
+              allLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+            }
+          });
+        },
+        { rootMargin: '-15% 0px -75% 0px', threshold: 0 }
+      );
+
+      sections.forEach(s => observer.observe(s));
+    })();
+  </script>
+
+  <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
+  <script defer>
+    (function () {
+      function init() { CustomGPT.init({ p_id: '89818', p_key: '263a30f8ca292918be27e31bd50d1074' }); }
+      document.readyState === 'complete' ? init() : window.addEventListener('load', init);
+    })();
+  </script>
+
+</body>
+</html>
