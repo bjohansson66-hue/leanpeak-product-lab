@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Why This Playbook Exists — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    /* ── Page shell ── */
+    .pb-page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+    }
+
+    .pb-chapter-header {
+      padding: 3rem 0 2.5rem;
+      border-bottom: 1px solid var(--lp-color-border-subtle);
+      margin-bottom: 2.5rem;
+    }
+
+    .pb-chapter-eyebrow {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      margin: 0 0 0.75rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-chapter-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-3xl);
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--lp-color-text-main);
+      margin: 0 0 1rem;
+    }
+
+    .pb-chapter-lead {
+      font-size: var(--lp-font-size-lg);
+      color: var(--lp-color-text-muted);
+      line-height: 1.7;
+      max-width: 66ch;
+      margin: 0;
+    }
+
+    /* ── Two-column layout ── */
+    .pb-layout {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    /* ── Sidebar ── */
+    .pb-sidebar {
+      position: sticky;
+      top: 2rem;
+    }
+
+    .pb-sidebar-label {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      margin: 0 0 0.75rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-nav {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .pb-nav > li > a {
+      display: block;
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      text-decoration: none;
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--lp-radius-sm);
+      border-left: 2px solid transparent;
+      line-height: 1.4;
+      transition: color 0.15s, background 0.15s, border-color 0.15s;
+    }
+
+    .pb-nav > li > a:hover,
+    .pb-nav > li > a.active {
+      color: var(--lp-color-primary);
+      background: var(--lp-color-primary-soft);
+    }
+
+    .pb-nav > li > a.active {
+      border-left-color: var(--lp-color-primary);
+    }
+
+    /* ── Chapter nav links ── */
+    .pb-chapter-nav {
+      margin-top: 2.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--lp-color-border-subtle);
+    }
+
+    .pb-chapter-nav-label {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      margin: 0 0 0.6rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-chapter-nav a {
+      display: block;
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      text-decoration: none;
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--lp-radius-sm);
+      line-height: 1.4;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .pb-chapter-nav a:hover {
+      color: var(--lp-color-primary);
+      background: var(--lp-color-primary-soft);
+    }
+
+    .pb-chapter-nav a.current {
+      font-weight: 600;
+      color: var(--lp-color-text-main);
+    }
+
+    /* ── Content sections ── */
+    .pb-section {
+      scroll-margin-top: 5rem;
+      margin-bottom: 4rem;
+    }
+
+    .pb-section + .pb-section {
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--lp-color-border-subtle);
+    }
+
+    .pb-section-eyebrow {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      margin: 0 0 0.5rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-section-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-2xl);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--lp-color-text-main);
+      margin: 0 0 1.25rem;
+      line-height: 1.15;
+    }
+
+    .pb-prose {
+      font-size: var(--lp-font-size-md);
+      color: var(--lp-color-text-muted);
+      line-height: 1.75;
+      max-width: 68ch;
+    }
+
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+
+    /* ── Audience cards ── */
+    .pb-audience {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .pb-audience-card {
+      display: grid;
+      grid-template-columns: 2rem minmax(0, 1fr);
+      gap: 0.875rem;
+      align-items: start;
+      padding: 1rem 1.25rem;
+      background: var(--lp-color-surface);
+      border: 1px solid var(--lp-color-border-subtle);
+      border-radius: var(--lp-radius-md);
+    }
+
+    .pb-audience-icon {
+      font-size: 1.25rem;
+      line-height: 1;
+      padding-top: 0.1rem;
+    }
+
+    .pb-audience-title {
+      font-family: var(--lp-font-sans);
+      font-size: var(--lp-font-size-sm);
+      font-weight: 600;
+      color: var(--lp-color-text-main);
+      margin: 0 0 0.25rem;
+    }
+
+    .pb-audience-body {
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── How-to steps ── */
+    .pb-ways {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .pb-way {
+      display: grid;
+      grid-template-columns: 2.5rem minmax(0, 1fr);
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .pb-way-num {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: var(--lp-radius-md);
+      background: var(--lp-color-primary-soft);
+      color: var(--lp-color-primary);
+      font-size: var(--lp-font-size-sm);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-way-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-lg);
+      color: var(--lp-color-text-main);
+      margin: 0 0 0.4rem;
+      line-height: 1.3;
+    }
+
+    .pb-way-body {
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      line-height: 1.65;
+      margin: 0 0 0.5rem;
+      max-width: 60ch;
+    }
+
+    .pb-way-steps {
+      list-style: none;
+      padding: 0;
+      margin: 0.5rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .pb-way-steps li {
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      padding-left: 1.1rem;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .pb-way-steps li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--lp-color-primary);
+    }
+
+    /* ── Working agreements ── */
+    .pb-agreements {
+      margin-top: 2rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--lp-color-surface);
+      border: 1px solid var(--lp-color-border-subtle);
+      border-radius: var(--lp-radius-lg);
+    }
+
+    .pb-agreements-title {
+      font-family: var(--lp-font-sans);
+      font-size: var(--lp-font-size-sm);
+      font-weight: 600;
+      color: var(--lp-color-text-main);
+      margin: 0 0 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .pb-agreements-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .pb-agreements-list li {
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      line-height: 1.6;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .pb-agreements-list li::before {
+      content: "·";
+      position: absolute;
+      left: 0.25rem;
+      color: var(--lp-color-primary);
+      font-size: 1.2em;
+      line-height: 1.4;
+    }
+
+    /* ── Section images ── */
+    .pb-section-img {
+      margin: 1.75rem 0;
+      border-radius: var(--lp-radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--lp-color-border-subtle);
+      background: var(--lp-color-surface);
+    }
+
+    .pb-section-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .pb-chapter-img {
+      margin: 0 0 2.5rem;
+      border-radius: var(--lp-radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--lp-color-border-subtle);
+    }
+
+    .pb-chapter-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 340px;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .pb-layout {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .pb-sidebar {
+        position: static;
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid var(--lp-color-border-subtle);
+      }
+
+      .pb-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+      }
+
+      .pb-nav > li > a {
+        border-left: none;
+        border-bottom: 2px solid transparent;
+        padding: 0.3rem 0.6rem;
+      }
+
+      .pb-nav > li > a.active {
+        border-left-color: transparent;
+        border-bottom-color: var(--lp-color-primary);
+      }
+
+      .pb-chapter-nav { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      .pb-chapter-title { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)">
+            <rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect>
+            <rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect>
+            <rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect>
+          </g>
+          <g transform="translate(150 46)">
+            <text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text>
+            <text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text>
+            <text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text>
+          </g>
+        </svg>
+      </a>
+
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/introduction/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Lean PPD Playbook &mdash; Chapter 1</p>
+      <h1 class="pb-chapter-title">Why This Playbook Exists</h1>
+      <p class="pb-chapter-lead">
+        A practical, visual way to apply Lean Product &amp; Process Development to real work —
+        without adding more bureaucracy.
+      </p>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="img/why-this-playbook-exists.jpg" alt="Why this playbook exists">
+    </div>
+
+    <div class="pb-layout">
+
+      <!-- ── Sidebar nav ── -->
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#why">Why It Exists</a></li>
+          <li><a href="#who">Who It's For</a></li>
+          <li><a href="#how">How to Use It</a></li>
+        </ul>
+
+        <div class="pb-chapter-nav">
+          <p class="pb-chapter-nav-label">Chapters</p>
+          <a href="/playbook/introduction/" class="current">1. Why This Playbook Exists</a>
+          <a href="/playbook/foundations/">2. Foundations</a>
+        </div>
+      </aside>
+
+      <!-- ── Main content ── -->
+      <main>
+
+        <!-- Why It Exists -->
+        <section class="pb-section" id="why">
+          <p class="pb-section-eyebrow">Chapter intro</p>
+          <h2 class="pb-section-title">Why It Exists</h2>
+          <div class="pb-prose">
+            <p>
+              Developing new products and the processes that deliver them is hard, messy, and often frustrating.
+              Many organizations try to solve this with more templates, more milestones, or more "best practices" —
+              and still end up with late changes, stressed teams, and disappointed customers.
+            </p>
+            <p>
+              This playbook exists to offer a practical, visual way to apply Lean Product &amp; Process Development
+              (LPPD) to real work. It gives you a shared language, a handful of core mental models, and a set of
+              plays you can use to design better products and better development systems — without adding more
+              bureaucracy.
+            </p>
+          </div>
+        </section>
+
+        <!-- Who It's For -->
+        <section class="pb-section" id="who">
+          <p class="pb-section-eyebrow">Section 1.1</p>
+          <h2 class="pb-section-title">Who This Playbook Is For</h2>
+          <div class="pb-prose">
+            <p>This playbook is written for people who shape product and process development. You don't need to be
+              an LPPD expert to use it — only curiosity, a willingness to experiment, and a concrete development
+              challenge to work on.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/who-this-playbook-is-for.png" alt="Who this playbook is for">
+          </div>
+
+          <div class="pb-audience">
+            <div class="pb-audience-card">
+              <span class="pb-audience-icon">◈</span>
+              <div>
+                <p class="pb-audience-title">Leaders</p>
+                <p class="pb-audience-body">Who own product families, portfolios, and value streams, and want a more reliable way to create customer value.</p>
+              </div>
+            </div>
+            <div class="pb-audience-card">
+              <span class="pb-audience-icon">◈</span>
+              <div>
+                <p class="pb-audience-title">Chief Engineers &amp; System Owners</p>
+                <p class="pb-audience-body">Accountable for end-to-end performance and need to align many functions around a clear direction.</p>
+              </div>
+            </div>
+            <div class="pb-audience-card">
+              <span class="pb-audience-icon">◈</span>
+              <div>
+                <p class="pb-audience-title">Cross-Functional Team Members</p>
+                <p class="pb-audience-body">Engineers, designers, product managers, manufacturing, quality, supply chain, service — who want a better way to collaborate.</p>
+              </div>
+            </div>
+            <div class="pb-audience-card">
+              <span class="pb-audience-icon">◈</span>
+              <div>
+                <p class="pb-audience-title">Change Agents &amp; Coaches</p>
+                <p class="pb-audience-body">Who support LPPD adoption and need simple visuals and language to bring others along.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- How to Use It -->
+        <section class="pb-section" id="how">
+          <p class="pb-section-eyebrow">Section 1.2</p>
+          <h2 class="pb-section-title">How to Use This Playbook</h2>
+          <div class="pb-prose">
+            <p>There are two main ways to use this playbook — pick whichever fits where you are right now.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/how-to-use-this-playbook.png" alt="How to use this playbook">
+          </div>
+
+          <div class="pb-ways">
+            <div class="pb-way">
+              <div class="pb-way-num">1</div>
+              <div>
+                <p class="pb-way-title">Read it end to end once</p>
+                <p class="pb-way-body">Build a shared mental map and vocabulary with your colleagues before diving into specific plays.</p>
+                <ul class="pb-way-steps">
+                  <li>Start with the Foundations section to understand the principles and core mental models.</li>
+                  <li>Then skim each later section (Strategy, Discover, Design, Flow, Validate) to see how the foundations show up as concrete plays.</li>
+                  <li>This gives you and your team a common language going in.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="pb-way">
+              <div class="pb-way-num">2</div>
+              <div>
+                <p class="pb-way-title">Jump directly to a play that matches your current problem</p>
+                <p class="pb-way-body">Already have a live challenge? Go straight to the section that fits and pick one play to try.</p>
+                <ul class="pb-way-steps">
+                  <li>Identify the situation you are in — e.g., "We lack clarity on the customer and problem," "Our concepts keep changing late," "Our development pipeline is stuck."</li>
+                  <li>Go to the section that best fits and pick one play to try with your team.</li>
+                  <li>Use the "Foundations" call-outs on each play to see which principles and mental models you are exercising.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-agreements">
+            <p class="pb-agreements-title">A few working agreements</p>
+            <ul class="pb-agreements-list">
+              <li>Treat each play as something to try and adapt, not a rigid method.</li>
+              <li>Always connect the play back to a real product or process challenge, not an abstract exercise.</li>
+              <li>After using a play, pause briefly as a team: What did we learn? What would we change next time?</li>
+            </ul>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+
+  <!-- Sidebar scroll tracking -->
+  <script>
+    (function () {
+      const allLinks = document.querySelectorAll('.pb-nav a');
+      const sections = Array.from(allLinks)
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const id = '#' + entry.target.id;
+              allLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+            }
+          });
+        },
+        { rootMargin: '-15% 0px -75% 0px', threshold: 0 }
+      );
+
+      sections.forEach(s => observer.observe(s));
+    })();
+  </script>
+
+  <!-- Virtual Bengt – CustomGPT widget -->
+  <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
+  <script defer>
+    (function () {
+      function init() {
+        CustomGPT.init({ p_id: '89818', p_key: '263a30f8ca292918be27e31bd50d1074' });
+      }
+      document.readyState === 'complete' ? init() : window.addEventListener('load', init);
+    })();
+  </script>
+
+</body>
+</html>
