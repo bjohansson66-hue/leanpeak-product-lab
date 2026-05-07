@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Strategy and Value Creation — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+    }
+
+    .pb-chapter-header {
+      padding: 3rem 0 2.5rem;
+      border-bottom: 1px solid var(--lp-color-border-subtle);
+      margin-bottom: 2.5rem;
+    }
+
+    .pb-chapter-eyebrow {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      margin: 0 0 0.75rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-chapter-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-3xl);
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--lp-color-text-main);
+      margin: 0 0 1rem;
+    }
+
+    .pb-chapter-lead {
+      font-size: var(--lp-font-size-lg);
+      color: var(--lp-color-text-muted);
+      line-height: 1.7;
+      max-width: 66ch;
+      margin: 0;
+    }
+
+    .pb-chapter-img {
+      margin: 0 0 2.5rem;
+      border-radius: var(--lp-radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--lp-color-border-subtle);
+    }
+
+    .pb-chapter-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 340px;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    /* ── Two-column layout ── */
+    .pb-layout {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    /* ── Sidebar ── */
+    .pb-sidebar {
+      position: sticky;
+      top: 2rem;
+      max-height: calc(100vh - 4rem);
+      overflow-y: auto;
+    }
+
+    .pb-sidebar-label {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      margin: 0 0 0.75rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-nav {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .pb-nav > li > a {
+      display: block;
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      text-decoration: none;
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--lp-radius-sm);
+      border-left: 2px solid transparent;
+      line-height: 1.4;
+      transition: color 0.15s, background 0.15s, border-color 0.15s;
+    }
+
+    .pb-nav > li > a:hover,
+    .pb-nav > li > a.active {
+      color: var(--lp-color-primary);
+      background: var(--lp-color-primary-soft);
+    }
+
+    .pb-nav > li > a.active {
+      border-left-color: var(--lp-color-primary);
+    }
+
+    .pb-nav-sub {
+      list-style: none;
+      margin: 0.1rem 0 0.25rem;
+      padding: 0 0 0 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .pb-nav-sub a {
+      display: block;
+      font-size: var(--lp-font-size-xs);
+      color: var(--lp-color-text-soft);
+      text-decoration: none;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--lp-radius-sm);
+      border-left: 2px solid transparent;
+      line-height: 1.4;
+      transition: color 0.15s, background 0.15s, border-color 0.15s;
+    }
+
+    .pb-nav-sub a:hover,
+    .pb-nav-sub a.active {
+      color: var(--lp-color-primary);
+      background: var(--lp-color-primary-soft);
+    }
+
+    .pb-nav-sub a.active {
+      border-left-color: var(--lp-color-primary);
+    }
+
+    .pb-chapter-nav {
+      margin-top: 2rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--lp-color-border-subtle);
+    }
+
+    .pb-chapter-nav-label {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      margin: 0 0 0.6rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-chapter-nav a {
+      display: block;
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      text-decoration: none;
+      padding: 0.3rem 0.75rem;
+      border-radius: var(--lp-radius-sm);
+      line-height: 1.4;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .pb-chapter-nav a:hover { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-chapter-nav a.current { font-weight: 600; color: var(--lp-color-text-main); }
+
+    /* ── Content sections ── */
+    .pb-section {
+      scroll-margin-top: 5rem;
+      margin-bottom: 4rem;
+    }
+
+    .pb-section + .pb-section {
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--lp-color-border-subtle);
+    }
+
+    .pb-subsection {
+      scroll-margin-top: 5rem;
+      margin-top: 2.5rem;
+    }
+
+    .pb-section-eyebrow {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      margin: 0 0 0.5rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-section-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-2xl);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--lp-color-text-main);
+      margin: 0 0 1.25rem;
+      line-height: 1.15;
+    }
+
+    .pb-subsection-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-xl);
+      font-weight: 400;
+      color: var(--lp-color-text-main);
+      margin: 0 0 0.75rem;
+      line-height: 1.2;
+    }
+
+    .pb-prose {
+      font-size: var(--lp-font-size-md);
+      color: var(--lp-color-text-muted);
+      line-height: 1.75;
+      max-width: 68ch;
+    }
+
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+
+    /* ── Section images ── */
+    .pb-section-img {
+      margin: 1.75rem 0;
+      border-radius: var(--lp-radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--lp-color-border-subtle);
+      background: var(--lp-color-surface);
+    }
+
+    .pb-section-img img { width: 100%; height: auto; display: block; }
+
+    /* ── Pull quote ── */
+    .pb-pullquote {
+      margin: 2rem 0;
+      padding: 1.25rem 1.5rem;
+      border-left: 3px solid var(--lp-color-primary);
+      background: var(--lp-color-surface);
+      border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0;
+    }
+
+    .pb-pullquote p {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-lg);
+      line-height: 1.5;
+      color: var(--lp-color-text-main);
+      margin: 0;
+    }
+
+    /* ── Bullet list ── */
+    .pb-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-width: 68ch;
+    }
+
+    .pb-list li {
+      font-size: var(--lp-font-size-md);
+      color: var(--lp-color-text-muted);
+      line-height: 1.65;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .pb-list li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--lp-color-primary);
+      font-size: 0.85em;
+      top: 0.15em;
+    }
+
+    /* ── Hypothesis card ── */
+    .pb-hypothesis {
+      margin: 1.75rem 0;
+      padding: 1.5rem 1.75rem;
+      background: var(--lp-color-surface);
+      border: 1px solid var(--lp-color-border-subtle);
+      border-radius: var(--lp-radius-lg);
+      border-left: 3px solid var(--lp-color-primary);
+      max-width: 68ch;
+    }
+
+    .pb-hypothesis-label {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--lp-color-primary);
+      font-family: var(--lp-font-sans);
+      margin: 0 0 1rem;
+    }
+
+    .pb-hypothesis-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .pb-hypothesis-line {
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      line-height: 1.6;
+    }
+
+    .pb-hypothesis-line strong {
+      color: var(--lp-color-text-main);
+      font-weight: 600;
+    }
+
+    /* ── Three lenses / card grid ── */
+    .pb-card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .pb-info-card {
+      padding: 1rem 1.25rem;
+      background: var(--lp-color-surface);
+      border: 1px solid var(--lp-color-border-subtle);
+      border-radius: var(--lp-radius-md);
+    }
+
+    .pb-info-card-num {
+      font-size: var(--lp-font-size-xs);
+      font-weight: 700;
+      color: var(--lp-color-primary);
+      font-family: var(--lp-font-sans);
+      margin-bottom: 0.4rem;
+    }
+
+    .pb-info-card-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-md);
+      color: var(--lp-color-text-main);
+      margin: 0 0 0.4rem;
+    }
+
+    .pb-info-card-body {
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── Measurement layers ── */
+    .pb-layers {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+      max-width: 68ch;
+    }
+
+    .pb-layer {
+      padding: 1rem 1.25rem;
+      border-radius: var(--lp-radius-md);
+      border: 1px solid var(--lp-color-border-subtle);
+    }
+
+    .pb-layer:nth-child(1) { background: rgba(47, 107, 103, 0.12); }
+    .pb-layer:nth-child(2) { background: rgba(47, 107, 103, 0.07); }
+    .pb-layer:nth-child(3) { background: rgba(47, 107, 103, 0.03); }
+
+    .pb-layer-label {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--lp-color-primary);
+      font-family: var(--lp-font-sans);
+      margin: 0 0 0.35rem;
+    }
+
+    .pb-layer-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-md);
+      color: var(--lp-color-text-main);
+      margin: 0 0 0.35rem;
+    }
+
+    .pb-layer-body {
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── Key shifts ── */
+    .pb-shifts {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin: 1.25rem 0;
+      max-width: 68ch;
+    }
+
+    .pb-shift {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 0.75rem;
+      align-items: center;
+      padding: 0.65rem 1rem;
+      background: var(--lp-color-surface);
+      border: 1px solid var(--lp-color-border-subtle);
+      border-radius: var(--lp-radius-md);
+      font-size: var(--lp-font-size-sm);
+    }
+
+    .pb-shift-from {
+      color: var(--lp-color-text-muted);
+    }
+
+    .pb-shift-arrow {
+      color: var(--lp-color-primary);
+      font-size: 1.1em;
+      text-align: center;
+    }
+
+    .pb-shift-to {
+      color: var(--lp-color-text-main);
+      font-weight: 500;
+    }
+
+    /* ── Gemba sprint steps ── */
+    .pb-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+      max-width: 68ch;
+    }
+
+    .pb-step {
+      display: grid;
+      grid-template-columns: 2rem minmax(0, 1fr);
+      gap: 0.875rem;
+      align-items: start;
+    }
+
+    .pb-step-num {
+      width: 2rem;
+      height: 2rem;
+      border-radius: var(--lp-radius-md);
+      background: var(--lp-color-primary-soft);
+      color: var(--lp-color-primary);
+      font-size: var(--lp-font-size-xs);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: var(--lp-font-sans);
+    }
+
+    .pb-step-body {
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      line-height: 1.65;
+      padding-top: 0.2rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .pb-layout { grid-template-columns: 1fr; gap: 0; }
+
+      .pb-sidebar {
+        position: static;
+        max-height: none;
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid var(--lp-color-border-subtle);
+      }
+
+      .pb-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+      }
+
+      .pb-nav > li > a {
+        border-left: none;
+        border-bottom: 2px solid transparent;
+        padding: 0.3rem 0.6rem;
+      }
+
+      .pb-nav > li > a.active {
+        border-left-color: transparent;
+        border-bottom-color: var(--lp-color-primary);
+      }
+
+      .pb-nav-sub { display: none; }
+      .pb-chapter-nav { display: none; }
+      .pb-card-grid { grid-template-columns: 1fr; }
+      .pb-shift { grid-template-columns: 1fr; }
+      .pb-shift-arrow { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      .pb-chapter-title { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)">
+            <rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect>
+            <rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect>
+            <rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect>
+          </g>
+          <g transform="translate(150 46)">
+            <text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text>
+            <text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text>
+            <text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text>
+          </g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/introduction/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Lean PPD Playbook &mdash; Chapter 3</p>
+      <h1 class="pb-chapter-title">Strategy and Value Creation</h1>
+      <p class="pb-chapter-lead">
+        Designing where and how we create value — from True North and value streams
+        to portfolio bets, gemba insight, deployment, and the measures that tell you if it's working.
+      </p>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="img/strategy-and-value-creation.jpg" alt="Strategy and Value Creation overview">
+    </div>
+
+    <div class="pb-layout">
+
+      <!-- ── Sidebar ── -->
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#intro">Introduction</a></li>
+          <li>
+            <a href="#true-north">3.1 True North to Value Streams</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#target-conditions">Target Conditions</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#portfolio-bets">3.2 Portfolio Bets</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#pretotype-brochure">Pretotype Brochure</a></li>
+              <li><a href="#hypothesis">Framing as Hypothesis</a></li>
+              <li><a href="#sizing-bets">Sizing for Flow</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#strategy-gemba">3.3 Strategy Gemba</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#three-lenses">Three Lenses</a></li>
+              <li><a href="#gemba-sprint">Gemba Sprint</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#strategy-deployment">3.4 Strategy Deployment</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#daily-management">Daily Management</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#measuring-value">3.5 Measuring Value Creation</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#measuring-learning">Measuring Learning</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="pb-chapter-nav">
+          <p class="pb-chapter-nav-label">Chapters</p>
+          <a href="/playbook/introduction/">1. Why This Playbook Exists</a>
+          <a href="/playbook/foundations/">2. Foundations</a>
+          <a href="/playbook/strategy/" class="current">3. Strategy &amp; Value Creation</a>
+        </div>
+      </aside>
+
+      <!-- ── Main content ── -->
+      <main>
+
+        <!-- Introduction -->
+        <section class="pb-section" id="intro">
+          <p class="pb-section-eyebrow">Chapter 3</p>
+          <h2 class="pb-section-title">Designing Where and How We Create Value</h2>
+          <div class="pb-prose">
+            <p>Most companies have strategies, roadmaps, and portfolios — yet development teams still struggle to see how their daily work connects to real value. In traditional settings, strategy often lives in slide decks and budget cycles, while product and process development live in separate project plans. The result: scattered efforts, overloaded pipelines, and weak signals about what truly matters.</p>
+            <p>In LPPD, strategy is not just choosing projects; it is designing how we will create value and learn over time. Strategy becomes something visible and testable — expressed as hypotheses rather than plans, so that every strategic choice carries an explicit statement of what we believe, what we expect to observe, and what would cause us to change course.</p>
+          </div>
+
+          <blockquote class="pb-pullquote">
+            <p>"As you read, keep a current product or value stream in mind. Where are we unclear about value? Where are we spreading ourselves too thin? Where is strategy not visible to the people doing the work?"</p>
+          </blockquote>
+        </section>
+
+        <!-- 3.1 True North -->
+        <section class="pb-section" id="true-north">
+          <p class="pb-section-eyebrow">Section 3.1</p>
+          <h2 class="pb-section-title">From True North to Value Streams</h2>
+          <div class="pb-prose">
+            <p>Strategy in LPPD starts with a clear True North and becomes real when it is expressed as a small number of value streams we design and improve on purpose. True North acts as a compass for what kind of value you want to create and what kind of system you want to become, while value streams show where and how that value is actually created.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/true-north-to-value-streams.png" alt="From True North to Value Streams">
+          </div>
+
+          <div class="pb-prose">
+            <p><strong>True North</strong> is a concise statement of your long-term direction — the kind of customer value, system performance, and culture you are aiming for. It should be stable over many years, simple enough to remember, and specific enough to guide real trade-offs.</p>
+          </div>
+
+          <ul class="pb-list">
+            <li>How you want customers to experience your products and services.</li>
+            <li>How fast and reliably you want to turn ideas into launched value.</li>
+            <li>How you expect people and teams to work and learn together.</li>
+          </ul>
+
+          <div class="pb-prose" style="margin-top:1.25rem;">
+            <p>To act on True North, leaders and chief engineers identify the main development value streams (e.g., by product family, platform, or customer segment), link each one explicitly to parts of True North, and decide which streams are strategic and will get focus, capacity, and improvement attention.</p>
+            <p>The goal: move from "we have many projects everywhere" to "we are deliberately investing in these few value streams because they are our best path to True North."</p>
+          </div>
+
+          <div class="pb-subsection" id="target-conditions">
+            <h3 class="pb-subsection-title">Framing Direction as Target Conditions</h3>
+            <div class="pb-prose">
+              <p>Rather than dropping fixed targets onto teams, LPPD uses <strong>target conditions</strong> — hypotheses about what a value stream will look like when it is performing well. For each target condition, the team should be able to answer: what are we assuming to be true? How will we know within the next quarter whether we are moving toward or away from this condition? What would cause us to revise it?</p>
+            </div>
+            <ul class="pb-list">
+              <li>"Reduce concept-to-launch lead time for platform A from 24 to 15 months while improving launch quality."</li>
+              <li>"Achieve repeatable integration events every 6 weeks with no major surprises."</li>
+              <li>"Stable, cross-functional team structure with clear ownership and visual management."</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 3.2 Portfolio Bets -->
+        <section class="pb-section" id="portfolio-bets">
+          <p class="pb-section-eyebrow">Section 3.2</p>
+          <h2 class="pb-section-title">Choosing and Framing Portfolio Bets</h2>
+          <div class="pb-prose">
+            <p>Strategy becomes real when you choose which bets to make in each value stream. Instead of a long wish list of projects, LPPD portfolios focus on a small number of clearly framed bets that are aligned with True North, sized for learning, and treated as <em>options</em> rather than fixed commitments.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/choosing-and-framing-portfolio-bets.png" alt="Choosing and Framing Portfolio Bets">
+          </div>
+
+          <h3 class="pb-subsection-title" style="margin-top:1.5rem;">From Projects to Bets and Options</h3>
+          <div class="pb-shifts">
+            <div class="pb-shift">
+              <span class="pb-shift-from">Approve big projects</span>
+              <span class="pb-shift-arrow">→</span>
+              <span class="pb-shift-to">Fund small options to learn quickly</span>
+            </div>
+            <div class="pb-shift">
+              <span class="pb-shift-from">All projects start as soon as possible</span>
+              <span class="pb-shift-arrow">→</span>
+              <span class="pb-shift-to">Limit WIP, start fewer, better-framed bets</span>
+            </div>
+            <div class="pb-shift">
+              <span class="pb-shift-from">Commit to full scope</span>
+              <span class="pb-shift-arrow">→</span>
+              <span class="pb-shift-to">Commit to a problem — frame as testable hypothesis</span>
+            </div>
+          </div>
+
+          <!-- Pretotype brochure -->
+          <div class="pb-subsection" id="pretotype-brochure">
+            <h3 class="pb-subsection-title">Pretotype Sales Brochure for Each Bet</h3>
+            <div class="pb-prose">
+              <p>Instead of a thick business case, each significant bet starts with a <strong>pretotype sales brochure</strong> — a simple, outward-facing artefact that forces you to explain the idea in customer language before you invest in building it. If you cannot write a compelling brochure that a real customer would react to, the bet is not ready for serious investment.</p>
+            </div>
+            <ul class="pb-list">
+              <li><strong>Who it is for:</strong> A clear target customer segment and the context they are in.</li>
+              <li><strong>The problem or job:</strong> Short, concrete language from the customer's point of view.</li>
+              <li><strong>The promise:</strong> Headline + bullets explaining benefits, not features.</li>
+              <li><strong>Essentials of the solution:</strong> A simple sketch or short list of key capabilities.</li>
+              <li><strong>Proof and next step:</strong> What signal you want from customers now and how they can respond.</li>
+            </ul>
+          </div>
+
+          <!-- Hypothesis -->
+          <div class="pb-subsection" id="hypothesis">
+            <h3 class="pb-subsection-title">Framing Each Bet as a Hypothesis</h3>
+            <div class="pb-prose">
+              <p>Every bet should be expressed as a hypothesis before it receives serious investment. This replaces the traditional business case with a more honest and testable structure.</p>
+            </div>
+
+            <div class="pb-section-img">
+              <img src="img/framing-each-bet-as-hypothesis.png" alt="Framing Each Bet as a Hypothesis">
+            </div>
+
+            <div class="pb-hypothesis">
+              <p class="pb-hypothesis-label">Hypothesis format</p>
+              <div class="pb-hypothesis-lines">
+                <div class="pb-hypothesis-line"><strong>We believe that</strong> [this customer segment] has [this problem or job to be done].</div>
+                <div class="pb-hypothesis-line"><strong>We believe that</strong> [this solution approach] will address that problem in a way that creates [this value outcome].</div>
+                <div class="pb-hypothesis-line"><strong>We will know we are right when</strong> we observe [1–3 leading signals within 3–6 months].</div>
+                <div class="pb-hypothesis-line"><strong>Leading to</strong> [the target condition or business outcome this bet supports].</div>
+                <div class="pb-hypothesis-line"><strong>If we do not see those signals by</strong> [date], we will [pivot / stop / re-frame].</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sizing -->
+          <div class="pb-subsection" id="sizing-bets">
+            <h3 class="pb-subsection-title">Sizing Bets for Flow and Learning</h3>
+            <div class="pb-prose">
+              <p>LPPD portfolios favour smaller, testable slices of work that can fit into the capacity of stable, cross-functional teams. Good LPPD bets are small enough to show progress in months — not years — yet large enough to matter for the value stream's target conditions.</p>
+            </div>
+
+            <div class="pb-section-img">
+              <img src="img/sizing-bets-for-flow-and-learning.png" alt="Sizing Bets for Flow and Learning">
+            </div>
+
+            <div class="pb-prose">
+              <p>At the portfolio level, a visible map shows how bets connect to value streams and True North — columns by value stream, bets as cards ordered by priority, each tagged with customer/problem, type, and next learning step. This makes it easy to ask: are we overloading some value streams? Are we actually investing where True North says we should?</p>
+              <p>Portfolios run on a regular cadence (monthly or quarterly) where leaders and chief engineers review bets, evidence, and capacity — deciding continue, pivot, pause, or stop based on learning so far.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3.3 Strategy Gemba -->
+        <section class="pb-section" id="strategy-gemba">
+          <p class="pb-section-eyebrow">Section 3.3</p>
+          <h2 class="pb-section-title">Strategy Gemba and Customer Insight</h2>
+          <div class="pb-prose">
+            <p>Powerful LPPD strategy doesn't start in a conference room — it starts at <em>gemba</em>, where value is created and where customers live with your products and services. Strategy gemba keeps leaders, chief engineers, and teams grounded in real problems, real constraints, and real opportunities, so bets are based on insight rather than opinion.</p>
+            <p>When strategy is built only from reports and slide decks, it drifts toward abstract markets, generic segments, and financial targets. Gemba closes that gap — leaders and key decision makers regularly going to see customers, developers, manufacturing, and service, not to audit, but to understand.</p>
+          </div>
+
+          <!-- Three lenses -->
+          <div class="pb-subsection" id="three-lenses">
+            <h3 class="pb-subsection-title">Three Lenses for Strategy Gemba</h3>
+
+            <div class="pb-section-img">
+              <img src="img/three-lenses-for-strategy-gemba.png" alt="Three Lenses for Strategy Gemba">
+            </div>
+
+            <div class="pb-card-grid">
+              <div class="pb-info-card">
+                <p class="pb-info-card-num">Lens 1</p>
+                <p class="pb-info-card-title">Customer</p>
+                <p class="pb-info-card-body">Visit customers in their context. Observe how they actually use your products and competing solutions. Listen for jobs, pains, hacks, and aspirations.</p>
+              </div>
+              <div class="pb-info-card">
+                <p class="pb-info-card-num">Lens 2</p>
+                <p class="pb-info-card-title">Product</p>
+                <p class="pb-info-card-body">Review actual products and variants in use and in development. Look for patterns — where do changes happen late? Where do defects originate?</p>
+              </div>
+              <div class="pb-info-card">
+                <p class="pb-info-card-num">Lens 3</p>
+                <p class="pb-info-card-title">Value Stream</p>
+                <p class="pb-info-card-body">Walk the development and delivery flow. Notice queues, rework, unclear ownership, and disconnects. Ask where people lose time and where decisions get stuck.</p>
+              </div>
+            </div>
+
+            <div class="pb-prose" style="margin-top:1.25rem;">
+              <p>Raw observation is not enough — strategy gemba only becomes useful when you turn what you saw into shared insight that influences bets and target conditions. Immediately after a visit, capture "Seen / Surprised / Questions / Ideas" as a team. Each insight should be explicitly linked to a hypothesis: a gemba visit that reveals a gap becomes the evidence driving the pretotype brochure, not the other way around.</p>
+            </div>
+          </div>
+
+          <!-- Gemba sprint -->
+          <div class="pb-subsection" id="gemba-sprint">
+            <h3 class="pb-subsection-title">A Simple Play: Strategy Gemba Sprint</h3>
+
+            <div class="pb-section-img">
+              <img src="img/strategy-gemba-sprint.jpg" alt="Strategy Gemba Sprint">
+            </div>
+
+            <div class="pb-steps">
+              <div class="pb-step">
+                <div class="pb-step-num">1</div>
+                <p class="pb-step-body">Pick one strategic value stream and one big question — e.g., "Why are launches painful?" or "Where is our next big customer opportunity?"</p>
+              </div>
+              <div class="pb-step">
+                <div class="pb-step-num">2</div>
+                <p class="pb-step-body">Plan a 1–2 day gemba sprint: customer visits, internal flow walks, and a short synthesis workshop.</p>
+              </div>
+              <div class="pb-step">
+                <div class="pb-step-num">3</div>
+                <p class="pb-step-body">Capture 5–10 key insights and 2–3 candidate bets or target condition adjustments.</p>
+              </div>
+              <div class="pb-step">
+                <div class="pb-step-num">4</div>
+                <p class="pb-step-body">Feed those directly into your pretotype brochures and the next portfolio review.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3.4 Strategy Deployment -->
+        <section class="pb-section" id="strategy-deployment">
+          <p class="pb-section-eyebrow">Section 3.4</p>
+          <h2 class="pb-section-title">Strategy Deployment (Hoshin Style)</h2>
+          <div class="pb-prose">
+            <p>Once True North, value streams, and bets are clear, the challenge is turning them into daily work that people can actually influence. Strategy deployment (Hoshin Kanri) provides a simple way to cascade direction, align teams, and create feedback loops between strategy and execution.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/strategy-deployment.jpg" alt="Strategy Deployment">
+          </div>
+
+          <div class="pb-prose">
+            <p>Traditional planning pushes fixed objectives down the hierarchy once a year, then checks variance 12 months later. In lean strategy deployment, leaders instead define a small set of breakthrough priorities and annual target conditions, then use <strong>catchball</strong> — a structured back-and-forth dialogue — to refine and localize them with the people who do the work.</p>
+          </div>
+
+          <ul class="pb-list" style="margin-top:1rem;">
+            <li>Start from True North and the value stream's target conditions.</li>
+            <li>Propose 1–3 annual objectives as hypothesis-conditions: what we believe the system will look like if our strategy is working.</li>
+            <li>Invite chief engineers and teams to respond with what they can achieve, how they would measure it, and what support they need.</li>
+          </ul>
+
+          <div class="pb-prose" style="margin-top:1.25rem;">
+            <p>To keep deployment visible, use simple visual strategy boards or X matrices — showing True North, annual objectives per value stream, key measures, major bets, owners, and review cadences on a single page. Placed in obeya and refreshed regularly, this becomes the navigation panel connecting strategy discussions to what teams are actually doing.</p>
+          </div>
+
+          <div class="pb-subsection" id="daily-management">
+            <h3 class="pb-subsection-title">Connecting Strategy to Daily Management</h3>
+
+            <div class="pb-section-img">
+              <img src="img/connecting-strategy-to-daily-management.jpg" alt="Connecting Strategy to Daily Management">
+            </div>
+
+            <div class="pb-prose">
+              <p>Strategy deployment only works when it connects to daily and weekly routines. Teams need to know which hypotheses they are testing on behalf of the strategy. When a team runs an experiment, they should be able to point to the strategic hypothesis it is helping to validate or falsify. Without that link, daily management becomes activity reporting. With it, it becomes evidence accumulation.</p>
+            </div>
+
+            <div class="pb-prose" style="margin-top:1rem;">
+              <p><strong>A lightweight rhythm:</strong></p>
+            </div>
+            <ul class="pb-list">
+              <li><strong>Yearly:</strong> Define or refresh True North, breakthrough priorities, and value stream target conditions; run catchball to agree on annual objectives.</li>
+              <li><strong>Quarterly:</strong> Review progress on objectives and bets; adjust bets, support, and constraints based on learning.</li>
+              <li><strong>Monthly / bi-weekly:</strong> Value stream and team reviews linking strategy boards to flow, quality, and learning indicators; update experiments and countermeasures.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 3.5 Measuring Value -->
+        <section class="pb-section" id="measuring-value">
+          <p class="pb-section-eyebrow">Section 3.5</p>
+          <h2 class="pb-section-title">Measuring Value Creation</h2>
+          <div class="pb-prose">
+            <p>To steer LPPD, you need measures that tell you whether your strategic hypotheses are holding up — whether the bets you made are generating the value you believed they would, whether the development system is improving as expected, and whether you are learning fast enough to adjust before wasting significant capacity.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/measuring-value-creation.png" alt="Measuring Value Creation">
+          </div>
+
+          <h3 class="pb-subsection-title" style="margin-top:1.5rem;">Three Layers of Measures</h3>
+          <div class="pb-layers">
+            <div class="pb-layer">
+              <p class="pb-layer-label">Layer 1 — Lagging</p>
+              <p class="pb-layer-title">Customer &amp; Business Outcomes</p>
+              <p class="pb-layer-body">Adoption, usage, customer satisfaction, complaint/return rates, revenue and margin for new products. Tell you if bets actually created value — but show up late.</p>
+            </div>
+            <div class="pb-layer">
+              <p class="pb-layer-label">Layer 2 — Leading / Medium</p>
+              <p class="pb-layer-title">Development System Performance</p>
+              <p class="pb-layer-body">Concept-to-launch lead time, rework and change rates, integration success rate, proportion of projects using pretotype brochures, knowledge reuse across projects.</p>
+            </div>
+            <div class="pb-layer">
+              <p class="pb-layer-label">Layer 3 — Immediate</p>
+              <p class="pb-layer-title">Team-Level Flow &amp; Learning</p>
+              <p class="pb-layer-body">WIP per team, cycle time for experiments or A3s, blockage frequency, number of meaningful customer interactions, learning items captured per month.</p>
+            </div>
+          </div>
+
+          <div class="pb-prose" style="margin-top:1.25rem;">
+            <p>The key is to link these layers: teams see how improving flow and learning indicators should move system performance, which in turn should move customer and business outcomes. Rather than dozens of KPIs, choose 2–3 customer/business metrics that really matter per value stream, 3–5 development system metrics, and a handful of team-level indicators checked at least weekly.</p>
+          </div>
+
+          <div class="pb-subsection" id="measuring-learning">
+            <h3 class="pb-subsection-title">Measuring Learning, Not Just Output</h3>
+
+            <div class="pb-section-img">
+              <img src="img/measuring-learning-not-just-output.png" alt="Measuring Learning, Not Just Output">
+            </div>
+
+            <div class="pb-prose">
+              <p>Because LPPD is fundamentally about learning, you should explicitly measure learning quality and rate. At every portfolio review, ask: for each active strategic hypothesis, what new evidence do we have this quarter? Is that evidence moving us toward confidence or toward revision? If neither, the experiment is not designed well enough.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>Number and quality of customer-facing experiments run per quarter.</li>
+              <li>Time from question → designed experiment → result.</li>
+              <li>Reuse of knowledge artefacts (A3s, trade-off curves, design standards) across projects.</li>
+            </ul>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+
+  <script>
+    (function () {
+      const allLinks = document.querySelectorAll('.pb-nav a, .pb-nav-sub a');
+      const sections = Array.from(allLinks)
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const id = '#' + entry.target.id;
+              allLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+            }
+          });
+        },
+        { rootMargin: '-15% 0px -75% 0px', threshold: 0 }
+      );
+
+      sections.forEach(s => observer.observe(s));
+    })();
+  </script>
+
+  <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
+  <script defer>
+    (function () {
+      function init() { CustomGPT.init({ p_id: '89818', p_key: '263a30f8ca292918be27e31bd50d1074' }); }
+      document.readyState === 'complete' ? init() : window.addEventListener('load', init);
+    })();
+  </script>
+
+</body>
+</html>
