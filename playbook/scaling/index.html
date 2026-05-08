@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scaling, Launch, and Lifecycle — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+
+    .pb-chapter-header { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--lp-color-border-subtle); margin-bottom: 2.5rem; }
+    .pb-chapter-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-3xl); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; color: var(--lp-color-text-main); margin: 0 0 1rem; }
+    .pb-chapter-lead { font-size: var(--lp-font-size-lg); color: var(--lp-color-text-muted); line-height: 1.7; max-width: 66ch; margin: 0; }
+    .pb-chapter-img { margin: 0 0 2.5rem; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-img img { width: 100%; height: auto; display: block; max-height: 340px; object-fit: cover; object-position: center top; }
+
+    .pb-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+
+    .pb-sidebar { position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto; }
+    .pb-sidebar-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+
+    .pb-nav { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav > li > a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav > li > a:hover, .pb-nav > li > a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav > li > a.active { border-left-color: var(--lp-color-primary); }
+
+    .pb-nav-sub { list-style: none; margin: 0.1rem 0 0.25rem; padding: 0 0 0 1rem; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav-sub a { display: block; font-size: var(--lp-font-size-xs); color: var(--lp-color-text-soft); text-decoration: none; padding: 0.25rem 0.6rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav-sub a:hover, .pb-nav-sub a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav-sub a.active { border-left-color: var(--lp-color-primary); }
+
+    .pb-chapter-nav { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-nav-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.6rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-nav a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.3rem 0.75rem; border-radius: var(--lp-radius-sm); line-height: 1.4; transition: color 0.15s, background 0.15s; }
+    .pb-chapter-nav a:hover { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-chapter-nav a.current { font-weight: 600; color: var(--lp-color-text-main); }
+
+    .pb-section { scroll-margin-top: 5rem; margin-bottom: 4rem; }
+    .pb-section + .pb-section { padding-top: 2.5rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-subsection { scroll-margin-top: 5rem; margin-top: 2.5rem; }
+
+    .pb-section-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.5rem; font-family: var(--lp-font-sans); }
+    .pb-section-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-2xl); font-weight: 400; letter-spacing: -0.02em; color: var(--lp-color-text-main); margin: 0 0 1.25rem; line-height: 1.15; }
+    .pb-subsection-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-xl); font-weight: 400; color: var(--lp-color-text-main); margin: 0 0 0.75rem; line-height: 1.2; }
+
+    .pb-prose { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.75; max-width: 68ch; }
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+
+    .pb-section-img { margin: 1.75rem 0; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); background: var(--lp-color-surface); }
+    .pb-section-img img { width: 100%; height: auto; display: block; }
+
+    .pb-pullquote { margin: 2rem 0; padding: 1.25rem 1.5rem; border-left: 3px solid var(--lp-color-primary); background: var(--lp-color-surface); border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0; }
+    .pb-pullquote p { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); line-height: 1.5; color: var(--lp-color-text-main); margin: 0; }
+
+    .pb-list { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.5rem; max-width: 68ch; }
+    .pb-list li { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .pb-list li::before { content: "→"; position: absolute; left: 0; color: var(--lp-color-primary); font-size: 0.85em; top: 0.15em; }
+    .pb-list li strong { color: var(--lp-color-text-main); }
+
+    .pb-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0; }
+    .pb-card-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0; }
+    .pb-info-card { padding: 1rem 1.25rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); }
+    .pb-info-card-label { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--lp-color-primary); font-family: var(--lp-font-sans); margin-bottom: 0.4rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    .pb-info-card-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-md); color: var(--lp-color-text-main); margin: 0 0 0.4rem; }
+    .pb-info-card-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0; }
+
+    /* Steps */
+    .pb-steps { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-step { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.875rem; align-items: start; }
+    .pb-step-num { width: 2rem; height: 2rem; border-radius: var(--lp-radius-md); background: var(--lp-color-primary-soft); color: var(--lp-color-primary); font-size: var(--lp-font-size-xs); font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: var(--lp-font-sans); }
+    .pb-step-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; padding-top: 0.2rem; }
+    .pb-step-body strong { color: var(--lp-color-text-main); }
+
+    /* Goal tiles — 3 ramp-up goals */
+    .pb-goals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0; }
+    .pb-goal { padding: 1.125rem 1.25rem; border-radius: var(--lp-radius-md); border-top: 3px solid var(--lp-color-primary); background: var(--lp-color-surface); border-bottom: 1px solid var(--lp-color-border-subtle); border-left: 1px solid var(--lp-color-border-subtle); border-right: 1px solid var(--lp-color-border-subtle); }
+    .pb-goal-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); font-weight: 400; color: var(--lp-color-text-main); margin: 0 0 0.4rem; }
+    .pb-goal-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0; }
+
+    /* Questions list */
+    .pb-questions { display: flex; flex-direction: column; gap: 0.4rem; margin: 1rem 0; max-width: 68ch; }
+    .pb-question { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; padding: 0.5rem 0.875rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-sm); border-left: 2px solid var(--lp-color-primary); font-style: italic; }
+
+    /* Hypothesis areas */
+    .pb-hypotheses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin: 1.25rem 0; }
+    .pb-hyp-card { padding: 0.875rem 1rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); }
+    .pb-hyp-label { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--lp-color-primary); font-family: var(--lp-font-sans); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 0.35rem; }
+    .pb-hyp-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0; }
+
+    /* Note callout */
+    .pb-note { margin: 1.5rem 0; padding: 0.875rem 1.125rem; background: var(--lp-color-primary-soft); border-radius: var(--lp-radius-md); font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; max-width: 68ch; }
+    .pb-note strong { color: var(--lp-color-primary); }
+
+    /* Lifecycle timeline bar */
+    .pb-lifecycle { display: flex; gap: 0; margin: 1.5rem 0; max-width: 68ch; border-radius: var(--lp-radius-md); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); }
+    .pb-lc-stage { flex: 1; padding: 0.75rem 0.875rem; background: var(--lp-color-surface); border-right: 1px solid var(--lp-color-border-subtle); }
+    .pb-lc-stage:last-child { border-right: none; }
+    .pb-lc-label { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--lp-color-primary); font-family: var(--lp-font-sans); text-transform: uppercase; letter-spacing: 0.07em; display: block; margin-bottom: 0.25rem; }
+    .pb-lc-desc { font-size: var(--lp-font-size-xs); color: var(--lp-color-text-muted); line-height: 1.5; margin: 0; }
+
+    @media (max-width: 860px) {
+      .pb-layout { grid-template-columns: 1fr; gap: 0; }
+      .pb-sidebar { position: static; max-height: none; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--lp-color-border-subtle); }
+      .pb-nav { flex-direction: row; flex-wrap: wrap; gap: 0.25rem; }
+      .pb-nav > li > a { border-left: none; border-bottom: 2px solid transparent; padding: 0.3rem 0.6rem; }
+      .pb-nav > li > a.active { border-left-color: transparent; border-bottom-color: var(--lp-color-primary); }
+      .pb-nav-sub { display: none; }
+      .pb-chapter-nav { display: none; }
+      .pb-card-grid { grid-template-columns: 1fr; }
+      .pb-card-grid-2 { grid-template-columns: 1fr; }
+      .pb-goals { grid-template-columns: 1fr; }
+      .pb-hypotheses { grid-template-columns: 1fr; }
+      .pb-lifecycle { flex-direction: column; }
+      .pb-lc-stage { border-right: none; border-bottom: 1px solid var(--lp-color-border-subtle); }
+      .pb-lc-stage:last-child { border-bottom: none; }
+    }
+
+    @media (max-width: 640px) { .pb-chapter-title { font-size: 2rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)">
+            <rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect>
+            <rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect>
+            <rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect>
+          </g>
+          <g transform="translate(150 46)">
+            <text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text>
+            <text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text>
+            <text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text>
+          </g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Lean PPD Playbook &mdash; Chapter 8</p>
+      <h1 class="pb-chapter-title">Scaling, Launch, and Lifecycle</h1>
+      <p class="pb-chapter-lead">
+        Ramping up safely, launching deliberately, synchronizing product and supply chain,
+        managing variants without drowning in complexity, and feeding lifecycle learning
+        back into the next bets.
+      </p>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="img/scaling-launch-and-lifecycle.png" alt="Scaling, Launch, and Lifecycle">
+    </div>
+
+    <div class="pb-layout">
+
+      <!-- ── Sidebar ── -->
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#intro">Introduction</a></li>
+          <li>
+            <a href="#ramp-up">8.1 From Prototype to Ramp-Up</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#ramp-goals">Goals: Stability, Quality, Flow</a></li>
+              <li><a href="#ramp-collaboration">Roles &amp; Collaboration</a></li>
+              <li><a href="#ramp-experiments">Ramp-Up as Experiments</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#sync">8.2 Synchronizing Product, Process &amp; Supply Chain</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#launch-plan">Shared Launch Plan</a></li>
+              <li><a href="#constraints">Capacity &amp; Constraints</a></li>
+              <li><a href="#daily-mgmt">Daily Management at Scale</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#launch-event">8.3 Launch as a Learning Event</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#launch-hypotheses">Launch Hypotheses</a></li>
+              <li><a href="#rapid-response">Rapid Response</a></li>
+              <li><a href="#monitoring">Monitoring Early Signals</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#variants">8.4 Managing Variants and Complexity</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#when-variants">When to Add Variants</a></li>
+              <li><a href="#platforms">Platform &amp; Module Strategy</a></li>
+              <li><a href="#guardrails">Complexity Guardrails</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#lifecycle">8.5 Lifecycle Thinking &amp; Roadmaps</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#lifecycle-maps">Lifecycle Maps</a></li>
+              <li><a href="#end-of-life">End of Life &amp; Transition</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#learning-scale">8.6 Learning from Scale into Next Bets</a>
+          </li>
+        </ul>
+
+        <div class="pb-chapter-nav">
+          <p class="pb-chapter-nav-label">Chapters</p>
+          <a href="/playbook/introduction/">1. Why This Playbook Exists</a>
+          <a href="/playbook/foundations/">2. Foundations</a>
+          <a href="/playbook/strategy/">3. Strategy &amp; Value Creation</a>
+          <a href="/playbook/discover/">4. Discover</a>
+          <a href="/playbook/design/">5. Design &amp; Flow</a>
+          <a href="/playbook/validate/">6. Validate &amp; Learn</a>
+          <a href="/playbook/decisions/">7. Validation, Learning &amp; Decisions</a>
+          <a href="/playbook/scaling/" class="current">8. Scaling, Launch &amp; Lifecycle</a>
+        </div>
+      </aside>
+
+      <!-- ── Main content ── -->
+      <main>
+
+        <!-- Introduction -->
+        <section class="pb-section" id="intro">
+          <p class="pb-section-eyebrow">Chapter 8</p>
+          <h2 class="pb-section-title">When Decisions Become Real Flow at Scale</h2>
+
+          <div class="pb-pullquote">
+            <p>If scaling, launch, and lifecycle were designed as part of the same lean development system, what would we change about how we ramp, learn, and evolve this family over time?</p>
+          </div>
+
+          <div class="pb-prose">
+            <p>Earlier chapters focused on designing the right products and value streams, validating them with experiments, and making knowledge-based decisions. Chapter 8 turns to what happens when those decisions become real flow at scale: how you ramp up safely, launch deliberately, and manage the product and process across their whole lifecycle &mdash; not just at the exciting start.</p>
+            <p>In LPPD, scaling and launch are not last-minute &ldquo;industrialization&rdquo; phases bolted onto development; they are integrated extensions of the same learning system. Pilots, ramp-up, and early field use are treated as high-leverage experiments on the full product&ndash;process&ndash;value stream system, and lifecycle thinking is built in from the beginning so that changes, variants, and end of life are handled with less chaos.</p>
+          </div>
+        </section>
+
+        <!-- 8.1 Ramp-Up -->
+        <section class="pb-section" id="ramp-up">
+          <p class="pb-section-eyebrow">Section 8.1</p>
+          <h2 class="pb-section-title">From Prototype to Ramp-Up</h2>
+
+          <div class="pb-prose">
+            <p>Ramp-up is the bridge between development and full production: the phase where real product, real process, and real people meet at volume for the first time. Done well, it quickly stabilizes quality and flow; done poorly, it amplifies every unresolved issue from development, creating firefighting, scrap, and frustrated customers.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/from-prototype-to-rampup.png" alt="From Prototype to Ramp-Up">
+          </div>
+
+          <div class="pb-subsection" id="ramp-goals">
+            <h3 class="pb-subsection-title">Goals: Stability, Quality, Flow</h3>
+
+            <div class="pb-prose">
+              <p>The purpose of ramp-up is not only to hit a volume number; it is to reach stable, capable flow at the planned volume and mix. Clarifying these goals up front helps teams treat ramp-up as a value creation phase with its own metrics and learning plans.</p>
+            </div>
+
+            <div class="pb-goals">
+              <div class="pb-goal">
+                <p class="pb-goal-title">Stability</p>
+                <p class="pb-goal-body">Processes, equipment, and ways of working that run predictably, with clear reactions to disturbances</p>
+              </div>
+              <div class="pb-goal">
+                <p class="pb-goal-title">Quality</p>
+                <p class="pb-goal-body">Rapid learning curves that bring defect levels down to series production targets while protecting customers from early issues</p>
+              </div>
+              <div class="pb-goal">
+                <p class="pb-goal-title">Flow</p>
+                <p class="pb-goal-body">A value stream that can achieve time-to-volume and takt objectives without chronic overtime, expediting, or hidden buffers</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="ramp-collaboration">
+            <h3 class="pb-subsection-title">Roles and Collaboration in Ramp-Up</h3>
+
+            <div class="pb-prose">
+              <p>Successful ramp-up is inherently cross-functional. When collaboration is weak, issues bounce between functions; when it is strong, teams swarm problems at their source.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>Establish a <strong>joint ramp-up team</strong> with clear ownership, shared metrics, and direct access to decision-makers for fast escalation</li>
+              <li><strong>Co-locate engineering and operations</strong> near the line during early runs so design and process changes can be discussed and implemented quickly</li>
+              <li>Run <strong>short, high-cadence meetings at the line</strong> to review yesterday&rsquo;s performance, prioritize issues, assign problem-solving tasks, and confirm learning</li>
+            </ul>
+          </div>
+
+          <div class="pb-subsection" id="ramp-experiments">
+            <h3 class="pb-subsection-title">Designing Ramp-Up as Experiments</h3>
+
+            <div class="pb-prose">
+              <p>Ramp-up is full of unknowns: real variation in materials, human work, equipment behavior, logistics, and actual demand. Instead of assuming the process will simply &ldquo;scale,&rdquo; plan ramp-up as a series of structured experiments and learning cycles on the full system.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>Define <strong>ramp-up stages</strong> (pilot, limited release, time-to-volume steps) with explicit learning objectives and acceptance criteria for each stage</li>
+              <li><strong>Instrument key processes</strong> so yield, cycle time, downtime, and problem types are visible daily, enabling rapid PDCA on the shop floor</li>
+              <li>Use <strong>temporary standards, layered audits, and problem-solving routines</strong> to converge toward stable methods as learning accumulates</li>
+            </ul>
+
+            <div class="pb-note">
+              Thinking of ramp-up this way makes &ldquo;problems&rdquo; expected and welcome &mdash; each one is a chance to harden the system before full exposure.
+            </div>
+          </div>
+        </section>
+
+        <!-- 8.2 Synchronizing -->
+        <section class="pb-section" id="sync">
+          <p class="pb-section-eyebrow">Section 8.2</p>
+          <h2 class="pb-section-title">Synchronizing Product, Process, and Supply Chain</h2>
+
+          <div class="pb-prose">
+            <p>Scaling a product is not just turning up the factory speed; it is synchronizing product, process, and supply chain so that material, capacity, information, and demand move in step. When misaligned, ramp-up generates shortages, firefighting, and expensive workarounds; when synchronized, time to volume shortens and early customer experience is far smoother.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/synchronizing-product-process-and-supply-chain.png" alt="Synchronizing Product, Process, and Supply Chain">
+          </div>
+
+          <div class="pb-subsection" id="launch-plan">
+            <h3 class="pb-subsection-title">Building a Shared Launch Plan</h3>
+
+            <div class="pb-prose">
+              <p>Most organizations have separate plans: a product plan, an industrialization plan, a sourcing plan, a logistics plan. Synchronization starts with a single, cross-functional launch plan that links these into one story.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>A small set of <strong>shared milestones</strong> (pilots, start of production, time-to-volume steps, regional launches) with clear owners and readiness criteria across product, process, and supply</li>
+              <li>A <strong>single volume and mix ramp profile</strong> that everyone uses as the reference for capacity, inventory, staffing, and logistics preparation</li>
+              <li>Explicit alignment on <strong>design freeze points, change windows, and cut-in/cut-out rules</strong> so engineering changes don&rsquo;t surprise suppliers or plants</li>
+            </ul>
+
+            <div class="pb-note">
+              <strong>Test:</strong> If you pick any future week in the ramp-up window, every function should be able to say what volume, mix, and configuration they are planning for &mdash; and why.
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="constraints">
+            <h3 class="pb-subsection-title">Capacity, Constraints, and Bottlenecks</h3>
+
+            <div class="pb-prose">
+              <p>Scaling will be limited by a few key constraints: critical components, tools, machines, skills, or logistics legs. Surface these early and treat them as part of the development problem, not just an operations headache.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li><strong>Map the end-to-end value stream</strong> from suppliers to customer for the target ramp profile, and mark potential bottlenecks (long-lead items, unique machines, specialized skills, regulatory steps)</li>
+              <li>For each bottleneck, define a <strong>capacity plan and learning plan</strong>: experiments, pilots, and contingency options (second source, extra tooling, shift patterns, buffers)</li>
+              <li>Use <strong>simple visual controls</strong> (e.g., a &ldquo;critical chain&rdquo; view or capacity ladder) so everyone can see which constraints are on the path to time to volume</li>
+            </ul>
+          </div>
+
+          <div class="pb-subsection" id="daily-mgmt">
+            <h3 class="pb-subsection-title">Visibility and Daily Management During Scale-Up</h3>
+
+            <div class="pb-prose">
+              <p>Once ramp-up starts, synchronization becomes a daily management problem: keeping demand, production, and supply in balance while learning and adjusting. The goal is to reveal misalignments quickly, not to hide them behind averages.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>A <strong>joint daily or weekly scale-up huddle</strong> with representatives from production, planning, logistics, quality, and engineering looking at the same facts</li>
+              <li>A <strong>tiered visual system</strong> (plant board, supply chain board, project/obeya board) so problems can be escalated fast with clear ownership and response paths</li>
+              <li>Treat deviations as <strong>triggers for problem-solving and experiments</strong>, and feed what you learn back into both the ramp-up plan and future product introductions</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 8.3 Launch as Learning Event -->
+        <section class="pb-section" id="launch-event">
+          <p class="pb-section-eyebrow">Section 8.3</p>
+          <h2 class="pb-section-title">Designing Launch as a Learning Event</h2>
+
+          <div class="pb-prose">
+            <p>In many organizations, launch is treated as a one-time push: a date to hit, a checklist to clear, a party to celebrate. In LPPD, launch is designed as a learning event on the full system &mdash; product, process, customers, and value stream &mdash; where you confirm (or revise) the big bets you made earlier.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/designing-launch-as-a-learning-event.png" alt="Designing Launch as a Learning Event">
+          </div>
+
+          <div class="pb-subsection" id="launch-hypotheses">
+            <h3 class="pb-subsection-title">Launch Hypotheses and Success Criteria</h3>
+
+            <div class="pb-prose">
+              <p>Instead of &ldquo;launch and hope,&rdquo; teams enter launch with explicit hypotheses about how the product and value stream will behave in the real world. These go beyond sales targets to cover usage, reliability, service load, and economics.</p>
+            </div>
+
+            <div class="pb-hypotheses">
+              <div class="pb-hyp-card">
+                <p class="pb-hyp-label">Customer</p>
+                <p class="pb-hyp-body">Who will actually adopt first, how fast, and for which primary jobs or use cases</p>
+              </div>
+              <div class="pb-hyp-card">
+                <p class="pb-hyp-label">Operational</p>
+                <p class="pb-hyp-body">Expected ranges for uptime, defect rates, installation times, learning curves, and service calls in early months</p>
+              </div>
+              <div class="pb-hyp-card">
+                <p class="pb-hyp-label">Economic</p>
+                <p class="pb-hyp-body">Realized price, mix, margin, and key cost drivers at planned volume</p>
+              </div>
+            </div>
+
+            <div class="pb-prose" style="margin-top:0.75rem;">
+              <p>For each area, define a handful of success criteria and guardrails (e.g., &ldquo;no more than X% of installs require unplanned rework,&rdquo; &ldquo;field failure rate below Y ppm by month three&rdquo;). These become the reference for monitoring and decisions during ramp-up and early market life.</p>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="rapid-response">
+            <h3 class="pb-subsection-title">Rapid Response to Early Problems and Opportunities</h3>
+
+            <div class="pb-prose">
+              <p>No matter how good the preparation, early launches always surface surprises. The difference in a lean system is how fast and how cleanly you respond &mdash; without destabilizing the value stream.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>Define a <strong>launch triage process</strong>: which issues trigger immediate containment (protect customers), which go into structured problem-solving, and which are logged for trend monitoring</li>
+              <li>Keep a <strong>small, empowered launch response team</strong> (product, process, quality, supply chain, service) with authority to prioritize and coordinate fixes, experiments, and communication</li>
+              <li><strong>Protect the system from thrash</strong>: bundle non-urgent improvements into planned, tested change packages and cut-in windows, instead of pushing ad hoc changes through every day</li>
+            </ul>
+
+            <div class="pb-note">
+              On the positive side, treat unexpected pull and strong signals (a segment adopting faster than expected, a feature getting disproportionate use) as hypotheses for next bets: capacity shifts, targeted variants, or new services to explore.
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="monitoring">
+            <h3 class="pb-subsection-title">Monitoring Early Market and Operational Signals</h3>
+
+            <div class="pb-prose">
+              <p>Launch floods you with signals. The challenge is to separate signal from noise and link it back to the launch hypotheses.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>Build a small <strong>launch cockpit</strong> that tracks a limited set of leading indicators across customer, operations, and economics (install lead time, first-time-right rate, top 5 failure modes, early adopter usage patterns)</li>
+              <li>Establish <strong>short, regular launch reviews</strong> (weekly at first) where cross-functional teams look at the same data: &ldquo;Which hypotheses are holding? Which are breaking? What&rsquo;s emerging that we didn&rsquo;t expect?&rdquo;</li>
+              <li>Combine <strong>quantitative data</strong> (dashboards, KPIs) with <strong>qualitative insight</strong> (field visits, installer and service interviews, key customer conversations) to understand the why behind patterns</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 8.4 Variants and Complexity -->
+        <section class="pb-section" id="variants">
+          <p class="pb-section-eyebrow">Section 8.4</p>
+          <h2 class="pb-section-title">Managing Variants and Complexity</h2>
+
+          <div class="pb-prose">
+            <p>After launch, pressure for more options comes fast: new segments, special requests, regional needs, and &ldquo;just one more feature.&rdquo; Without a strategy, every new variant adds hidden cost in engineering, supply chain, production, service, and lifecycle management. In LPPD, variants are treated as deliberate bets on value, built on platforms and modules that let you offer meaningful choice without drowning in complexity.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/managing-variants-and-complexity.png" alt="Managing Variants and Complexity">
+          </div>
+
+          <div class="pb-subsection" id="when-variants">
+            <h3 class="pb-subsection-title">When and Why to Add Variants</h3>
+
+            <div class="pb-prose">
+              <p>Not every request deserves a new variant. The key is to tie variety directly to customer value and economics, not to internal preferences or one-off deals. Ask these questions explicitly:</p>
+            </div>
+
+            <div class="pb-questions">
+              <p class="pb-question">Which segments or use cases are we truly targeting, and where does additional variety actually change the decision to buy or stay?</p>
+              <p class="pb-question">Does a proposed variant create incremental value that clearly exceeds its added complexity in design, parts, planning, and service?</p>
+              <p class="pb-question">Could the need be met by reconfiguring existing options, changing sales packaging, or adjusting process/service instead of adding a new SKU?</p>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="platforms">
+            <h3 class="pb-subsection-title">Platform and Module Strategies in Scale-Up</h3>
+
+            <div class="pb-prose">
+              <p>The main antidote to variant chaos is a platform and module strategy: common architectures and modules that can be combined into many offers with limited unique parts. This lets you support variety where customers notice it, while keeping the &ldquo;inside&rdquo; simple for engineering and operations.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>Define a <strong>common product structure and clear module boundaries</strong> (e.g., power module, control module, interface kit, enclosure) with standard interfaces</li>
+              <li>Decide deliberately where to <strong>postpone differentiation</strong> in the flow (late-point configuration) so upstream production and inventory stay as generic as possible</li>
+              <li>Align platform rules with manufacturing and supply: <strong>shared components, tools, and work steps</strong> wherever possible to stabilize quality and reduce changeovers</li>
+            </ul>
+          </div>
+
+          <div class="pb-subsection" id="guardrails">
+            <h3 class="pb-subsection-title">Guardrails for Controlling Complexity</h3>
+
+            <div class="pb-prose">
+              <p>Even with good platforms, complexity will creep unless you set and enforce simple guardrails. These are not rigid bans; they are rules of thumb and decision checks that keep the product family manageable over time.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>Defined <strong>variant &ldquo;slots&rdquo; per family</strong> (e.g., max number of power levels, interface types, or regional versions) with clear criteria for adding or retiring one</li>
+              <li>A lightweight review where proposed variants must show their <strong>incremental value vs. incremental complexity</strong>, including impact on inventory, changeovers, documentation, and service</li>
+              <li>Regular portfolio <strong>&ldquo;clean-ups&rdquo;</strong> that remove low-value, high-complexity variants and fold their learning back into the platform and design rules</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 8.5 Lifecycle -->
+        <section class="pb-section" id="lifecycle">
+          <p class="pb-section-eyebrow">Section 8.5</p>
+          <h2 class="pb-section-title">Lifecycle Thinking and Roadmaps</h2>
+
+          <div class="pb-prose">
+            <p>Most organizations treat lifecycle topics &mdash; upgrades, variants, and end of life &mdash; as late, reactive conversations. In LPPD, lifecycle thinking is part of the development system from the start: each product family has a clear story for how it will evolve, how long it will live, and how it will eventually be replaced or retired.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/lifecycle-thinking-and-roadmaps.png" alt="Lifecycle Thinking and Roadmaps">
+          </div>
+
+          <div class="pb-subsection" id="lifecycle-maps">
+            <h3 class="pb-subsection-title">Product Family and Lifecycle Maps</h3>
+
+            <div class="pb-prose">
+              <p>Lifecycle thinking starts with seeing the whole product family over time, not just the current model. A lifecycle map gives everyone a shared picture of &ldquo;where this family is in its life,&rdquo; making day-to-day decisions less myopic.</p>
+            </div>
+
+            <div class="pb-lifecycle">
+              <div class="pb-lc-stage">
+                <span class="pb-lc-label">Current Gen</span>
+                <p class="pb-lc-desc">Today&rsquo;s offer and variants; core vs. niche configurations</p>
+              </div>
+              <div class="pb-lc-stage">
+                <span class="pb-lc-label">Planned Refreshes</span>
+                <p class="pb-lc-desc">Upgrades, retrofits, and new options tied to market and tech shifts</p>
+              </div>
+              <div class="pb-lc-stage">
+                <span class="pb-lc-label">Next Gen</span>
+                <p class="pb-lc-desc">Concept seeds from field learning; platform evolution path</p>
+              </div>
+              <div class="pb-lc-stage">
+                <span class="pb-lc-label">Transition &amp; End of Life</span>
+                <p class="pb-lc-desc">Overlap periods, support commitments, and retirement criteria</p>
+              </div>
+            </div>
+
+            <div class="pb-subsection">
+              <h3 class="pb-subsection-title">Upgrades, Retrofits, and Generations</h3>
+
+              <div class="pb-prose">
+                <p>For many physical products, value comes as much from upgrades and retrofits as from brand-new introductions. Design with this in mind: interfaces, modules, and service strategies that allow the installed base to evolve without constant full redesigns.</p>
+              </div>
+
+              <ul class="pb-list">
+                <li>Design key modules and interfaces to be <strong>forward-compatible</strong>, so new options (control units, sensors, software, safety features) can be added to existing units</li>
+                <li>Plan explicit <strong>upgrade/retrofit offers on the lifecycle map</strong> &mdash; technical concepts, business models, and service flows &mdash; rather than improvising when customers ask</li>
+                <li>Treat each major generation change as a <strong>learning hand-off</strong>: what did the last cycle teach about reliability, usability, and economics that must be baked into the new platform?</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="end-of-life">
+            <h3 class="pb-subsection-title">Planned End of Life and Transition</h3>
+
+            <div class="pb-prose">
+              <p>End of life is usually where chaos shows up: last-time-buy scrambles, unsupported customers, orphaned variants. Lifecycle thinking means planning graceful exits as carefully as entries.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>Define <strong>end-of-life criteria up front</strong> (sustained drop in demand, technology obsolescence, excessive complexity, regulatory change) and review them periodically</li>
+              <li>Map <strong>transition paths</strong> from old to new generations: overlap periods, support commitments, retrofit paths, and communication plans for customers, plants, and suppliers</li>
+              <li>Use <strong>end-of-life reviews to capture final learning</strong>: which design and process choices aged well, which didn&rsquo;t, and what that implies for future platforms and lifecycle strategies</li>
+            </ul>
+
+            <div class="pb-pullquote">
+              <p>When you plan the whole lifecycle this way, scaling, launch, upgrades, and retirement all become chapters in one coherent story.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8.6 Learning from Scale -->
+        <section class="pb-section" id="learning-scale">
+          <p class="pb-section-eyebrow">Section 8.6</p>
+          <h2 class="pb-section-title">Learning from Scale and Lifecycle into Next Bets</h2>
+
+          <div class="pb-prose">
+            <p>Once a product is in the field and running at volume, you are sitting on the richest learning you will ever have about that offer and its value stream. The question is whether that learning is harvested and reused for the next ramp-up, the next platform, and the next value stream design &mdash; or whether it disappears into local fixes and war stories.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/learning-from-scale-and-lifecycle-into-next-bets.png" alt="Learning from Scale and Lifecycle into Next Bets">
+          </div>
+
+          <div class="pb-subsection">
+            <h3 class="pb-subsection-title">Capturing Knowledge from Ramp-Up and Launch</h3>
+
+            <div class="pb-prose">
+              <p>Treat those months as a field lab and harvest what they reveal. Focus on three areas:</p>
+            </div>
+
+            <div class="pb-card-grid">
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Product Behaviour</div>
+                <p class="pb-info-card-body">Recurring failure modes, conditions where performance drifts, usability and installation friction, &ldquo;hidden features&rdquo; customers actually value</p>
+              </div>
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Process &amp; Supply Behaviour</div>
+                <p class="pb-info-card-body">Where flow really breaks, which constraints were hardest to stabilise, what workarounds people invented on the line or in logistics</p>
+              </div>
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Decision Hindsight</div>
+                <p class="pb-info-card-body">Which assumptions from development held up, which didn&rsquo;t, and which experiments turned out to be most valuable (or missing)</p>
+              </div>
+            </div>
+
+            <div class="pb-note">
+              Turn these into a small number of artefacts with a home: design rules, trade-off insights, standard work improvements, supplier learnings, and short &ldquo;ramp-up retrospectives&rdquo; that sit next to the product family and platform documentation &mdash; not in random slide decks.
+            </div>
+          </div>
+
+          <div class="pb-subsection">
+            <h3 class="pb-subsection-title">Feeding Operational and Lifecycle Learning into LPPD</h3>
+
+            <div class="pb-prose">
+              <p>Operational and lifecycle learning only matters if it changes how you design and decide next time. Create deliberate channels from plants, service, and markets back into the LPPD system.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>Regular <strong>&ldquo;learning from scale&rdquo; sessions</strong> where operations, service, and development review the last ramp-ups and lifecycle phase, then translate top insights into concrete changes in standards, checklists, and design guidelines</li>
+              <li>Update <strong>early-phase questions and knowledge-based milestones</strong> based on what really hurt (or helped) at scale &mdash; so new projects probe those issues earlier</li>
+              <li>Make <strong>lifecycle patterns</strong> (upgrade demand, variant profitability, end-of-life pain points) visible on product family maps and roadmaps, so they directly influence platform and architecture choices</li>
+            </ul>
+
+            <div class="pb-subsection">
+              <h3 class="pb-subsection-title">Practical Start: Upgrading Your Next Launch Plan</h3>
+
+              <div class="pb-steps">
+                <div class="pb-step">
+                  <span class="pb-step-num">1</span>
+                  <div class="pb-step-body">Add a one-page <strong>&ldquo;Learning from Scale&rdquo; section</strong> to the launch plan: what you intend to learn during ramp-up and the first year in the field, and how you will capture it</div>
+                </div>
+                <div class="pb-step">
+                  <span class="pb-step-num">2</span>
+                  <div class="pb-step-body">Nominate explicit owners for three threads: <strong>product behaviour</strong>, <strong>value stream behaviour</strong>, and <strong>lifecycle/portfolio impact</strong></div>
+                </div>
+                <div class="pb-step">
+                  <span class="pb-step-num">3</span>
+                  <div class="pb-step-body">Schedule a short, time-boxed <strong>retrospective after key milestones</strong> (time to volume, first year in market) with the mandate to propose concrete changes to standards, design rules, and early-phase questions</div>
+                </div>
+              </div>
+
+              <div class="pb-pullquote">
+                <p>If you consistently close this loop, your organisation&rsquo;s ability to scale, launch, and evolve products will improve project by project &mdash; making each &ldquo;next bet&rdquo; smarter, calmer, and faster than the last.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+
+  <script>
+    const navLinks = document.querySelectorAll('.pb-nav a, .pb-nav-sub a');
+    const sections = document.querySelectorAll('.pb-section, .pb-subsection');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          const id = entry.target.getAttribute('id');
+          const active = document.querySelector(`.pb-nav a[href="#${id}"], .pb-nav-sub a[href="#${id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+  <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
+  <script defer>
+    (function () {
+      function init() { CustomGPT.init({ p_id: '89818', p_key: '263a30f8ca292918be27e31bd50d1074' }); }
+      document.readyState === 'complete' ? init() : window.addEventListener('load', init);
+    })();
+  </script>
+
+</body>
+</html>
