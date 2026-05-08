@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Validation, Learning, and Decisions — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+
+    .pb-chapter-header { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--lp-color-border-subtle); margin-bottom: 2.5rem; }
+    .pb-chapter-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-3xl); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; color: var(--lp-color-text-main); margin: 0 0 1rem; }
+    .pb-chapter-lead { font-size: var(--lp-font-size-lg); color: var(--lp-color-text-muted); line-height: 1.7; max-width: 66ch; margin: 0; }
+    .pb-chapter-img { margin: 0 0 2.5rem; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-img img { width: 100%; height: auto; display: block; max-height: 340px; object-fit: cover; object-position: center top; }
+
+    .pb-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+
+    .pb-sidebar { position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto; }
+    .pb-sidebar-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+
+    .pb-nav { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav > li > a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav > li > a:hover, .pb-nav > li > a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav > li > a.active { border-left-color: var(--lp-color-primary); }
+
+    .pb-nav-sub { list-style: none; margin: 0.1rem 0 0.25rem; padding: 0 0 0 1rem; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav-sub a { display: block; font-size: var(--lp-font-size-xs); color: var(--lp-color-text-soft); text-decoration: none; padding: 0.25rem 0.6rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav-sub a:hover, .pb-nav-sub a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav-sub a.active { border-left-color: var(--lp-color-primary); }
+
+    .pb-chapter-nav { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-nav-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.6rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-nav a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.3rem 0.75rem; border-radius: var(--lp-radius-sm); line-height: 1.4; transition: color 0.15s, background 0.15s; }
+    .pb-chapter-nav a:hover { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-chapter-nav a.current { font-weight: 600; color: var(--lp-color-text-main); }
+
+    .pb-section { scroll-margin-top: 5rem; margin-bottom: 4rem; }
+    .pb-section + .pb-section { padding-top: 2.5rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-subsection { scroll-margin-top: 5rem; margin-top: 2.5rem; }
+
+    .pb-section-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.5rem; font-family: var(--lp-font-sans); }
+    .pb-section-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-2xl); font-weight: 400; letter-spacing: -0.02em; color: var(--lp-color-text-main); margin: 0 0 1.25rem; line-height: 1.15; }
+    .pb-subsection-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-xl); font-weight: 400; color: var(--lp-color-text-main); margin: 0 0 0.75rem; line-height: 1.2; }
+
+    .pb-prose { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.75; max-width: 68ch; }
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+
+    .pb-section-img { margin: 1.75rem 0; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); background: var(--lp-color-surface); }
+    .pb-section-img img { width: 100%; height: auto; display: block; }
+
+    .pb-pullquote { margin: 2rem 0; padding: 1.25rem 1.5rem; border-left: 3px solid var(--lp-color-primary); background: var(--lp-color-surface); border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0; }
+    .pb-pullquote p { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); line-height: 1.5; color: var(--lp-color-text-main); margin: 0; }
+
+    .pb-list { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.5rem; max-width: 68ch; }
+    .pb-list li { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .pb-list li::before { content: "→"; position: absolute; left: 0; color: var(--lp-color-primary); font-size: 0.85em; top: 0.15em; }
+    .pb-list li strong { color: var(--lp-color-text-main); }
+
+    .pb-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0; }
+    .pb-card-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0; }
+    .pb-info-card { padding: 1rem 1.25rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); }
+    .pb-info-card-label { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--lp-color-primary); font-family: var(--lp-font-sans); margin-bottom: 0.4rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    .pb-info-card-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-md); color: var(--lp-color-text-main); margin: 0 0 0.4rem; }
+    .pb-info-card-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0; }
+
+    /* Steps */
+    .pb-steps { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-step { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.875rem; align-items: start; }
+    .pb-step-num { width: 2rem; height: 2rem; border-radius: var(--lp-radius-md); background: var(--lp-color-primary-soft); color: var(--lp-color-primary); font-size: var(--lp-font-size-xs); font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: var(--lp-font-sans); }
+    .pb-step-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; padding-top: 0.2rem; }
+    .pb-step-body strong { color: var(--lp-color-text-main); }
+
+    /* Hypothesis pattern */
+    .pb-hypothesis { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.5rem 0; max-width: 68ch; padding: 1.25rem 1.5rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); }
+    .pb-hypothesis-row { display: grid; grid-template-columns: 6rem minmax(0,1fr); gap: 0.75rem; align-items: baseline; font-size: var(--lp-font-size-sm); }
+    .pb-hypothesis-label { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--lp-color-primary); font-family: var(--lp-font-sans); text-transform: uppercase; letter-spacing: 0.08em; }
+    .pb-hypothesis-value { color: var(--lp-color-text-muted); line-height: 1.6; }
+
+    /* Decision patterns */
+    .pb-decision-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-decision-card { padding: 0.875rem 1rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); }
+    .pb-decision-tag { display: inline-block; font-size: var(--lp-font-size-xs); font-weight: 700; font-family: var(--lp-font-sans); text-transform: uppercase; letter-spacing: 0.08em; color: var(--lp-color-primary); background: var(--lp-color-primary-soft); border-radius: var(--lp-radius-pill); padding: 0.15rem 0.6rem; margin-bottom: 0.4rem; }
+    .pb-decision-desc { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.55; margin: 0; }
+
+    /* Board columns */
+    .pb-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 1.5rem 0; }
+    .pb-board-col { background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); padding: 0.875rem 1rem; }
+    .pb-board-col-label { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--lp-color-primary); font-family: var(--lp-font-sans); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 0.5rem; }
+    .pb-board-col-desc { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.55; margin: 0; }
+
+    /* Note callout */
+    .pb-note { margin: 1.5rem 0; padding: 0.875rem 1.125rem; background: var(--lp-color-primary-soft); border-radius: var(--lp-radius-md); font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; max-width: 68ch; }
+    .pb-note strong { color: var(--lp-color-primary); }
+
+    /* Shift rows */
+    .pb-shifts { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-shift { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0.75rem; align-items: center; padding: 0.65rem 1rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); font-size: var(--lp-font-size-sm); }
+    .pb-shift-from { color: var(--lp-color-text-muted); }
+    .pb-shift-arrow { color: var(--lp-color-primary); font-size: 1.1em; text-align: center; }
+    .pb-shift-to { color: var(--lp-color-text-main); font-weight: 500; }
+
+    @media (max-width: 860px) {
+      .pb-layout { grid-template-columns: 1fr; gap: 0; }
+      .pb-sidebar { position: static; max-height: none; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--lp-color-border-subtle); }
+      .pb-nav { flex-direction: row; flex-wrap: wrap; gap: 0.25rem; }
+      .pb-nav > li > a { border-left: none; border-bottom: 2px solid transparent; padding: 0.3rem 0.6rem; }
+      .pb-nav > li > a.active { border-left-color: transparent; border-bottom-color: var(--lp-color-primary); }
+      .pb-nav-sub { display: none; }
+      .pb-chapter-nav { display: none; }
+      .pb-card-grid { grid-template-columns: 1fr; }
+      .pb-card-grid-2 { grid-template-columns: 1fr; }
+      .pb-decision-grid { grid-template-columns: 1fr; }
+      .pb-board { grid-template-columns: repeat(2, 1fr); }
+      .pb-shift { grid-template-columns: 1fr; }
+      .pb-shift-arrow { display: none; }
+      .pb-hypothesis-row { grid-template-columns: 1fr; gap: 0.25rem; }
+    }
+
+    @media (max-width: 640px) {
+      .pb-chapter-title { font-size: 2rem; }
+      .pb-board { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)">
+            <rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect>
+            <rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect>
+            <rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect>
+          </g>
+          <g transform="translate(150 46)">
+            <text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text>
+            <text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text>
+            <text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text>
+          </g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Lean PPD Playbook &mdash; Chapter 7</p>
+      <h1 class="pb-chapter-title">Validation, Learning, and Decisions</h1>
+      <p class="pb-chapter-lead">
+        Shifting from output reviews to knowledge reviews, designing validation as a
+        deliberate system, making decisions grounded in evidence, and building the
+        behaviors and culture where learning drives every major choice.
+      </p>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="img/validation-learning-and-decisions.jpg" alt="Validation, Learning, and Decisions">
+    </div>
+
+    <div class="pb-layout">
+
+      <!-- ── Sidebar ── -->
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#intro">Introduction</a></li>
+          <li>
+            <a href="#knowledge-reviews">7.1 Knowledge Reviews</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#what-reviewed">What Is Being Reviewed</a></li>
+              <li><a href="#anatomy">Anatomy of a Review</a></li>
+              <li><a href="#roles">Roles in the Review</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#structuring">7.2 Structuring Validation</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#uncertainties-decisions">Uncertainties &amp; Decisions</a></li>
+              <li><a href="#hypotheses">Questions to Hypotheses</a></li>
+              <li><a href="#smallest-experiment">Smallest Useful Experiment</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#deliberate-learning">7.3 Learning as a System</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#designed-learning">Designed Learning</a></li>
+              <li><a href="#rhythms">Rhythms, Roles &amp; Places</a></li>
+              <li><a href="#reuse">Knowledge Reuse</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#knowledge-decisions">7.4 Knowledge-Based Decisions</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#what-knowledge-based">What Makes It Knowledge-Based</a></li>
+              <li><a href="#decision-patterns">Decision Patterns &amp; Records</a></li>
+              <li><a href="#front-load">Delay Commitments, Front-Load Knowledge</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#visual-mgmt">7.5 Visual Management</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#obeya-hub">Obeya as Learning Hub</a></li>
+              <li><a href="#right-things">Making the Right Things Visible</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#behaviors">7.6 Behaviors &amp; Culture</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#leader-behaviors">Leader Behaviors</a></li>
+              <li><a href="#psych-safety">Psychological Safety</a></li>
+            </ul>
+          </li>
+          <li><a href="#next-review">7.7 Upgrade Your Next Review</a></li>
+        </ul>
+
+        <div class="pb-chapter-nav">
+          <p class="pb-chapter-nav-label">Chapters</p>
+          <a href="/playbook/introduction/">1. Why This Playbook Exists</a>
+          <a href="/playbook/foundations/">2. Foundations</a>
+          <a href="/playbook/strategy/">3. Strategy &amp; Value Creation</a>
+          <a href="/playbook/discover/">4. Discover</a>
+          <a href="/playbook/design/">5. Design &amp; Flow</a>
+          <a href="/playbook/validate/">6. Validate &amp; Learn</a>
+          <a href="/playbook/decisions/" class="current">7. Validation, Learning &amp; Decisions</a>
+        </div>
+      </aside>
+
+      <!-- ── Main content ── -->
+      <main>
+
+        <!-- Introduction -->
+        <section class="pb-section" id="intro">
+          <p class="pb-section-eyebrow">Chapter 7</p>
+          <h2 class="pb-section-title">How Teams Steer Designs Over Time</h2>
+
+          <div class="pb-pullquote">
+            <p>How would this initiative look if every major decision were explicitly tied to experiments and evidence?</p>
+          </div>
+
+          <div class="pb-prose">
+            <p>Earlier chapters focused on choosing where to play, understanding problems and context, and designing products, processes, and value streams that can flow. Chapter 7 turns to how you steer those designs over time: how teams validate what they are doing, learn fast enough, and make decisions that are truly grounded in knowledge rather than in hope or habit.</p>
+            <p>In LPPD, validation is not a late &ldquo;test&rdquo; step or a ceremonial gate review; it is a continuous, experiment-driven conversation between questions, evidence, and decisions. Learning becomes a deliberate system of cycles and knowledge reviews, and milestones become decision points defined by what must be known, not by which slide deck is due.</p>
+          </div>
+
+          <div class="pb-shifts">
+            <div class="pb-shift">
+              <span class="pb-shift-from">Output reviews &mdash; status theatre</span>
+              <span class="pb-shift-arrow">&rarr;</span>
+              <span class="pb-shift-to">Knowledge reviews &mdash; evidence &amp; decisions</span>
+            </div>
+            <div class="pb-shift">
+              <span class="pb-shift-from">Accidental, ad hoc learning</span>
+              <span class="pb-shift-arrow">&rarr;</span>
+              <span class="pb-shift-to">Deliberate learning cycles with rhythm and roles</span>
+            </div>
+            <div class="pb-shift">
+              <span class="pb-shift-from">Calendar-date milestones</span>
+              <span class="pb-shift-arrow">&rarr;</span>
+              <span class="pb-shift-to">Knowledge gates defined by what must be known</span>
+            </div>
+            <div class="pb-shift">
+              <span class="pb-shift-from">Leaders push for green status</span>
+              <span class="pb-shift-arrow">&rarr;</span>
+              <span class="pb-shift-to">Leaders pull for learning &mdash; &ldquo;what did you learn?&rdquo;</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7.1 Knowledge Reviews -->
+        <section class="pb-section" id="knowledge-reviews">
+          <p class="pb-section-eyebrow">Section 7.1</p>
+          <h2 class="pb-section-title">From Output Reviews to Knowledge Reviews</h2>
+
+          <div class="pb-prose">
+            <p>In many organizations, &ldquo;project reviews&rdquo; still mean slide decks, traffic lights, and defending percent complete. These meetings check whether documents exist, not whether the team actually knows what it needs to know. LPPD reframes reviews as structured conversations about problems, uncertainties, experiments, and evidence.</p>
+          </div>
+
+          <div class="pb-subsection" id="what-reviewed">
+            <h3 class="pb-subsection-title">What Is Being Reviewed?</h3>
+
+            <div class="pb-section-img">
+              <img src="img/what-is-being-reviewed.png" alt="What Is Being Reviewed">
+            </div>
+
+            <div class="pb-prose">
+              <p>A knowledge review starts from a different question: <em>&ldquo;What do we need to decide, and what must we know to decide it well?&rdquo;</em></p>
+              <p>Instead of walking through functional status reports, the team looks at the key questions and uncertainties for this phase, the experiments and analyses completed and planned, and the evidence on the table. Success is not a green status; it is increased clarity about the product, the value stream, and the risks that still need work.</p>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="anatomy">
+            <h3 class="pb-subsection-title">Anatomy of a Knowledge Review</h3>
+
+            <div class="pb-section-img">
+              <img src="img/anatomy-of-a-knowledge-review.png" alt="Anatomy of a Knowledge Review">
+            </div>
+
+            <div class="pb-steps">
+              <div class="pb-step">
+                <span class="pb-step-num">1</span>
+                <div class="pb-step-body"><strong>Purpose &amp; decision</strong> &mdash; One page stating which decision this review should support (e.g., select concept set, commit to architecture, start tooling)</div>
+              </div>
+              <div class="pb-step">
+                <span class="pb-step-num">2</span>
+                <div class="pb-step-body"><strong>Questions &amp; hypotheses</strong> &mdash; A short list of learning goals and what the team believed going in</div>
+              </div>
+              <div class="pb-step">
+                <span class="pb-step-num">3</span>
+                <div class="pb-step-body"><strong>Experiments &amp; findings</strong> &mdash; Summaries of completed tests, simulations, rigs, prototypes, and field work, focusing on surprises and trade-offs</div>
+              </div>
+              <div class="pb-step">
+                <span class="pb-step-num">4</span>
+                <div class="pb-step-body"><strong>Gaps &amp; next experiments</strong> &mdash; Explicit unknowns and the proposed plan to address them before the next milestone</div>
+              </div>
+            </div>
+
+            <div class="pb-note">
+              When this becomes the standard agenda, reviews stop being status theatre and become collective thinking about where to probe next. The output is a <strong>decision record</strong>: what was decided, why it was reasonable given what was known, and which learning tasks were created.
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="roles">
+            <h3 class="pb-subsection-title">Roles in the Review</h3>
+
+            <div class="pb-section-img">
+              <img src="img/roles-in-the-review.png" alt="Roles in the Review">
+            </div>
+
+            <div class="pb-card-grid">
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Teams</div>
+                <p class="pb-info-card-body">Bring concise evidence, articulate uncertainties, and propose next experiments &mdash; rather than selling a predetermined answer</p>
+              </div>
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Leaders</div>
+                <p class="pb-info-card-body">Pull for knowledge: &ldquo;Show me what you learned&rdquo; and &ldquo;What still worries you?&rdquo; &mdash; protect time for experiments instead of demanding premature commitments</p>
+              </div>
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Experts &amp; Partners</div>
+                <p class="pb-info-card-body">Manufacturing, suppliers, service, and sometimes customers enrich the discussion with different perspectives on risk and feasibility</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7.2 Structuring Validation -->
+        <section class="pb-section" id="structuring">
+          <p class="pb-section-eyebrow">Section 7.2</p>
+          <h2 class="pb-section-title">Structuring Validation: From Questions to Experiments</h2>
+
+          <div class="pb-prose">
+            <p>Validation becomes powerful when it is designed, not improvised. LPPD teams move in a deliberate chain: map uncertainties, frame sharp questions, translate them into hypotheses, then choose the lightest experiments that can generate a clear signal for a decision.</p>
+          </div>
+
+          <div class="pb-subsection" id="uncertainties-decisions">
+            <h3 class="pb-subsection-title">Start from Uncertainties and Decisions</h3>
+
+            <div class="pb-prose">
+              <p>Good validation starts by asking: <em>&ldquo;What decision are we trying to make, and what could make it wrong?&rdquo;</em> Instead of starting from available test rigs or lab time, teams list the critical uncertainties that could break the product, the value stream, or the business.</p>
+            </div>
+
+            <div class="pb-steps">
+              <div class="pb-step">
+                <span class="pb-step-num">1</span>
+                <div class="pb-step-body"><strong>Identify upcoming decisions</strong> &mdash; select concept, freeze architecture, commit to tooling, scale pilots</div>
+              </div>
+              <div class="pb-step">
+                <span class="pb-step-num">2</span>
+                <div class="pb-step-body"><strong>List the assumptions</strong> that must be true for each decision to be safe: customer, technical, flow, and economic</div>
+              </div>
+              <div class="pb-step">
+                <span class="pb-step-num">3</span>
+                <div class="pb-step-body"><strong>Prioritize by impact and unknown-ness</strong> &mdash; high impact, highly uncertain assumptions are validated first</div>
+              </div>
+            </div>
+
+            <div class="pb-note">
+              This creates a simple map: <strong>decision &rarr; assumptions &rarr; prioritized uncertainties</strong>, which becomes the backbone of the validation plan.
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="hypotheses">
+            <h3 class="pb-subsection-title">From Questions to Hypotheses</h3>
+
+            <div class="pb-prose">
+              <p>Once key uncertainties are clear, the team turns them into questions and hypotheses that can be tested. Vague worries become focused statements that suggest specific experiments.</p>
+            </div>
+
+            <div class="pb-section-img">
+              <img src="img/from-questions-to-hypotheses.png" alt="From Questions to Hypotheses">
+            </div>
+
+            <div class="pb-hypothesis">
+              <div class="pb-hypothesis-row">
+                <span class="pb-hypothesis-label">Question</span>
+                <span class="pb-hypothesis-value">What do we need to know?</span>
+              </div>
+              <div class="pb-hypothesis-row">
+                <span class="pb-hypothesis-label">Hypothesis</span>
+                <span class="pb-hypothesis-value">We believe that [change] will lead to [measurable effect] for [who/where].</span>
+              </div>
+              <div class="pb-hypothesis-row">
+                <span class="pb-hypothesis-label">Metric</span>
+                <span class="pb-hypothesis-value">We will know this is true if [signal/threshold] happens within [timeframe or context].</span>
+              </div>
+            </div>
+
+            <div class="pb-prose">
+              <p>Examples of sharp hypotheses:</p>
+            </div>
+            <ul class="pb-list">
+              <li>&ldquo;We believe operators can install this module in under 10 minutes the first time, with no special tools.&rdquo;</li>
+              <li>&ldquo;We believe changing the cooling layout will reduce peak temperature by at least 8&deg;C under continuous duty.&rdquo;</li>
+            </ul>
+          </div>
+
+          <div class="pb-subsection" id="smallest-experiment">
+            <h3 class="pb-subsection-title">Designing the Smallest Useful Experiment</h3>
+
+            <div class="pb-prose">
+              <p>With hypotheses in hand, design the smallest experiment that can disprove or strengthen them &mdash; not the most impressive one. Choose a rung on the prototyping ladder and a learning cycle length that matches the risk and the decision timing.</p>
+            </div>
+
+            <div class="pb-section-img">
+              <img src="img/designing-the-smallest-useful-experiment.png" alt="Designing the Smallest Useful Experiment">
+            </div>
+
+            <ul class="pb-list">
+              <li><strong>Ask first:</strong> What is the lightest way to get a trustworthy signal? (paper mock, simulation, rig, field trial&hellip;)</li>
+              <li><strong>Isolate the variable</strong> as much as practical and define in advance what counts as success, failure, or &ldquo;needs more study&rdquo;</li>
+              <li><strong>Time-box the effort</strong> and plan how results will be reviewed and turned into a decision, so learning does not die in a slide deck</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 7.3 Learning as a Deliberate System -->
+        <section class="pb-section" id="deliberate-learning">
+          <p class="pb-section-eyebrow">Section 7.3</p>
+          <h2 class="pb-section-title">Learning as a Deliberate System</h2>
+
+          <div class="pb-prose">
+            <p>Most organizations treat learning as a by-product of projects: if something is discovered, it lives in a slide deck, a folder, or a few people&rsquo;s heads. LPPD instead treats learning as a designed system that runs through every project and value stream, with clear rhythms, roles, and places where knowledge is created, used, and reused.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/learning-as-a-deliberate-system.png" alt="Learning as a Deliberate System">
+          </div>
+
+          <div class="pb-subsection" id="designed-learning">
+            <h3 class="pb-subsection-title">From Accidental to Designed Learning</h3>
+
+            <div class="pb-shifts">
+              <div class="pb-shift">
+                <span class="pb-shift-from">Depends on individual initiative and crises</span>
+                <span class="pb-shift-arrow">&rarr;</span>
+                <span class="pb-shift-to">Planned learning-first activities in early phases</span>
+              </div>
+              <div class="pb-shift">
+                <span class="pb-shift-from">A3 / LAMDA as a special-occasion tool</span>
+                <span class="pb-shift-arrow">&rarr;</span>
+                <span class="pb-shift-to">Structured problem-solving as everyday default</span>
+              </div>
+              <div class="pb-shift">
+                <span class="pb-shift-from">Insights scattered in personal files</span>
+                <span class="pb-shift-arrow">&rarr;</span>
+                <span class="pb-shift-to">Standard artefacts every team uses and contributes to</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="rhythms">
+            <h3 class="pb-subsection-title">Rhythms, Roles, and Places for Learning</h3>
+
+            <div class="pb-card-grid">
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Rhythms</div>
+                <p class="pb-info-card-body">Time-boxed learning cycles, regular knowledge reviews, and fixed obeya/learning-wall meetings where questions, experiments, and decisions are updated</p>
+              </div>
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Roles</div>
+                <p class="pb-info-card-body">Clear ownership for questions (who reduces a given uncertainty), experiments (who designs and runs them), and integration (who turns results into shared knowledge)</p>
+              </div>
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Places</div>
+                <p class="pb-info-card-body">Visible, shared spaces &mdash; physical or digital &mdash; where experiment status, findings, and design rules are posted and kept current, not hidden in personal folders</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="reuse">
+            <h3 class="pb-subsection-title">Building in Knowledge Reuse</h3>
+
+            <div class="pb-prose">
+              <p>A deliberate learning system is not only about creating new knowledge; it is about making it easy to find and reuse. Otherwise, each new project becomes a fresh PhD in the same topics.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>Curate a lightweight knowledge base organized around <strong>problems, decisions, and design rules</strong> rather than around projects (e.g., &ldquo;dust protection&rdquo;, &ldquo;operator ergonomics&rdquo;, &ldquo;high-temperature plastics&rdquo;)</li>
+              <li>Require teams to <strong>link new experiments to existing knowledge</strong> (&ldquo;What did we learn last time about this?&rdquo;) before launching new tests</li>
+              <li>Periodically review and prune the knowledge base so that the most robust, field-proven learning becomes the <strong>default starting point</strong> for future concepts and architectures</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 7.4 Knowledge-Based Decisions -->
+        <section class="pb-section" id="knowledge-decisions">
+          <p class="pb-section-eyebrow">Section 7.4</p>
+          <h2 class="pb-section-title">Making Decisions Knowledge-Based</h2>
+
+          <div class="pb-pullquote">
+            <p>Choices made as late as necessary but as early as possible, grounded in explicit learning about customers, product, process, and economics.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/making-decisions-knowledgebased.png" alt="Making Decisions Knowledge-Based">
+          </div>
+
+          <div class="pb-subsection" id="what-knowledge-based">
+            <h3 class="pb-subsection-title">What Makes a Decision &ldquo;Knowledge-Based&rdquo;?</h3>
+
+            <div class="pb-prose">
+              <p>A decision is knowledge-based when the team can clearly explain what they know, how they know it, and what remains uncertain at the moment of commitment. Instead of &ldquo;we think it will work,&rdquo; the conversation sounds like &ldquo;here are the experiments we ran, what they showed, and the risks that are still open.&rdquo;</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>A <strong>defined decision frame</strong>: the question, options, constraints, and success criteria</li>
+              <li>A short list of <strong>critical assumptions</strong> and how each has been tested (or not yet tested)</li>
+              <li>Explicit <strong>trade-off views</strong> (performance vs. cost vs. lead time) rather than single-point estimates</li>
+            </ul>
+          </div>
+
+          <div class="pb-subsection" id="decision-patterns">
+            <h3 class="pb-subsection-title">Simple Decision Patterns and Records</h3>
+
+            <div class="pb-decision-grid">
+              <div class="pb-decision-card">
+                <span class="pb-decision-tag">Go</span>
+                <p class="pb-decision-desc">Proceed as planned &mdash; knowledge is sufficient for this commitment</p>
+              </div>
+              <div class="pb-decision-card">
+                <span class="pb-decision-tag">No Go</span>
+                <p class="pb-decision-desc">Stop &mdash; evidence shows the path is not viable</p>
+              </div>
+              <div class="pb-decision-card">
+                <span class="pb-decision-tag">Pivot</span>
+                <p class="pb-decision-desc">Change direction &mdash; learning points to a better option</p>
+              </div>
+              <div class="pb-decision-card">
+                <span class="pb-decision-tag">Deepen</span>
+                <p class="pb-decision-desc">Invest in more learning before committing &mdash; uncertainty is still too high</p>
+              </div>
+            </div>
+
+            <div class="pb-prose" style="margin-top:0.75rem;">
+              <p>Capture reasoning in <strong>Decision A3s</strong>: one-page summaries stating the problem, options considered, evidence, trade-offs, decision taken, and follow-up learning tasks. Over time, these become an asset &mdash; new teams can see how earlier choices were made and avoid repeating old mistakes.</p>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="front-load">
+            <h3 class="pb-subsection-title">Delay Commitments, Front-Load Knowledge</h3>
+
+            <ul class="pb-list">
+              <li>Use <strong>set-based thinking</strong> to carry multiple promising options while experiments eliminate weak ones, instead of converging too quickly on a single favourite</li>
+              <li>Plan learning cycles so that the most impactful uncertainties are addressed <strong>before</strong> big commitments like tooling, platform freezes, or supplier lock-ins</li>
+              <li>Treat milestones as <strong>&ldquo;knowledge gates&rdquo;</strong> rather than checklist gates: no green light unless defined knowledge conditions have been met or consciously waived</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 7.5 Visual Management -->
+        <section class="pb-section" id="visual-mgmt">
+          <p class="pb-section-eyebrow">Section 7.5</p>
+          <h2 class="pb-section-title">Visual Management for Validation and Learning</h2>
+
+          <div class="pb-prose">
+            <p>Visual management is how validation and learning become visible, shared, and actionable instead of living in scattered files and private spreadsheets. Obeya rooms, learning walls, and simple boards make questions, experiments, and decisions easy to see at a glance so that cross-functional teams can coordinate, spot gaps, and act quickly.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/visual-management-for-validation-and-learning.png" alt="Visual Management for Validation and Learning">
+          </div>
+
+          <div class="pb-subsection" id="obeya-hub">
+            <h3 class="pb-subsection-title">Obeya as a Learning Hub</h3>
+
+            <ul class="pb-list">
+              <li>Dedicate specific boards to <strong>learning flows</strong> (questions &rarr; experiments &rarr; evidence &rarr; decisions), separate from general task and schedule boards</li>
+              <li>Establish a regular cadence (e.g., weekly learning meeting) where cross-functional representatives walk the boards, update status, and agree on next experiments</li>
+              <li>Keep boards <strong>simple enough to update in the meeting itself</strong>; if the wall is always out of date, it stops being trusted and used</li>
+            </ul>
+          </div>
+
+          <div class="pb-subsection" id="right-things">
+            <h3 class="pb-subsection-title">Making the Right Things Visible</h3>
+
+            <div class="pb-prose">
+              <p>Traditional project boards show schedules and task status but hide what actually matters: uncertainties, experiments, and knowledge. A good learning-focused wall passes this test: <em>someone walking in cold should be able to answer &ldquo;What are they trying to learn now, and what decisions are coming next?&rdquo; within a minute.</em></p>
+            </div>
+
+            <div class="pb-card-grid">
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Questions &amp; Uncertainties</div>
+                <p class="pb-info-card-body">Key things the team still needs to learn, tied to upcoming milestones</p>
+              </div>
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Current Experiments</div>
+                <p class="pb-info-card-body">Who is running what, where, and when results are due &mdash; with status icons (planned / running / complete / blocked)</p>
+              </div>
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Decisions &amp; Knowledge</div>
+                <p class="pb-info-card-body">Simple decision records, design rules, and links to past learnings &mdash; with clear Go / No Go / Pivot / Deepen outcomes</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7.6 Behaviors and Culture -->
+        <section class="pb-section" id="behaviors">
+          <p class="pb-section-eyebrow">Section 7.6</p>
+          <h2 class="pb-section-title">Behaviors and Culture for Better Decisions</h2>
+
+          <div class="pb-prose">
+            <p>Processes and tools for validation only work if everyday behavior supports speaking up, experimenting, and deciding based on evidence rather than on rank or fear. LPPD leans heavily on lean leadership habits: go and see, ask why, show respect, and develop people as problem solvers in a psychologically safe environment.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/behaviors-and-culture-for-better-decisions.jpg" alt="Behaviors and Culture for Better Decisions">
+          </div>
+
+          <div class="pb-subsection" id="leader-behaviors">
+            <h3 class="pb-subsection-title">Leader Behaviors that Enable Learning</h3>
+
+            <div class="pb-card-grid">
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Go and See</div>
+                <p class="pb-info-card-body">Spend time where work and experiments happen, asking questions and looking at real conditions instead of only reviewing slides</p>
+              </div>
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Ask for Learning, Not Status</div>
+                <p class="pb-info-card-body">&ldquo;What did we learn? What surprised us? What still worries you?&rdquo; instead of &ldquo;Are we on track?&rdquo;</p>
+              </div>
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Protect Safe Experiments</div>
+                <p class="pb-info-card-body">Make it explicit that thoughtful failures in experiments are acceptable &mdash; even expected &mdash; as long as learning is captured</p>
+              </div>
+            </div>
+
+            <div class="pb-subsection">
+              <h3 class="pb-subsection-title">Developing Problem Solvers, Not Heroes</h3>
+
+              <div class="pb-prose">
+                <p>A knowledge-based development system depends on many people able to run small scientific cycles, not a few experts parachuting in for crises. The cultural shift is from celebrating individual heroics to developing everyone&rsquo;s capability to frame problems, design experiments, and interpret results.</p>
+              </div>
+
+              <ul class="pb-list">
+                <li>Teach and coach A3/LAMDA as the <strong>default way to tackle issues</strong>, so experiments and learning cycles feel routine</li>
+                <li>Use reviews and obeya walks as <strong>coaching opportunities</strong>: leaders ask how teams framed the question, why they chose this experiment, and what they learned</li>
+                <li>Recognize and celebrate <strong>good learning, not just good outcomes</strong>: highlight experiments that invalidated risky assumptions early and saved downstream pain</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="psych-safety">
+            <h3 class="pb-subsection-title">Psychological Safety and Speaking Up</h3>
+
+            <div class="pb-prose">
+              <p>Without psychological safety, people hide doubts, soften bad news, and avoid experiments that might fail in public. High-performing LPPD teams deliberately cultivate a culture where questioning assumptions and admitting &ldquo;I don&rsquo;t know&rdquo; are normal.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>Problems are framed as <strong>process issues, not personal failures</strong>, and tackled together at the gemba</li>
+              <li>Everyone is invited to <strong>challenge assumptions and data</strong> in reviews, provided they do so with respect</li>
+              <li>Leaders respond to bad news with <strong>curiosity, not blame</strong>: &ldquo;show me&rdquo; and &ldquo;let&rsquo;s understand&rdquo; &mdash; especially when experiments disconfirm a favored idea</li>
+            </ul>
+
+            <div class="pb-note">
+              When people feel safe to speak up, weak signals and edge-case learning reach decision-makers in time to matter.
+            </div>
+          </div>
+        </section>
+
+        <!-- 7.7 Upgrading Your Next Review -->
+        <section class="pb-section" id="next-review">
+          <p class="pb-section-eyebrow">Section 7.7</p>
+          <h2 class="pb-section-title">Practical Start: Upgrading Your Next Review</h2>
+
+          <div class="pb-prose">
+            <p>The fastest way to shift toward knowledge-based development is not a big reorganization; it is to run the very next project review differently. By changing one meeting at a time &mdash; from status reporting to evidence-based learning and decisions &mdash; you begin to rewire how people think and behave around projects.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/upgrading-your-next-review.png" alt="Upgrading Your Next Review">
+          </div>
+
+          <div class="pb-subsection">
+            <h3 class="pb-subsection-title">Redesign the Agenda Around Decisions and Learning</h3>
+
+            <div class="pb-prose">
+              <p>Instead of walking through slide decks by function, build the agenda around decisions and what must be learned to make them.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>Ask each team to state the <strong>decision(s) they want from the review</strong> and the date by which it is needed</li>
+              <li>Have them prepare one page listing: key questions, main assumptions, experiments done, and what the evidence currently says</li>
+              <li>In the meeting, work decision by decision: <em>&ldquo;What are we deciding? What have we learned? What remains unknown, and what will we do about it?&rdquo;</em></li>
+            </ul>
+          </div>
+
+          <div class="pb-subsection">
+            <h3 class="pb-subsection-title">Use a Simple Decision &amp; Learning Board</h3>
+
+            <div class="pb-board">
+              <div class="pb-board-col">
+                <p class="pb-board-col-label">Upcoming Decisions</p>
+                <p class="pb-board-col-desc">Each card with a decision name, owner, and due date</p>
+              </div>
+              <div class="pb-board-col">
+                <p class="pb-board-col-label">Knowledge Gaps</p>
+                <p class="pb-board-col-desc">Key questions and assumptions blocking each decision</p>
+              </div>
+              <div class="pb-board-col">
+                <p class="pb-board-col-label">Experiments &amp; Tasks</p>
+                <p class="pb-board-col-desc">Current work to close those gaps &mdash; owner, status, due date</p>
+              </div>
+              <div class="pb-board-col">
+                <p class="pb-board-col-label">Decisions Made</p>
+                <p class="pb-board-col-desc">Short summaries with outcome (Go / No Go / Pivot / Deepen) and link to decision record</p>
+              </div>
+            </div>
+
+            <div class="pb-prose">
+              <p>Update this board live during the review so that, when you end, everyone sees which decisions moved, which are blocked, and why.</p>
+            </div>
+          </div>
+
+          <div class="pb-subsection">
+            <h3 class="pb-subsection-title">Leave with Clear Next Experiments, Not Just Actions</h3>
+
+            <div class="pb-prose">
+              <p>Traditional reviews end with long action lists; upgraded reviews end with a small set of sharp learning tasks and decisions. Before closing, ask for each major topic:</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>What <strong>decision</strong> did we make, if any?</li>
+              <li>If we did not decide, what must we <strong>learn next, and by when</strong>, to make that decision?</li>
+              <li>What is the <strong>smallest experiment or analysis</strong> that will give us that knowledge, and who owns it?</li>
+            </ul>
+
+            <div class="pb-pullquote">
+              <p>At the next review, start by checking what was learned versus what was expected. This simple loop &mdash; decisions, questions, experiments, learning &mdash; turns project reviews into the engine of a knowledge-based development system.</p>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+
+  <script>
+    const navLinks = document.querySelectorAll('.pb-nav a, .pb-nav-sub a');
+    const sections = document.querySelectorAll('.pb-section, .pb-subsection');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          const id = entry.target.getAttribute('id');
+          const active = document.querySelector(`.pb-nav a[href="#${id}"], .pb-nav-sub a[href="#${id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+  <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
+  <script defer>
+    (function () {
+      function init() { CustomGPT.init({ p_id: '89818', p_key: '263a30f8ca292918be27e31bd50d1074' }); }
+      document.readyState === 'complete' ? init() : window.addEventListener('load', init);
+    })();
+  </script>
+
+</body>
+</html>
