@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>From Insight to Design &amp; Flow — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+
+    .pb-chapter-header { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--lp-color-border-subtle); margin-bottom: 2.5rem; }
+    .pb-chapter-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-3xl); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; color: var(--lp-color-text-main); margin: 0 0 1rem; }
+    .pb-chapter-lead { font-size: var(--lp-font-size-lg); color: var(--lp-color-text-muted); line-height: 1.7; max-width: 66ch; margin: 0; }
+    .pb-chapter-img { margin: 0 0 2.5rem; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-img img { width: 100%; height: auto; display: block; max-height: 340px; object-fit: cover; object-position: center top; }
+
+    .pb-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+
+    .pb-sidebar { position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto; }
+    .pb-sidebar-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+
+    .pb-nav { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav > li > a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav > li > a:hover, .pb-nav > li > a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav > li > a.active { border-left-color: var(--lp-color-primary); }
+
+    .pb-nav-sub { list-style: none; margin: 0.1rem 0 0.25rem; padding: 0 0 0 1rem; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav-sub a { display: block; font-size: var(--lp-font-size-xs); color: var(--lp-color-text-soft); text-decoration: none; padding: 0.25rem 0.6rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav-sub a:hover, .pb-nav-sub a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav-sub a.active { border-left-color: var(--lp-color-primary); }
+
+    .pb-chapter-nav { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-nav-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.6rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-nav a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.3rem 0.75rem; border-radius: var(--lp-radius-sm); line-height: 1.4; transition: color 0.15s, background 0.15s; }
+    .pb-chapter-nav a:hover { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-chapter-nav a.current { font-weight: 600; color: var(--lp-color-text-main); }
+
+    .pb-section { scroll-margin-top: 5rem; margin-bottom: 4rem; }
+    .pb-section + .pb-section { padding-top: 2.5rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-subsection { scroll-margin-top: 5rem; margin-top: 2.5rem; }
+
+    .pb-section-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.5rem; font-family: var(--lp-font-sans); }
+    .pb-section-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-2xl); font-weight: 400; letter-spacing: -0.02em; color: var(--lp-color-text-main); margin: 0 0 1.25rem; line-height: 1.15; }
+    .pb-subsection-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-xl); font-weight: 400; color: var(--lp-color-text-main); margin: 0 0 0.75rem; line-height: 1.2; }
+
+    .pb-prose { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.75; max-width: 68ch; }
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+
+    .pb-section-img { margin: 1.75rem 0; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); background: var(--lp-color-surface); }
+    .pb-section-img img { width: 100%; height: auto; display: block; }
+
+    .pb-pullquote { margin: 2rem 0; padding: 1.25rem 1.5rem; border-left: 3px solid var(--lp-color-primary); background: var(--lp-color-surface); border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0; }
+    .pb-pullquote p { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); line-height: 1.5; color: var(--lp-color-text-main); margin: 0; }
+
+    .pb-list { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.5rem; max-width: 68ch; }
+    .pb-list li { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .pb-list li::before { content: "→"; position: absolute; left: 0; color: var(--lp-color-primary); font-size: 0.85em; top: 0.15em; }
+    .pb-list li strong { color: var(--lp-color-text-main); }
+
+    .pb-shifts { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-shift { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0.75rem; align-items: center; padding: 0.65rem 1rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); font-size: var(--lp-font-size-sm); }
+    .pb-shift-from { color: var(--lp-color-text-muted); }
+    .pb-shift-arrow { color: var(--lp-color-primary); font-size: 1.1em; text-align: center; }
+    .pb-shift-to { color: var(--lp-color-text-main); font-weight: 500; }
+
+    .pb-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0; }
+    .pb-info-card { padding: 1rem 1.25rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); }
+    .pb-info-card-label { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--lp-color-primary); font-family: var(--lp-font-sans); margin-bottom: 0.4rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    .pb-info-card-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-md); color: var(--lp-color-text-main); margin: 0 0 0.4rem; }
+    .pb-info-card-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0; }
+
+    /* Obeya walls */
+    .pb-walls { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.5rem 0; max-width: 68ch; }
+    .pb-wall { padding: 1rem 1.25rem; border-radius: var(--lp-radius-md); border: 1px solid var(--lp-color-border-subtle); background: var(--lp-color-surface); }
+    .pb-wall-num { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--lp-color-primary); font-family: var(--lp-font-sans); text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 0.35rem; }
+    .pb-wall-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-md); color: var(--lp-color-text-main); margin: 0 0 0.4rem; }
+    .pb-wall-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0; }
+
+    /* Steps */
+    .pb-steps { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-step { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.875rem; align-items: start; }
+    .pb-step-num { width: 2rem; height: 2rem; border-radius: var(--lp-radius-md); background: var(--lp-color-primary-soft); color: var(--lp-color-primary); font-size: var(--lp-font-size-xs); font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: var(--lp-font-sans); }
+    .pb-step-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; padding-top: 0.2rem; }
+    .pb-step-body strong { color: var(--lp-color-text-main); }
+
+    @media (max-width: 860px) {
+      .pb-layout { grid-template-columns: 1fr; gap: 0; }
+      .pb-sidebar { position: static; max-height: none; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--lp-color-border-subtle); }
+      .pb-nav { flex-direction: row; flex-wrap: wrap; gap: 0.25rem; }
+      .pb-nav > li > a { border-left: none; border-bottom: 2px solid transparent; padding: 0.3rem 0.6rem; }
+      .pb-nav > li > a.active { border-left-color: transparent; border-bottom-color: var(--lp-color-primary); }
+      .pb-nav-sub { display: none; }
+      .pb-chapter-nav { display: none; }
+      .pb-card-grid { grid-template-columns: 1fr; }
+      .pb-shift { grid-template-columns: 1fr; }
+      .pb-shift-arrow { display: none; }
+    }
+
+    @media (max-width: 640px) { .pb-chapter-title { font-size: 2rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)">
+            <rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect>
+            <rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect>
+            <rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect>
+          </g>
+          <g transform="translate(150 46)">
+            <text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text>
+            <text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text>
+            <text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text>
+          </g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Lean PPD Playbook &mdash; Chapter 5</p>
+      <h1 class="pb-chapter-title">From Insight to Design &amp; Flow</h1>
+      <p class="pb-chapter-lead">
+        Set-based design, architecture, development value stream, visual management,
+        and bringing manufacturing in early — turning customer insight into products
+        and systems that actually flow.
+      </p>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="img/from-insight-to-design-flow.png" alt="From Insight to Design and Flow">
+    </div>
+
+    <div class="pb-layout">
+
+      <!-- ── Sidebar ── -->
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#intro">Introduction</a></li>
+          <li>
+            <a href="#sbce">5.1 Set-Based Design</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#three-principles">Three Core Principles</a></li>
+              <li><a href="#when-to-commit">When to Commit</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#architecture">5.2 Architecture &amp; Interfaces</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#module-sets">Module &amp; Interface Sets</a></li>
+              <li><a href="#design-for-flow-arch">Design for Flow</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#dev-value-stream">5.3 Development Value Stream</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#flow-wip">Flow &amp; WIP</a></li>
+              <li><a href="#cadence">Cadence &amp; Integration</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#obeya">5.4 Visual Management &amp; Obeya</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#core-walls">Core Walls</a></li>
+              <li><a href="#rhythm">Rhythm &amp; Roles</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#mfg-early">5.5 Manufacturing Early</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#co-design">Co-Design</a></li>
+              <li><a href="#ramp-up">Joint Ramp-up</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="pb-chapter-nav">
+          <p class="pb-chapter-nav-label">Chapters</p>
+          <a href="/playbook/introduction/">1. Why This Playbook Exists</a>
+          <a href="/playbook/foundations/">2. Foundations</a>
+          <a href="/playbook/strategy/">3. Strategy &amp; Value Creation</a>
+          <a href="/playbook/discover/">4. Discover</a>
+          <a href="/playbook/design/" class="current">5. Design &amp; Flow</a>
+        </div>
+      </aside>
+
+      <!-- ── Main content ── -->
+      <main>
+
+        <!-- Intro -->
+        <section class="pb-section" id="intro">
+          <p class="pb-section-eyebrow">Chapter 5</p>
+          <h2 class="pb-section-title">Turning Insight into Design and Flow</h2>
+          <div class="pb-prose">
+            <p>Chapters 3 and 4 helped clarify where to play and what problems and contexts matter. Chapter 5 turns that insight into <em>how we design</em> — both the product and the development system — so that value can actually flow.</p>
+            <p>In LPPD, design is not a single decision or a hand-off; it is a set-based, learning-driven process where multiple options are explored, knowledge is built systematically, and commitments are made only when feasibility is proven. In parallel, the development value stream is designed to support that learning — with clear cadence, limited WIP, and visual management so teams can work concurrently instead of in stop-start bursts.</p>
+          </div>
+
+          <blockquote class="pb-pullquote">
+            <p>"Given what we now know about customers and context, how should we design our product, our process, and our development flow differently?"</p>
+          </blockquote>
+        </section>
+
+        <!-- 5.1 SBCE -->
+        <section class="pb-section" id="sbce">
+          <p class="pb-section-eyebrow">Section 5.1</p>
+          <h2 class="pb-section-title">Set-Based Concurrent Engineering</h2>
+          <div class="pb-prose">
+            <p>SBCE is the default design approach in LPPD: instead of picking one solution early and fixing it later, teams keep multiple options alive, learn quickly, and narrow the set based on knowledge. This reduces late changes, exposes trade-offs earlier, and lets product and process be designed together more robustly.</p>
+            <p>Traditional development chooses a single "best" concept early, then spends months adjusting it as new information appears. SBCE assumes early knowledge is incomplete and treats early decisions as hypotheses to explore, not final answers.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/setbased-concurrent-engineering.png" alt="Set-Based Concurrent Engineering">
+          </div>
+
+          <div class="pb-shifts">
+            <div class="pb-shift">
+              <span class="pb-shift-from">"Decide, then learn"</span>
+              <span class="pb-shift-arrow">→</span>
+              <span class="pb-shift-to">"Learn, then decide"</span>
+            </div>
+            <div class="pb-shift">
+              <span class="pb-shift-from">"Protect one design"</span>
+              <span class="pb-shift-arrow">→</span>
+              <span class="pb-shift-to">"Compare and prune a set of designs"</span>
+            </div>
+            <div class="pb-shift">
+              <span class="pb-shift-from">"Local optimisation by function"</span>
+              <span class="pb-shift-arrow">→</span>
+              <span class="pb-shift-to">"Shared constraints and feasible regions across functions"</span>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="three-principles">
+            <h3 class="pb-subsection-title">Three Core Principles of SBCE</h3>
+
+            <div class="pb-card-grid">
+              <div class="pb-info-card">
+                <p class="pb-info-card-label">Principle 1</p>
+                <p class="pb-info-card-title">Map the Design Space</p>
+                <p class="pb-info-card-body">Start by describing a range of possibilities — sets of concepts, parameter ranges, process alternatives — rather than a single point. Represent options visually so the team sees the full space.</p>
+              </div>
+              <div class="pb-info-card">
+                <p class="pb-info-card-label">Principle 2</p>
+                <p class="pb-info-card-title">Communicate Constraints</p>
+                <p class="pb-info-card-body">Functions share what is feasible or infeasible as constraint bands (e.g., "weight between X and Y", "cycle time &lt; Z"). Overlaps between these bands reveal feasible regions where good designs can live.</p>
+              </div>
+              <div class="pb-info-card">
+                <p class="pb-info-card-label">Principle 3</p>
+                <p class="pb-info-card-title">Narrow by Learning</p>
+                <p class="pb-info-card-body">Plan small experiments, analyses, or prototypes aimed at ruling out options and refining constraints. Remove options only when evidence shows they are inferior or infeasible — and record why for future reuse.</p>
+              </div>
+            </div>
+
+            <div class="pb-prose" style="margin-top:1.25rem;">
+              <p>Sets exist at multiple levels: <strong>concept sets</strong> (different architectures or flow principles), <strong>parameter sets</strong> (ranges for key dimensions, power, takt time), and <strong>process sets</strong> (alternative routes or test strategies). Visually, sets might be option trees, families of curves, or bands on simple graphs.</p>
+            </div>
+
+            <div class="pb-section-img">
+              <img src="img/what-sets-can-look-like.jpg" alt="What Sets Can Look Like">
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="when-to-commit">
+            <h3 class="pb-subsection-title">When (and How) to Commit</h3>
+            <div class="pb-prose">
+              <p>SBCE does not avoid commitment — it delays commitment until the team has enough knowledge to make a robust decision. Commitment is tied to clear evidence that remaining options are inferior or infeasible, confidence that constraints are well understood and stable, and alignment with value stream targets (cost, lead time, manufacturability, serviceability).</p>
+              <p>At that point, the set converges to a narrower band or single solution, and work shifts from exploring to detailing and implementation.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5.2 Architecture -->
+        <section class="pb-section" id="architecture">
+          <p class="pb-section-eyebrow">Section 5.2</p>
+          <h2 class="pb-section-title">Architectures, Interfaces, and Modularity</h2>
+          <div class="pb-prose">
+            <p>Set-based thinking is most powerful when applied to architecture and interfaces, because early structural decisions lock in most of a product's lifecycle cost, complexity, and manufacturability. LPPD uses architecture work to balance customer variety, technical feasibility, and production flow — often through modular designs and well-defined interfaces.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/architecture-as-a-lean-lever.jpg" alt="Architecture as a Lean Lever">
+          </div>
+
+          <div class="pb-prose">
+            <p>Architecture is the way functions and components are arranged and connected — for both product and process. A good architecture makes it easier to offer variants, reuse modules, and evolve the design without constant rework. A poor architecture creates hidden coupling, late integration issues, and complexity in manufacturing and service.</p>
+          </div>
+
+          <div class="pb-subsection" id="module-sets">
+            <h3 class="pb-subsection-title">Working with Module and Interface Sets</h3>
+            <div class="pb-prose">
+              <p>Instead of locking into one module breakdown or interface design, LPPD teams keep sets of options while they learn:</p>
+            </div>
+            <ul class="pb-list">
+              <li><strong>Module sets:</strong> alternative ways to group functions — evaluated for customer value, manufacturability, assembly effort, and variant flexibility.</li>
+              <li><strong>Interface sets:</strong> different interface concepts between modules (mechanical, electrical, software, data) — compared on robustness, assembly simplicity, automation potential, and upgradeability.</li>
+            </ul>
+            <div class="pb-prose" style="margin-top:0.75rem;">
+              <p>Teams make these sets visible as simple block diagrams with alternative module cuts and interface codes, gradually narrowing as knowledge about customer needs, production, and service accumulates.</p>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="design-for-flow-arch">
+            <h3 class="pb-subsection-title">Design for Flow: Manufacturing in the Room</h3>
+
+            <div class="pb-section-img">
+              <img src="img/visual-architecture-interface-obeya.png" alt="Visual Architecture and Interface Obeya">
+            </div>
+
+            <div class="pb-prose">
+              <p>LPPD architecture work explicitly includes manufacturing and assembly perspectives from the start, not as late DFM checks. Use structured heuristics (ease of assembly, automation readiness, test access, service access) when evaluating module and interface sets. Sketch simple assembly and test flows for each architecture option to see which will support smoother production value streams.</p>
+              <p>An <strong>architecture obeya</strong> makes SBCE practical: large block diagrams for the leading architecture options, with small tags for customer value, manufacturing impact, and service implications, plus boards showing open questions and knowledge gained.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5.3 Development Value Stream -->
+        <section class="pb-section" id="dev-value-stream">
+          <p class="pb-section-eyebrow">Section 5.3</p>
+          <h2 class="pb-section-title">Designing the Development Value Stream</h2>
+          <div class="pb-prose">
+            <p>In LPPD, the development process is not an invisible backdrop — it is designed and improved just like the product. The development value stream describes how ideas become launched, supported products and processes, including all major steps, decisions, and learning loops. Designing this stream means making intentional choices about sequence, WIP, ownership, and cadence so that learning and delivery can flow.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/designing-the-development-value-stream.jpg" alt="Designing the Development Value Stream">
+          </div>
+
+          <div class="pb-prose">
+            <p>A typical backbone might include: <em>Insight &amp; Framing → Explore &amp; Pretotype → Concept &amp; Architecture → Detailed Design &amp; Process → Integrate &amp; Test → Launch &amp; Ramp-up → Learn &amp; Improve.</em> The goal is not a rigid stage-gate, but a shared mental model of where teams are, what good looks like, and what knowledge they need before moving on.</p>
+          </div>
+
+          <div class="pb-subsection" id="flow-wip">
+            <h3 class="pb-subsection-title">Designing for Flow, Not Busyness</h3>
+            <div class="pb-prose">
+              <p>A healthy development value stream has smooth flow of work and knowledge, not constant overload. You're aiming for "fewer things, finished better and faster" — not "more things started."</p>
+            </div>
+            <ul class="pb-list">
+              <li><strong>Limit WIP:</strong> decide how many significant bets each value stream can run concurrently and stick to it. This protects focus and reduces multi-tasking.</li>
+              <li><strong>Stable teams:</strong> keep cross-functional teams stable around value streams rather than constantly re-staffing around projects.</li>
+              <li><strong>Clear entry and exit criteria:</strong> for each stage, define what knowledge and artefacts must exist before work moves forward — e.g., validated brochure, architecture options explored, integration plan agreed.</li>
+            </ul>
+          </div>
+
+          <div class="pb-subsection" id="cadence">
+            <h3 class="pb-subsection-title">Cadence and Integration Events</h3>
+
+            <div class="pb-section-img">
+              <img src="img/cadence-and-integration-events.png" alt="Cadence and Integration Events">
+            </div>
+
+            <div class="pb-prose">
+              <p>Flow in development relies on <strong>cadence</strong> — regular beats where information is synchronised and decisions are made. Cadence provides predictability and natural points to inspect the value stream, adjust WIP, and re-prioritise.</p>
+            </div>
+            <ul class="pb-list">
+              <li><strong>Regular integration events</strong> (e.g., every 4–6 weeks) where product, process, and test work are brought together in tangible form — simulation, prototype, demo, or pilot.</li>
+              <li><strong>Aligned cadences</strong> between discovery, design, process engineering, and suppliers to reduce waiting and rework.</li>
+              <li><strong>Knowledge-focused reviews:</strong> "What did we learn? What can we now decide? What remains uncertain?" — not just schedule checks.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 5.4 Obeya -->
+        <section class="pb-section" id="obeya">
+          <p class="pb-section-eyebrow">Section 5.4</p>
+          <h2 class="pb-section-title">Visual Management &amp; Obeya for Design &amp; Flow</h2>
+          <div class="pb-prose">
+            <p>Complex LPPD work needs a shared place where everyone can "see the game." Visual management and obeya provide that place — making strategy, options, decisions, risks, and flow visible so cross-functional teams can coordinate without endless status meetings.</p>
+            <p>In development, most problems are invisible: unclear decisions, hidden queues, knowledge gaps. Traditional tools scatter information and slow down learning. An obeya brings critical information together in one visual environment.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/obeya-for-design-flow.jpg" alt="Obeya for Design and Flow">
+          </div>
+
+          <div class="pb-prose">
+            <p><strong>Making visuals lightweight and useful:</strong> use large, simple visuals — hand-drawn sketches, sticky notes, big markers. Limit what is on the walls to what you look at regularly. When a card or area hasn't moved in weeks, that's a signal: either unblock it or remove it. A good test: someone walking in for the first time should understand within five minutes what you're trying to achieve, what you're working on, and where you're stuck.</p>
+          </div>
+
+          <div class="pb-subsection" id="core-walls">
+            <h3 class="pb-subsection-title">Core Walls in a Design &amp; Flow Obeya</h3>
+
+            <div class="pb-section-img">
+              <img src="img/core-walls-in-a-design-flow-obeya.png" alt="Core Walls in a Design and Flow Obeya">
+            </div>
+
+            <div class="pb-walls">
+              <div class="pb-wall">
+                <p class="pb-wall-num">Wall 1</p>
+                <p class="pb-wall-title">North &amp; Strategy</p>
+                <p class="pb-wall-body">True North and key value streams. Current target conditions and annual objectives. Link to the main bets in the portfolio.</p>
+              </div>
+              <div class="pb-wall">
+                <p class="pb-wall-num">Wall 2</p>
+                <p class="pb-wall-title">Development Value Stream &amp; Flow</p>
+                <p class="pb-wall-body">The designed development value stream. Active bets plotted along the stream, showing current stage and next knowledge milestone. WIP limits, queues, and simple status signals.</p>
+              </div>
+              <div class="pb-wall">
+                <p class="pb-wall-num">Wall 3</p>
+                <p class="pb-wall-title">Design &amp; Options</p>
+                <p class="pb-wall-body">Set-based options for product and process — architectures, module splits, process routes. Key experiments and analyses in progress. Open questions and decisions needed.</p>
+              </div>
+              <div class="pb-wall">
+                <p class="pb-wall-num">Wall 4</p>
+                <p class="pb-wall-title">Learning &amp; Issues</p>
+                <p class="pb-wall-body">Recent discovery insights and experiment results. Major issues and blockers with owners. Agreed countermeasures and follow-up checks.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="rhythm">
+            <h3 class="pb-subsection-title">Rhythm and Roles in the Obeya</h3>
+            <div class="pb-prose">
+              <p>Visuals only help if people use them regularly. Define a simple rhythm and clear roles:</p>
+            </div>
+            <ul class="pb-list">
+              <li><strong>Weekly design &amp; flow meeting (30–60 min):</strong> core team reviews flow and design/options walls, updates status, agrees next experiments and integrations.</li>
+              <li><strong>Bi-weekly or monthly broader review:</strong> leaders and supporting functions join, focusing on decisions, escalated issues, and alignment with strategy.</li>
+              <li><strong>Obeya owner/facilitator:</strong> keeps visuals current, timeboxes discussions, ensures follow-up.</li>
+              <li><strong>Chief engineer or equivalent:</strong> connects decisions back to customer value and system performance.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 5.5 Manufacturing Early -->
+        <section class="pb-section" id="mfg-early">
+          <p class="pb-section-eyebrow">Section 5.5</p>
+          <h2 class="pb-section-title">Integrating Manufacturing &amp; Operations Early</h2>
+          <div class="pb-prose">
+            <p>Designing great products is not enough — LPPD aims to design products and production systems together so value can flow smoothly from development into stable operations. Bringing manufacturing, supply chain, and service in early reduces late changes, shortens ramp-up, and avoids pushing problems downstream under time pressure.</p>
+          </div>
+
+          <div class="pb-subsection" id="co-design">
+            <h3 class="pb-subsection-title">From "Throw Over the Wall" to Co-Design</h3>
+
+            <div class="pb-section-img">
+              <img src="img/throw-over-the-wall-to-codesign.jpg" alt="From Throw Over the Wall to Co-Design">
+            </div>
+
+            <div class="pb-prose">
+              <p>The traditional pattern — development "finishes" the design, then hands it to manufacturing — creates late design changes when real-world constraints surface at ramp-up, complex workarounds on the shop floor, and friction between engineering and operations.</p>
+              <p>In LPPD, operations partners are involved from concept onward as <em>co-designers</em>. They help shape architectures, modules, and process concepts to support flow, quality, and safety from day one, rather than trying to "lean out" whatever they receive later.</p>
+            </div>
+
+            <div class="pb-prose" style="margin-top:1rem;">
+              <p><strong>Early flow scenarios:</strong> rather than waiting for detailed designs, teams sketch rough layouts or swim lanes of assembly, test, and logistics steps; alternative concepts for where work happens; and early thinking about takt, batching, and automation levels. These scenarios are treated as sets of process options, evaluated alongside product options.</p>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="ramp-up">
+            <h3 class="pb-subsection-title">Joint Ramp-up Planning and Permanent Partnership</h3>
+
+            <div class="pb-section-img">
+              <img src="img/making-operations-a-permanent-partner.png" alt="Making Operations a Permanent Partner">
+            </div>
+
+            <div class="pb-prose">
+              <p>LPPD treats ramp-up as part of development, not an afterthought. Cross-functional teams plan product and process ramp-up together — defining readiness criteria for both design and production before each step, planning pilots and pre-series builds as learning events, and using feedback to refine both product details and production methods before full release.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li><strong>Stable representation</strong> from manufacturing, logistics, and service in value stream and obeya routines — not just "per project" invitations.</li>
+              <li><strong>Regular gemba</strong> in both development and production so teams see each other's reality.</li>
+              <li><strong>Shared metrics</strong> where success is measured in overall flow, quality, and lifecycle performance — not just local efficiency.</li>
+            </ul>
+
+            <div class="pb-prose" style="margin-top:0.75rem;">
+              <p>When operations and development share goals, routines, and learning, "design for flow" becomes the natural way of working rather than a special initiative.</p>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+
+  <script>
+    (function () {
+      const allLinks = document.querySelectorAll('.pb-nav a, .pb-nav-sub a');
+      const sections = Array.from(allLinks).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+      const observer = new IntersectionObserver(
+        entries => entries.forEach(e => { if (e.isIntersecting) { const id = '#' + e.target.id; allLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id)); } }),
+        { rootMargin: '-15% 0px -75% 0px', threshold: 0 }
+      );
+      sections.forEach(s => observer.observe(s));
+    })();
+  </script>
+
+  <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
+  <script defer>
+    (function () {
+      function init() { CustomGPT.init({ p_id: '89818', p_key: '263a30f8ca292918be27e31bd50d1074' }); }
+      document.readyState === 'complete' ? init() : window.addEventListener('load', init);
+    })();
+  </script>
+
+</body>
+</html>
