@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Culture, Leadership, and Coaching — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+
+    .pb-chapter-header { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--lp-color-border-subtle); margin-bottom: 2.5rem; }
+    .pb-chapter-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-3xl); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; color: var(--lp-color-text-main); margin: 0 0 1rem; }
+    .pb-chapter-lead { font-size: var(--lp-font-size-lg); color: var(--lp-color-text-muted); line-height: 1.7; max-width: 66ch; margin: 0; }
+    .pb-chapter-img { margin: 0 0 2.5rem; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-img img { width: 100%; height: auto; display: block; max-height: 340px; object-fit: cover; object-position: center top; }
+
+    .pb-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+
+    .pb-sidebar { position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto; }
+    .pb-sidebar-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+
+    .pb-nav { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav > li > a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav > li > a:hover, .pb-nav > li > a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav > li > a.active { border-left-color: var(--lp-color-primary); }
+
+    .pb-nav-sub { list-style: none; margin: 0.1rem 0 0.25rem; padding: 0 0 0 1rem; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav-sub a { display: block; font-size: var(--lp-font-size-xs); color: var(--lp-color-text-soft); text-decoration: none; padding: 0.25rem 0.6rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav-sub a:hover, .pb-nav-sub a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav-sub a.active { border-left-color: var(--lp-color-primary); }
+
+    .pb-chapter-nav { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-nav-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.6rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-nav a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.3rem 0.75rem; border-radius: var(--lp-radius-sm); line-height: 1.4; transition: color 0.15s, background 0.15s; }
+    .pb-chapter-nav a:hover { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-chapter-nav a.current { font-weight: 600; color: var(--lp-color-text-main); }
+
+    .pb-section { scroll-margin-top: 5rem; margin-bottom: 4rem; }
+    .pb-section + .pb-section { padding-top: 2.5rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-subsection { scroll-margin-top: 5rem; margin-top: 2.5rem; }
+
+    .pb-section-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.5rem; font-family: var(--lp-font-sans); }
+    .pb-section-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-2xl); font-weight: 400; letter-spacing: -0.02em; color: var(--lp-color-text-main); margin: 0 0 1.25rem; line-height: 1.15; }
+    .pb-subsection-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-xl); font-weight: 400; color: var(--lp-color-text-main); margin: 0 0 0.75rem; line-height: 1.2; }
+
+    .pb-prose { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.75; max-width: 68ch; }
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+
+    .pb-section-img { margin: 1.75rem 0; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); background: var(--lp-color-surface); }
+    .pb-section-img img { width: 100%; height: auto; display: block; }
+
+    .pb-pullquote { margin: 2rem 0; padding: 1.25rem 1.5rem; border-left: 3px solid var(--lp-color-primary); background: var(--lp-color-surface); border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0; }
+    .pb-pullquote p { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); line-height: 1.5; color: var(--lp-color-text-main); margin: 0; }
+
+    .pb-list { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.5rem; max-width: 68ch; }
+    .pb-list li { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .pb-list li::before { content: "→"; position: absolute; left: 0; color: var(--lp-color-primary); font-size: 0.85em; top: 0.15em; }
+    .pb-list li strong { color: var(--lp-color-text-main); }
+
+    .pb-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0; }
+    .pb-card-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0; }
+    .pb-info-card { padding: 1rem 1.25rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); }
+    .pb-info-card-label { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--lp-color-primary); font-family: var(--lp-font-sans); margin-bottom: 0.4rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    .pb-info-card-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0; }
+
+    /* Pillars — culture foundations */
+    .pb-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0; }
+    .pb-pillar { padding: 1.25rem; border-radius: var(--lp-radius-md); border-top: 3px solid var(--lp-color-primary); background: var(--lp-color-surface); border-bottom: 1px solid var(--lp-color-border-subtle); border-left: 1px solid var(--lp-color-border-subtle); border-right: 1px solid var(--lp-color-border-subtle); }
+    .pb-pillar-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); font-weight: 400; color: var(--lp-color-text-main); margin: 0 0 0.5rem; }
+    .pb-pillar-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0; }
+
+    /* Coaching questions */
+    .pb-coaching { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-coaching-row { display: grid; grid-template-columns: 7rem minmax(0,1fr); gap: 0.75rem; align-items: baseline; padding: 0.6rem 0.875rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-sm); border-left: 2px solid var(--lp-color-primary); }
+    .pb-coaching-label { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--lp-color-primary); font-family: var(--lp-font-sans); text-transform: uppercase; letter-spacing: 0.08em; }
+    .pb-coaching-q { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.55; font-style: italic; }
+
+    /* Contrast table: training vs coaching */
+    .pb-contrast { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 1.5rem 0; max-width: 68ch; border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); overflow: hidden; }
+    .pb-contrast-head { padding: 0.5rem 1rem; font-size: var(--lp-font-size-xs); font-weight: 700; font-family: var(--lp-font-sans); text-transform: uppercase; letter-spacing: 0.1em; background: var(--lp-color-surface); color: var(--lp-color-text-soft); border-bottom: 1px solid var(--lp-color-border-subtle); }
+    .pb-contrast-head:first-child { border-right: 1px solid var(--lp-color-border-subtle); }
+    .pb-contrast-cell { padding: 0.65rem 1rem; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.55; border-bottom: 1px solid var(--lp-color-border-subtle); }
+    .pb-contrast-cell:nth-child(odd) { border-right: 1px solid var(--lp-color-border-subtle); }
+    .pb-contrast-cell:nth-last-child(-n+2) { border-bottom: none; }
+
+    /* Level cards */
+    .pb-levels { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-level { display: grid; grid-template-columns: 8rem minmax(0,1fr); gap: 1rem; align-items: start; padding: 0.875rem 1rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); }
+    .pb-level-role { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--lp-color-primary); font-family: var(--lp-font-sans); text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.4; padding-top: 0.1rem; }
+    .pb-level-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; }
+    .pb-level-body strong { color: var(--lp-color-text-main); }
+
+    /* Self-check questions */
+    .pb-selfcheck { display: flex; flex-direction: column; gap: 0.4rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-selfcheck-item { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; padding: 0.5rem 0.875rem 0.5rem 2.25rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-sm); position: relative; }
+    .pb-selfcheck-item::before { content: "?"; position: absolute; left: 0.75rem; color: var(--lp-color-primary); font-weight: 700; font-family: var(--lp-font-sans); }
+
+    /* Steps */
+    .pb-steps { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-step { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.875rem; align-items: start; }
+    .pb-step-num { width: 2rem; height: 2rem; border-radius: var(--lp-radius-md); background: var(--lp-color-primary-soft); color: var(--lp-color-primary); font-size: var(--lp-font-size-xs); font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: var(--lp-font-sans); }
+    .pb-step-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; padding-top: 0.2rem; }
+    .pb-step-body strong { color: var(--lp-color-text-main); }
+
+    /* Note callout */
+    .pb-note { margin: 1.5rem 0; padding: 0.875rem 1.125rem; background: var(--lp-color-primary-soft); border-radius: var(--lp-radius-md); font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; max-width: 68ch; }
+    .pb-note strong { color: var(--lp-color-primary); }
+
+    @media (max-width: 860px) {
+      .pb-layout { grid-template-columns: 1fr; gap: 0; }
+      .pb-sidebar { position: static; max-height: none; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--lp-color-border-subtle); }
+      .pb-nav { flex-direction: row; flex-wrap: wrap; gap: 0.25rem; }
+      .pb-nav > li > a { border-left: none; border-bottom: 2px solid transparent; padding: 0.3rem 0.6rem; }
+      .pb-nav > li > a.active { border-left-color: transparent; border-bottom-color: var(--lp-color-primary); }
+      .pb-nav-sub { display: none; }
+      .pb-chapter-nav { display: none; }
+      .pb-card-grid { grid-template-columns: 1fr; }
+      .pb-card-grid-2 { grid-template-columns: 1fr; }
+      .pb-pillars { grid-template-columns: 1fr; }
+      .pb-contrast { grid-template-columns: 1fr; }
+      .pb-contrast-head:first-child { border-right: none; border-bottom: 1px solid var(--lp-color-border-subtle); }
+      .pb-contrast-cell:nth-child(odd) { border-right: none; }
+      .pb-level { grid-template-columns: 1fr; gap: 0.25rem; }
+      .pb-coaching-row { grid-template-columns: 1fr; gap: 0.2rem; }
+    }
+
+    @media (max-width: 640px) { .pb-chapter-title { font-size: 2rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)">
+            <rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect>
+            <rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect>
+            <rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect>
+          </g>
+          <g transform="translate(150 46)">
+            <text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text>
+            <text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text>
+            <text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text>
+          </g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Lean PPD Playbook &mdash; Chapter 9</p>
+      <h1 class="pb-chapter-title">Culture, Leadership, and Coaching</h1>
+      <p class="pb-chapter-lead">
+        The culture LPPD needs, lean leadership in development, coaching as the engine
+        of culture change, developing leaders at every level, and practical experiments
+        you can run in your own leadership right now.
+      </p>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="img/culture-leadership-and-coaching.png" alt="Culture, Leadership, and Coaching">
+    </div>
+
+    <div class="pb-layout">
+
+      <!-- ── Sidebar ── -->
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#intro">Introduction</a></li>
+          <li>
+            <a href="#culture">9.1 What Culture Do We Need?</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#respect">Respect for People</a></li>
+              <li><a href="#problems-gold">Problems as Gold</a></li>
+              <li><a href="#transparency">Transparency</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#leadership">9.2 Lean Leadership in Development</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#go-see">Go and See</a></li>
+              <li><a href="#problem-solvers">Developing Problem Solvers</a></li>
+              <li><a href="#pull-knowledge">Pulling for Knowledge</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#coaching">9.3 Coaching as the Engine of Culture</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#coaching-routine">Coaching Routine</a></li>
+              <li><a href="#coaching-vs-training">Coaching vs. Training</a></li>
+              <li><a href="#embed-coaching">Where to Embed Coaching</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#developing">9.4 Developing Leaders and Coaches</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#growing-leaders">Growing Lean Leaders</a></li>
+              <li><a href="#levels">Roles at Different Levels</a></li>
+              <li><a href="#sensei">Internal and External Sensei</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#coaching-culture">9.5 Coaching Culture Across the Value Stream</a>
+          </li>
+          <li>
+            <a href="#practical-start">9.6 Upgrade Your Own Leadership</a>
+          </li>
+        </ul>
+
+        <div class="pb-chapter-nav">
+          <p class="pb-chapter-nav-label">Chapters</p>
+          <a href="/playbook/introduction/">1. Why This Playbook Exists</a>
+          <a href="/playbook/foundations/">2. Foundations</a>
+          <a href="/playbook/strategy/">3. Strategy &amp; Value Creation</a>
+          <a href="/playbook/discover/">4. Discover</a>
+          <a href="/playbook/design/">5. Design &amp; Flow</a>
+          <a href="/playbook/validate/">6. Validate &amp; Learn</a>
+          <a href="/playbook/decisions/">7. Validation, Learning &amp; Decisions</a>
+          <a href="/playbook/scaling/">8. Scaling, Launch &amp; Lifecycle</a>
+          <a href="/playbook/culture/" class="current">9. Culture, Leadership &amp; Coaching</a>
+        </div>
+      </aside>
+
+      <!-- ── Main content ── -->
+      <main>
+
+        <!-- Introduction -->
+        <section class="pb-section" id="intro">
+          <p class="pb-section-eyebrow">Chapter 9</p>
+          <h2 class="pb-section-title">The Foundation That Makes Everything Else Hold</h2>
+
+          <div class="pb-pullquote">
+            <p>If we took our current culture and leadership behaviours as &ldquo;the process,&rdquo; what experiments would we run to make them match the LPPD system we actually want?</p>
+          </div>
+
+          <div class="pb-prose">
+            <p>In earlier chapters you designed value streams, products, experiments, and decision systems that can make development faster, calmer, and more reliable. None of that will hold unless culture, leadership, and coaching line up with it; otherwise, visual boards become wallpaper, experiments turn back into big bets, and milestones drift toward politics and schedule pressure.</p>
+            <p>In LPPD, culture is not slogans about innovation; it is the day-to-day habits of how people talk about problems, how leaders respond to bad news, and how teams are coached to think scientifically. Leadership means going to see, asking for learning instead of status, and developing people as problem solvers, while coaching provides the repeated practice that turns new behaviours into a stable way of working.</p>
+          </div>
+        </section>
+
+        <!-- 9.1 Culture -->
+        <section class="pb-section" id="culture">
+          <p class="pb-section-eyebrow">Section 9.1</p>
+          <h2 class="pb-section-title">What Culture Do We Need for LPPD?</h2>
+
+          <div class="pb-prose">
+            <p>LPPD rests on a culture where people can see problems, speak up, and learn together without fear. It blends the classic lean pillars &mdash; respect for people and continuous improvement &mdash; with scientific thinking and transparency in everyday development work. Without this foundation, tools like obeya, A3s, and experiments quickly slide back into paperwork and status theatre.</p>
+          </div>
+
+          <div class="pb-pillars">
+            <div class="pb-pillar">
+              <p class="pb-pillar-title">Respect for People</p>
+              <p class="pb-pillar-body">Believing that the people closest to the work have crucial insight, and organizing around that belief. Teams get time, tools, and coaching to solve problems &mdash; not just to hit dates.</p>
+            </div>
+            <div class="pb-pillar">
+              <p class="pb-pillar-title">Problems as Gold</p>
+              <p class="pb-pillar-body">Treating problems as valuable signals, not defects in people. Teams are encouraged to surface issues early and approach them with a scientific mindset instead of quick fixes or blame.</p>
+            </div>
+            <div class="pb-pillar">
+              <p class="pb-pillar-title">Transparency</p>
+              <p class="pb-pillar-body">High transparency about work, knowledge, and decisions so that people can align and help one another. Shared visual systems replace hidden spreadsheets and competing slide decks.</p>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="respect">
+            <h3 class="pb-subsection-title">Respect for People in Development</h3>
+
+            <div class="pb-section-img">
+              <img src="img/respect-for-people-in-development.png" alt="Respect for People in Development">
+            </div>
+
+            <ul class="pb-list">
+              <li>Engineers, operators, and service technicians are invited into <strong>early design and learning discussions</strong>, not only consulted late</li>
+              <li>Ideas and concerns raised from the gemba are <strong>listened to, tested, and visibly followed up</strong>, so people see that speaking up matters</li>
+              <li>First-time errors trigger <strong>learning and support, not blame</strong>, reinforcing that the system &mdash; not the individual &mdash; is the main object of improvement</li>
+            </ul>
+          </div>
+
+          <div class="pb-subsection" id="problems-gold">
+            <h3 class="pb-subsection-title">Problems as &ldquo;Gold&rdquo; and Scientific Thinking</h3>
+
+            <ul class="pb-list">
+              <li><strong>Visible problem boards and A3s</strong> that clearly state gaps, causes, experiments, and follow-up, making thinking transparent and shared</li>
+              <li>Leaders and coaches who respond to bad news with <strong>curiosity</strong> &mdash; &ldquo;show me,&rdquo; &ldquo;what do we know,&rdquo; &ldquo;what will we try next?&rdquo; &mdash; rather than pressure to explain it away</li>
+              <li>Everyday use of <strong>PDCA or kata-style cycles</strong> so that experimentation and reflection become routine, not reserved for special projects</li>
+            </ul>
+
+            <div class="pb-note">
+              This scientific, non-blaming stance is what allows development teams to tackle uncertainty head-on instead of burying it until launch.
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="transparency">
+            <h3 class="pb-subsection-title">Transparency and Shared Truth</h3>
+
+            <ul class="pb-list">
+              <li><strong>Clear ownership</strong> for A3s, experiments, and decision records, visible on walls or digital boards so everyone knows who is working on what and why</li>
+              <li><strong>Open access to information</strong> about flow, quality, and learning &mdash; engineers can see plant issues; plant teams can see upcoming changes</li>
+              <li>Reviews and obeya walks that revolve around <strong>a single version of the truth</strong>, not competing slide decks or narratives</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 9.2 Leadership -->
+        <section class="pb-section" id="leadership">
+          <p class="pb-section-eyebrow">Section 9.2</p>
+          <h2 class="pb-section-title">Lean Leadership in Product Development</h2>
+
+          <div class="pb-prose">
+            <p>Lean leadership is what turns LPPD principles from diagrams into daily practice. In development, that means leaders go where the work is, ask for learning instead of status, and grow people as problem solvers, rather than steering from conference rooms and dashboards.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/lean-leadership-in-product-development.png" alt="Lean Leadership in Product Development">
+          </div>
+
+          <div class="pb-subsection" id="go-see">
+            <h3 class="pb-subsection-title">Go and See, Ask and Listen</h3>
+
+            <div class="pb-prose">
+              <p>In product development, &ldquo;gemba&rdquo; is the lab, line, customer site, and obeya &mdash; not just the shop floor. Lean leaders make a habit of going to see real work and real use, standing with teams at prototypes, pilot lines, and learning walls.</p>
+            </div>
+
+            <div class="pb-card-grid">
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Regular Presence</div>
+                <p class="pb-info-card-body">In obeya and at experiments, looking at actual artefacts (prototypes, rigs, data) rather than only slide summaries</p>
+              </div>
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Open Questions</div>
+                <p class="pb-info-card-body">&ldquo;What are you trying to learn?&rdquo; &ldquo;Walk me through your reasoning.&rdquo; &ldquo;What options did you consider?&rdquo; &mdash; not yes/no status checks</p>
+              </div>
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Listening First</div>
+                <p class="pb-info-card-body">More listening than talking; using silence so engineers and operators can surface issues that don&rsquo;t fit the planned narrative</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="problem-solvers">
+            <h3 class="pb-subsection-title">Developing People as Problem Solvers</h3>
+
+            <div class="pb-prose">
+              <p>Lean leadership in development is less about personally solving the hardest technical problems and more about teaching others how to think scientifically. Leaders use everyday situations as coaching opportunities.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>Use simple, repeatable structures (A3s or short coaching dialogues) to help people <strong>clarify problems, distinguish facts from assumptions, and design small experiments</strong></li>
+              <li>Ask what teams have tried and what they learned <strong>before offering suggestions</strong>, reinforcing ownership and reflection</li>
+              <li>Recognise and celebrate <strong>good problem-solving behaviour</strong> &mdash; clear framing, thoughtful experiments, honest reflection &mdash; even when outcomes are messy or negative</li>
+            </ul>
+
+            <div class="pb-note">
+              When leaders consistently model these behaviours, the organisation&rsquo;s default response to uncertainty becomes &ldquo;let&rsquo;s go see and run a small experiment&rdquo; rather than &ldquo;let&rsquo;s argue or hide it.&rdquo;
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="pull-knowledge">
+            <h3 class="pb-subsection-title">Pulling for Knowledge, Not Green Status</h3>
+
+            <div class="pb-prose">
+              <p>Traditional reviews reward positive status and polished slides; lean leadership rewards clear gaps and honest evidence. In LPPD, leaders make it safe and expected to bring forward risks, failed experiments, and open questions &mdash; as long as there is a plan to learn.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>Start reviews by asking for <strong>key uncertainties and experiments</strong>, not traffic-light charts</li>
+              <li>React to surprises with curiosity: <em>&ldquo;What did we expect? What did we actually see? What might that mean?&rdquo;</em></li>
+              <li>Protect time and resources for the <strong>next experiment</strong> when evidence is inconclusive, instead of forcing a decision to &ldquo;stay on schedule&rdquo;</li>
+            </ul>
+
+            <div class="pb-pullquote">
+              <p>This shifts the culture from &ldquo;prove we are right&rdquo; to &ldquo;find out what is right&rdquo; &mdash; the core of knowledge-based development.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 9.3 Coaching -->
+        <section class="pb-section" id="coaching">
+          <p class="pb-section-eyebrow">Section 9.3</p>
+          <h2 class="pb-section-title">Coaching as the Engine of Culture</h2>
+
+          <div class="pb-prose">
+            <p>If tools and processes are the &ldquo;hardware&rdquo; of LPPD, coaching is the operating system that makes them run. Without coaching, people attend trainings, fill in templates, and then slide back into old habits. With consistent coaching, they repeatedly practice scientific thinking in real work, until &ldquo;clarify the problem, run a small experiment, reflect&rdquo; becomes the natural reflex.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/coaching-as-the-engine-of-culture.png" alt="Coaching as the Engine of Culture">
+          </div>
+
+          <div class="pb-subsection" id="coaching-routine">
+            <h3 class="pb-subsection-title">Elements of a Simple Coaching Routine</h3>
+
+            <div class="pb-prose">
+              <p>Effective coaching does not need to be complicated or time-consuming, but it does need to be habitual and structured. The coach&rsquo;s role is to keep ownership with the learner: guiding the thinking, not supplying the answers.</p>
+            </div>
+
+            <div class="pb-coaching">
+              <div class="pb-coaching-row">
+                <span class="pb-coaching-label">Clarify</span>
+                <span class="pb-coaching-q">&ldquo;What problem or challenge are you working on? How do you know it&rsquo;s a problem?&rdquo;</span>
+              </div>
+              <div class="pb-coaching-row">
+                <span class="pb-coaching-label">Current State</span>
+                <span class="pb-coaching-q">&ldquo;What is actually happening now? What facts or data do you have?&rdquo;</span>
+              </div>
+              <div class="pb-coaching-row">
+                <span class="pb-coaching-label">Target</span>
+                <span class="pb-coaching-q">&ldquo;What are you trying to achieve or learn next?&rdquo;</span>
+              </div>
+              <div class="pb-coaching-row">
+                <span class="pb-coaching-label">Next Experiment</span>
+                <span class="pb-coaching-q">&ldquo;What will you try, exactly? What do you expect to happen?&rdquo;</span>
+              </div>
+              <div class="pb-coaching-row">
+                <span class="pb-coaching-label">Reflection</span>
+                <span class="pb-coaching-q">&ldquo;What did you observe? What did you learn? What will you do now?&rdquo;</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="coaching-vs-training">
+            <h3 class="pb-subsection-title">Why Coaching, Not Just Training</h3>
+
+            <div class="pb-prose">
+              <p>Training can explain concepts, but it rarely changes what people actually do when they are under time pressure. Coaching closes this gap by pairing real work with real guidance &mdash; in the gemba, not in a classroom.</p>
+            </div>
+
+            <div class="pb-contrast">
+              <div class="pb-contrast-head">Training answers&hellip;</div>
+              <div class="pb-contrast-head">Coaching does&hellip;</div>
+              <div class="pb-contrast-cell">&ldquo;What is an A3?&rdquo;</div>
+              <div class="pb-contrast-cell">Helps someone actually use an A3 to untangle today&rsquo;s issue</div>
+              <div class="pb-contrast-cell">Explains PDCA</div>
+              <div class="pb-contrast-cell">Nudges a team to define their next experiment clearly before jumping to a solution</div>
+              <div class="pb-contrast-cell">Shares success stories</div>
+              <div class="pb-contrast-cell">Sits with inconclusive results and helps the team decide what to try next</div>
+            </div>
+
+            <div class="pb-note">
+              This is why organisations that rely only on workshops often report &ldquo;we know the tools, but we don&rsquo;t live them.&rdquo;
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="embed-coaching">
+            <h3 class="pb-subsection-title">Where to Embed Coaching in LPPD</h3>
+
+            <div class="pb-prose">
+              <p>Coaching works best when it is hooked onto existing rhythms rather than added as yet another meeting.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li><strong>Obeya walks and knowledge reviews</strong> &mdash; choose one or two topics and coach the responsible people through their problem-solving rather than just asking for status</li>
+              <li><strong>Daily or weekly stand-ups at labs or pilot lines</strong> &mdash; use one small issue as a quick coaching moment on framing and next experiment</li>
+              <li><strong>Formal mentoring for key roles</strong> (chief engineers, value stream managers, project leaders) where sessions focus on how they think and lead, not only on results</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 9.4 Developing Leaders -->
+        <section class="pb-section" id="developing">
+          <p class="pb-section-eyebrow">Section 9.4</p>
+          <h2 class="pb-section-title">Developing Leaders and Coaches</h2>
+
+          <div class="pb-prose">
+            <p>Lean systems don&rsquo;t depend on a few charismatic heroes; they rely on many leaders at different levels who can think and coach in a disciplined way. Developing those leaders is itself a long-term learning process &mdash; built through practice on real work, not through one-off seminars.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/developing-leaders-and-coaches.png" alt="Developing Leaders and Coaches">
+          </div>
+
+          <div class="pb-subsection" id="growing-leaders">
+            <h3 class="pb-subsection-title">Growing Lean Leaders Over Time</h3>
+
+            <ul class="pb-list">
+              <li>Define a small set of <strong>observable behaviours</strong> expected from leaders in development (go and see, ask for learning, coach problem-solving, make evidence-based decisions)</li>
+              <li>Give emerging leaders <strong>safe practice arenas</strong>: owning an obeya, leading knowledge reviews, or sponsoring a learning cycle, with explicit feedback from experienced sensei</li>
+              <li>Use <strong>regular reflection</strong> (short journals, peer discussions, after-action reviews) so leaders examine how they showed up in key moments &mdash; not just whether the project &ldquo;hit its dates&rdquo;</li>
+            </ul>
+
+            <div class="pb-note">
+              Over time, these routines shift the signal for advancement from &ldquo;delivers under pressure&rdquo; to &ldquo;builds capability and makes better decisions with teams.&rdquo;
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="levels">
+            <h3 class="pb-subsection-title">Roles at Different Levels</h3>
+
+            <div class="pb-levels">
+              <div class="pb-level">
+                <span class="pb-level-role">Frontline Leaders</span>
+                <div class="pb-level-body">Team leaders, lab leads, line supervisors &mdash; <strong>daily coaching and problem-solving</strong>: make experiments possible and safe, ensure issues are seen and acted on quickly</div>
+              </div>
+              <div class="pb-level">
+                <span class="pb-level-role">Middle Leaders</span>
+                <div class="pb-level-body">Project leaders, value stream managers, functional managers &mdash; <strong>connect efforts</strong>: align objectives, remove cross-functional blockers, protect time for learning work</div>
+              </div>
+              <div class="pb-level">
+                <span class="pb-level-role">Senior Leaders</span>
+                <div class="pb-level-body"><strong>Set direction and model vulnerability</strong>: choose critical value streams to transform, insist on knowledge-based decisions, show up at gemba willing to hear uncomfortable truths</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="sensei">
+            <h3 class="pb-subsection-title">Using Internal and External Sensei</h3>
+
+            <div class="pb-prose">
+              <p>Most organisations need a mix of internal champions and external guides to shift deeply ingrained habits. Internal leaders understand context and history; external sensei can challenge assumptions and introduce patterns that aren&rsquo;t yet part of the culture.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>Pair key internal leaders with experienced coaches for a defined period (one major project) with the shared goal of developing <strong>both results and capability</strong></li>
+              <li>Treat external support as a <strong>temporary scaffold</strong>, not a permanent crutch: over time, coaching responsibilities move to internal leaders</li>
+              <li>Make the development of new coaches explicit: identify people with aptitude and give them <strong>structured opportunities to practice coaching others</strong> on real problems</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 9.5 Coaching Culture -->
+        <section class="pb-section" id="coaching-culture">
+          <p class="pb-section-eyebrow">Section 9.5</p>
+          <h2 class="pb-section-title">Building a Coaching Culture Across the Value Stream</h2>
+
+          <div class="pb-prose">
+            <p>A few good coaches can improve a project; a coaching culture can transform a whole value stream. The aim is that scientific thinking and respectful problem-solving are not special initiatives but the normal way people work &mdash; from engineering and operations to supply chain and service.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/building-a-coaching-culture.png" alt="Building a Coaching Culture Across the Value Stream">
+          </div>
+
+          <div class="pb-subsection">
+            <h3 class="pb-subsection-title">From Individual Coaches to a Coaching System</h3>
+
+            <div class="pb-prose">
+              <p>Many organisations start with one or two passionate lean coaches and stall when those people move on. To avoid this, coaching needs its own simple system.</p>
+            </div>
+
+            <div class="pb-card-grid">
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Standard Routines</div>
+                <p class="pb-info-card-body">Lightweight coaching patterns (10&ndash;15 min questions) that any leader can learn and use in daily work &mdash; not just trained specialists</p>
+              </div>
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Clear Expectations</div>
+                <p class="pb-info-card-body">Leaders at each level regularly coach a small number of people, not just manage tasks &mdash; built into how performance is defined</p>
+              </div>
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Coach Network</div>
+                <p class="pb-info-card-body">A visible network of coaches who meet to share experiences, compare patterns, and improve their own practice together</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-subsection">
+            <h3 class="pb-subsection-title">Aligning People Systems with a Coaching Culture</h3>
+
+            <div class="pb-prose">
+              <p>If hiring, evaluation, and promotion still reward firefighting and heroics, a coaching culture will never take root. People systems need to signal that developing others and improving the system matters.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>Include <strong>observable coaching and problem-solving behaviours</strong> in leadership expectations and feedback &mdash; not just delivery metrics</li>
+              <li>Surface and celebrate stories where <strong>thoughtful experimentation prevented bigger problems</strong>, even if the first results were &ldquo;failures&rdquo;</li>
+              <li>Offer pathways and recognition for people who become strong coaches, so that <strong>&ldquo;helping others learn&rdquo; is seen as a core career contribution</strong>, not a side hobby</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 9.6 Practical Start -->
+        <section class="pb-section" id="practical-start">
+          <p class="pb-section-eyebrow">Section 9.6</p>
+          <h2 class="pb-section-title">Practical Start: Upgrading Your Own Leadership and Coaching</h2>
+
+          <div class="pb-prose">
+            <p>You don&rsquo;t need a full leadership program to begin shifting culture; you can start by changing how you show up in one team and one review. The aim is to turn everyday moments into small experiments in lean leadership and coaching, then learn from what happens.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/upgrading-your-own-leadership.png" alt="Upgrading Your Own Leadership">
+          </div>
+
+          <div class="pb-subsection">
+            <h3 class="pb-subsection-title">Pick One Arena and One Behaviour</h3>
+
+            <div class="pb-prose">
+              <p>Rather than trying to &ldquo;be a different leader everywhere,&rdquo; choose one concrete arena (a project, obeya, or team stand-up) and one behaviour to practice deliberately for a few weeks. Treat it as a time-boxed experiment in your own behaviour, not a personality change.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li>In your main project review, always start with: <em>&ldquo;What are we trying to learn? What are the key uncertainties?&rdquo;</em> before asking about schedule</li>
+              <li>In a daily stand-up, pick one issue and <strong>coach the owner through clarifying the problem</strong> and defining a small next experiment, instead of jumping to solutions</li>
+              <li>During gemba visits, commit to asking <strong>at least three open questions</strong> before offering any opinion</li>
+            </ul>
+          </div>
+
+          <div class="pb-subsection">
+            <h3 class="pb-subsection-title">Invite One Person into the Experiment</h3>
+
+            <div class="pb-prose">
+              <p>Culture spreads faster when you don&rsquo;t go alone. Pick one colleague and invite them to join you in a simple experiment.</p>
+            </div>
+
+            <div class="pb-steps">
+              <div class="pb-step">
+                <span class="pb-step-num">1</span>
+                <div class="pb-step-body"><strong>Share the specific behaviour</strong> you&rsquo;re trying (e.g., starting reviews with questions about learning)</div>
+              </div>
+              <div class="pb-step">
+                <span class="pb-step-num">2</span>
+                <div class="pb-step-body">Ask them to <strong>watch and give you short, honest feedback</strong> after a few meetings: &ldquo;When did you do it? How did it land?&rdquo;</div>
+              </div>
+              <div class="pb-step">
+                <span class="pb-step-num">3</span>
+                <div class="pb-step-body"><strong>Offer to do the same for them</strong> if they choose a behaviour of their own</div>
+              </div>
+            </div>
+
+            <div class="pb-note">
+              By treating your own leadership as an experiment, you model exactly the mindset you want others to adopt in product development: clarify the challenge, try something small, see what happens, and learn.
+            </div>
+          </div>
+
+          <div class="pb-subsection">
+            <h3 class="pb-subsection-title">Use a Simple Self-Coaching Check</h3>
+
+            <div class="pb-prose">
+              <p>After each selected meeting or visit, ask yourself:</p>
+            </div>
+
+            <div class="pb-selfcheck">
+              <div class="pb-selfcheck-item">Did I go and see, or did I stay in the conference room?</div>
+              <div class="pb-selfcheck-item">Did I ask for learning and evidence, or did I mainly ask for status?</div>
+              <div class="pb-selfcheck-item">Did I coach someone&rsquo;s thinking, or did I jump straight to advice?</div>
+              <div class="pb-selfcheck-item">What did I notice about how people responded when I behaved differently?</div>
+            </div>
+
+            <div class="pb-pullquote">
+              <p>Capture a few quick notes after each session. Over time, these reflections become data about your own leadership system &mdash; not just about the project.</p>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+
+  <script>
+    const navLinks = document.querySelectorAll('.pb-nav a, .pb-nav-sub a');
+    const sections = document.querySelectorAll('.pb-section, .pb-subsection');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          const id = entry.target.getAttribute('id');
+          const active = document.querySelector(`.pb-nav a[href="#${id}"], .pb-nav-sub a[href="#${id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+  <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
+  <script defer>
+    (function () {
+      function init() { CustomGPT.init({ p_id: '89818', p_key: '263a30f8ca292918be27e31bd50d1074' }); }
+      document.readyState === 'complete' ? init() : window.addEventListener('load', init);
+    })();
+  </script>
+
+</body>
+</html>
