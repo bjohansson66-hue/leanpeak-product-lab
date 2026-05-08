@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Validate &amp; Learn — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+
+    .pb-chapter-header { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--lp-color-border-subtle); margin-bottom: 2.5rem; }
+    .pb-chapter-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-3xl); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; color: var(--lp-color-text-main); margin: 0 0 1rem; }
+    .pb-chapter-lead { font-size: var(--lp-font-size-lg); color: var(--lp-color-text-muted); line-height: 1.7; max-width: 66ch; margin: 0; }
+    .pb-chapter-img { margin: 0 0 2.5rem; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-img img { width: 100%; height: auto; display: block; max-height: 340px; object-fit: cover; object-position: center top; }
+
+    .pb-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+
+    .pb-sidebar { position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto; }
+    .pb-sidebar-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+
+    .pb-nav { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav > li > a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav > li > a:hover, .pb-nav > li > a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav > li > a.active { border-left-color: var(--lp-color-primary); }
+
+    .pb-nav-sub { list-style: none; margin: 0.1rem 0 0.25rem; padding: 0 0 0 1rem; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav-sub a { display: block; font-size: var(--lp-font-size-xs); color: var(--lp-color-text-soft); text-decoration: none; padding: 0.25rem 0.6rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav-sub a:hover, .pb-nav-sub a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav-sub a.active { border-left-color: var(--lp-color-primary); }
+
+    .pb-chapter-nav { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-nav-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.6rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-nav a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.3rem 0.75rem; border-radius: var(--lp-radius-sm); line-height: 1.4; transition: color 0.15s, background 0.15s; }
+    .pb-chapter-nav a:hover { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-chapter-nav a.current { font-weight: 600; color: var(--lp-color-text-main); }
+
+    .pb-section { scroll-margin-top: 5rem; margin-bottom: 4rem; }
+    .pb-section + .pb-section { padding-top: 2.5rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-subsection { scroll-margin-top: 5rem; margin-top: 2.5rem; }
+
+    .pb-section-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.5rem; font-family: var(--lp-font-sans); }
+    .pb-section-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-2xl); font-weight: 400; letter-spacing: -0.02em; color: var(--lp-color-text-main); margin: 0 0 1.25rem; line-height: 1.15; }
+    .pb-subsection-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-xl); font-weight: 400; color: var(--lp-color-text-main); margin: 0 0 0.75rem; line-height: 1.2; }
+
+    .pb-prose { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.75; max-width: 68ch; }
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+
+    .pb-section-img { margin: 1.75rem 0; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); background: var(--lp-color-surface); }
+    .pb-section-img img { width: 100%; height: auto; display: block; }
+
+    .pb-pullquote { margin: 2rem 0; padding: 1.25rem 1.5rem; border-left: 3px solid var(--lp-color-primary); background: var(--lp-color-surface); border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0; }
+    .pb-pullquote p { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); line-height: 1.5; color: var(--lp-color-text-main); margin: 0; }
+
+    .pb-list { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.5rem; max-width: 68ch; }
+    .pb-list li { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .pb-list li::before { content: "→"; position: absolute; left: 0; color: var(--lp-color-primary); font-size: 0.85em; top: 0.15em; }
+    .pb-list li strong { color: var(--lp-color-text-main); }
+
+    .pb-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0; }
+    .pb-card-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0; }
+    .pb-info-card { padding: 1rem 1.25rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); }
+    .pb-info-card-label { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--lp-color-primary); font-family: var(--lp-font-sans); margin-bottom: 0.4rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    .pb-info-card-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-md); color: var(--lp-color-text-main); margin: 0 0 0.4rem; }
+    .pb-info-card-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0; }
+
+    /* Steps — numbered rows */
+    .pb-steps { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-step { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.875rem; align-items: start; }
+    .pb-step-num { width: 2rem; height: 2rem; border-radius: var(--lp-radius-md); background: var(--lp-color-primary-soft); color: var(--lp-color-primary); font-size: var(--lp-font-size-xs); font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: var(--lp-font-sans); }
+    .pb-step-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; padding-top: 0.2rem; }
+    .pb-step-body strong { color: var(--lp-color-text-main); }
+    .pb-step-body em { font-style: normal; color: var(--lp-color-text-soft); font-size: var(--lp-font-size-xs); display: block; margin-top: 0.25rem; }
+
+    /* Ladder rungs — heavier visual */
+    .pb-ladder { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.5rem 0; max-width: 68ch; }
+    .pb-rung { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 1rem; align-items: start; padding: 0.875rem 1rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); border-left: 3px solid var(--lp-color-primary); }
+    .pb-rung-num { font-family: var(--lp-font-display); font-size: var(--lp-font-size-2xl); font-weight: 400; color: var(--lp-color-primary); line-height: 1; }
+    .pb-rung-body {}
+    .pb-rung-title { font-size: var(--lp-font-size-sm); font-weight: 600; color: var(--lp-color-text-main); margin: 0 0 0.25rem; font-family: var(--lp-font-sans); }
+    .pb-rung-desc { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0 0 0.25rem; }
+    .pb-rung-q { font-size: var(--lp-font-size-xs); color: var(--lp-color-text-soft); line-height: 1.5; margin: 0; font-style: italic; }
+
+    /* Experiment pattern flow */
+    .pb-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 1.5rem 0; max-width: 68ch; }
+    .pb-flow-step { padding: 0.875rem 1rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); text-align: center; position: relative; }
+    .pb-flow-step-label { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--lp-color-primary); font-family: var(--lp-font-sans); text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 0.3rem; }
+    .pb-flow-step-desc { font-size: var(--lp-font-size-xs); color: var(--lp-color-text-muted); line-height: 1.55; margin: 0; }
+
+    /* Checklist */
+    .pb-checklist { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.4rem; max-width: 68ch; }
+    .pb-checklist li { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; padding-left: 1.5rem; position: relative; }
+    .pb-checklist li::before { content: "☐"; position: absolute; left: 0; color: var(--lp-color-primary); font-size: 0.9em; top: 0.05em; }
+    .pb-checklist li strong { color: var(--lp-color-text-main); }
+
+    /* Layers */
+    .pb-layers { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-layer { padding: 0.875rem 1.125rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); }
+    .pb-layer-label { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--lp-color-primary); font-family: var(--lp-font-sans); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 0.25rem; }
+    .pb-layer-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0; }
+
+    /* Note callout */
+    .pb-note { margin: 1.5rem 0; padding: 0.875rem 1.125rem; background: var(--lp-color-primary-soft); border-radius: var(--lp-radius-md); font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; max-width: 68ch; }
+    .pb-note strong { color: var(--lp-color-primary); }
+
+    @media (max-width: 860px) {
+      .pb-layout { grid-template-columns: 1fr; gap: 0; }
+      .pb-sidebar { position: static; max-height: none; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--lp-color-border-subtle); }
+      .pb-nav { flex-direction: row; flex-wrap: wrap; gap: 0.25rem; }
+      .pb-nav > li > a { border-left: none; border-bottom: 2px solid transparent; padding: 0.3rem 0.6rem; }
+      .pb-nav > li > a.active { border-left-color: transparent; border-bottom-color: var(--lp-color-primary); }
+      .pb-nav-sub { display: none; }
+      .pb-chapter-nav { display: none; }
+      .pb-card-grid { grid-template-columns: 1fr; }
+      .pb-card-grid-2 { grid-template-columns: 1fr; }
+      .pb-flow { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      .pb-chapter-title { font-size: 2rem; }
+      .pb-flow { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)">
+            <rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect>
+            <rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect>
+            <rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect>
+          </g>
+          <g transform="translate(150 46)">
+            <text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text>
+            <text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text>
+            <text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text>
+          </g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Lean PPD Playbook &mdash; Chapter 6</p>
+      <h1 class="pb-chapter-title">Validate &amp; Learn</h1>
+      <p class="pb-chapter-lead">
+        Learning as the core output &mdash; designing experiments across the development
+        stream, climbing the prototyping and knowledge ladders, running disciplined
+        learning cycles, and feeding real-world signals back into the next bets.
+      </p>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="img/validate-and-learn.png" alt="Validate and Learn">
+    </div>
+
+    <div class="pb-layout">
+
+      <!-- ── Sidebar ── -->
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#intro">Introduction</a></li>
+          <li>
+            <a href="#experiments">6.1 Designing Experiments</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#uncertainties">Start from Uncertainties</a></li>
+              <li><a href="#experiment-pattern">Experiment Pattern</a></li>
+              <li><a href="#spreading">Along the Value Stream</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#ladder">6.2 Prototyping Ladder</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#six-rungs">The Six Rungs</a></li>
+              <li><a href="#right-rung">Choosing the Right Rung</a></li>
+              <li><a href="#process-learning">Process Learning</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#milestones">6.3 Knowledge Milestones</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#knowledge-ladder">The Knowledge Ladder</a></li>
+              <li><a href="#experiments-milestones">Integrating Experiments</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#cycles">6.4 Learning Cycles</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#designing-cycle">Designing a Cycle</a></li>
+              <li><a href="#running-cycle">Running the Cycle</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#after-launch">6.5 Learning After Launch</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#feedback-loops">Feedback Loops</a></li>
+              <li><a href="#next-bets">Feeding the Next Bets</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="pb-chapter-nav">
+          <p class="pb-chapter-nav-label">Chapters</p>
+          <a href="/playbook/introduction/">1. Why This Playbook Exists</a>
+          <a href="/playbook/foundations/">2. Foundations</a>
+          <a href="/playbook/strategy/">3. Strategy &amp; Value Creation</a>
+          <a href="/playbook/discover/">4. Discover</a>
+          <a href="/playbook/design/">5. Design &amp; Flow</a>
+          <a href="/playbook/validate/" class="current">6. Validate &amp; Learn</a>
+        </div>
+      </aside>
+
+      <!-- ── Main content ── -->
+      <main>
+
+        <!-- Introduction -->
+        <section class="pb-section" id="intro">
+          <p class="pb-section-eyebrow">Chapter 6</p>
+          <h2 class="pb-section-title">Learning as the Core Output</h2>
+
+          <div class="pb-pullquote">
+            <p>What do we believe that we haven&rsquo;t really tested yet? What&rsquo;s the smallest experiment we could run to learn the most about that belief?</p>
+          </div>
+
+          <div class="pb-prose">
+            <p>Up to now, the playbook has helped you choose where to focus (strategy), understand customers and systems (discovery), and design products, processes, and development flow (Chapter 5). Chapter 6 is about proving what works and learning from what doesn&rsquo;t before the stakes get too high &mdash; and then feeding that learning back into your system.</p>
+            <p>In LPPD, validation is not a single test at the end. It is a series of deliberate experiments woven through the development value stream. Each experiment is designed to reduce specific uncertainties about customers, technology, flow, or economics. The goal is to make decisions based on evidence, not optimism or politics.</p>
+            <p>This chapter collects plays for planning and running those experiments: from early pretotypes and simple prototypes, through integrated tests and pilots, to post-launch learning loops. You&rsquo;ll see how to use a prototyping ladder, how to define knowledge-based milestones instead of just dates, and how to validate product, process, and business assumptions together.</p>
+          </div>
+        </section>
+
+        <!-- 6.1 Designing Experiments -->
+        <section class="pb-section" id="experiments">
+          <p class="pb-section-eyebrow">Section 6.1</p>
+          <h2 class="pb-section-title">Designing Experiments Across the Development Stream</h2>
+
+          <div class="pb-prose">
+            <p>Validation in LPPD means designing a sequence of experiments that track your value stream &mdash; not running one big test at the end. Each experiment should be tied to a specific uncertainty and a clear decision it will inform.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/designing-experiments.png" alt="Designing Experiments">
+          </div>
+
+          <div class="pb-subsection" id="uncertainties">
+            <h3 class="pb-subsection-title">Start from Uncertainties, Not from Methods</h3>
+
+            <div class="pb-prose">
+              <p>Instead of asking &ldquo;What prototype can we build?&rdquo;, start with: &ldquo;What do we not know yet that could really hurt us?&rdquo;</p>
+            </div>
+
+            <div class="pb-card-grid" style="grid-template-columns: repeat(2,1fr);">
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Customer &amp; Problem</div>
+                <p class="pb-info-card-body">Are we solving something important for the right people?</p>
+              </div>
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Concept &amp; Architecture</div>
+                <p class="pb-info-card-body">Will this concept work in the real context and at scale?</p>
+              </div>
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Flow &amp; Process</div>
+                <p class="pb-info-card-body">Can we build, test, and deliver this reliably with our system?</p>
+              </div>
+              <div class="pb-info-card">
+                <div class="pb-info-card-label">Economics</div>
+                <p class="pb-info-card-body">Does the combination of value, cost, and risk make sense?</p>
+              </div>
+            </div>
+
+            <div class="pb-prose">
+              <p>For each cluster, write short uncertainty statements (e.g., &ldquo;We don&rsquo;t know if X will adopt this at price Y&rdquo;, &ldquo;We don&rsquo;t know if this interface can handle Z variation&rdquo;). Those become the backbone of your experiment plan.</p>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="experiment-pattern">
+            <h3 class="pb-subsection-title">Experiment Pattern: Hypothesis &rarr; Test &rarr; Signal &rarr; Decision</h3>
+
+            <div class="pb-prose">
+              <p>Use a simple, repeatable pattern for every experiment. If you can&rsquo;t write the Decision part, the experiment is probably not worth running yet.</p>
+            </div>
+
+            <div class="pb-flow">
+              <div class="pb-flow-step">
+                <span class="pb-flow-step-label">Hypothesis</span>
+                <p class="pb-flow-step-desc">What you believe, linked to an uncertainty</p>
+              </div>
+              <div class="pb-flow-step">
+                <span class="pb-flow-step-label">Test</span>
+                <p class="pb-flow-step-desc">What you will do to probe it (pretotype, sim, prototype, pilot&hellip;)</p>
+              </div>
+              <div class="pb-flow-step">
+                <span class="pb-flow-step-label">Signal</span>
+                <p class="pb-flow-step-desc">The observable result if the hypothesis holds</p>
+              </div>
+              <div class="pb-flow-step">
+                <span class="pb-flow-step-label">Decision</span>
+                <p class="pb-flow-step-desc">What you will decide or change based on the signal</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="spreading">
+            <h3 class="pb-subsection-title">Spreading Experiments Along the Value Stream</h3>
+
+            <div class="pb-section-img">
+              <img src="img/spreading-experiments-along-the-value-stream.png" alt="Spreading Experiments Along the Value Stream">
+            </div>
+
+            <div class="pb-prose">
+              <p>Map experiments across the same stages you used in 5.3. Aim for many small experiments instead of a few huge ones &mdash; faster feedback, less risk, more options.</p>
+            </div>
+
+            <ul class="pb-list">
+              <li><strong>Insight &amp; framing</strong> &mdash; Interviews, gemba, problem framing workshops, early pretotype brochures</li>
+              <li><strong>Explore &amp; pretotype</strong> &mdash; Brochure tests, fake-door offers, rough mock-ups, concept comparisons</li>
+              <li><strong>Concept &amp; architecture</strong> &mdash; System simulations, trade-off studies, architecture spikes, set-based evaluations</li>
+              <li><strong>Detailed design &amp; process development</strong> &mdash; Component tests, process trials, DOE, assembly and service try-outs</li>
+              <li><strong>Integrate &amp; test</strong> &mdash; Integration events with combined hardware/software/process, full flow tests</li>
+              <li><strong>Launch &amp; ramp-up</strong> &mdash; Limited launches, pilots with selected customers, phased volume increases</li>
+              <li><strong>Learn &amp; improve</strong> &mdash; Post-launch reviews, field data analysis, experiments on updates and next-gen ideas</li>
+            </ul>
+
+            <div class="pb-note">
+              <strong>Visibility rule:</strong> If you can&rsquo;t point to your current top 3 experiments for a bet, you&rsquo;re probably just &ldquo;doing work&rdquo; rather than deliberately validating and learning. Put experiment cards on your obeya Learning wall, grouped under each bet, and talk about learning before schedules in every review.
+            </div>
+          </div>
+        </section>
+
+        <!-- 6.2 Prototyping Ladder -->
+        <section class="pb-section" id="ladder">
+          <p class="pb-section-eyebrow">Section 6.2</p>
+          <h2 class="pb-section-title">Prototyping Ladder &mdash; From Pretotypes to Pilots</h2>
+
+          <div class="pb-prose">
+            <p>For physical products, you can&rsquo;t afford to build &ldquo;the whole thing&rdquo; every time you want to learn something. The prototyping ladder is a series of increasingly realistic ways to test assumptions about product, process, and usage. Each step adds fidelity and cost, but also richer learning. The aim is to climb only as high as you need for the decision at hand.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/from-pretotypes-to-pilots.png" alt="From Pretotypes to Pilots">
+          </div>
+
+          <div class="pb-subsection" id="six-rungs">
+            <h3 class="pb-subsection-title">The Six Rungs</h3>
+
+            <div class="pb-section-img">
+              <img src="img/prototyping-ladder.gif" alt="Prototyping Ladder">
+            </div>
+
+            <div class="pb-ladder">
+              <div class="pb-rung">
+                <span class="pb-rung-num">1</span>
+                <div class="pb-rung-body">
+                  <p class="pb-rung-title">Pretotypes &mdash; Paper &amp; Brochure</p>
+                  <p class="pb-rung-desc">Representations of the offer without a working product: sales brochures, mock web pages, &ldquo;coming soon&rdquo; signs, simple mock-ups.</p>
+                  <p class="pb-rung-q">&ldquo;Do they care?&rdquo; &bull; &ldquo;Can they understand the promise?&rdquo; &bull; &ldquo;Who raises their hand?&rdquo;</p>
+                </div>
+              </div>
+              <div class="pb-rung">
+                <span class="pb-rung-num">2</span>
+                <div class="pb-rung-body">
+                  <p class="pb-rung-title">Concept &amp; Form Models &mdash; Looks Like</p>
+                  <p class="pb-rung-desc">Foam models, 3D prints, cardboard rigs, rough enclosures &mdash; often non-functional. Explores ergonomics, size, interfaces, and perception of quality.</p>
+                  <p class="pb-rung-q">&ldquo;Does it fit in their space?&rdquo; &bull; &ldquo;Can they handle it easily?&rdquo; &bull; &ldquo;Can we assemble / service it?&rdquo;</p>
+                </div>
+              </div>
+              <div class="pb-rung">
+                <span class="pb-rung-num">3</span>
+                <div class="pb-rung-body">
+                  <p class="pb-rung-title">Functional Rigs &amp; Breadboards &mdash; Works Like</p>
+                  <p class="pb-rung-desc">Lab set-ups, bench rigs, breadboards, and hacked-together assemblies that perform key functions but don&rsquo;t look like the final product.</p>
+                  <p class="pb-rung-q">&ldquo;Can we achieve these performance targets?&rdquo; &bull; &ldquo;Where are the failure modes?&rdquo;</p>
+                </div>
+              </div>
+              <div class="pb-rung">
+                <span class="pb-rung-num">4</span>
+                <div class="pb-rung-body">
+                  <p class="pb-rung-title">Alpha Prototypes &mdash; Integrated but Rough</p>
+                  <p class="pb-rung-desc">Early integrated units that both look and work &ldquo;close enough&rdquo; but may be fragile, hand-built, or instrumented. Tests integrated behaviour and key edge cases.</p>
+                  <p class="pb-rung-q">&ldquo;What happens when everything is bolted together?&rdquo; &bull; &ldquo;Where does it fail in realistic use?&rdquo;</p>
+                </div>
+              </div>
+              <div class="pb-rung">
+                <span class="pb-rung-num">5</span>
+                <div class="pb-rung-body">
+                  <p class="pb-rung-title">Beta Prototypes / Pre-Series &mdash; Production Intent</p>
+                  <p class="pb-rung-desc">Units built with near-final parts, processes, and tooling (or close approximations). Validates manufacturability, assembly flow, and early field use in limited numbers.</p>
+                  <p class="pb-rung-q">&ldquo;Can we build this reliably at a reasonable takt?&rdquo; &bull; &ldquo;How does it behave in real customer environments?&rdquo;</p>
+                </div>
+              </div>
+              <div class="pb-rung">
+                <span class="pb-rung-num">6</span>
+                <div class="pb-rung-body">
+                  <p class="pb-rung-title">Pilots &amp; Controlled Launches</p>
+                  <p class="pb-rung-desc">Limited deployment in real environments with monitored support. Validates the full product + process + service system, economics, and ramp-up assumptions.</p>
+                  <p class="pb-rung-q">&ldquo;Can we run this as a business?&rdquo; &bull; &ldquo;What breaks when we scale from 10 to 100 to 1&thinsp;000?&rdquo;</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="right-rung">
+            <h3 class="pb-subsection-title">Choosing the Right Rung for the Question</h3>
+
+            <ul class="pb-list">
+              <li><strong>Customer desirability &amp; positioning</strong> &mdash; stay on the bottom rungs (pretotype, form model) as long as possible</li>
+              <li><strong>Technical feasibility &amp; performance</strong> &mdash; move into rigs, breadboards, and alpha prototypes</li>
+              <li><strong>Flow, manufacturability, and reliability</strong> &mdash; use beta / pre-series units and pilots</li>
+            </ul>
+
+            <div class="pb-note">
+              Before building anything, ask: What decision are we trying to make? What is the cheapest rung that gives us enough confidence for that decision? Can we structure the experiment so that failure is safe and fast? If you find yourself jumping straight from CAD to a complex alpha build, you&rsquo;ve skipped rungs that could have given you cheaper learning.
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="process-learning">
+            <h3 class="pb-subsection-title">Integrating Process and Production Learning on the Ladder</h3>
+
+            <div class="pb-prose">
+              <p>For physical products, the ladder should always include process learning, not just product learning. Each rung also climbs the ladder for designing the value stream, not only the physical object.</p>
+            </div>
+
+            <div class="pb-section-img">
+              <img src="img/integrating-process-and-production-learning-on-the-ladder.png" alt="Integrating Process and Production Learning on the Ladder">
+            </div>
+
+            <ul class="pb-list">
+              <li>On <strong>concept and form models</strong> &mdash; check assembly motions, access for tools, and fixture concepts</li>
+              <li>On <strong>functional rigs</strong> &mdash; explore test strategies and measurement points, not only performance</li>
+              <li>On <strong>alpha and beta prototypes</strong> &mdash; try building using realistic work instructions, fixtures, and test sequences; track build times, issues, and rework</li>
+              <li>During <strong>pilots</strong> &mdash; treat the production line and service process as part of the prototype; measure flow, quality, and problem-solving speed</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 6.3 Knowledge-Based Milestones -->
+        <section class="pb-section" id="milestones">
+          <p class="pb-section-eyebrow">Section 6.3</p>
+          <h2 class="pb-section-title">Knowledge-Based Milestones &amp; Decision Points</h2>
+
+          <div class="pb-prose">
+            <p>In a knowledge-based system, milestones are not calendar dates or document gates. They are decision points where the team pauses to ask: &ldquo;Do we truly know enough to commit to the next step?&rdquo; Each milestone is defined by the questions it must answer and the evidence it requires, so decisions flow from learning rather than optimism or politics.</p>
+          </div>
+
+          <div class="pb-subsection" id="knowledge-ladder">
+            <h3 class="pb-subsection-title">Rungs on the Knowledge Ladder</h3>
+
+            <div class="pb-prose">
+              <p>Think of milestones as a knowledge ladder: a series of decision points where each rung requires a different level of understanding about customer, product, process, and economics. Climb only as high as you need for the commitments at hand.</p>
+            </div>
+
+            <div class="pb-ladder">
+              <div class="pb-rung">
+                <span class="pb-rung-num">1</span>
+                <div class="pb-rung-body">
+                  <p class="pb-rung-title">Problem &amp; Opportunity Clarity</p>
+                  <p class="pb-rung-desc">Align on customers, use cases, and value gaps before locking into concepts.</p>
+                  <p class="pb-rung-q">&ldquo;Whose problem is this?&rdquo; &bull; &ldquo;Why now?&rdquo; &bull; &ldquo;How will we recognize success?&rdquo;</p>
+                </div>
+              </div>
+              <div class="pb-rung">
+                <span class="pb-rung-num">2</span>
+                <div class="pb-rung-body">
+                  <p class="pb-rung-title">Customer &amp; Usage Insight</p>
+                  <p class="pb-rung-desc">Turn assumptions about users and usage into grounded insights through interviews, gemba visits, and light experiments.</p>
+                  <p class="pb-rung-q">&ldquo;How do they work today?&rdquo; &bull; &ldquo;What jobs are we actually hired for?&rdquo; &bull; &ldquo;What constraints matter most?&rdquo;</p>
+                </div>
+              </div>
+              <div class="pb-rung">
+                <span class="pb-rung-num">3</span>
+                <div class="pb-rung-body">
+                  <p class="pb-rung-title">Concept &amp; Architecture Confidence</p>
+                  <p class="pb-rung-desc">Decide which sets of concepts to carry forward and which to drop, supported by trade-off curves, simple models, and early tests.</p>
+                  <p class="pb-rung-q">&ldquo;Which concepts dominate on key trade-offs?&rdquo; &bull; &ldquo;What spaces are we keeping open?&rdquo;</p>
+                </div>
+              </div>
+              <div class="pb-rung">
+                <span class="pb-rung-num">4</span>
+                <div class="pb-rung-body">
+                  <p class="pb-rung-title">Product &amp; Process Feasibility</p>
+                  <p class="pb-rung-desc">Consider product and process together: performance, manufacturability, service, supply, and risk. Decide whether the combination can realistically deliver targets.</p>
+                  <p class="pb-rung-q">&ldquo;Can we make and service this repeatedly?&rdquo; &bull; &ldquo;What is our mitigation plan for the biggest risks?&rdquo;</p>
+                </div>
+              </div>
+              <div class="pb-rung">
+                <span class="pb-rung-num">5</span>
+                <div class="pb-rung-body">
+                  <p class="pb-rung-title">Value Stream &amp; Business Viability</p>
+                  <p class="pb-rung-desc">Confirm that the emerging solution can win in its market and be sustained by a healthy value stream &mdash; product, process, and business model together.</p>
+                  <p class="pb-rung-q">&ldquo;Can we reach target cost and margin?&rdquo; &bull; &ldquo;Where are the economic tipping points?&rdquo;</p>
+                </div>
+              </div>
+              <div class="pb-rung">
+                <span class="pb-rung-num">6</span>
+                <div class="pb-rung-body">
+                  <p class="pb-rung-title">Launch Readiness &amp; Learning Capture</p>
+                  <p class="pb-rung-desc">Evaluate launch readiness and captured learning after pilots and controlled releases. Decide how to launch, how fast to ramp, and what knowledge to standardize.</p>
+                  <p class="pb-rung-q">&ldquo;What have pilots taught us?&rdquo; &bull; &ldquo;What failure modes remain?&rdquo; &bull; &ldquo;What knowledge must we capture now for reuse?&rdquo;</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pb-note">
+              If you find yourself jumping straight from a vague opportunity to a &ldquo;go/no-go launch&rdquo; discussion, you have skipped rungs that could have surfaced risks and options earlier and more cheaply.
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="experiments-milestones">
+            <h3 class="pb-subsection-title">Integrating Experiments into Milestones</h3>
+
+            <div class="pb-prose">
+              <p>In a knowledge-based system, experiments are how you climb the rungs. Instead of scheduling reviews first and then scrambling for slides, teams work backwards from the knowledge needed at a decision point and design experiments to generate it.</p>
+            </div>
+
+            <div class="pb-section-img">
+              <img src="img/integrating-experiments-into-milestones.png" alt="Integrating Experiments into Milestones">
+            </div>
+
+            <ul class="pb-list">
+              <li>Before a <strong>Concept &amp; Architecture</strong> milestone &mdash; run experiments that sharpen trade-offs and eliminate weak concepts</li>
+              <li>Before a <strong>Product &amp; Process Feasibility</strong> milestone &mdash; test critical interfaces, flows, and failure modes in both product and process</li>
+              <li>Before <strong>Launch Readiness</strong> &mdash; use pilots and controlled releases to validate system behaviour, economics, and support</li>
+            </ul>
+
+            <div class="pb-prose" style="margin-top:0.75rem;">
+              <p>This keeps milestones grounded in evidence on the table, not opinions in the room.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6.4 Learning Cycles -->
+        <section class="pb-section" id="cycles">
+          <p class="pb-section-eyebrow">Section 6.4</p>
+          <h2 class="pb-section-title">Validating Product + Process + Business Together</h2>
+
+          <div class="pb-prose">
+            <p>Learning cycles are short, focused loops of experimentation that generate the knowledge needed for upcoming decisions &mdash; instead of hoping that learning &ldquo;just happens&rdquo; along the way. They bring scientific thinking, cadence, and discipline to how teams design, run, and absorb experiments so that milestones are truly knowledge-based.</p>
+          </div>
+
+          <div class="pb-subsection">
+            <h3 class="pb-subsection-title">What Is a Learning Cycle?</h3>
+
+            <div class="pb-prose">
+              <p>A learning cycle is a time-boxed sequence of activities that turns questions into experiments, evidence, and decisions, then feeds directly into the next cycle.</p>
+            </div>
+
+            <div class="pb-steps">
+              <div class="pb-step">
+                <span class="pb-step-num">1</span>
+                <div class="pb-step-body"><strong>Clarify the problem</strong> &mdash; Align on the decision or milestone this cycle supports and the questions to answer</div>
+              </div>
+              <div class="pb-step">
+                <span class="pb-step-num">2</span>
+                <div class="pb-step-body"><strong>Design the experiment</strong> &mdash; Choose the lightest experiments on the prototyping ladder that answer the questions with acceptable risk and cost</div>
+              </div>
+              <div class="pb-step">
+                <span class="pb-step-num">3</span>
+                <div class="pb-step-body"><strong>Run it</strong> &mdash; Pull only the experiments and analysis needed; short check-ins keep everyone aligned and surface blockers</div>
+              </div>
+              <div class="pb-step">
+                <span class="pb-step-num">4</span>
+                <div class="pb-step-body"><strong>Review what was learned</strong> &mdash; At the end of the timebox, surface results and ask: &ldquo;What did we actually learn, and is it enough to change anything?&rdquo;</div>
+              </div>
+              <div class="pb-step">
+                <span class="pb-step-num">5</span>
+                <div class="pb-step-body"><strong>Decide and adapt</strong> &mdash; Persevere, pivot, or stop &mdash; then capture key knowledge in A3s, experiment summaries, or design rules</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="designing-cycle">
+            <h3 class="pb-subsection-title">Designing a Good Learning Cycle</h3>
+
+            <div class="pb-prose">
+              <p>Strong learning cycles are sharp and small: they tackle a narrow uncertainty and produce evidence that someone will actually use. Before launching a cycle, align the team on the following checklist.</p>
+            </div>
+
+            <div class="pb-section-img">
+              <img src="img/designing-a-good-learning-cycle.png" alt="Designing a Good Learning Cycle">
+            </div>
+
+            <ul class="pb-checklist">
+              <li><strong>Problem statement:</strong> What are we trying to learn or decide?</li>
+              <li><strong>Hypotheses:</strong> What do we think is true?</li>
+              <li><strong>Experiments:</strong> How will we test that?</li>
+              <li><strong>Success signals:</strong> What result would increase our confidence?</li>
+              <li><strong>Timebox:</strong> How long do we give ourselves before we must look at the evidence?</li>
+            </ul>
+          </div>
+
+          <div class="pb-subsection" id="running-cycle">
+            <h3 class="pb-subsection-title">Running the Cycle</h3>
+
+            <div class="pb-prose">
+              <p>Execution is about rhythm and focus, not heroics. The review is not a status meeting; it is a learning and decision event.</p>
+            </div>
+
+            <div class="pb-section-img">
+              <img src="img/running-the-cycle.png" alt="Running the Cycle">
+            </div>
+
+            <div class="pb-prose">
+              <p>The team brings experiment outputs, discusses what they mean, then compares results to expectations and hypotheses (&ldquo;what surprised us?&rdquo;), decides whether to persevere, pivot, or stop, and captures key knowledge in simple, reusable formats so future teams do not have to re-learn the same thing.</p>
+              <p>This is where learning connects back to knowledge-based milestones: each cycle feeds or updates the evidence for an upcoming decision point.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6.5 Learning After Launch -->
+        <section class="pb-section" id="after-launch">
+          <p class="pb-section-eyebrow">Section 6.5</p>
+          <h2 class="pb-section-title">Learning After Launch</h2>
+
+          <div class="pb-pullquote">
+            <p>Launch is not the finish line; it is the moment where reality starts talking back at full volume.</p>
+          </div>
+
+          <div class="pb-prose">
+            <p>Post-launch, the job of development shifts from &ldquo;get it out&rdquo; to &ldquo;learn fast enough from real use that the next bets are smarter, faster, and less risky.&rdquo; Before launch, most learning comes from simulations, prototypes, pilots, and controlled environments. After launch, the product lives in messy, varied, real-world conditions with many more users and use cases than any test could cover.</p>
+          </div>
+
+          <div class="pb-subsection" id="feedback-loops">
+            <h3 class="pb-subsection-title">Building Intentional Feedback Loops</h3>
+
+            <div class="pb-prose">
+              <p>Learning after launch is not &ldquo;collect all the feedback and see what happens&rdquo;. It is intentional loops that tie signals back to decisions and future development. Think in three layers:</p>
+            </div>
+
+            <div class="pb-section-img">
+              <img src="img/building-intentional-feedback-loops.png" alt="Building Intentional Feedback Loops">
+            </div>
+
+            <div class="pb-layers">
+              <div class="pb-layer">
+                <p class="pb-layer-label">Customer Signals</p>
+                <p class="pb-layer-body">NPS comments, interviews, field visits, user journeys, complaints, lost deals</p>
+              </div>
+              <div class="pb-layer">
+                <p class="pb-layer-label">Usage &amp; Performance Data</p>
+                <p class="pb-layer-body">Telemetry, uptime, error codes, cycle times, energy use, maintenance events</p>
+              </div>
+              <div class="pb-layer">
+                <p class="pb-layer-label">Business &amp; Value Stream Outcomes</p>
+                <p class="pb-layer-body">Margins, service costs, scrap, warranty, lead times, capacity constraints</p>
+              </div>
+            </div>
+
+            <div class="pb-prose">
+              <p>For each layer, define: what do we want to learn, where will the data come from, and who looks at it regularly &mdash; and what decisions does it drive?</p>
+            </div>
+
+            <div class="pb-subsection">
+              <h3 class="pb-subsection-title">Turning Feedback into Learning, Not Noise</h3>
+
+              <div class="pb-prose">
+                <p>Raw feedback is often contradictory and overwhelming. LPPD treats it as input to structured problem-solving, not a backlog of requests.</p>
+              </div>
+
+              <div class="pb-section-img">
+                <img src="img/turning-feedback-into-learning-not-noise.png" alt="Turning Feedback into Learning, Not Noise">
+              </div>
+
+              <ul class="pb-list">
+                <li><strong>Cluster signals</strong> into themes and problems, not feature wishes (&ldquo;hard to install&rdquo;, &ldquo;downtime in dirty environments&rdquo;, &ldquo;confusing setup flow&rdquo;)</li>
+                <li><strong>Go to see (gemba)</strong> in the field and in service/production to understand context behind the data</li>
+                <li><strong>Use lightweight A3s and learning cycles</strong> to dig into recurring issues and opportunities, just as you would earlier in development</li>
+              </ul>
+
+              <div class="pb-note">
+                The test for &ldquo;learning, not noise&rdquo; is whether feedback leads to clear problems, hypotheses, and experiments &mdash; not just longer wish lists.
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="next-bets">
+            <h3 class="pb-subsection-title">Feeding Learning into the Next Bets</h3>
+
+            <div class="pb-prose">
+              <p>Post-launch learning earns its keep when it shapes next-generation products, variants, and value stream improvements.</p>
+            </div>
+
+            <div class="pb-section-img">
+              <img src="img/feeding-learning-into-the-next-bets.png" alt="Feeding Learning into the Next Bets">
+            </div>
+
+            <ul class="pb-list">
+              <li><strong>Design rules and standards</strong> &mdash; Capture robust patterns from the field so future projects start smarter (&ldquo;never use connector X in outdoor environments&rdquo;)</li>
+              <li><strong>Future concept seeds</strong> &mdash; Treat strong recurring needs or workaround patterns as seeds for next-gen concepts, not just patches</li>
+              <li><strong>Portfolio and roadmap decisions</strong> &mdash; Use real usage and economics to decide where to invest: which segments to deepen, which features to retire, which platforms to evolve</li>
+            </ul>
+
+            <div class="pb-pullquote">
+              <p>What did this launch teach us about our customers, our technology, and our value stream &mdash; and how does that change our top 3 bets for the next 2&ndash;3 years?</p>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+
+  <script>
+    const navLinks = document.querySelectorAll('.pb-nav a, .pb-nav-sub a');
+    const sections = document.querySelectorAll('.pb-section, .pb-subsection');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          const id = entry.target.getAttribute('id');
+          const active = document.querySelector(`.pb-nav a[href="#${id}"], .pb-nav-sub a[href="#${id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+  <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
+  <script defer>
+    (function () {
+      function init() { CustomGPT.init({ p_id: '89818', p_key: '263a30f8ca292918be27e31bd50d1074' }); }
+      document.readyState === 'complete' ? init() : window.addEventListener('load', init);
+    })();
+  </script>
+
+</body>
+</html>
