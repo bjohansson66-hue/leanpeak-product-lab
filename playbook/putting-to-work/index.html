@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Putting This Playbook to Work — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+
+    .pb-chapter-header { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--lp-color-border-subtle); margin-bottom: 2.5rem; }
+    .pb-chapter-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-3xl); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; color: var(--lp-color-text-main); margin: 0 0 1rem; }
+    .pb-chapter-lead { font-size: var(--lp-font-size-lg); color: var(--lp-color-text-muted); line-height: 1.7; max-width: 66ch; margin: 0; }
+    .pb-chapter-img { margin: 0 0 2.5rem; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-img img { width: 100%; height: auto; display: block; max-height: 340px; object-fit: cover; object-position: center top; }
+
+    .pb-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+
+    .pb-sidebar { position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto; }
+    .pb-sidebar-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+
+    .pb-nav { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav > li > a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav > li > a:hover, .pb-nav > li > a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav > li > a.active { border-left-color: var(--lp-color-primary); }
+
+    .pb-nav-sub { list-style: none; margin: 0.1rem 0 0.25rem; padding: 0 0 0 1rem; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav-sub a { display: block; font-size: var(--lp-font-size-xs); color: var(--lp-color-text-soft); text-decoration: none; padding: 0.25rem 0.6rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav-sub a:hover, .pb-nav-sub a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav-sub a.active { border-left-color: var(--lp-color-primary); }
+
+    .pb-chapter-nav { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-nav-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.6rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-nav a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.3rem 0.75rem; border-radius: var(--lp-radius-sm); line-height: 1.4; transition: color 0.15s, background 0.15s; }
+    .pb-chapter-nav a:hover { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-chapter-nav a.current { font-weight: 600; color: var(--lp-color-text-main); }
+
+    .pb-section { scroll-margin-top: 5rem; margin-bottom: 4rem; }
+    .pb-section + .pb-section { padding-top: 2.5rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-subsection { scroll-margin-top: 5rem; margin-top: 2.5rem; }
+
+    .pb-section-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.5rem; font-family: var(--lp-font-sans); }
+    .pb-section-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-2xl); font-weight: 400; letter-spacing: -0.02em; color: var(--lp-color-text-main); margin: 0 0 1.25rem; line-height: 1.15; }
+    .pb-subsection-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-xl); font-weight: 400; color: var(--lp-color-text-main); margin: 0 0 0.75rem; line-height: 1.2; }
+
+    .pb-prose { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.75; max-width: 68ch; }
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+
+    .pb-section-img { margin: 1.75rem 0; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); background: var(--lp-color-surface); }
+    .pb-section-img img { width: 100%; height: auto; display: block; }
+
+    .pb-pullquote { margin: 2rem 0; padding: 1.25rem 1.5rem; border-left: 3px solid var(--lp-color-primary); background: var(--lp-color-surface); border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0; }
+    .pb-pullquote p { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); line-height: 1.5; color: var(--lp-color-text-main); margin: 0; }
+
+    .pb-list { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.5rem; max-width: 68ch; }
+    .pb-list li { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .pb-list li::before { content: "→"; position: absolute; left: 0; color: var(--lp-color-primary); font-size: 0.85em; top: 0.15em; }
+    .pb-list li strong { color: var(--lp-color-text-main); }
+
+    /* Journey role tabs */
+    .pb-journeys { display: flex; flex-direction: column; gap: 1.5rem; margin: 1.5rem 0; }
+    .pb-journey { border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-lg); overflow: hidden; }
+    .pb-journey-header { padding: 0.875rem 1.25rem; background: var(--lp-color-primary); display: flex; align-items: center; gap: 0.875rem; }
+    .pb-journey-role { font-size: var(--lp-font-size-xs); font-weight: 700; font-family: var(--lp-font-sans); text-transform: uppercase; letter-spacing: 0.1em; color: #fff; opacity: 0.75; }
+    .pb-journey-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); font-weight: 400; color: #fff; margin: 0; }
+    .pb-journey-body { padding: 1.125rem 1.25rem; background: var(--lp-color-surface); }
+    .pb-journey-focus { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; margin: 0 0 1rem; }
+    .pb-journey-steps { display: flex; flex-direction: column; gap: 0.875rem; }
+    .pb-journey-step { border-left: 2px solid var(--lp-color-primary); padding: 0.125rem 0 0.125rem 0.875rem; }
+    .pb-journey-step-title { font-size: var(--lp-font-size-sm); font-weight: 600; color: var(--lp-color-text-main); margin: 0 0 0.3rem; font-family: var(--lp-font-sans); }
+    .pb-journey-step-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0; }
+
+    /* Toolkit principles */
+    .pb-principles { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-principle { padding: 1rem 1.25rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); border-left: 3px solid var(--lp-color-primary); }
+    .pb-principle-title { font-size: var(--lp-font-size-sm); font-weight: 600; color: var(--lp-color-text-main); margin: 0 0 0.3rem; font-family: var(--lp-font-sans); }
+    .pb-principle-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0; }
+
+    /* Steps */
+    .pb-steps { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-step { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.875rem; align-items: start; }
+    .pb-step-num { width: 2rem; height: 2rem; border-radius: var(--lp-radius-md); background: var(--lp-color-primary-soft); color: var(--lp-color-primary); font-size: var(--lp-font-size-xs); font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: var(--lp-font-sans); }
+    .pb-step-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; padding-top: 0.2rem; }
+    .pb-step-body strong { color: var(--lp-color-text-main); }
+
+    /* Questions  */
+    .pb-questions { display: flex; flex-direction: column; gap: 0.4rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-question { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; padding: 0.5rem 0.875rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-sm); border-left: 2px solid var(--lp-color-primary); font-style: italic; }
+
+    /* Note callout */
+    .pb-note { margin: 1.5rem 0; padding: 0.875rem 1.125rem; background: var(--lp-color-primary-soft); border-radius: var(--lp-radius-md); font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; max-width: 68ch; }
+    .pb-note strong { color: var(--lp-color-primary); }
+
+    /* Closing invitation */
+    .pb-invitation { margin: 2.5rem 0; padding: 2rem 2.25rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-lg); max-width: 68ch; }
+    .pb-invitation-label { font-size: var(--lp-font-size-xs); font-weight: 700; font-family: var(--lp-font-sans); text-transform: uppercase; letter-spacing: 0.12em; color: var(--lp-color-primary); margin: 0 0 0.75rem; }
+    .pb-invitation-body { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.8; margin: 0; }
+    .pb-invitation-body p { margin: 0 0 0.875rem; }
+    .pb-invitation-body p:last-child { margin: 0; }
+
+    @media (max-width: 860px) {
+      .pb-layout { grid-template-columns: 1fr; gap: 0; }
+      .pb-sidebar { position: static; max-height: none; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--lp-color-border-subtle); }
+      .pb-nav { flex-direction: row; flex-wrap: wrap; gap: 0.25rem; }
+      .pb-nav > li > a { border-left: none; border-bottom: 2px solid transparent; padding: 0.3rem 0.6rem; }
+      .pb-nav > li > a.active { border-left-color: transparent; border-bottom-color: var(--lp-color-primary); }
+      .pb-nav-sub { display: none; }
+      .pb-chapter-nav { display: none; }
+    }
+
+    @media (max-width: 640px) { .pb-chapter-title { font-size: 2rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)">
+            <rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect>
+            <rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect>
+            <rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect>
+          </g>
+          <g transform="translate(150 46)">
+            <text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text>
+            <text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text>
+            <text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text>
+          </g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Lean PPD Playbook &mdash; Chapter 10</p>
+      <h1 class="pb-chapter-title">Putting This Playbook to Work</h1>
+      <p class="pb-chapter-lead">
+        Choose where to start, start small, and grow your own version of this system
+        &mdash; without turning it into a change programme that collapses under its own weight.
+      </p>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="img/putting-this-playbook-to-work.png" alt="Putting This Playbook to Work">
+    </div>
+
+    <div class="pb-layout">
+
+      <!-- ── Sidebar ── -->
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#intro">Introduction</a></li>
+          <li>
+            <a href="#one-value-stream">10.1 Start From One Value Stream</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#choose-pilot">Choose a Meaningful Pilot</a></li>
+              <li><a href="#map-plays">Map Your Current Plays</a></li>
+              <li><a href="#learning-challenge">Learning Challenge</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#journeys">10.2 Three Starter Journeys</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#journey-leader">Site or Value Stream Leader</a></li>
+              <li><a href="#journey-ce">Chief Engineer / Product Owner</a></li>
+              <li><a href="#journey-team">Team Lead / Frontline Engineer</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#toolkit">10.3 Working With the Toolkit</a>
+            <ul class="pb-nav-sub">
+              <li><a href="#principles-over-forms">Principles Over Forms</a></li>
+              <li><a href="#introduce-canvas">Introduce, Adapt, Standardise</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#capability">10.4 Growing Capability, Not Just Results</a>
+          </li>
+          <li>
+            <a href="#alive">10.5 Keeping the Playbook Alive</a>
+          </li>
+        </ul>
+
+        <div class="pb-chapter-nav">
+          <p class="pb-chapter-nav-label">Chapters</p>
+          <a href="/playbook/introduction/">1. Why This Playbook Exists</a>
+          <a href="/playbook/foundations/">2. Foundations</a>
+          <a href="/playbook/strategy/">3. Strategy &amp; Value Creation</a>
+          <a href="/playbook/discover/">4. Discover</a>
+          <a href="/playbook/design/">5. Design &amp; Flow</a>
+          <a href="/playbook/validate/">6. Validate &amp; Learn</a>
+          <a href="/playbook/decisions/">7. Validation, Learning &amp; Decisions</a>
+          <a href="/playbook/scaling/">8. Scaling, Launch &amp; Lifecycle</a>
+          <a href="/playbook/culture/">9. Culture, Leadership &amp; Coaching</a>
+          <a href="/playbook/putting-to-work/" class="current">10. Putting This Playbook to Work</a>
+        </div>
+      </aside>
+
+      <!-- ── Main content ── -->
+      <main>
+
+        <!-- Introduction -->
+        <section class="pb-section" id="intro">
+          <p class="pb-section-eyebrow">Chapter 10</p>
+          <h2 class="pb-section-title">From Reading to Doing</h2>
+
+          <div class="pb-pullquote">
+            <p>LPPD is not a destination you arrive at; it is a way of travelling.</p>
+          </div>
+
+          <div class="pb-prose">
+            <p>Up to now, you have seen plays, stories, and canvases that describe what Lean Product and Process Development can look like in practice. Chapter 10 helps you choose where to start, how to start small, and how to grow your own version of this system without turning it into a change programme that collapses under its own weight.</p>
+            <p>We begin with one value stream as your learning laboratory, then offer three starter journeys tailored to different roles. The final sections focus on working with the toolkit rather than for it: introducing tools as experiments, standardising only what proves useful, and reviewing your playbook regularly so it stays alive, local, and yours.</p>
+          </div>
+        </section>
+
+        <!-- 10.1 Start From One Value Stream -->
+        <section class="pb-section" id="one-value-stream">
+          <p class="pb-section-eyebrow">Section 10.1</p>
+          <h2 class="pb-section-title">Start From One Value Stream</h2>
+
+          <div class="pb-prose">
+            <p>The safest way to put this playbook to work is to start from one concrete value stream, not from your whole organisation. Pick a flow of work where customers, products, and operations are visible end to end &mdash; something important enough that people care, but not so political that every move becomes a battle.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/start-from-one-value-stream.png" alt="Start From One Value Stream">
+          </div>
+
+          <div class="pb-subsection" id="choose-pilot">
+            <h3 class="pb-subsection-title">Choose a Meaningful Pilot</h3>
+
+            <div class="pb-prose">
+              <p>List a few candidate value streams or product families and ask three questions about each:</p>
+            </div>
+
+            <div class="pb-questions">
+              <p class="pb-question">Does this really matter to customers and the business?</p>
+              <p class="pb-question">Can we see and influence most of the flow?</p>
+              <p class="pb-question">Do we have a leadership team willing to learn in public?</p>
+            </div>
+
+            <div class="pb-prose" style="margin-top:0.75rem;">
+              <p>The right pilot is usually the one where the answers are &ldquo;yes, mostly, and probably&rdquo; &mdash; not the easiest corner case and not the flagship under a spotlight. Make an explicit, time-bound choice: <em>&ldquo;For the next 12 months, this is our LPPD learning laboratory.&rdquo;</em></p>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="map-plays">
+            <h3 class="pb-subsection-title">Map Your Current Plays</h3>
+
+            <div class="pb-prose">
+              <p>Before adding anything new, take stock of how you already work. On one page, sketch the current &ldquo;plays&rdquo; in this value stream: how strategy is set, how projects start, how customer needs are understood, how decisions are taken, how launches happen.</p>
+              <p>You will likely discover that you already do partial versions of many plays in this book, just with gaps or inconsistencies. Name these honestly &mdash; &ldquo;our current concept play&rdquo;, &ldquo;our current ramp-up play&rdquo; &mdash; so you can improve them rather than pretending you are starting from zero.</p>
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="learning-challenge">
+            <h3 class="pb-subsection-title">Define a 6&ndash;12 Month Learning Challenge</h3>
+
+            <div class="pb-prose">
+              <p>Frame a learning challenge for this value stream that is big enough to matter but small enough to be testable. Instead of &ldquo;implement LPPD&rdquo;, say things like:</p>
+            </div>
+
+            <div class="pb-questions">
+              <p class="pb-question">&ldquo;In the next year, we will halve late design changes at ramp-up.&rdquo;</p>
+              <p class="pb-question">&ldquo;We will run every major decision off explicit experiments.&rdquo;</p>
+              <p class="pb-question">&ldquo;We will launch the next two variants with no firefighting weekends.&rdquo;</p>
+            </div>
+
+            <div class="pb-note">
+              Link that challenge to a small, deliberate set of plays and canvases you will try first. This turns the playbook into a support for focused learning, not a checklist for compliance.
+            </div>
+          </div>
+        </section>
+
+        <!-- 10.2 Three Starter Journeys -->
+        <section class="pb-section" id="journeys">
+          <p class="pb-section-eyebrow">Section 10.2</p>
+          <h2 class="pb-section-title">Three Starter Journeys</h2>
+
+          <div class="pb-prose">
+            <p>Different people will come to this playbook from different places. Rather than prescribing one rollout path, this section offers three starter journeys you can choose from or adapt. Each starts small, uses a handful of plays and canvases, and assumes you are working in the pilot value stream you chose in 10.1.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/three-starter-journeys.png" alt="Three Starter Journeys">
+          </div>
+
+          <div class="pb-journeys" id="journey-leader">
+
+            <div class="pb-journey">
+              <div class="pb-journey-header">
+                <div>
+                  <p class="pb-journey-role">Starter journey for</p>
+                  <p class="pb-journey-title">Site or Value Stream Leader</p>
+                </div>
+              </div>
+              <div class="pb-journey-body">
+                <p class="pb-journey-focus">Your job is to give people a clear direction and a place to see the work together. Start by making strategy and bets visible, then give teams a room and rhythm to connect day-to-day work to that direction.</p>
+                <div class="pb-journey-steps">
+                  <div class="pb-journey-step">
+                    <p class="pb-journey-step-title">1. Clarify purpose and bets</p>
+                    <p class="pb-journey-step-body">Use &ldquo;Strategy on a Page&rdquo; and the Portfolio / Next Bets Radar to agree: which value streams matter most now, which bets you are actually placing, and what you will not do for the next 6&ndash;12 months. Turn this into a simple, shared picture you can keep pointing back to.</p>
+                  </div>
+                  <div class="pb-journey-step">
+                    <p class="pb-journey-step-title">2. Stand up a simple obeya</p>
+                    <p class="pb-journey-step-body">Using the Obeya Overview Canvas, sketch a first version of your room or virtual space. Start with a light cadence (weekly 60-minute review plus short daily huddles) and refine as you learn what conversations the room makes easier.</p>
+                  </div>
+                  <div class="pb-journey-step">
+                    <p class="pb-journey-step-title">3. Anchor improvement in real launches</p>
+                    <p class="pb-journey-step-body">Pick the next launch or ramp-up and treat it as your main learning engine. Use the Prototyping Ladder, Pilot &amp; Pre-Series Plan, and Ramp-Up Readiness canvases to make late-stage risks and readiness visible. Spend time where work is happening &mdash; using these tools to ask better questions, not demand prettier reports.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pb-journey" id="journey-ce">
+              <div class="pb-journey-header">
+                <div>
+                  <p class="pb-journey-role">Starter journey for</p>
+                  <p class="pb-journey-title">Chief Engineer or Product Owner</p>
+                </div>
+              </div>
+              <div class="pb-journey-body">
+                <p class="pb-journey-focus">Your job is to hold the whole product and value stream in view, and to turn uncertainty into structured learning rather than wishful thinking. Start with customers and context, then shape concepts, prototypes, and evidence.</p>
+                <div class="pb-journey-steps">
+                  <div class="pb-journey-step">
+                    <p class="pb-journey-step-title">1. Start from customers and context</p>
+                    <p class="pb-journey-step-body">For your pilot value stream, pick two or three critical situations and capture them with the Customer in Context and Problem Framing canvases. Use these as anchors in every major conversation about concepts, scope, and variants so debates stay grounded in real use, not abstract personas or opinions.</p>
+                  </div>
+                  <div class="pb-journey-step">
+                    <p class="pb-journey-step-title">2. Shape concepts, prototypes, and learning plans</p>
+                    <p class="pb-journey-step-body">For each serious option, sketch a Concept on a Page. Build a Prototyping Ladder that ties risks to experiments, using the Experiment Design Canvas for the most important tests. Aim to decide architectures and key interfaces based on evidence, not habit.</p>
+                  </div>
+                  <div class="pb-journey-step">
+                    <p class="pb-journey-step-title">3. Connect decisions to evidence-based milestones</p>
+                    <p class="pb-journey-step-body">For your main gates (concept selection, architecture freeze, launch readiness), create Evidence-Based Milestone canvases that spell out what questions must be answered and what evidence you need. Use these to shift governance conversations from &ldquo;Are we on time?&rdquo; to &ldquo;Do we know enough to decide responsibly?&rdquo;</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pb-journey" id="journey-team">
+              <div class="pb-journey-header">
+                <div>
+                  <p class="pb-journey-role">Starter journey for</p>
+                  <p class="pb-journey-title">Team Lead or Frontline Engineer</p>
+                </div>
+              </div>
+              <div class="pb-journey-body">
+                <p class="pb-journey-focus">Your job is to make the work and the problems visible, and to turn everyday issues into learning cycles that move the value stream forward. You do not need permission to start small.</p>
+                <div class="pb-journey-steps">
+                  <div class="pb-journey-step">
+                    <p class="pb-journey-step-title">1. Use a team board and experiment design as your basic kit</p>
+                    <p class="pb-journey-step-body">Set up a Team Visual Management Board: a simple view of work (backlog, in progress, done), a few key measures, and a corner for problems and experiments. Any time someone says &ldquo;we should test this&rdquo;, reach for the Experiment Design Canvas and take 10&ndash;15 minutes to write down the decision, hypothesis, method, and what you&rsquo;ll do with the result.</p>
+                  </div>
+                  <div class="pb-journey-step">
+                    <p class="pb-journey-step-title">2. Run short learning cycles on real problems</p>
+                    <p class="pb-journey-step-body">Pick one or two recurring problems and treat them as weekly learning cycles: plan a small change or test, do it, check the effect, act on what you learn. Use the Learning Cycle Tracker when several people are involved.</p>
+                  </div>
+                  <div class="pb-journey-step">
+                    <p class="pb-journey-step-title">3. Grow your influence by making learning visible</p>
+                    <p class="pb-journey-step-body">Share what you learn in the obeya or with your chief engineer: photos of boards, before/after examples, short stories of &ldquo;we tried X, saw Y, decided Z.&rdquo; Over time, you become the person who can show &mdash; not just tell &mdash; how LPPD thinking changes decisions.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 10.3 Working With the Toolkit -->
+        <section class="pb-section" id="toolkit">
+          <p class="pb-section-eyebrow">Section 10.3</p>
+          <h2 class="pb-section-title">Working With the Toolkit, Not For It</h2>
+
+          <div class="pb-prose">
+            <p>The point of this toolkit is to help you think and decide, not to give you more forms to fill in. If you treat the canvases as mandatory templates, you will recreate the same bureaucracy you were hoping to escape, just with nicer diagrams. If you treat them as experiments in how you work, you can keep the useful bits and quietly throw away the rest.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/working-with-the-toolkit.png" alt="Working With the Toolkit">
+          </div>
+
+          <div class="pb-subsection" id="principles-over-forms">
+            <h3 class="pb-subsection-title">Principles Over Forms: Keeping the &ldquo;Why&rdquo; Visible</h3>
+
+            <div class="pb-prose">
+              <p>Every canvas in this book exists to force a small number of uncomfortable but vital questions. When you introduce a tool, start by naming which question it is meant to keep in the room, then show the form.</p>
+            </div>
+
+            <div class="pb-principles">
+              <div class="pb-principle">
+                <p class="pb-principle-title">Who is this really for?</p>
+                <p class="pb-principle-body">Customer and problem understanding canvases exist to ground every conversation in real use, not abstract personas.</p>
+              </div>
+              <div class="pb-principle">
+                <p class="pb-principle-title">What must we learn before we decide?</p>
+                <p class="pb-principle-body">Experiment and milestone canvases exist to surface uncertainty before commitment, not after.</p>
+              </div>
+              <div class="pb-principle">
+                <p class="pb-principle-title">How will this choice affect flow?</p>
+                <p class="pb-principle-body">Value stream and variant canvases exist to make systemic consequences visible before they become emergencies.</p>
+              </div>
+            </div>
+
+            <div class="pb-note">
+              When conversations drift into &ldquo;have we filled in all the boxes?&rdquo;, gently pull them back to &ldquo;have we actually talked about the things this canvas is here to make visible?&rdquo;
+            </div>
+          </div>
+
+          <div class="pb-subsection" id="introduce-canvas">
+            <h3 class="pb-subsection-title">How to Introduce a New Canvas: Test, Adapt, Then Standardise</h3>
+
+            <div class="pb-steps">
+              <div class="pb-step">
+                <span class="pb-step-num">1</span>
+                <div class="pb-step-body"><strong>Introduce into live work</strong> &mdash; pick a meeting, workshop, or decision where the canvas could genuinely help, and try it once with the people who own the work</div>
+              </div>
+              <div class="pb-step">
+                <span class="pb-step-num">2</span>
+                <div class="pb-step-body"><strong>Ask three questions afterward:</strong> Did this change the conversation? Did it change any decisions? Would we use it again?</div>
+              </div>
+              <div class="pb-step">
+                <span class="pb-step-num">3</span>
+                <div class="pb-step-body"><strong>Adapt labels, layout, and examples</strong> so they feel like your language &mdash; only after a few successful uses should you declare it a &ldquo;standard&rdquo;</div>
+              </div>
+              <div class="pb-step">
+                <span class="pb-step-num">4</span>
+                <div class="pb-step-body">When a canvas stops helping, <strong>make it acceptable to retire it</strong>. Capture briefly what you learned from using it and what you are replacing it with</div>
+              </div>
+            </div>
+
+            <div class="pb-prose">
+              <p>In this way, your toolkit becomes a living part of your development system &mdash; always changing but always anchored in the same LPPD principles.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 10.4 Growing Capability -->
+        <section class="pb-section" id="capability">
+          <p class="pb-section-eyebrow">Section 10.4</p>
+          <h2 class="pb-section-title">Growing Capability, Not Just Results</h2>
+
+          <div class="pb-prose">
+            <p>The plays and canvases in this book can help you hit better numbers. But if all you get is one or two improved launches, you are leaving most of the value on the table. The deeper aim is to grow your organisation&rsquo;s capability to design products and value streams &mdash; so that good results become the natural outcome of how you work, not the product of heroics.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/growing-capability.png" alt="Growing Capability">
+          </div>
+
+          <div class="pb-subsection">
+            <h3 class="pb-subsection-title">From &ldquo;Projects&rdquo; to a Development System</h3>
+
+            <div class="pb-prose">
+              <p>Most organisations treat each new product or variant as a one-off project: assemble a team, push hard, fix the fallout, disband, repeat. LPPD invites you to see product and process development as a <em>system</em>: a stable way of working in which strategy, customer understanding, concept creation, experimentation, ramp-up, and learning from lifecycle all fit together.</p>
+              <p>As you use the plays, pay attention to the connections: how evidence from experiments shapes milestones, how ramp-up learning feeds back into platforms, how obeya links strategy to teams. Over time, your goal is not to run &ldquo;better projects,&rdquo; but to make it normal that every project runs inside a stronger, more coherent system.</p>
+            </div>
+          </div>
+
+          <div class="pb-subsection">
+            <h3 class="pb-subsection-title">Coaching Leaders and Experts</h3>
+
+            <div class="pb-prose">
+              <p>No toolkit survives contact with leadership habits. If managers still ask only &ldquo;Are you on time and on budget?&rdquo;, the plays will slowly turn into prettier versions of old reports. Growing capability means helping leaders and experts change the questions they ask.</p>
+            </div>
+
+            <div class="pb-questions">
+              <p class="pb-question">&ldquo;What problem are you solving?&rdquo;</p>
+              <p class="pb-question">&ldquo;What did we learn from this experiment?&rdquo;</p>
+              <p class="pb-question">&ldquo;How will this choice affect flow?&rdquo;</p>
+            </div>
+
+            <div class="pb-prose" style="margin-top:0.75rem;">
+              <p>As these questions become routine, leaders stop managing by opinion and start coaching people to think scientifically about their work.</p>
+            </div>
+          </div>
+
+          <div class="pb-subsection">
+            <h3 class="pb-subsection-title">Building Your Own Playbook</h3>
+
+            <div class="pb-prose">
+              <p>The most powerful sign that capability is growing is when teams start to extend or rewrite the playbook themselves. When a chief engineer adapts the Concept on a Page for a new technology, or a factory team invents a better ramp-up board for their context, pay attention: <em>this is your system learning.</em></p>
+              <p>Capture those adaptations, name them, and share them across value streams. Over time, you will end up with a small set of shared principles and a family of local plays and canvases that look like your products, your flows, your people &mdash; not like a book. At that point, this playbook has done its job.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 10.5 Keeping the Playbook Alive -->
+        <section class="pb-section" id="alive">
+          <p class="pb-section-eyebrow">Section 10.5</p>
+          <h2 class="pb-section-title">Keeping the Playbook Alive</h2>
+
+          <div class="pb-prose">
+            <p>A playbook is only useful while it stays close to the work. As soon as it becomes something people quote in presentations but ignore in decisions, it is dead weight. Keeping this playbook alive means treating it as a living part of your development system: reviewed, pruned, refreshed, and reshaped by the people who use it.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/keeping-the-playbook-alive.png" alt="Keeping the Playbook Alive">
+          </div>
+
+          <div class="pb-subsection">
+            <h3 class="pb-subsection-title">An Annual &ldquo;Playbook Review&rdquo;</h3>
+
+            <div class="pb-prose">
+              <p>Once a year, gather a cross-section of people who have actually used the plays and canvases. Give yourselves half a day and ask three questions:</p>
+            </div>
+
+            <div class="pb-questions">
+              <p class="pb-question">Which plays and tools did we really use?</p>
+              <p class="pb-question">Which ones changed decisions or behaviour?</p>
+              <p class="pb-question">Which ones felt like extra work for little value?</p>
+            </div>
+
+            <div class="pb-prose" style="margin-top:0.75rem;">
+              <p>From there, decide what stays as core house style, what moves to the &ldquo;library&rdquo; of optional tools, and what you will retire. It is better to have a small, sharp set of plays that people pull for than a thick catalogue nobody opens.</p>
+            </div>
+          </div>
+
+          <div class="pb-subsection">
+            <h3 class="pb-subsection-title">Capturing Stories, Not Myths</h3>
+
+            <div class="pb-prose">
+              <p>Most &ldquo;best practices&rdquo; die because they are told as polished myths. What keeps a playbook alive are real stories: photos of boards in use, sketches from the wall, short accounts of &ldquo;we tried this here, this is what happened, this is what we changed.&rdquo;</p>
+              <p>Build a modest, shared archive where people can browse examples from other value streams. Aim for something more like a jam-session notebook than a museum: messy, current, clearly rooted in actual work. When introducing a play to a new team, start with one of these stories from your own organisation, not a generic case from elsewhere.</p>
+            </div>
+          </div>
+
+          <div class="pb-invitation">
+            <p class="pb-invitation-label">An open invitation</p>
+            <div class="pb-invitation-body">
+              <p>Treat this playbook as an invitation, not an order. Invite people to try one play, one canvas, one small experiment that might make their work clearer or their decisions better. Invite them to suggest changes when something does not fit. Invite them to teach a colleague what they have learned.</p>
+              <p>LPPD is not a destination you arrive at; it is a way of travelling. If you keep asking &ldquo;What problem are we really trying to solve? What do we need to learn next? How can we see the work and the flow more clearly together?&rdquo; &mdash; the specific tools will come and go, and that is fine.</p>
+              <p>What matters is that, year by year, your ability to design products, processes, and value streams keeps getting stronger &mdash; and that more and more people see themselves as active contributors to that journey.</p>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+
+  <script>
+    const navLinks = document.querySelectorAll('.pb-nav a, .pb-nav-sub a');
+    const sections = document.querySelectorAll('.pb-section, .pb-subsection');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          const id = entry.target.getAttribute('id');
+          const active = document.querySelector(`.pb-nav a[href="#${id}"], .pb-nav-sub a[href="#${id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+  <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
+  <script defer>
+    (function () {
+      function init() { CustomGPT.init({ p_id: '89818', p_key: '263a30f8ca292918be27e31bd50d1074' }); }
+      document.readyState === 'complete' ? init() : window.addEventListener('load', init);
+    })();
+  </script>
+
+</body>
+</html>
