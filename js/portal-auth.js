@@ -40,7 +40,7 @@ function updateHeaderUI(session) {
   } else {
     el.innerHTML = `
       <a href="${LP_APP_ORIGIN}/sign-in" class="lp-btn lp-btn-secondary" style="padding:0.4rem 1rem;font-size:0.8rem;">Sign in</a>
-      <a href="${LP_APP_ORIGIN}/sign-up" class="lp-btn lp-btn-primary" style="padding:0.4rem 1rem;font-size:0.8rem;">Sign up free</a>
+      <a href="${LP_APP_ORIGIN}/sign-up" class="lp-btn lp-btn-primary" style="padding:0.4rem 1rem;font-size:0.8rem;">Sign up</a>
     `;
   }
 }
