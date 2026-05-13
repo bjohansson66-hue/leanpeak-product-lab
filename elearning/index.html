@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>E-Learning — LeanPeak Product Lab</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="../leanpeak-theme.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    .el-page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+    }
+
+    .el-header {
+      padding: 3.5rem 0 2.5rem;
+      border-bottom: 1px solid var(--lp-color-border-subtle);
+      margin-bottom: 3rem;
+    }
+
+    .el-eyebrow {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      margin: 0 0 0.75rem;
+      font-family: var(--lp-font-sans);
+    }
+
+    .el-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-3xl);
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--lp-color-text-main);
+      margin: 0 0 1rem;
+    }
+
+    .el-lead {
+      font-size: var(--lp-font-size-lg);
+      color: var(--lp-color-text-muted);
+      line-height: 1.7;
+      max-width: 60ch;
+      margin: 0;
+    }
+
+    /* ── Chapter sections ── */
+    .el-chapter {
+      margin-bottom: 3.5rem;
+    }
+
+    .el-chapter-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--lp-color-primary-soft);
+      margin-bottom: 1.5rem;
+    }
+
+    .el-chapter-label {
+      font-family: var(--lp-font-sans);
+      font-size: var(--lp-font-size-xs);
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--lp-color-primary);
+    }
+
+    .el-chapter-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-xl);
+      font-weight: 400;
+      color: var(--lp-color-text-main);
+      margin: 0;
+    }
+
+    /* ── Intro video card ── */
+    .el-video-card {
+      background: var(--lp-color-surface);
+      border: 1px solid var(--lp-color-border-subtle);
+      border-radius: var(--lp-radius-lg);
+      overflow: hidden;
+      margin-bottom: 1rem;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.15s;
+    }
+
+    .el-video-card:hover {
+      border-color: var(--lp-color-primary);
+    }
+
+    .el-video-thumb {
+      aspect-ratio: 16/9;
+      background: var(--lp-color-surface-strong);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      position: relative;
+    }
+
+    .el-video-play {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--lp-color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.35;
+    }
+
+    .el-video-play svg {
+      width: 22px;
+      height: 22px;
+      fill: white;
+      margin-left: 3px;
+    }
+
+    .el-video-coming-soon {
+      font-family: var(--lp-font-sans);
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      border: 1px solid var(--lp-color-border-subtle);
+      border-radius: var(--lp-radius-pill);
+      padding: 0.2rem 0.7rem;
+      background: var(--lp-color-bg);
+    }
+
+    .el-video-meta {
+      padding: 0.875rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .el-video-label {
+      font-family: var(--lp-font-sans);
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      margin: 0 0 0.2rem;
+    }
+
+    .el-video-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-md);
+      color: var(--lp-color-text-main);
+      margin: 0;
+    }
+
+    .el-video-badge {
+      font-family: var(--lp-font-sans);
+      font-size: var(--lp-font-size-xs);
+      color: var(--lp-color-accent);
+      border: 1px solid var(--lp-color-accent);
+      border-radius: var(--lp-radius-pill);
+      padding: 0.2rem 0.65rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── Module list ── */
+    .el-module-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .el-module-item {
+      display: grid;
+      grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+      gap: 1rem;
+      align-items: center;
+      padding: 1.25rem 0.75rem;
+      border-bottom: 1px solid var(--lp-color-border-subtle);
+      text-decoration: none;
+      color: inherit;
+      border-radius: var(--lp-radius-md);
+      margin: 0 -0.75rem;
+      transition: background 0.15s;
+    }
+
+    .el-module-item:first-child {
+      border-top: 1px solid var(--lp-color-border-subtle);
+    }
+
+    .el-module-item:hover {
+      background: var(--lp-color-surface);
+    }
+
+    .el-module-item:hover .el-module-arrow {
+      transform: translateX(3px);
+      color: var(--lp-color-primary);
+    }
+
+    .el-module-num {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-xl);
+      font-weight: 400;
+      color: var(--lp-color-border-strong);
+      line-height: 1;
+      user-select: none;
+    }
+
+    .el-module-label {
+      font-size: var(--lp-font-size-xs);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lp-color-text-soft);
+      font-family: var(--lp-font-sans);
+      margin: 0 0 0.2rem;
+    }
+
+    .el-module-title {
+      font-family: var(--lp-font-display);
+      font-size: var(--lp-font-size-lg);
+      font-weight: 400;
+      color: var(--lp-color-text-main);
+      margin: 0 0 0.3rem;
+      line-height: 1.25;
+    }
+
+    .el-module-desc {
+      font-size: var(--lp-font-size-sm);
+      color: var(--lp-color-text-muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .el-module-arrow {
+      font-size: 1.25rem;
+      color: var(--lp-color-text-soft);
+      transition: transform 0.15s, color 0.15s;
+      flex-shrink: 0;
+    }
+
+    .el-module-auth-note {
+      font-size: var(--lp-font-size-xs);
+      color: var(--lp-color-text-soft);
+      font-family: var(--lp-font-sans);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .el-module-auth-icon {
+      width: 13px;
+      height: 13px;
+      opacity: 0.5;
+    }
+
+    @media (max-width: 640px) {
+      .el-title { font-size: 2rem; }
+      .el-chapter-title { font-size: var(--lp-font-size-lg); }
+      .el-module-item { grid-template-columns: 2rem minmax(0, 1fr); }
+      .el-module-arrow { display: none; }
+      .el-module-auth-note { display: none; }
+    }
+  </style>
+</head>
+<body class="lp-page">
+
+  <!-- ── Header ── -->
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="el-logo-title el-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="el-logo-title">LeanPeakProductLab logo</title>
+          <desc id="el-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)">
+            <rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect>
+            <rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect>
+            <rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect>
+          </g>
+          <g transform="translate(150 46)">
+            <text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text>
+            <text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text>
+            <text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text>
+          </g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="el-page">
+
+    <div class="el-header">
+      <p class="el-eyebrow">LeanPeak Product Lab</p>
+      <h1 class="el-title">E-Learning</h1>
+      <p class="el-lead">
+        Standalone modules on Lean Product &amp; Process Development.
+        Each one covers a concept, applies it to your work, and tests your understanding.
+        Chapter intro videos are free — module content requires a free account.
+      </p>
+    </div>
+
+    <!-- ── Chapter 2 ── -->
+    <section class="el-chapter">
+      <div class="el-chapter-header">
+        <span class="el-chapter-label">Chapter 2</span>
+        <h2 class="el-chapter-title">Foundations of LPPD</h2>
+      </div>
+
+      <!-- Intro video placeholder -->
+      <div class="el-video-card" style="pointer-events:none;">
+        <div class="el-video-thumb">
+          <div class="el-video-play">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <span class="el-video-coming-soon">Video coming soon</span>
+        </div>
+        <div class="el-video-meta">
+          <div>
+            <p class="el-video-label">Chapter intro</p>
+            <p class="el-video-title">Why LPPD changes how you think about product development</p>
+          </div>
+          <span class="el-video-badge">Free</span>
+        </div>
+      </div>
+
+      <!-- Modules -->
+      <nav class="el-module-list" aria-label="Chapter 2 modules">
+
+        <a class="el-module-item" href="https://app.leanpeakproductlab.com/elearning/chapter-2-module-1">
+          <span class="el-module-num">1</span>
+          <div>
+            <p class="el-module-label">Module 1</p>
+            <p class="el-module-title">Foundations of Lean Product and Process Development</p>
+            <p class="el-module-desc">Six guiding principles, six core mental models, and why LPPD differs from phase-gate and lean production. 35–40 min.</p>
+          </div>
+          <span class="el-module-arrow">&rarr;</span>
+        </a>
+
+        <div class="el-module-item" style="opacity:0.4;pointer-events:none;cursor:default;">
+          <span class="el-module-num">2</span>
+          <div>
+            <p class="el-module-label">Module 2 — Coming soon</p>
+            <p class="el-module-title">What Is Lean Product and Process Development?</p>
+            <p class="el-module-desc">A deeper look at LPPD's origins, what makes it distinct, and how it applies to your development context.</p>
+          </div>
+          <span class="el-module-arrow">&rarr;</span>
+        </div>
+
+        <div class="el-module-item" style="opacity:0.4;pointer-events:none;cursor:default;">
+          <span class="el-module-num">3</span>
+          <div>
+            <p class="el-module-label">Module 3 — Coming soon</p>
+            <p class="el-module-title">The Six Guiding Principles</p>
+            <p class="el-module-desc">Each principle explored in depth — with examples, team activities, and how to put them into practice.</p>
+          </div>
+          <span class="el-module-arrow">&rarr;</span>
+        </div>
+
+        <div class="el-module-item" style="opacity:0.4;pointer-events:none;cursor:default;">
+          <span class="el-module-num">4</span>
+          <div>
+            <p class="el-module-label">Module 4 — Coming soon</p>
+            <p class="el-module-title">Core Mental Models for LPPD</p>
+            <p class="el-module-desc">Set-based thinking, A3 problem solving, Obeya, and more — the mental tools that underpin lean development.</p>
+          </div>
+          <span class="el-module-arrow">&rarr;</span>
+        </div>
+
+      </nav>
+    </section>
+
+    <!-- ── Chapter 6 ── -->
+    <section class="el-chapter">
+      <div class="el-chapter-header">
+        <span class="el-chapter-label">Chapter 6</span>
+        <h2 class="el-chapter-title">Experimentation &amp; Learning</h2>
+      </div>
+
+      <!-- Intro video placeholder -->
+      <div class="el-video-card" style="pointer-events:none;">
+        <div class="el-video-thumb">
+          <div class="el-video-play">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <span class="el-video-coming-soon">Video coming soon</span>
+        </div>
+        <div class="el-video-meta">
+          <div>
+            <p class="el-video-label">Chapter intro</p>
+            <p class="el-video-title">Why structured experimentation is the fastest way to learn</p>
+          </div>
+          <span class="el-video-badge">Free</span>
+        </div>
+      </div>
+
+      <!-- Modules -->
+      <nav class="el-module-list" aria-label="Chapter 6 modules">
+
+        <a class="el-module-item" href="https://app.leanpeakproductlab.com/elearning/experiment-a3">
+          <span class="el-module-num">1</span>
+          <div>
+            <p class="el-module-label">Module 1</p>
+            <p class="el-module-title">Experiment A3 — How to use the canvas and tool</p>
+            <p class="el-module-desc">A guided walkthrough of every section of the Experiment A3 canvas, and how Toolman Tim coaches you through it.</p>
+          </div>
+          <span class="el-module-arrow">&rarr;</span>
+        </a>
+
+        <a class="el-module-item" href="https://app.leanpeakproductlab.com/elearning/chapter-6-module-2">
+          <span class="el-module-num">2</span>
+          <div>
+            <p class="el-module-label">Module 2</p>
+            <p class="el-module-title">From Questions to Experiments</p>
+            <p class="el-module-desc">How to identify the right questions, cluster uncertainty, and design the smallest credible test. Includes diagrams and a quiz.</p>
+          </div>
+          <span class="el-module-arrow">&rarr;</span>
+        </a>
+
+        <a class="el-module-item" href="https://app.leanpeakproductlab.com/elearning/chapter-6-module-3">
+          <span class="el-module-num">3</span>
+          <div>
+            <p class="el-module-label">Module 3</p>
+            <p class="el-module-title">Prototyping Ladder</p>
+            <p class="el-module-desc">How to choose the right prototype for the right stage — from paper sketches to functional pilots.</p>
+          </div>
+          <span class="el-module-arrow">&rarr;</span>
+        </a>
+
+        <a class="el-module-item" href="https://app.leanpeakproductlab.com/elearning/chapter-6-module-4">
+          <span class="el-module-num">4</span>
+          <div>
+            <p class="el-module-label">Module 4</p>
+            <p class="el-module-title">Knowledge-Based Milestones</p>
+            <p class="el-module-desc">How to define milestones around what you know — not the schedule — and make confident go/no-go decisions at every phase.</p>
+          </div>
+          <span class="el-module-arrow">&rarr;</span>
+        </a>
+
+        <a class="el-module-item" href="https://app.leanpeakproductlab.com/elearning/chapter-6-module-5">
+          <span class="el-module-num">5</span>
+          <div>
+            <p class="el-module-label">Module 5</p>
+            <p class="el-module-title">Three Lenses of Validation</p>
+            <p class="el-module-desc">How to validate that product, production process, and business model are all ready — together, not in sequence.</p>
+          </div>
+          <span class="el-module-arrow">&rarr;</span>
+        </a>
+
+        <a class="el-module-item" href="https://app.leanpeakproductlab.com/elearning/chapter-6-module-6">
+          <span class="el-module-num">6</span>
+          <div>
+            <p class="el-module-label">Module 6</p>
+            <p class="el-module-title">Learning After Launch</p>
+            <p class="el-module-desc">How to capture and share what you learned — so the next team starts smarter than you did.</p>
+          </div>
+          <span class="el-module-arrow">&rarr;</span>
+        </a>
+
+      </nav>
+    </section>
+
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo" />
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/portal-auth.js"></script>
+
+</body>
+</html>
