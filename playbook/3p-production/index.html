@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Production 3P: Layout, Flow, and Vertical Start-Up — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+    .pb-chapter-header { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--lp-color-border-subtle); margin-bottom: 2.5rem; }
+    .pb-chapter-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-3xl); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; color: var(--lp-color-text-main); margin: 0 0 1rem; }
+    .pb-chapter-lead { font-size: var(--lp-font-size-lg); color: var(--lp-color-text-muted); line-height: 1.7; max-width: 66ch; margin: 0; }
+    .pb-chapter-img { margin: 0 0 2.5rem; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-img img { width: 100%; height: auto; display: block; max-height: 340px; object-fit: cover; object-position: center top; }
+    .pb-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+    .pb-sidebar { position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto; }
+    .pb-sidebar-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-nav { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav > li > a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav > li > a:hover, .pb-nav > li > a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav > li > a.active { border-left-color: var(--lp-color-primary); }
+    .pb-chapter-nav { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-nav-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.6rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-nav a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.3rem 0.75rem; border-radius: var(--lp-radius-sm); line-height: 1.4; transition: color 0.15s, background 0.15s; }
+    .pb-chapter-nav a:hover { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-chapter-nav a.current { font-weight: 600; color: var(--lp-color-text-main); }
+    .pb-section { scroll-margin-top: 5rem; margin-bottom: 4rem; }
+    .pb-section + .pb-section { padding-top: 2.5rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-subsection { scroll-margin-top: 5rem; margin-top: 2.5rem; }
+    .pb-section-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.5rem; font-family: var(--lp-font-sans); }
+    .pb-section-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-2xl); font-weight: 400; letter-spacing: -0.02em; color: var(--lp-color-text-main); margin: 0 0 1.25rem; line-height: 1.15; }
+    .pb-subsection-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-xl); font-weight: 400; color: var(--lp-color-text-main); margin: 0 0 0.75rem; line-height: 1.2; }
+    .pb-prose { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.75; max-width: 68ch; }
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+    .pb-section-img { margin: 1.75rem 0; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); background: var(--lp-color-surface); }
+    .pb-section-img img { width: 100%; height: auto; display: block; }
+    .pb-pullquote { margin: 2rem 0; padding: 1.25rem 1.5rem; border-left: 3px solid var(--lp-color-primary); background: var(--lp-color-surface); border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0; }
+    .pb-pullquote p { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); line-height: 1.5; color: var(--lp-color-text-main); margin: 0; }
+    .pb-list { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.5rem; max-width: 68ch; }
+    .pb-list li { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .pb-list li::before { content: "→"; position: absolute; left: 0; color: var(--lp-color-primary); font-size: 0.85em; top: 0.15em; }
+    .pb-play { margin: 2rem 0; padding: 1.5rem 1.75rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-lg); border-left: 3px solid var(--lp-color-primary); max-width: 68ch; }
+    .pb-play-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-color-primary); font-family: var(--lp-font-sans); margin: 0 0 0.3rem; }
+    .pb-play-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-xl); color: var(--lp-color-text-main); margin: 0 0 0.75rem; }
+    .pb-play-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; margin: 0; }
+    .pb-outputs { margin: 1.5rem 0; padding: 1.25rem 1.5rem; background: rgba(47,107,103,0.06); border: 1px solid rgba(47,107,103,0.2); border-radius: var(--lp-radius-md); max-width: 68ch; }
+    .pb-outputs-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-primary); font-family: var(--lp-font-sans); margin: 0 0 0.6rem; }
+    .pb-outputs ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.35rem; }
+    .pb-outputs li { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); padding-left: 1rem; position: relative; line-height: 1.55; }
+    .pb-outputs li::before { content: "✓"; position: absolute; left: 0; color: var(--lp-color-primary); font-size: 0.8em; top: 0.1em; }
+    .pb-traps { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-trap { display: grid; grid-template-columns: 1.5rem minmax(0,1fr); gap: 0.75rem; align-items: start; }
+    .pb-trap-icon { color: #b45309; font-size: 1rem; padding-top: 0.1rem; }
+    .pb-trap-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; }
+    .pb-trap-body strong { color: var(--lp-color-text-main); }
+    .pb-plays-index { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.5rem 0; max-width: 68ch; }
+    .pb-plays-index-row { display: grid; grid-template-columns: 4rem minmax(0,1fr); gap: 1rem; align-items: center; padding: 0.75rem 1rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); }
+    .pb-plays-index-tag { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--lp-color-primary); font-family: var(--lp-font-sans); }
+    .pb-plays-index-text { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); }
+    .pb-plays-index-text strong { color: var(--lp-color-text-main); }
+    .pb-phases { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.5rem 0; max-width: 68ch; }
+    .pb-phase { padding: 1rem 1.25rem; border-radius: var(--lp-radius-md); border: 1px solid var(--lp-color-border-subtle); }
+    .pb-phase-label { font-size: var(--lp-font-size-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lp-color-primary); font-family: var(--lp-font-sans); margin: 0 0 0.3rem; }
+    .pb-phase-title { font-size: var(--lp-font-size-md); font-weight: 600; color: var(--lp-color-text-main); margin: 0 0 0.4rem; }
+    .pb-phase-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0; }
+    .pb-phase:nth-child(1) { background: rgba(47,107,103,0.04); }
+    .pb-phase:nth-child(2) { background: rgba(47,107,103,0.08); }
+    .pb-phase:nth-child(3) { background: rgba(47,107,103,0.13); }
+    .pb-phase:nth-child(4) { background: rgba(47,107,103,0.18); }
+    .pb-checklist { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-checklist-group { padding: 0.85rem 1.1rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); }
+    .pb-checklist-group-label { font-size: var(--lp-font-size-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lp-color-primary); font-family: var(--lp-font-sans); margin: 0 0 0.5rem; }
+    .pb-checklist-group ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.3rem; }
+    .pb-checklist-group li { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); padding-left: 1.1rem; position: relative; line-height: 1.55; }
+    .pb-checklist-group li::before { content: "□"; position: absolute; left: 0; color: var(--lp-color-text-soft); font-size: 0.75em; top: 0.15em; }
+    @media (max-width: 860px) {
+      .pb-layout { grid-template-columns: 1fr; gap: 0; }
+      .pb-sidebar { position: static; max-height: none; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--lp-color-border-subtle); }
+      .pb-nav { flex-direction: row; flex-wrap: wrap; gap: 0.25rem; }
+      .pb-nav > li > a { border-left: none; border-bottom: 2px solid transparent; padding: 0.3rem 0.6rem; }
+      .pb-nav > li > a.active { border-left-color: transparent; border-bottom-color: var(--lp-color-primary); }
+      .pb-chapter-nav { display: none; }
+    }
+    @media (max-width: 640px) { .pb-chapter-title { font-size: 2rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)">
+            <rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect>
+            <rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect>
+            <rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect>
+          </g>
+          <g transform="translate(150 46)">
+            <text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text>
+            <text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text>
+            <text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text>
+          </g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Lean 3P Industrialization Playbook &mdash; Chapter 16</p>
+      <h1 class="pb-chapter-title">Production 3P: Layout, Flow, and Vertical Start&#8209;Up</h1>
+      <p class="pb-chapter-lead">
+        Turn the production plan into a ready-to-run system. Design physical layout and material flow,
+        build PFEP and water spider routes, embed quality and standard work, and ramp up in phases
+        &mdash; learning and stabilizing at each step before volume goes up.
+      </p>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="img/Chapter 16.png" alt="Production 3P: Layout, Flow, and Vertical Start-Up">
+    </div>
+
+    <div class="pb-layout">
+
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#when-to-run">When to Run Production 3P</a></li>
+          <li><a href="#what-to-deliver">What It Must Deliver</a></li>
+          <li><a href="#play-pr0">Play PR0 &mdash; Plan Mini-Events</a></li>
+          <li><a href="#play-pr1">Play PR1 &mdash; Layout &amp; Flow</a></li>
+          <li><a href="#play-pr2">Play PR2 &mdash; Info, Quality &amp; SW</a></li>
+          <li><a href="#play-pr3">Play PR3 &mdash; Vertical Start&#8209;Up</a></li>
+          <li><a href="#connections">Connections Back to Earlier 3P</a></li>
+          <li><a href="#traps">Common Traps</a></li>
+        </ul>
+
+        <div class="pb-chapter-nav">
+          <p class="pb-chapter-nav-label">Section 2 &mdash; 3P Playbook</p>
+          <a href="/playbook/3p-why/">11. Why Lean 3P?</a>
+          <a href="/playbook/3p-foundations/">12. Foundations: How 3P Thinks</a>
+          <a href="/playbook/3p-flow/">13. The 3P Industrialization Flow</a>
+          <a href="/playbook/3p-design/">14. Design 3P</a>
+          <a href="/playbook/3p-process/">15. Process 3P</a>
+          <a href="/playbook/3p-production/" class="current">16. Production 3P</a>
+          <a href="/playbook/" style="margin-top:0.75rem;border-top:1px solid var(--lp-color-border-subtle);padding-top:0.75rem;">&larr; All chapters</a>
+        </div>
+      </aside>
+
+      <main>
+
+        <section class="pb-section" id="overview">
+          <p class="pb-section-eyebrow">Chapter 16</p>
+          <h2 class="pb-section-title">From Plan to Ready&#8209;to&#8209;Run</h2>
+          <div class="pb-prose">
+            <p>Production 3P is where the conceptual production plan becomes a real, ready-to-run system. Instead of focusing on product design or abstract value stream maps, the work shifts to designing the physical layout, material and information flow, standard work, and the staged ramp&#8209;up that will bring the system to life. The aim is not just to install machines &mdash; it is to ensure the line or cell is safe, efficient, and capable of a smooth vertical start&#8209;up.</p>
+            <p>In practice, Production 3P is often run as a series of mini&#8209;events rather than one big workshop: one for layout and material flow mockups, one for standard work and information flow, and one for pilot builds and tuning. This chapter provides plays for each of those stages.</p>
+          </div>
+
+          <div class="pb-plays-index">
+            <div class="pb-plays-index-row">
+              <span class="pb-plays-index-tag">PR0</span>
+              <span class="pb-plays-index-text"><strong>Plan the Mini-Events</strong> &mdash; Define the three-event structure, gather inputs, build the cross-functional team</span>
+            </div>
+            <div class="pb-plays-index-row">
+              <span class="pb-plays-index-tag">PR1</span>
+              <span class="pb-plays-index-text"><strong>Layout &amp; Material Flow</strong> &mdash; Design and mockup the physical layout; create PFEP and water spider routes</span>
+            </div>
+            <div class="pb-plays-index-row">
+              <span class="pb-plays-index-tag">PR2</span>
+              <span class="pb-plays-index-text"><strong>Information Flow, Quality &amp; Standard Work</strong> &mdash; Production control, poka&#8209;yoke, combination sheets, visual instructions</span>
+            </div>
+            <div class="pb-plays-index-row">
+              <span class="pb-plays-index-tag">PR3</span>
+              <span class="pb-plays-index-text"><strong>Vertical Start&#8209;Up</strong> &mdash; Phase the ramp from single station to full shifts; use a production readiness checklist</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="pb-section" id="when-to-run">
+          <p class="pb-section-eyebrow">Section 16.2</p>
+          <h2 class="pb-section-title">When to Run Production 3P</h2>
+          <div class="pb-prose">
+            <p>Production 3P should be scheduled when product design is essentially frozen, key process choices and major equipment directions are decided, but detailed layout and support systems are still flexible. The organisation is approaching pilot builds and ramp&#8209;up.</p>
+          </div>
+          <ul class="pb-list">
+            <li><strong>Too early:</strong> Process choices and the production plan are still in flux &mdash; that is Process 3P work. Running Production 3P now means designing a layout around decisions that will change.</li>
+            <li><strong>Right time:</strong> There is still room to experiment with layout, material presentation, information flow, and staffing on tape and cardboard &mdash; before concrete and steel.</li>
+            <li><strong>Too late:</strong> Equipment is already installed and the layout is hard to change. The event can only work around fixed decisions.</li>
+          </ul>
+          <div class="pb-pullquote">
+            <p>Surface and resolve issues while the system is still on tape and cardboard, not concrete and steel.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="what-to-deliver">
+          <p class="pb-section-eyebrow">Section 16.3</p>
+          <h2 class="pb-section-title">What Production 3P Must Deliver</h2>
+          <div class="pb-prose">
+            <p>Production 3P is successful when it delivers a system that operators can run safely, efficiently, and repeatedly from day one &mdash; not one that requires weeks of firefighting to stabilise.</p>
+          </div>
+          <div class="pb-outputs">
+            <p class="pb-outputs-label">Required outputs</p>
+            <ul>
+              <li>A tested layout and material flow that support takt, quality, ergonomics, and flexibility</li>
+              <li>A practical PFEP (Plan for Every Part) and water spider routes that keep operators supplied without hunting</li>
+              <li>Designed information flow, poka&#8209;yoke, and standard work for each station</li>
+              <li>A vertical start&#8209;up plan with phased ramp, pilot builds, and a production readiness checklist that is actually used</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="pb-section" id="play-pr0">
+          <p class="pb-section-eyebrow">Play PR0</p>
+          <h2 class="pb-section-title">Plan the Production 3P Mini&#8209;Events</h2>
+
+          <div class="pb-play">
+            <p class="pb-play-label">Purpose</p>
+            <p class="pb-play-title">Structure the work across three linked events</p>
+            <p class="pb-play-body">Clarify that Production 3P will run as a set of linked mini&#8209;events over several weeks rather than a single day. Each event has a clear scope, objectives, and expected outputs &mdash; linked explicitly back to the production plan from Process 3P.</p>
+          </div>
+
+          <div class="pb-phases">
+            <div class="pb-phase">
+              <p class="pb-phase-label">Event A</p>
+              <p class="pb-phase-title">Line / cell layout and material flow mockup</p>
+              <p class="pb-phase-body">Design the physical layout on tape and cardboard. Run SORK cycles. Finalise supermarket locations and water spider routes.</p>
+            </div>
+            <div class="pb-phase">
+              <p class="pb-phase-label">Event B</p>
+              <p class="pb-phase-title">Standard work, visual instructions, and information flow</p>
+              <p class="pb-phase-body">Write standard work combination sheets with operators. Design poka&#8209;yoke and quality checks. Define production control and variant identification.</p>
+            </div>
+            <div class="pb-phase">
+              <p class="pb-phase-label">Event C</p>
+              <p class="pb-phase-title">Pilot builds and vertical start&#8209;up tuning</p>
+              <p class="pb-phase-body">Run trial builds with early parts. Walk through each phase of the vertical start&#8209;up plan. Capture remaining issues and close them before volume ramp.</p>
+            </div>
+          </div>
+
+          <h3 class="pb-subsection-title">Gather inputs and build the team</h3>
+          <div class="pb-prose">
+            <p>Prepare the inputs that the team needs to design rather than guess: the final or near&#8209;final product design and BOM, future-state value stream maps and production plan from Process 3P, selected process alternatives and key capital decisions, facility constraints (space, utilities, safety and ergonomic standards), and prototypes or early parts for trial builds if available.</p>
+            <p>Include line supervisors, operators who will actually run the line, process and manufacturing engineers, material and logistics planners (including the water spider designer), maintenance, quality, and a safety and ergonomics specialist. If the people who will own the line are not in the room, the output will not stick.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="play-pr1">
+          <p class="pb-section-eyebrow">Play PR1</p>
+          <h2 class="pb-section-title">Design Layout and Material Flow</h2>
+
+          <div class="pb-play">
+            <p class="pb-play-label">Purpose</p>
+            <p class="pb-play-title">Translate the future-state value stream into a physical layout operators can use</p>
+            <p class="pb-play-body">Starting from the future-state value stream, design the physical layout: decide number of lines or cells, choose shapes (straight, U-cell, or other) based on flow and ergonomics, place supermarkets and inspection points, and plan routes for incoming and outgoing materials.</p>
+          </div>
+
+          <h3 class="pb-subsection-title">Build and test layout concepts with mockups</h3>
+          <div class="pb-prose">
+            <p>Use simple tools &mdash; tape on the floor, cardboard boxes, scaled drawings &mdash; before committing to anything permanent. Run &ldquo;Air Guitar&rdquo; and SORK (Simulate&ndash;Observe&ndash;Kaizen&ndash;Repeat) cycles: walk the process, simulate operator motions, observe issues, improve, and repeat. The goal is to learn fast and cheap before equipment is installed.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/Layout mockup.png" alt="Layout mockup — tape and cardboard simulation">
+          </div>
+
+          <h3 class="pb-subsection-title">Design PFEP &mdash; Plan for Every Part</h3>
+          <div class="pb-prose">
+            <p>Create a Plan for Every Part that specifies, for each part: delivery frequency (e.g., every two hours, once per shift), quantity per delivery (standard container size), storage and supermarket location, reorder point or trigger, who delivers it (e.g., water spider), and identification (label, colour, bin number).</p>
+            <p>PFEP ensures that material flow is designed, not improvised, and that operators are never left hunting for parts.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/PFEP Card.png" alt="PFEP card example — Plan for Every Part">
+          </div>
+
+          <h3 class="pb-subsection-title">Design water spider routes</h3>
+          <div class="pb-prose">
+            <p>Design a standard route and schedule for the material handler that specifies: starting and ending points (often the supermarket), sequence of stations visited, standard quantities delivered and picked up at each stop, and typical route time (for example, a 10&ndash;20 minute loop). Mark the route visibly on the floor and in PFEP documents. This stabilises material flow and frees operators to focus on value&#8209;adding work.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/Water spider route.png" alt="Water spider route diagram">
+          </div>
+        </section>
+
+        <section class="pb-section" id="play-pr2">
+          <p class="pb-section-eyebrow">Play PR2</p>
+          <h2 class="pb-section-title">Design Information Flow, Quality, and Standard Work</h2>
+
+          <div class="pb-play">
+            <p class="pb-play-label">Purpose</p>
+            <p class="pb-play-title">Make the right way to work the easiest way to work</p>
+            <p class="pb-play-body">Design how operators know what to build and how to build it, embed quality checks close to where defects can be introduced, and document standard work with operators &mdash; not after the fact.</p>
+          </div>
+
+          <h3 class="pb-subsection-title">Design information flow to the station</h3>
+          <div class="pb-prose">
+            <p>Define how operators know what to build and how to build it at all times. Choose a production control method &mdash; kanban, heijunka box, simple electronic display, or paper travelers &mdash; and design variant identification (colour coding, labels, barcodes on parts or totes, visual signals for next variant) so they are easy to see and understand at a glance, minimising reliance on memory or verbal instructions.</p>
+          </div>
+
+          <h3 class="pb-subsection-title">Build quality into the process (poka&#8209;yoke)</h3>
+          <div class="pb-prose">
+            <p>Embed quality checks and error&#8209;proofing close to the steps where defects can be introduced: fixtures that only allow correct part orientation, go/no&#8209;go gauges at critical steps, and simple visual standards for appearance, configuration, or torque states. Place checks where they prevent defects, not at the very end of the line.</p>
+          </div>
+
+          <h3 class="pb-subsection-title">Define standard work and visual instructions</h3>
+          <div class="pb-prose">
+            <p>Document standard work for each station: sequence of steps, time for each step relative to takt, material and tool locations, and safety and quality checkpoints. Summarise this in standard work combination sheets and Yamazumi charts to balance workloads, and in visual work instructions with photos or simple drawings using minimal text. Involve operators heavily in creating and testing these standards &mdash; standards written without operators are rarely followed.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="play-pr3">
+          <p class="pb-section-eyebrow">Play PR3</p>
+          <h2 class="pb-section-title">Plan and Run Vertical Start&#8209;Up</h2>
+
+          <div class="pb-play">
+            <p class="pb-play-label">Purpose</p>
+            <p class="pb-play-title">Ramp in stages &mdash; learn and stabilise at each phase before moving on</p>
+            <p class="pb-play-body">Rather than turning everything on at once, design a staged ramp&#8209;up that surfaces and closes issues at each phase before cascading failures make them harder to diagnose.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/Vertical start-up phases.png" alt="Vertical start-up phases diagram">
+          </div>
+
+          <div class="pb-phases">
+            <div class="pb-phase">
+              <p class="pb-phase-label">Phase 1</p>
+              <p class="pb-phase-title">Single station, single variant</p>
+              <p class="pb-phase-body">Install and run one station with one product variant. Verify material flow, standard work, and quality checks before introducing any additional complexity.</p>
+            </div>
+            <div class="pb-phase">
+              <p class="pb-phase-label">Phase 2</p>
+              <p class="pb-phase-title">Single station, multiple variants</p>
+              <p class="pb-phase-body">Keep the station running and introduce additional variants. Test information flow and changeover capability. Close issues before expanding to the full line.</p>
+            </div>
+            <div class="pb-phase">
+              <p class="pb-phase-label">Phase 3</p>
+              <p class="pb-phase-title">Full line, first shift</p>
+              <p class="pb-phase-body">Connect multiple stations into a line or cell. Run pilot builds over a full shift. Monitor flow, quality, and ergonomics. Resolve issues before adding shifts.</p>
+            </div>
+            <div class="pb-phase">
+              <p class="pb-phase-label">Phase 4</p>
+              <p class="pb-phase-title">Additional shifts or parallel lines</p>
+              <p class="pb-phase-body">Scale staffing, supervision, and support systems as needed. Confirm that each shift can run independently using standard work and visual management.</p>
+            </div>
+          </div>
+
+          <h3 class="pb-subsection-title">Use a production readiness checklist</h3>
+          <div class="pb-prose">
+            <p>Before moving from one phase to the next, check readiness explicitly. Do not advance the ramp&#8209;up stage if major items on the checklist are clearly not met &mdash; capture issues and actions and hold the phase until they are resolved.</p>
+          </div>
+
+          <div class="pb-checklist">
+            <div class="pb-checklist-group">
+              <p class="pb-checklist-group-label">Product</p>
+              <ul>
+                <li>BOM finalised; variants understood</li>
+                <li>Critical characteristics defined and communicated</li>
+              </ul>
+            </div>
+            <div class="pb-checklist-group">
+              <p class="pb-checklist-group-label">Process</p>
+              <ul>
+                <li>Key operations validated; known issues addressed</li>
+                <li>Capability acceptable at targeted quality level</li>
+              </ul>
+            </div>
+            <div class="pb-checklist-group">
+              <p class="pb-checklist-group-label">People</p>
+              <ul>
+                <li>Operators trained; standard work practiced</li>
+                <li>Staffing plan in place for each phase</li>
+              </ul>
+            </div>
+            <div class="pb-checklist-group">
+              <p class="pb-checklist-group-label">Logistics</p>
+              <ul>
+                <li>PFEP and water spider routes working</li>
+                <li>Supermarkets and replenishment functioning</li>
+              </ul>
+            </div>
+            <div class="pb-checklist-group">
+              <p class="pb-checklist-group-label">Safety &amp; Quality</p>
+              <ul>
+                <li>Risk assessments done; controls in place</li>
+                <li>Tests defined and poka&#8209;yoke devices working</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="pb-section" id="connections">
+          <p class="pb-section-eyebrow">Section 16.8</p>
+          <h2 class="pb-section-title">Connections Back to Earlier 3P Work</h2>
+          <div class="pb-prose">
+            <p>Production 3P turns the production plan and process choices from Process 3P into a working system. Simplifications and design changes from Design 3P show up here as fewer parts, clearer interfaces, and more robust work content &mdash; which makes layout, PFEP, and standard work easier to design.</p>
+            <p>In turn, the learning from pilot builds and ramp&#8209;up can feed back into both process design and future product development as part of the organisation&rsquo;s knowledge base. The three events &mdash; Design, Process, and Production 3P &mdash; are not separate projects; they are a single learning arc from concept intent to operational reality.</p>
+          </div>
+          <div class="pb-pullquote">
+            <p>What you learn during vertical start&#8209;up is the most valuable input you can give to the next generation of product and process design.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="traps">
+          <p class="pb-section-eyebrow">Section 16.9</p>
+          <h2 class="pb-section-title">Common Traps in Production 3P</h2>
+          <div class="pb-prose">
+            <p>Naming these traps at the beginning of Production 3P helps the team design around them.</p>
+          </div>
+          <div class="pb-traps">
+            <div class="pb-trap">
+              <span class="pb-trap-icon">&#9888;</span>
+              <div class="pb-trap-body"><strong>Paper-only layout design.</strong> Designing layout and material flow on drawings without full-scale mockups or simulation means issues only appear when equipment is installed and hard to move.</div>
+            </div>
+            <div class="pb-trap">
+              <span class="pb-trap-icon">&#9888;</span>
+              <div class="pb-trap-body"><strong>Skipping PFEP and water spider design.</strong> Without a designed material supply system, operators manage their own material &mdash; leaving the station to search for parts and creating unstable flow.</div>
+            </div>
+            <div class="pb-trap">
+              <span class="pb-trap-icon">&#9888;</span>
+              <div class="pb-trap-body"><strong>End-of-line inspection only.</strong> Relying on final inspection instead of built&#8209;in quality and poka&#8209;yoke means defects travel the full length of the line before being caught.</div>
+            </div>
+            <div class="pb-trap">
+              <span class="pb-trap-icon">&#9888;</span>
+              <div class="pb-trap-body"><strong>Standard work as post-fact documentation.</strong> Writing standard work after the line is running, without operator involvement during mockups and pilots, produces documents nobody follows.</div>
+            </div>
+            <div class="pb-trap">
+              <span class="pb-trap-icon">&#9888;</span>
+              <div class="pb-trap-body"><strong>Big-bang launch.</strong> Attempting to switch everything on at full volume at once means every problem hits simultaneously &mdash; cascading failures that are impossible to diagnose or fix under pressure.</div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const navLinks = document.querySelectorAll('.pb-nav a');
+      const sections = [];
+      navLinks.forEach(a => {
+        const id = a.getAttribute('href').replace('#', '');
+        const el = document.getElementById(id);
+        if (el) sections.push({ id, el, a });
+      });
+      if (!sections.length) return;
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            sections.forEach(s => s.a.classList.toggle('active', s.id === e.target.id));
+          }
+        });
+      }, { rootMargin: '-10% 0px -80% 0px' });
+      sections.forEach(s => io.observe(s.el));
+    })();
+  </script>
+
+</body>
+</html>

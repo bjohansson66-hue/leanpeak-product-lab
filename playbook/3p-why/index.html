@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Why Lean 3P Industrialization? — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+    .pb-chapter-header { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--lp-color-border-subtle); margin-bottom: 2.5rem; }
+    .pb-chapter-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-3xl); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; color: var(--lp-color-text-main); margin: 0 0 1rem; }
+    .pb-chapter-lead { font-size: var(--lp-font-size-lg); color: var(--lp-color-text-muted); line-height: 1.7; max-width: 66ch; margin: 0; }
+    .pb-chapter-img { margin: 0 0 2.5rem; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-img img { width: 100%; height: auto; display: block; max-height: 340px; object-fit: cover; object-position: center top; }
+    .pb-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+    .pb-sidebar { position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto; }
+    .pb-sidebar-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-nav { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav > li > a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav > li > a:hover, .pb-nav > li > a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav > li > a.active { border-left-color: var(--lp-color-primary); }
+    .pb-chapter-nav { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-nav-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.6rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-nav a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.3rem 0.75rem; border-radius: var(--lp-radius-sm); line-height: 1.4; transition: color 0.15s, background 0.15s; }
+    .pb-chapter-nav a:hover { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-chapter-nav a.current { font-weight: 600; color: var(--lp-color-text-main); }
+    .pb-section { scroll-margin-top: 5rem; margin-bottom: 4rem; }
+    .pb-section + .pb-section { padding-top: 2.5rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-subsection { scroll-margin-top: 5rem; margin-top: 2.5rem; }
+    .pb-section-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.5rem; font-family: var(--lp-font-sans); }
+    .pb-section-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-2xl); font-weight: 400; letter-spacing: -0.02em; color: var(--lp-color-text-main); margin: 0 0 1.25rem; line-height: 1.15; }
+    .pb-subsection-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-xl); font-weight: 400; color: var(--lp-color-text-main); margin: 0 0 0.75rem; line-height: 1.2; }
+    .pb-prose { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.75; max-width: 68ch; }
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+    .pb-section-img { margin: 1.75rem 0; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); background: var(--lp-color-surface); }
+    .pb-section-img img { width: 100%; height: auto; display: block; }
+    .pb-pullquote { margin: 2rem 0; padding: 1.25rem 1.5rem; border-left: 3px solid var(--lp-color-primary); background: var(--lp-color-surface); border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0; }
+    .pb-pullquote p { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); line-height: 1.5; color: var(--lp-color-text-main); margin: 0; }
+    .pb-list { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.5rem; max-width: 68ch; }
+    .pb-list li { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .pb-list li::before { content: "→"; position: absolute; left: 0; color: var(--lp-color-primary); font-size: 0.85em; top: 0.15em; }
+    .pb-shifts { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-shift { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0.75rem; align-items: center; padding: 0.65rem 1rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); font-size: var(--lp-font-size-sm); }
+    .pb-shift-from { color: var(--lp-color-text-muted); }
+    .pb-shift-arrow { color: var(--lp-color-primary); font-size: 1.1em; text-align: center; }
+    .pb-shift-to { color: var(--lp-color-text-main); font-weight: 500; }
+    .pb-card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0; }
+    .pb-info-card { padding: 1rem 1.25rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); }
+    .pb-info-card-num { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--lp-color-primary); font-family: var(--lp-font-sans); margin-bottom: 0.4rem; }
+    .pb-info-card-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-md); color: var(--lp-color-text-main); margin: 0 0 0.4rem; }
+    .pb-info-card-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0; }
+    .pb-steps { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-step { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.875rem; align-items: start; }
+    .pb-step-num { width: 2rem; height: 2rem; border-radius: var(--lp-radius-md); background: var(--lp-color-primary-soft); color: var(--lp-color-primary); font-size: var(--lp-font-size-xs); font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: var(--lp-font-sans); }
+    .pb-step-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; padding-top: 0.2rem; }
+    @media (max-width: 860px) {
+      .pb-layout { grid-template-columns: 1fr; gap: 0; }
+      .pb-sidebar { position: static; max-height: none; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--lp-color-border-subtle); }
+      .pb-nav { flex-direction: row; flex-wrap: wrap; gap: 0.25rem; }
+      .pb-nav > li > a { border-left: none; border-bottom: 2px solid transparent; padding: 0.3rem 0.6rem; }
+      .pb-nav > li > a.active { border-left-color: transparent; border-bottom-color: var(--lp-color-primary); }
+      .pb-chapter-nav { display: none; }
+      .pb-card-grid { grid-template-columns: 1fr; }
+      .pb-shift { grid-template-columns: 1fr; }
+      .pb-shift-arrow { display: none; }
+    }
+    @media (max-width: 640px) { .pb-chapter-title { font-size: 2rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)">
+            <rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect>
+            <rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect>
+            <rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect>
+          </g>
+          <g transform="translate(150 46)">
+            <text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text>
+            <text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text>
+            <text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text>
+          </g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Lean 3P Industrialization Playbook &mdash; Chapter 11</p>
+      <h1 class="pb-chapter-title">Why Lean 3P Industrialization?</h1>
+      <p class="pb-chapter-lead">
+        Most launch problems are already locked in long before the first unit is built.
+        Lean 3P gives you a structured way to find them &mdash; and fix them &mdash; while
+        the concept is still flexible enough to change.
+      </p>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="img/Chapter 11.png" alt="Why Lean 3P Industrialization">
+    </div>
+
+    <div class="pb-layout">
+
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#launch-problems">Launch Problems</a></li>
+          <li><a href="#does-differently">What 3P Does Differently</a></li>
+          <li><a href="#when-to-use">When to Use 3P</a></li>
+          <li><a href="#results">What Results to Expect</a></li>
+          <li><a href="#how-to-use">How to Use This Volume</a></li>
+        </ul>
+
+        <div class="pb-chapter-nav">
+          <p class="pb-chapter-nav-label">Section 2 &mdash; 3P Playbook</p>
+          <a href="/playbook/3p-why/" class="current">11. Why Lean 3P?</a>
+          <a href="/playbook/3p-foundations/">12. Foundations: How 3P Thinks</a>
+          <a href="/playbook/3p-flow/">13. The 3P Industrialization Flow</a>
+          <a href="/playbook/3p-design/">14. Design 3P</a>
+          <a href="/playbook/3p-process/">15. Process 3P</a>
+          <a href="/playbook/3p-production/">16. Production 3P</a>
+          <a href="/playbook/" style="margin-top:0.75rem;border-top:1px solid var(--lp-color-border-subtle);padding-top:0.75rem;">&larr; All chapters</a>
+        </div>
+      </aside>
+
+      <main>
+
+        <section class="pb-section" id="launch-problems">
+          <p class="pb-section-eyebrow">Chapter 11</p>
+          <h2 class="pb-section-title">Launch Problems You Can&rsquo;t Fix on the Line</h2>
+          <div class="pb-prose">
+            <p>When you launch a new product or redesign a major process, most of the lifetime cost, quality, and safety performance is already built into the design and the way the process works. If manufacturing is brought in late, you usually discover problems only when the first units are being built: long assembly times, awkward ergonomics, fragile quality, or unstable flow.</p>
+            <p>The typical response is overtime, workarounds, and capital band-aids that treat symptoms but leave the underlying design untouched.</p>
+          </div>
+
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;Lean 3P exists to avoid that pattern. It gives you a structured way to design product and process together early enough that changes are still cheap.&rdquo;</p>
+          </blockquote>
+
+          <div class="pb-prose">
+            <p>Instead of &ldquo;discovering&rdquo; manufacturability problems at launch, you look for them &mdash; and fix them &mdash; deliberately while the concept is still flexible. The question Lean 3P forces you to ask is simple: <strong>at what point in the project is it cheapest to change the design?</strong> The answer is always earlier than most organizations act.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="does-differently">
+          <p class="pb-section-eyebrow">Section 11.2</p>
+          <h2 class="pb-section-title">What Lean 3P Does Differently</h2>
+          <div class="pb-prose">
+            <p>Lean 3P changes how you think about industrialization in a few key ways. These are not incremental improvements to the traditional approach &mdash; they are genuine shifts in how teams work and when they work together.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/Impact bar illustration.png" alt="Impact of early involvement">
+          </div>
+
+          <div class="pb-shifts">
+            <div class="pb-shift">
+              <span class="pb-shift-from">Engineering finishes, then hands off to manufacturing</span>
+              <span class="pb-shift-arrow">→</span>
+              <span class="pb-shift-to">Product and process are designed together from the start</span>
+            </div>
+            <div class="pb-shift">
+              <span class="pb-shift-from">One &ldquo;best&rdquo; solution chosen early and defended</span>
+              <span class="pb-shift-arrow">→</span>
+              <span class="pb-shift-to">Multiple alternatives explored and narrowed as you learn</span>
+            </div>
+            <div class="pb-shift">
+              <span class="pb-shift-from">Reviews and sign-offs across functional silos</span>
+              <span class="pb-shift-arrow">→</span>
+              <span class="pb-shift-to">Focused, cross-functional events with real decision authority</span>
+            </div>
+            <div class="pb-shift">
+              <span class="pb-shift-from">Heavy equipment bought early to &ldquo;lock in&rdquo; the process</span>
+              <span class="pb-shift-arrow">→</span>
+              <span class="pb-shift-to">Cardboard mockups and simulations before capital commitment</span>
+            </div>
+          </div>
+
+          <div class="pb-prose" style="margin-top:1.25rem;">
+            <p>Done well, this approach leads to safer, more efficient, higher-quality processes that are ready to ramp faster and need less firefighting at launch and beyond.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="when-to-use">
+          <p class="pb-section-eyebrow">Section 11.3</p>
+          <h2 class="pb-section-title">When You Should Use 3P (and When You Shouldn&rsquo;t)</h2>
+          <div class="pb-prose">
+            <p>Lean 3P is a breakthrough method, not a tool for every small improvement. Choosing the right situations is important &mdash; using it where it fits creates step-change results; using it where it doesn&rsquo;t wastes energy and creates cynicism about the method.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/3P vs kaizen situations.png" alt="3P versus kaizen situations">
+          </div>
+
+          <h3 class="pb-subsection-title">Use 3P when you are:</h3>
+          <ul class="pb-list">
+            <li>Launching a significantly new product or platform.</li>
+            <li>Acquiring a new product line and bringing it into your plant.</li>
+            <li>Redesigning an existing process for radical cost, quality, or lead-time improvement.</li>
+            <li>Facing major business pressure such as risk of plant closure or loss of a key customer.</li>
+            <li>Building or reconfiguring a facility where layout and flow decisions will lock in cost for years.</li>
+          </ul>
+
+          <h3 class="pb-subsection-title" style="margin-top:1.5rem;">Use kaizen instead when:</h3>
+          <ul class="pb-list">
+            <li>The basic process is sound and you need incremental improvement.</li>
+            <li>You are fine-tuning an existing line or solving local problems.</li>
+            <li>You are driving small, frequent changes to an already stable system.</li>
+          </ul>
+
+          <div class="pb-prose" style="margin-top:1.25rem;">
+            <p>A simple rule of thumb: if you are designing from scratch or aiming for a step-change in cost and flow, use 3P. If you are improving what already exists, use kaizen on top of what 3P has created. The two methods are complementary, not competing.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="results">
+          <p class="pb-section-eyebrow">Section 11.4</p>
+          <h2 class="pb-section-title">What Kind of Results to Expect</h2>
+          <div class="pb-prose">
+            <p>Organizations that apply Lean 3P seriously and consistently see real, measurable improvements. These results are not automatic &mdash; they come from treating 3P as a disciplined way of working, not just as a one-off workshop.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/Results snapshot.png" alt="Typical 3P results snapshot">
+          </div>
+
+          <div class="pb-card-grid">
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">Labour Cost</p>
+              <p class="pb-info-card-title">40&ndash;60% reduction</p>
+              <p class="pb-info-card-body">On breakthrough process redesigns where product and process are designed together from early concept.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">Ramp-Up Speed</p>
+              <p class="pb-info-card-title">Faster to stable production</p>
+              <p class="pb-info-card-body">Vertical start-up discipline means fewer surprises at launch and a shorter path to full-rate production.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">Quality</p>
+              <p class="pb-info-card-title">Higher first-pass yield</p>
+              <p class="pb-info-card-body">Built-in quality and poka-yoke designed during 3P events reduces rework and scrap from the first shift.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">People</p>
+              <p class="pb-info-card-title">More engaged operators</p>
+              <p class="pb-info-card-body">Operators who helped design their own work understand why it is set up the way it is &mdash; and improve it more readily.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="pb-section" id="how-to-use">
+          <p class="pb-section-eyebrow">Section 11.5</p>
+          <h2 class="pb-section-title">How to Use This Volume</h2>
+          <div class="pb-prose">
+            <p>This playbook is written for practitioners &mdash; engineers, manufacturing leaders, operators, and facilitators &mdash; who want concrete plays and tools to apply Lean 3P. You can use it in several ways depending on where you are in your industrialization work.</p>
+          </div>
+
+          <div class="pb-steps">
+            <div class="pb-step">
+              <div class="pb-step-num">1</div>
+              <div class="pb-step-body"><strong>Before a 3P event</strong> &mdash; to prepare inputs, agenda, and team composition so the event starts with the right foundation.</div>
+            </div>
+            <div class="pb-step">
+              <div class="pb-step-num">2</div>
+              <div class="pb-step-body"><strong>During an event</strong> &mdash; to guide facilitation and capture outputs using the toolcards at the end of each chapter.</div>
+            </div>
+            <div class="pb-step">
+              <div class="pb-step-num">3</div>
+              <div class="pb-step-body"><strong>After an event</strong> &mdash; to support implementation, follow-up, and learning into the next phase.</div>
+            </div>
+            <div class="pb-step">
+              <div class="pb-step-num">4</div>
+              <div class="pb-step-body"><strong>Alongside training</strong> &mdash; as a companion during Lean 3P workshops so concepts and plays reinforce each other in real time.</div>
+            </div>
+          </div>
+
+          <div class="pb-prose" style="margin-top:1.25rem;">
+            <p>The next chapter explains how 3P thinks: set-based design, concurrent development, delaying decisions (but not learning), and the operator-as-surgeon mindset that underpins all the plays in Chapters 14&ndash;16.</p>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+  <script>
+    const navLinks = document.querySelectorAll('.pb-nav a');
+    const sections = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>

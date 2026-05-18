@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design 3P: Make the Product Buildable Early — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+    .pb-chapter-header { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--lp-color-border-subtle); margin-bottom: 2.5rem; }
+    .pb-chapter-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-3xl); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; color: var(--lp-color-text-main); margin: 0 0 1rem; }
+    .pb-chapter-lead { font-size: var(--lp-font-size-lg); color: var(--lp-color-text-muted); line-height: 1.7; max-width: 66ch; margin: 0; }
+    .pb-chapter-img { margin: 0 0 2.5rem; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-img img { width: 100%; height: auto; display: block; max-height: 340px; object-fit: cover; object-position: center top; }
+    .pb-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+    .pb-sidebar { position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto; }
+    .pb-sidebar-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-nav { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav > li > a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav > li > a:hover, .pb-nav > li > a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav > li > a.active { border-left-color: var(--lp-color-primary); }
+    .pb-nav-sub { list-style: none; margin: 0.1rem 0 0.25rem; padding: 0 0 0 1rem; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav-sub a { display: block; font-size: var(--lp-font-size-xs); color: var(--lp-color-text-soft); text-decoration: none; padding: 0.25rem 0.6rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s; }
+    .pb-nav-sub a:hover, .pb-nav-sub a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-chapter-nav { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-nav-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.6rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-nav a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.3rem 0.75rem; border-radius: var(--lp-radius-sm); line-height: 1.4; transition: color 0.15s, background 0.15s; }
+    .pb-chapter-nav a:hover { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-chapter-nav a.current { font-weight: 600; color: var(--lp-color-text-main); }
+    .pb-section { scroll-margin-top: 5rem; margin-bottom: 4rem; }
+    .pb-section + .pb-section { padding-top: 2.5rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-subsection { scroll-margin-top: 5rem; margin-top: 2.5rem; }
+    .pb-section-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.5rem; font-family: var(--lp-font-sans); }
+    .pb-section-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-2xl); font-weight: 400; letter-spacing: -0.02em; color: var(--lp-color-text-main); margin: 0 0 1.25rem; line-height: 1.15; }
+    .pb-subsection-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-xl); font-weight: 400; color: var(--lp-color-text-main); margin: 0 0 0.75rem; line-height: 1.2; }
+    .pb-prose { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.75; max-width: 68ch; }
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+    .pb-section-img { margin: 1.75rem 0; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); background: var(--lp-color-surface); }
+    .pb-section-img img { width: 100%; height: auto; display: block; }
+    .pb-pullquote { margin: 2rem 0; padding: 1.25rem 1.5rem; border-left: 3px solid var(--lp-color-primary); background: var(--lp-color-surface); border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0; }
+    .pb-pullquote p { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); line-height: 1.5; color: var(--lp-color-text-main); margin: 0; }
+    .pb-list { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.5rem; max-width: 68ch; }
+    .pb-list li { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .pb-list li::before { content: "→"; position: absolute; left: 0; color: var(--lp-color-primary); font-size: 0.85em; top: 0.15em; }
+    /* Play card */
+    .pb-play { margin: 2rem 0; padding: 1.5rem 1.75rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-lg); border-left: 3px solid var(--lp-color-primary); max-width: 68ch; }
+    .pb-play-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-color-primary); font-family: var(--lp-font-sans); margin: 0 0 0.3rem; }
+    .pb-play-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-xl); color: var(--lp-color-text-main); margin: 0 0 0.75rem; }
+    .pb-play-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; margin: 0 0 0.75rem; }
+    /* Outputs box */
+    .pb-outputs { margin: 1.5rem 0; padding: 1.25rem 1.5rem; background: rgba(47,107,103,0.06); border: 1px solid rgba(47,107,103,0.2); border-radius: var(--lp-radius-md); max-width: 68ch; }
+    .pb-outputs-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-primary); font-family: var(--lp-font-sans); margin: 0 0 0.6rem; }
+    .pb-outputs ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.35rem; }
+    .pb-outputs li { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); padding-left: 1rem; position: relative; line-height: 1.55; }
+    .pb-outputs li::before { content: "✓"; position: absolute; left: 0; color: var(--lp-color-primary); font-size: 0.8em; top: 0.1em; }
+    /* Trap list */
+    .pb-traps { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-trap { display: grid; grid-template-columns: 1.5rem minmax(0,1fr); gap: 0.75rem; align-items: start; }
+    .pb-trap-icon { color: #b45309; font-size: 1rem; padding-top: 0.1rem; }
+    .pb-trap-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; }
+    .pb-trap-body strong { color: var(--lp-color-text-main); }
+    /* Plays index */
+    .pb-plays-index { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.5rem 0; max-width: 68ch; }
+    .pb-plays-index-row { display: grid; grid-template-columns: 4rem minmax(0,1fr); gap: 1rem; align-items: center; padding: 0.75rem 1rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); }
+    .pb-plays-index-tag { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--lp-color-primary); font-family: var(--lp-font-sans); }
+    .pb-plays-index-text { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); }
+    .pb-plays-index-text strong { color: var(--lp-color-text-main); }
+    @media (max-width: 860px) {
+      .pb-layout { grid-template-columns: 1fr; gap: 0; }
+      .pb-sidebar { position: static; max-height: none; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--lp-color-border-subtle); }
+      .pb-nav { flex-direction: row; flex-wrap: wrap; gap: 0.25rem; }
+      .pb-nav > li > a { border-left: none; border-bottom: 2px solid transparent; padding: 0.3rem 0.6rem; }
+      .pb-nav > li > a.active { border-left-color: transparent; border-bottom-color: var(--lp-color-primary); }
+      .pb-nav-sub { display: none; }
+      .pb-chapter-nav { display: none; }
+    }
+    @media (max-width: 640px) { .pb-chapter-title { font-size: 2rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)">
+            <rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect>
+            <rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect>
+            <rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect>
+          </g>
+          <g transform="translate(150 46)">
+            <text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text>
+            <text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text>
+            <text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text>
+          </g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Lean 3P Industrialization Playbook &mdash; Chapter 14</p>
+      <h1 class="pb-chapter-title">Design 3P: Make the Product Buildable Early</h1>
+      <p class="pb-chapter-lead">
+        Industrialization stops being a downstream handoff and becomes part of design work itself.
+        Five plays to surface cost and quality risks while the concept is still flexible enough to fix them.
+      </p>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="img/Make the Product Buildable Early.png" alt="Design 3P: Make the Product Buildable Early">
+    </div>
+
+    <div class="pb-layout">
+
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li>
+            <a href="#overview">Overview</a>
+          </li>
+          <li><a href="#when-to-run">When to Run Design 3P</a></li>
+          <li><a href="#what-to-deliver">What It Must Deliver</a></li>
+          <li>
+            <a href="#play-d0">Play D0 &mdash; Prepare</a>
+          </li>
+          <li>
+            <a href="#play-d1">Play D1 &mdash; Shared View</a>
+          </li>
+          <li>
+            <a href="#play-d2">Play D2 &mdash; CTQ/CTC</a>
+          </li>
+          <li>
+            <a href="#play-d3">Play D3 &mdash; APN Prioritise</a>
+          </li>
+          <li>
+            <a href="#play-d4">Play D4 &mdash; Quick-Look VE</a>
+          </li>
+          <li>
+            <a href="#play-d5">Play D5 &mdash; Lock &amp; Hand Off</a>
+          </li>
+          <li><a href="#feeds-next">Feeds Next Events</a></li>
+          <li><a href="#traps">Common Traps</a></li>
+        </ul>
+
+        <div class="pb-chapter-nav">
+          <p class="pb-chapter-nav-label">Section 2 &mdash; 3P Playbook</p>
+          <a href="/playbook/3p-why/">11. Why Lean 3P?</a>
+          <a href="/playbook/3p-foundations/">12. Foundations: How 3P Thinks</a>
+          <a href="/playbook/3p-flow/">13. The 3P Industrialization Flow</a>
+          <a href="/playbook/3p-design/" class="current">14. Design 3P</a>
+          <a href="/playbook/3p-process/">15. Process 3P</a>
+          <a href="/playbook/3p-production/">16. Production 3P</a>
+          <a href="/playbook/" style="margin-top:0.75rem;border-top:1px solid var(--lp-color-border-subtle);padding-top:0.75rem;">&larr; All chapters</a>
+        </div>
+      </aside>
+
+      <main>
+
+        <section class="pb-section" id="overview">
+          <p class="pb-section-eyebrow">Chapter 14</p>
+          <h2 class="pb-section-title">The Opening Move in Industrialization</h2>
+          <div class="pb-prose">
+            <p>Design 3P is where industrialization stops being a downstream handoff and becomes part of design work itself. Instead of waiting until detailed design or launch to discover that a concept is difficult to build, expensive to assemble, fragile in quality, or awkward for operators, Design 3P brings those realities into the conversation while the concept is still flexible enough to improve.</p>
+            <p>The logic is simple: most lifetime cost, quality, and safety performance are largely locked in before the first unit is built, so the best time to improve the production system is while the product concept is still taking shape.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/What good looks like.png" alt="What good looks like in Design 3P">
+          </div>
+
+          <div class="pb-prose">
+            <p>The event itself is intentionally practical. The team aligns on the concept and the preliminary manufacturing plan, identifies the design elements most likely to drive poor cost or quality outcomes, prioritises the opportunities worth deeper attention, and then works through a small number of high-leverage alternatives.</p>
+            <p>The output is not a polished report. The output is a clearer manufacturing concept, a short list of design changes or questions worth pursuing, and a clean handoff into Process 3P.</p>
+          </div>
+
+          <h3 class="pb-subsection-title">Five plays in this chapter</h3>
+          <div class="pb-plays-index">
+            <div class="pb-plays-index-row">
+              <span class="pb-plays-index-tag">D0</span>
+              <span class="pb-plays-index-text"><strong>Prepare the Event</strong> &mdash; Define scope, gather inputs, build the team, set up for focused work</span>
+            </div>
+            <div class="pb-plays-index-row">
+              <span class="pb-plays-index-tag">D1</span>
+              <span class="pb-plays-index-text"><strong>Create a Shared View</strong> &mdash; Present the concept functionally and make manufacturing assumptions visible</span>
+            </div>
+            <div class="pb-plays-index-row">
+              <span class="pb-plays-index-tag">D2</span>
+              <span class="pb-plays-index-text"><strong>Surface CTQ/CTC</strong> &mdash; Identify where the concept is most likely to drive downstream pain or opportunity</span>
+            </div>
+            <div class="pb-plays-index-row">
+              <span class="pb-plays-index-tag">D3</span>
+              <span class="pb-plays-index-text"><strong>Prioritise with APN</strong> &mdash; Separate the few opportunities worth deep attention from the many that can wait</span>
+            </div>
+            <div class="pb-plays-index-row">
+              <span class="pb-plays-index-tag">D4</span>
+              <span class="pb-plays-index-text"><strong>Quick-Look VE</strong> &mdash; Decompose functions, generate alternatives, filter with a simple decision matrix</span>
+            </div>
+            <div class="pb-plays-index-row">
+              <span class="pb-plays-index-tag">D5</span>
+              <span class="pb-plays-index-text"><strong>Lock &amp; Hand Off</strong> &mdash; Capture outputs so the work feeds directly into Process 3P and beyond</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="pb-section" id="when-to-run">
+          <p class="pb-section-eyebrow">Section 14.2</p>
+          <h2 class="pb-section-title">When to Run Design 3P</h2>
+          <div class="pb-prose">
+            <p>Design 3P belongs at the point where the product concept is real enough to reason about, but not so fixed that change is painful. In practice, that means scheduling the event when the conceptual design is roughly <strong>70&ndash;80% defined</strong>: the main functions, architecture, and key components are visible, but major design decisions and capital commitments are still open.</p>
+          </div>
+
+          <ul class="pb-list">
+            <li><strong>Too early:</strong> The concept is still a set of fragments or competing sketches with no coherent architecture. Wait &mdash; focus on earlier discovery and concept work first.</li>
+            <li><strong>Right time:</strong> The team has a clear concept, but has not yet seriously tested it against cost, quality, and manufacturability. Run Design 3P now.</li>
+            <li><strong>Too late:</strong> Key decisions are frozen, major tooling orders are placed, or the organisation is deep into detailed design with little room for structural change. Kaizen is more appropriate.</li>
+          </ul>
+
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;The value of Design 3P comes from combining early manufacturability insight with real freedom to act. If either is missing, the event risks becoming a review meeting with limited impact.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <section class="pb-section" id="what-to-deliver">
+          <p class="pb-section-eyebrow">Section 14.3</p>
+          <h2 class="pb-section-title">What Design 3P Must Deliver</h2>
+          <div class="pb-prose">
+            <p>Design 3P is successful when it leaves the team with a clear, prioritised, and actionable picture of how the product concept should change to be easier, cheaper, and more reliable to build. At minimum, the event must produce three things:</p>
+          </div>
+          <ul class="pb-list">
+            <li>A ranked list of Critical-to-Quality and Critical-to-Cost (CTQ/CTC) opportunities.</li>
+            <li>A small number of promising design alternatives for the most important issues.</li>
+            <li>A sharpened manufacturing concept that can guide later process and layout work.</li>
+          </ul>
+          <div class="pb-prose" style="margin-top:1.25rem;">
+            <p>Beyond the technical outputs, Design 3P should also deliver commitment and clarity: visible actions with owners and due dates, a short management read-out, and a shared understanding that the event&rsquo;s results will be used, not shelved.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="play-d0">
+          <p class="pb-section-eyebrow">Play D0</p>
+          <h2 class="pb-section-title">Prepare the Design 3P Event</h2>
+
+          <div class="pb-play">
+            <p class="pb-play-label">Purpose</p>
+            <p class="pb-play-title">Set up the event for focused work</p>
+            <p class="pb-play-body">Define why you are running this Design 3P and what &ldquo;good&rdquo; looks like for this product or platform. Prevent the event from turning into a general design review by connecting the purpose to a real business or system problem.</p>
+          </div>
+
+          <h3 class="pb-subsection-title">Define purpose, scope, and target condition</h3>
+          <div class="pb-prose">
+            <p>Scope the event to a level where the team can do meaningful work in a day or two: one product, one major subsystem, or one family of similar variants. Define a simple target condition, such as: &ldquo;By the end of the event, we have a ranked CTQ/CTC list and two Quick-Look cycles completed on our top issues.&rdquo;</p>
+          </div>
+
+          <h3 class="pb-subsection-title">Gather the required inputs</h3>
+          <div class="pb-prose">
+            <p>Participants need enough information to reason about design, cost, and manufacturing without getting lost in detail. Prepare: a market requirements brief, key engineering requirements and interfaces, current design concepts (sketches, CAD views, mockups), a preliminary manufacturing plan, and relevant quality and warranty history on similar products.</p>
+          </div>
+
+          <h3 class="pb-subsection-title">Build the right cross-functional team</h3>
+          <div class="pb-prose">
+            <p>A Design 3P event &ldquo;lives or dies by who is in the room.&rdquo; The core team should include product design, manufacturing or process engineering, operations representatives, quality or reliability, and supply chain or purchasing. Where possible, invite key suppliers and operators or technicians with experience on similar products.</p>
+          </div>
+
+          <div class="pb-outputs">
+            <p class="pb-outputs-label">Set-up checklist</p>
+            <ul>
+              <li>Purpose and target condition written and visible before the event starts</li>
+              <li>All required inputs assembled and distributed in advance</li>
+              <li>Cross-functional team confirmed, including at least one operator representative</li>
+              <li>Agenda agreed with morning for CTQ/CTC, afternoon for Quick-Look</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="pb-section" id="play-d1">
+          <p class="pb-section-eyebrow">Play D1</p>
+          <h2 class="pb-section-title">Create a Shared View of Product and Manufacturing Intent</h2>
+
+          <div class="pb-play">
+            <p class="pb-play-label">Purpose</p>
+            <p class="pb-play-title">Build a common mental model before critiquing or improving anything</p>
+            <p class="pb-play-body">Create a common understanding of what the product must do and how it is currently expected to be built, so everyone in the room is working from the same starting point.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/CTQ CTC Wall.png" alt="CTQ/CTC opportunity wall">
+          </div>
+
+          <h3 class="pb-subsection-title">Present the product by function, not only by form</h3>
+          <div class="pb-prose">
+            <p>Map the product into a handful of major functions in simple verb&ndash;noun language such as &ldquo;convert power&rdquo;, &ldquo;protect electronics&rdquo;, &ldquo;support load&rdquo;, or &ldquo;seal interface&rdquo;. This helps participants see the underlying purpose of each part or module, which later makes it easier to rethink how those functions might be achieved.</p>
+          </div>
+
+          <h3 class="pb-subsection-title">Present the preliminary manufacturing plan</h3>
+          <div class="pb-prose">
+            <p>Cover where you expect to manufacture, at what volume and takt time, the line or cell concept, key capital assumptions, and important constraints around part commonality or legacy processes. The purpose is not to defend a finished plan but to make visible the assumptions that have quietly accumulated around the design.</p>
+          </div>
+
+          <div class="pb-outputs">
+            <p class="pb-outputs-label">Outputs from Play D1</p>
+            <ul>
+              <li>A simple functional map of the product that everyone can see and reference</li>
+              <li>A concise visual summary of the preliminary manufacturing plan and key constraints</li>
+              <li>A visible list of core assumptions that the team agrees are open to challenge</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="pb-section" id="play-d2">
+          <p class="pb-section-eyebrow">Play D2</p>
+          <h2 class="pb-section-title">Surface the Biggest Cost and Quality Leverage Points</h2>
+
+          <div class="pb-play">
+            <p class="pb-play-label">Purpose</p>
+            <p class="pb-play-title">Identify design elements most likely to drive cost, quality, and safety performance</p>
+            <p class="pb-play-body">Reveal where the concept is fragile or expensive before decisions are locked in, using CTQ/CTC thinking and structured brainstorming.</p>
+          </div>
+
+          <h3 class="pb-subsection-title">Define Critical-to-Quality and Critical-to-Cost</h3>
+          <ul class="pb-list">
+            <li><strong>CTQ (Critical-to-Quality):</strong> any design- or process-related factor with high potential impact on yield, defects, rework, installation issues, or customer satisfaction.</li>
+            <li><strong>CTC (Critical-to-Cost):</strong> any design- or process-related factor with high potential impact on total production cost, including labour, materials, overhead, and capital.</li>
+          </ul>
+
+          <h3 class="pb-subsection-title">Use trigger lists and structured brainstorming</h3>
+          <div class="pb-prose">
+            <p>Provide a short trigger list based on experience from similar products: complex fastening or joining strategies, tight tolerances or fragile interfaces, hard-to-access service points, high manual handling, known problem technologies or suppliers. Give everyone quiet time to write CTQ/CTC opportunities individually on sticky notes (one opportunity per note), then post, explain, and group into themes.</p>
+          </div>
+
+          <div class="pb-outputs">
+            <p class="pb-outputs-label">Outputs from Play D2</p>
+            <ul>
+              <li>A consolidated list of CTQ and CTC opportunities, each tagged as C, Q, or CQ</li>
+              <li>Opportunities grouped into clear themes (fastening, interfaces, test, ergonomics, supply)</li>
+              <li>An updated CTQ/CTC opportunity sheet ready for APN scoring in Play D3</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="pb-section" id="play-d3">
+          <p class="pb-section-eyebrow">Play D3</p>
+          <h2 class="pb-section-title">Focus the Team on What Matters Most</h2>
+
+          <div class="pb-play">
+            <p class="pb-play-label">Purpose</p>
+            <p class="pb-play-title">Turn the raw opportunity list into a ranked set of targets for deeper work</p>
+            <p class="pb-play-body">Use Action Priority Number (APN) scoring to separate the few opportunities where the team can create the biggest impact from the many that can wait.</p>
+          </div>
+
+          <h3 class="pb-subsection-title">Introduce the Action Priority Number</h3>
+          <div class="pb-prose">
+            <p>Each CTQ/CTC opportunity is scored on two dimensions, each on a 1&ndash;5 scale:</p>
+          </div>
+          <ul class="pb-list">
+            <li><strong>Impact</strong> (1&ndash;5): if this opportunity is successfully addressed, how large is the effect on cost or quality?</li>
+            <li><strong>Ease of implementation</strong> (1&ndash;5): how easy is it to make the change, considering technical, organisational, and supplier constraints?</li>
+          </ul>
+          <div class="pb-prose" style="margin-top:0.75rem;">
+            <p><strong>APN = Impact &times; Ease.</strong> Higher APN indicates a better candidate for attention now. Work through the full list as a group, voting on Impact and Ease for each item. Aim for pragmatic ranking at moderate precision, not perfect agreement.</p>
+          </div>
+
+          <div class="pb-outputs">
+            <p class="pb-outputs-label">Outputs from Play D3</p>
+            <ul>
+              <li>CTQ/CTC opportunity list with Impact, Ease, and APN for each item</li>
+              <li>A clearly marked subset of high-priority opportunities (typically 2&ndash;5) for deeper work</li>
+              <li>Explicit agreement in the room about where the event will focus its remaining time</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="pb-section" id="play-d4">
+          <p class="pb-section-eyebrow">Play D4</p>
+          <h2 class="pb-section-title">Explore Better Design Alternatives Fast</h2>
+
+          <div class="pb-play">
+            <p class="pb-play-label">Purpose</p>
+            <p class="pb-play-title">Turn high-priority CTQ/CTC opportunities into better options quickly</p>
+            <p class="pb-play-body">Quick-Look Value Engineering does this by separating function from solution, generating alternatives, and filtering them with a simple decision matrix. Best suited to design elements where changing geometry, materials, interfaces, or part count could significantly improve cost or quality.</p>
+          </div>
+
+          <h3 class="pb-subsection-title">Decompose the element into essential functions</h3>
+          <div class="pb-prose">
+            <p>Pick one high-APN opportunity and describe what the design element must do in verb&ndash;noun terms: &ldquo;protect electronics&rdquo;, &ldquo;position connector&rdquo;, &ldquo;seal against moisture&rdquo;, &ldquo;support load during transport&rdquo;. Strip away current shape, material, and implementation details to open up design space and make non-obvious alternatives visible.</p>
+          </div>
+
+          <h3 class="pb-subsection-title">Generate contrasting alternatives and filter</h3>
+          <div class="pb-prose">
+            <p>Brainstorm genuinely different ideas &mdash; not small tweaks. Redesign to combine functions, split functions across parts, change materials or manufacturing processes. Then set up a small matrix with the current design as baseline and each alternative along the top. Rate each against the baseline: &ldquo;+&rdquo; if better, &ldquo;S&rdquo; if similar, &ldquo;&ndash;&rdquo; if worse. Options with clearly more &ldquo;+&rdquo; than &ldquo;&ndash;&rdquo; become candidates for further engineering analysis.</p>
+          </div>
+
+          <div class="pb-outputs">
+            <p class="pb-outputs-label">Outputs from Play D4</p>
+            <ul>
+              <li>A short description of the functions for each high-priority element</li>
+              <li>A set of alternative concepts for each element, including the current design as baseline</li>
+              <li>A decision matrix showing which alternatives are worth deeper engineering and cost analysis</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="pb-section" id="play-d5">
+          <p class="pb-section-eyebrow">Play D5</p>
+          <h2 class="pb-section-title">Lock the Outputs and Hand Off Cleanly</h2>
+
+          <div class="pb-play">
+            <p class="pb-play-label">Purpose</p>
+            <p class="pb-play-title">Turn the day&rsquo;s learning into an actionable package the organisation can use</p>
+            <p class="pb-play-body">Design 3P must become the starting point for better process design and production preparation &mdash; not just a one-off workshop. This play closes the event with clear outputs, agreed actions, and a management read-out.</p>
+          </div>
+
+          <h3 class="pb-subsection-title">Capture ranked CTQ/CTC list and Quick-Look results</h3>
+          <div class="pb-prose">
+            <p>Document the full opportunity list with APN rankings, marking which items were addressed in depth and which remain as follow-up. For each element that went through Quick-Look, record the functions, the alternatives considered, the decision matrix summary, and which alternatives were selected for further engineering and why. Keep each summary to a page or less.</p>
+          </div>
+
+          <h3 class="pb-subsection-title">Define actions, owners, dates, and management read-out</h3>
+          <div class="pb-prose">
+            <p>Translate the outputs into a simple action list with what, who, and by when. Prepare a short management read-out (10&ndash;15 minutes): state the event purpose, highlight top CTQ/CTC opportunities discovered, show one or two concrete example changes, and clarify proposed next steps and any decisions or support requested.</p>
+          </div>
+
+          <div class="pb-outputs">
+            <p class="pb-outputs-label">Outputs from Play D5</p>
+            <ul>
+              <li>Documented CTQ/CTC opportunity list with APN rankings</li>
+              <li>Quick-Look summaries for high-priority elements and selected alternatives</li>
+              <li>Agreed action list with owners, dates, and needed management decisions</li>
+              <li>A management read-out that can be used to communicate results and secure support</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="pb-section" id="feeds-next">
+          <p class="pb-section-eyebrow">Section 14.9</p>
+          <h2 class="pb-section-title">How Design 3P Feeds the Next Events</h2>
+          <div class="pb-prose">
+            <p>Design 3P is not a standalone exercise. Its outputs are direct inputs to Process 3P and Production 3P:</p>
+          </div>
+          <ul class="pb-list">
+            <li><strong>Into Process 3P:</strong> The prioritised CTQ/CTC list focuses value stream mapping and 7 Alternatives analysis on the process steps that matter most. Design changes identified in Quick-Look may open or close process options.</li>
+            <li><strong>Into Production 3P:</strong> Simplified parts, clearer interfaces, and reduced complexity make it easier to design layouts, PFEP, water spider routes, and standard work. Early manufacturability decisions reduce firefighting at launch.</li>
+          </ul>
+          <div class="pb-prose" style="margin-top:1.25rem;">
+            <p>Over time, Design 3P outputs can also feed a knowledge brief library: a reusable set of CTQ/CTC themes and successful design alternatives that accelerates future projects facing similar challenges.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="traps">
+          <p class="pb-section-eyebrow">Section 14.10</p>
+          <h2 class="pb-section-title">Common Traps in Design 3P</h2>
+          <div class="pb-prose">
+            <p>Teams running Design 3P for the first time often fall into a few predictable traps. Calling them out explicitly &mdash; and designing around them &mdash; makes each subsequent event more effective.</p>
+          </div>
+          <div class="pb-traps">
+            <div class="pb-trap">
+              <span class="pb-trap-icon">⚠</span>
+              <div class="pb-trap-body"><strong>Running the event too late.</strong> If major design decisions and tooling are already fixed, Design 3P becomes a review meeting with limited impact. The freedom to act is gone.</div>
+            </div>
+            <div class="pb-trap">
+              <span class="pb-trap-icon">⚠</span>
+              <div class="pb-trap-body"><strong>Bringing too narrow a group.</strong> Without operators, manufacturing, quality, and supply chain in the room, many real risks and opportunities remain invisible.</div>
+            </div>
+            <div class="pb-trap">
+              <span class="pb-trap-icon">⚠</span>
+              <div class="pb-trap-body"><strong>Treating the event as a review, not a working session.</strong> Long presentations and detailed slide decks crowd out time for CTQ/CTC discovery and Quick-Look exploration.</div>
+            </div>
+            <div class="pb-trap">
+              <span class="pb-trap-icon">⚠</span>
+              <div class="pb-trap-body"><strong>Falling in love with one concept too early.</strong> Jumping quickly to a single &ldquo;best&rdquo; solution undermines set-based thinking and leaves the team vulnerable if that concept fails later tests.</div>
+            </div>
+            <div class="pb-trap">
+              <span class="pb-trap-icon">⚠</span>
+              <div class="pb-trap-body"><strong>Leaving outputs vague.</strong> If CTQ/CTC items, alternatives, and actions are not captured clearly with owners and dates, the event&rsquo;s impact fades as soon as people leave the room.</div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+  <script>
+    const navLinks = document.querySelectorAll('.pb-nav a');
+    const sections = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>

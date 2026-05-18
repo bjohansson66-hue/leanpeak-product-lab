@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The 3P Industrialization Flow — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+    .pb-chapter-header { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--lp-color-border-subtle); margin-bottom: 2.5rem; }
+    .pb-chapter-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-3xl); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; color: var(--lp-color-text-main); margin: 0 0 1rem; }
+    .pb-chapter-lead { font-size: var(--lp-font-size-lg); color: var(--lp-color-text-muted); line-height: 1.7; max-width: 66ch; margin: 0; }
+    .pb-chapter-img { margin: 0 0 2.5rem; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-img img { width: 100%; height: auto; display: block; max-height: 340px; object-fit: cover; object-position: center top; }
+    .pb-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+    .pb-sidebar { position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto; }
+    .pb-sidebar-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-nav { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav > li > a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav > li > a:hover, .pb-nav > li > a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav > li > a.active { border-left-color: var(--lp-color-primary); }
+    .pb-chapter-nav { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-nav-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.6rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-nav a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.3rem 0.75rem; border-radius: var(--lp-radius-sm); line-height: 1.4; transition: color 0.15s, background 0.15s; }
+    .pb-chapter-nav a:hover { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-chapter-nav a.current { font-weight: 600; color: var(--lp-color-text-main); }
+    .pb-section { scroll-margin-top: 5rem; margin-bottom: 4rem; }
+    .pb-section + .pb-section { padding-top: 2.5rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-subsection { scroll-margin-top: 5rem; margin-top: 2.5rem; }
+    .pb-section-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.5rem; font-family: var(--lp-font-sans); }
+    .pb-section-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-2xl); font-weight: 400; letter-spacing: -0.02em; color: var(--lp-color-text-main); margin: 0 0 1.25rem; line-height: 1.15; }
+    .pb-subsection-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-xl); font-weight: 400; color: var(--lp-color-text-main); margin: 0 0 0.75rem; line-height: 1.2; }
+    .pb-prose { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.75; max-width: 68ch; }
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+    .pb-section-img { margin: 1.75rem 0; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); background: var(--lp-color-surface); }
+    .pb-section-img img { width: 100%; height: auto; display: block; }
+    .pb-pullquote { margin: 2rem 0; padding: 1.25rem 1.5rem; border-left: 3px solid var(--lp-color-primary); background: var(--lp-color-surface); border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0; }
+    .pb-pullquote p { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); line-height: 1.5; color: var(--lp-color-text-main); margin: 0; }
+    .pb-list { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.5rem; max-width: 68ch; }
+    .pb-list li { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .pb-list li::before { content: "→"; position: absolute; left: 0; color: var(--lp-color-primary); font-size: 0.85em; top: 0.15em; }
+    /* Phase cards */
+    .pb-phases { display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0; max-width: 68ch; }
+    .pb-phase { padding: 1.25rem 1.5rem; border-radius: var(--lp-radius-lg); border: 1px solid var(--lp-color-border-subtle); }
+    .pb-phase:nth-child(1) { background: rgba(47,107,103,0.10); }
+    .pb-phase:nth-child(2) { background: rgba(47,107,103,0.07); }
+    .pb-phase:nth-child(3) { background: rgba(47,107,103,0.05); }
+    .pb-phase:nth-child(4) { background: rgba(47,107,103,0.03); }
+    .pb-phase-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-primary); font-family: var(--lp-font-sans); margin: 0 0 0.3rem; }
+    .pb-phase-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); color: var(--lp-color-text-main); margin: 0 0 0.5rem; }
+    .pb-phase-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0; }
+    /* Event cards */
+    .pb-events { display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0; max-width: 68ch; }
+    .pb-event { display: grid; grid-template-columns: 3rem minmax(0,1fr); gap: 1rem; align-items: start; padding: 1.25rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-lg); }
+    .pb-event-num { width: 3rem; height: 3rem; border-radius: var(--lp-radius-md); background: var(--lp-color-primary-soft); color: var(--lp-color-primary); font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .pb-event-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-primary); font-family: var(--lp-font-sans); margin: 0 0 0.25rem; }
+    .pb-event-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-md); color: var(--lp-color-text-main); margin: 0 0 0.35rem; }
+    .pb-event-timing { font-size: var(--lp-font-size-xs); color: var(--lp-color-text-soft); font-family: var(--lp-font-sans); margin: 0 0 0.5rem; }
+    .pb-event-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0; }
+    /* Diagnostic */
+    .pb-diagnostic { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.5rem 0; max-width: 68ch; }
+    .pb-diagnostic-row { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 0.75rem; align-items: start; padding: 0.75rem 1rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); font-size: var(--lp-font-size-sm); }
+    .pb-diagnostic-if { color: var(--lp-color-text-soft); white-space: nowrap; }
+    .pb-diagnostic-then { color: var(--lp-color-text-main); font-weight: 500; }
+    @media (max-width: 860px) {
+      .pb-layout { grid-template-columns: 1fr; gap: 0; }
+      .pb-sidebar { position: static; max-height: none; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--lp-color-border-subtle); }
+      .pb-nav { flex-direction: row; flex-wrap: wrap; gap: 0.25rem; }
+      .pb-nav > li > a { border-left: none; border-bottom: 2px solid transparent; padding: 0.3rem 0.6rem; }
+      .pb-nav > li > a.active { border-left-color: transparent; border-bottom-color: var(--lp-color-primary); }
+      .pb-chapter-nav { display: none; }
+      .pb-diagnostic-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) { .pb-chapter-title { font-size: 2rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)">
+            <rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect>
+            <rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect>
+            <rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect>
+          </g>
+          <g transform="translate(150 46)">
+            <text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text>
+            <text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text>
+            <text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text>
+          </g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Lean 3P Industrialization Playbook &mdash; Chapter 13</p>
+      <h1 class="pb-chapter-title">The 3P Industrialization Flow</h1>
+      <p class="pb-chapter-lead">
+        A Lean 3P effort does not live in a single workshop. It moves through four phases as
+        the product and process mature, anchored by three core events that accelerate learning
+        at exactly the right moments.
+      </p>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="img/Chapter 13.png" alt="The 3P Industrialization Flow overview">
+    </div>
+
+    <div class="pb-layout">
+
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#four-phases">The Four Phases</a></li>
+          <li><a href="#three-events">The Three Core Events</a></li>
+          <li><a href="#how-they-fit">How Phases and Events Fit</a></li>
+        </ul>
+
+        <div class="pb-chapter-nav">
+          <p class="pb-chapter-nav-label">Section 2 &mdash; 3P Playbook</p>
+          <a href="/playbook/3p-why/">11. Why Lean 3P?</a>
+          <a href="/playbook/3p-foundations/">12. Foundations: How 3P Thinks</a>
+          <a href="/playbook/3p-flow/" class="current">13. The 3P Industrialization Flow</a>
+          <a href="/playbook/3p-design/">14. Design 3P</a>
+          <a href="/playbook/3p-process/">15. Process 3P</a>
+          <a href="/playbook/3p-production/">16. Production 3P</a>
+          <a href="/playbook/" style="margin-top:0.75rem;border-top:1px solid var(--lp-color-border-subtle);padding-top:0.75rem;">&larr; All chapters</a>
+        </div>
+      </aside>
+
+      <main>
+
+        <section class="pb-section" id="overview">
+          <p class="pb-section-eyebrow">Chapter 13</p>
+          <h2 class="pb-section-title">From Idea to Ready-to-Run</h2>
+          <div class="pb-prose">
+            <p>A Lean 3P effort moves through a small number of phases as the product and process mature, and it uses three key events to accelerate learning at the right moments. This chapter gives you that overview: the four phases of a 3P program and the three core 3P events that bring those phases to life.</p>
+            <p>The purpose is to help you see where you are in the industrialization journey and which kind of work makes sense next. Instead of treating every situation as a generic &ldquo;3P workshop,&rdquo; you can use the phase and event model to choose the right play: understanding context and constraints, generating alternatives, designing the value stream, or getting ready for start-up.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="four-phases">
+          <p class="pb-section-eyebrow">Section 13.2</p>
+          <h2 class="pb-section-title">The Four Phases of a Lean 3P Program</h2>
+          <div class="pb-prose">
+            <p>Think of a 3P program as moving through four overlapping phases as your solution matures. In reality, you will move back and forth as you learn. The phases are guides to help you see how early decisions affect later freedom to improve, not rigid boxes.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/Four phases strip.png" alt="The four phases of a Lean 3P program">
+          </div>
+
+          <div class="pb-phases">
+            <div class="pb-phase">
+              <p class="pb-phase-label">Phase 1</p>
+              <p class="pb-phase-title">Information</p>
+              <p class="pb-phase-body">Collect historical production and quality data from similar products or processes. Clarify projected volumes, takt time, space constraints, and capital budgets. Sketch an initial high-level manufacturing plan. The goal is to understand the problem and context well enough that later design and event work rests on real conditions, not guesses.</p>
+            </div>
+            <div class="pb-phase">
+              <p class="pb-phase-label">Phase 2</p>
+              <p class="pb-phase-title">Innovation</p>
+              <p class="pb-phase-body">Identify critical cost and quality drivers (CTQ/CTC). Generate multiple alternatives for key design elements and process steps. Use tools like Quick-Look and 7 Alternatives to explore and rank options. Here you are deliberately widening the design space before committing, using set-based thinking to reduce risk.</p>
+            </div>
+            <div class="pb-phase">
+              <p class="pb-phase-label">Phase 3</p>
+              <p class="pb-phase-title">Process Design</p>
+              <p class="pb-phase-body">Design, simulate, and refine a conceptual line or value stream. Build mockups, run SORK cycles, and design supporting systems (material, information, maintenance). Begin specifying equipment, fixtures, and layout at a practical level. The focus is on how material and information will flow end-to-end, not on individual machines in isolation.</p>
+            </div>
+            <div class="pb-phase">
+              <p class="pb-phase-label">Phase 4</p>
+              <p class="pb-phase-title">Optimization</p>
+              <p class="pb-phase-body">Finalize product and process details in parallel, smoothing the launch. Prepare production readiness: PFEP, training plans, standard work, and trial builds. Execute vertical start-up and move toward stable rate production. This is where you tune the system under real conditions and close remaining gaps before full-scale operation.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="pb-section" id="three-events">
+          <p class="pb-section-eyebrow">Section 13.3</p>
+          <h2 class="pb-section-title">The Three Core 3P Events</h2>
+          <div class="pb-prose">
+            <p>To make these phases actionable, 3P anchors work in three core events, each at a specific maturity point in development. These events are not meetings &mdash; they are concentrated learning and design efforts where cross-functional teams move the system forward in big steps.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/Three events overview.png" alt="The three core 3P events overview">
+          </div>
+
+          <div class="pb-events">
+            <div class="pb-event">
+              <div class="pb-event-num">D</div>
+              <div>
+                <p class="pb-event-label">Event 1</p>
+                <p class="pb-event-title">Design 3P</p>
+                <p class="pb-event-timing">Timing: ~70&ndash;80% concept completion, before concept freeze</p>
+                <p class="pb-event-body">Focus: product concept, CTQ/CTC opportunities, manufacturability. Key outputs: prioritised CTQ/CTC list, selected alternatives from Quick-Look, refined manufacturing concept. Design 3P sits mainly in the Innovation phase, using early knowledge to improve the concept while changes are still cheap.</p>
+              </div>
+            </div>
+            <div class="pb-event">
+              <div class="pb-event-num">P</div>
+              <div>
+                <p class="pb-event-label">Event 2</p>
+                <p class="pb-event-title">Process 3P</p>
+                <p class="pb-event-timing">Timing: late in detailed design, before process and tooling choices are locked</p>
+                <p class="pb-event-body">Focus: internal and external value streams, high-impact process steps, 7 Alternatives, flow and capital optimisation. Key outputs: current and future-state value stream maps, shortlisted process alternatives, draft production plan. Operates in the Process Design phase.</p>
+              </div>
+            </div>
+            <div class="pb-event">
+              <div class="pb-event-num">PR</div>
+              <div>
+                <p class="pb-event-label">Event 3</p>
+                <p class="pb-event-title">Production 3P</p>
+                <p class="pb-event-timing">Timing: pre-launch, often as a series of mini-events</p>
+                <p class="pb-event-body">Focus: layout, PFEP, water spider routes, information flow, readiness checks, and pilot builds. Key outputs: tested line or cell, production readiness checklist, vertical start-up plan. Spans the late Process Design and early Optimization phases, turning plans and mockups into a ready-to-run system.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="pb-section" id="how-they-fit">
+          <p class="pb-section-eyebrow">Section 13.4</p>
+          <h2 class="pb-section-title">How Phases and Events Fit Together</h2>
+          <div class="pb-prose">
+            <p>Seen as a whole, the four phases and three events form a coherent industrialization flow. Each phase creates the conditions for the events, and the outputs of each event feed the next phase.</p>
+          </div>
+
+          <ul class="pb-list">
+            <li>The <strong>Information phase</strong> sets the stage for all three events by grounding the work in real demand, constraints, and history.</li>
+            <li>The <strong>Innovation phase</strong> is where Design 3P lives: surfacing CTQ/CTC issues, exploring alternatives, and refining the manufacturing concept.</li>
+            <li>The <strong>Process Design phase</strong> is where Process 3P does most of its work, designing value streams and making smart process and capital choices.</li>
+            <li>The <strong>Optimization phase</strong> is where Production 3P ensures that layout, material flow, information flow, and people readiness come together for a smooth start-up.</li>
+          </ul>
+
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;The phases and events give you a simple diagnostic: if you do not yet know which phase you are in, that is the first problem to solve before scheduling any 3P event.&rdquo;</p>
+          </blockquote>
+
+          <h3 class="pb-subsection-title">A practical diagnostic</h3>
+          <div class="pb-diagnostic">
+            <div class="pb-diagnostic-row">
+              <span class="pb-diagnostic-if">If&hellip;</span>
+              <span class="pb-diagnostic-then">You don&rsquo;t yet understand volumes, constraints, and history &rarr; stay in Information, delay heavy 3P events</span>
+            </div>
+            <div class="pb-diagnostic-row">
+              <span class="pb-diagnostic-if">If&hellip;</span>
+              <span class="pb-diagnostic-then">The concept is forming and manufacturability is unclear &rarr; ready for Design 3P in the Innovation phase</span>
+            </div>
+            <div class="pb-diagnostic-row">
+              <span class="pb-diagnostic-if">If&hellip;</span>
+              <span class="pb-diagnostic-then">Design is nearly detailed and big process decisions are near &rarr; in Process Design, ready for Process 3P</span>
+            </div>
+            <div class="pb-diagnostic-row">
+              <span class="pb-diagnostic-if">If&hellip;</span>
+              <span class="pb-diagnostic-then">Approaching pilot builds and ramp-up &rarr; in Optimization, focus on Production 3P</span>
+            </div>
+          </div>
+
+          <div class="pb-prose" style="margin-top:1.25rem;">
+            <p>This flow sets up the deeper chapters that follow: Chapter 14 dives into Design 3P, Chapter 15 covers Process 3P, and Chapter 16 addresses Production 3P and vertical start-up in detail.</p>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+  <script>
+    const navLinks = document.querySelectorAll('.pb-nav a');
+    const sections = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>

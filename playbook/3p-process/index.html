@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Process 3P: Design the Operational Value Stream — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+    .pb-chapter-header { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--lp-color-border-subtle); margin-bottom: 2.5rem; }
+    .pb-chapter-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-3xl); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; color: var(--lp-color-text-main); margin: 0 0 1rem; }
+    .pb-chapter-lead { font-size: var(--lp-font-size-lg); color: var(--lp-color-text-muted); line-height: 1.7; max-width: 66ch; margin: 0; }
+    .pb-chapter-img { margin: 0 0 2.5rem; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-img img { width: 100%; height: auto; display: block; max-height: 340px; object-fit: cover; object-position: center top; }
+    .pb-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+    .pb-sidebar { position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto; }
+    .pb-sidebar-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-nav { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav > li > a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav > li > a:hover, .pb-nav > li > a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav > li > a.active { border-left-color: var(--lp-color-primary); }
+    .pb-chapter-nav { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-nav-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.6rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-nav a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.3rem 0.75rem; border-radius: var(--lp-radius-sm); line-height: 1.4; transition: color 0.15s, background 0.15s; }
+    .pb-chapter-nav a:hover { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-chapter-nav a.current { font-weight: 600; color: var(--lp-color-text-main); }
+    .pb-section { scroll-margin-top: 5rem; margin-bottom: 4rem; }
+    .pb-section + .pb-section { padding-top: 2.5rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-subsection { scroll-margin-top: 5rem; margin-top: 2.5rem; }
+    .pb-section-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.5rem; font-family: var(--lp-font-sans); }
+    .pb-section-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-2xl); font-weight: 400; letter-spacing: -0.02em; color: var(--lp-color-text-main); margin: 0 0 1.25rem; line-height: 1.15; }
+    .pb-subsection-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-xl); font-weight: 400; color: var(--lp-color-text-main); margin: 0 0 0.75rem; line-height: 1.2; }
+    .pb-prose { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.75; max-width: 68ch; }
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+    .pb-section-img { margin: 1.75rem 0; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); background: var(--lp-color-surface); }
+    .pb-section-img img { width: 100%; height: auto; display: block; }
+    .pb-pullquote { margin: 2rem 0; padding: 1.25rem 1.5rem; border-left: 3px solid var(--lp-color-primary); background: var(--lp-color-surface); border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0; }
+    .pb-pullquote p { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); line-height: 1.5; color: var(--lp-color-text-main); margin: 0; }
+    .pb-list { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.5rem; max-width: 68ch; }
+    .pb-list li { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .pb-list li::before { content: "→"; position: absolute; left: 0; color: var(--lp-color-primary); font-size: 0.85em; top: 0.15em; }
+    .pb-play { margin: 2rem 0; padding: 1.5rem 1.75rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-lg); border-left: 3px solid var(--lp-color-primary); max-width: 68ch; }
+    .pb-play-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-color-primary); font-family: var(--lp-font-sans); margin: 0 0 0.3rem; }
+    .pb-play-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-xl); color: var(--lp-color-text-main); margin: 0 0 0.75rem; }
+    .pb-play-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; margin: 0; }
+    .pb-outputs { margin: 1.5rem 0; padding: 1.25rem 1.5rem; background: rgba(47,107,103,0.06); border: 1px solid rgba(47,107,103,0.2); border-radius: var(--lp-radius-md); max-width: 68ch; }
+    .pb-outputs-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-primary); font-family: var(--lp-font-sans); margin: 0 0 0.6rem; }
+    .pb-outputs ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.35rem; }
+    .pb-outputs li { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); padding-left: 1rem; position: relative; line-height: 1.55; }
+    .pb-outputs li::before { content: "✓"; position: absolute; left: 0; color: var(--lp-color-primary); font-size: 0.8em; top: 0.1em; }
+    .pb-traps { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-trap { display: grid; grid-template-columns: 1.5rem minmax(0,1fr); gap: 0.75rem; align-items: start; }
+    .pb-trap-icon { color: #b45309; font-size: 1rem; padding-top: 0.1rem; }
+    .pb-trap-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; }
+    .pb-trap-body strong { color: var(--lp-color-text-main); }
+    .pb-plays-index { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.5rem 0; max-width: 68ch; }
+    .pb-plays-index-row { display: grid; grid-template-columns: 4rem minmax(0,1fr); gap: 1rem; align-items: center; padding: 0.75rem 1rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); }
+    .pb-plays-index-tag { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--lp-color-primary); font-family: var(--lp-font-sans); }
+    .pb-plays-index-text { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); }
+    .pb-plays-index-text strong { color: var(--lp-color-text-main); }
+    @media (max-width: 860px) {
+      .pb-layout { grid-template-columns: 1fr; gap: 0; }
+      .pb-sidebar { position: static; max-height: none; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--lp-color-border-subtle); }
+      .pb-nav { flex-direction: row; flex-wrap: wrap; gap: 0.25rem; }
+      .pb-nav > li > a { border-left: none; border-bottom: 2px solid transparent; padding: 0.3rem 0.6rem; }
+      .pb-nav > li > a.active { border-left-color: transparent; border-bottom-color: var(--lp-color-primary); }
+      .pb-chapter-nav { display: none; }
+    }
+    @media (max-width: 640px) { .pb-chapter-title { font-size: 2rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)">
+            <rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect>
+            <rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect>
+            <rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect>
+          </g>
+          <g transform="translate(150 46)">
+            <text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text>
+            <text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text>
+            <text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text>
+          </g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Lean 3P Industrialization Playbook &mdash; Chapter 15</p>
+      <h1 class="pb-chapter-title">Process 3P: Design the Operational Value Stream</h1>
+      <p class="pb-chapter-lead">
+        From product concept to production flow. Map external and internal value streams,
+        identify high-impact process steps, run 7 Alternatives, and assemble a future-state
+        production plan before capital and tooling are locked in.
+      </p>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="img/Chapter 15.png" alt="Process 3P: Design the Operational Value Stream">
+    </div>
+
+    <div class="pb-layout">
+
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#when-to-run">When to Run Process 3P</a></li>
+          <li><a href="#what-to-deliver">What It Must Deliver</a></li>
+          <li><a href="#play-p0">Play P0 &mdash; Prepare</a></li>
+          <li><a href="#play-p1">Play P1 &mdash; Map Value Streams</a></li>
+          <li><a href="#play-p2">Play P2 &mdash; Knowledge Gaps</a></li>
+          <li><a href="#play-p3">Play P3 &mdash; 7 Alternatives</a></li>
+          <li><a href="#play-p4">Play P4 &mdash; Production Plan</a></li>
+          <li><a href="#connections">Connections to Other Events</a></li>
+          <li><a href="#traps">Common Traps</a></li>
+        </ul>
+
+        <div class="pb-chapter-nav">
+          <p class="pb-chapter-nav-label">Section 2 &mdash; 3P Playbook</p>
+          <a href="/playbook/3p-why/">11. Why Lean 3P?</a>
+          <a href="/playbook/3p-foundations/">12. Foundations: How 3P Thinks</a>
+          <a href="/playbook/3p-flow/">13. The 3P Industrialization Flow</a>
+          <a href="/playbook/3p-design/">14. Design 3P</a>
+          <a href="/playbook/3p-process/" class="current">15. Process 3P</a>
+          <a href="/playbook/3p-production/">16. Production 3P</a>
+          <a href="/playbook/" style="margin-top:0.75rem;border-top:1px solid var(--lp-color-border-subtle);padding-top:0.75rem;">&larr; All chapters</a>
+        </div>
+      </aside>
+
+      <main>
+
+        <section class="pb-section" id="overview">
+          <p class="pb-section-eyebrow">Chapter 15</p>
+          <h2 class="pb-section-title">From Concept to Flow</h2>
+          <div class="pb-prose">
+            <p>Process 3P is where the industrialization focus moves from the product itself to the value stream that will deliver it. Instead of asking &ldquo;Is the concept buildable?&rdquo; the main question becomes &ldquo;How will material and information actually flow from supplier to customer, and which process choices will make or break cost, quality, and lead time?&rdquo;</p>
+            <p>This chapter assumes that the product concept is largely shaped and that Design 3P has already surfaced key CTQ/CTC issues and some promising design alternatives. Now the task is to design the operational system that will bring that concept to life.</p>
+          </div>
+
+          <div class="pb-plays-index">
+            <div class="pb-plays-index-row">
+              <span class="pb-plays-index-tag">P0</span>
+              <span class="pb-plays-index-text"><strong>Prepare the Event</strong> &mdash; Define scope, gather inputs from Design 3P, build the team</span>
+            </div>
+            <div class="pb-plays-index-row">
+              <span class="pb-plays-index-tag">P1</span>
+              <span class="pb-plays-index-text"><strong>Map Value Streams</strong> &mdash; External supply-chain flow and internal production flow, sketch future state</span>
+            </div>
+            <div class="pb-plays-index-row">
+              <span class="pb-plays-index-tag">P2</span>
+              <span class="pb-plays-index-text"><strong>Knowledge Gaps &amp; Critical Steps</strong> &mdash; Make unknowns visible; select steps for 7 Alternatives</span>
+            </div>
+            <div class="pb-plays-index-row">
+              <span class="pb-plays-index-tag">P3</span>
+              <span class="pb-plays-index-text"><strong>7 Alternatives</strong> &mdash; Generate and evaluate multiple process options for high-impact steps</span>
+            </div>
+            <div class="pb-plays-index-row">
+              <span class="pb-plays-index-tag">P4</span>
+              <span class="pb-plays-index-text"><strong>Future-State Production Plan</strong> &mdash; Process sequence, flow concept, capacity, capital directions</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="pb-section" id="when-to-run">
+          <p class="pb-section-eyebrow">Section 15.2</p>
+          <h2 class="pb-section-title">When to Run Process 3P</h2>
+          <div class="pb-prose">
+            <p>Process 3P belongs in the window where the product design is roughly <strong>80&ndash;90% detailed</strong>: the architecture, interfaces, and key components are defined, but small design adjustments are still possible. The big freedom now lies in how the product is built and how flow is organised.</p>
+          </div>
+          <ul class="pb-list">
+            <li><strong>Too early:</strong> The concept is still moving significantly, or Design 3P has not yet clarified CTQ/CTC issues. Mapping a value stream around a moving concept creates waste.</li>
+            <li><strong>Right time:</strong> People are asking &ldquo;Where will we build this? With which process technology? How many lines? What capital do we need?&rdquo; &mdash; that is the signal for Process 3P.</li>
+            <li><strong>Too late:</strong> Key tooling, major equipment, and layout choices are already committed. The event can only tweak around fixed decisions.</li>
+          </ul>
+        </section>
+
+        <section class="pb-section" id="what-to-deliver">
+          <p class="pb-section-eyebrow">Section 15.3</p>
+          <h2 class="pb-section-title">What Process 3P Must Deliver</h2>
+          <div class="pb-prose">
+            <p>Process 3P is successful when it leaves the team with a clear future-state value stream and a small set of credible process options for the steps that drive cost, quality, and lead time.</p>
+          </div>
+          <ul class="pb-list">
+            <li>A current and future-state view of the value stream, from suppliers through the plant to the customer.</li>
+            <li>A list of process steps identified as critical because of capital intensity, labour content, yield risk, or bottleneck behaviour.</li>
+            <li>One or more 7 Alternatives matrices showing which process options look most promising.</li>
+            <li>A draft production plan linking process sequence, flow concept, capacity, and key capital decisions.</li>
+            <li>A knowledge-gap log with owners and due dates for trials, supplier visits, capability studies, and cost analysis.</li>
+          </ul>
+        </section>
+
+        <section class="pb-section" id="play-p0">
+          <p class="pb-section-eyebrow">Play P0</p>
+          <h2 class="pb-section-title">Prepare the Process 3P Event</h2>
+
+          <div class="pb-play">
+            <p class="pb-play-label">Purpose</p>
+            <p class="pb-play-title">Clarify what this event is supposed to decide or de-risk</p>
+            <p class="pb-play-body">State the main business and system questions in simple terms before inviting anyone. Examples: &ldquo;Design a value stream that meets takt with minimal WIP and capital.&rdquo; or &ldquo;Decide between alternative process concepts for key operations before we commit tooling.&rdquo;</p>
+          </div>
+
+          <h3 class="pb-subsection-title">Gather inputs from Design 3P and system context</h3>
+          <div class="pb-prose">
+            <p>Participants need enough context to design the value stream without guessing. Prepare: updated market and engineering requirements (volumes, variants, takt targets), output from Design 3P (CTQ/CTC list, agreed design changes, updated manufacturing concept), any existing process or value stream maps, and a preliminary list of expected capital-intensive, labour-intensive, and quality-critical process steps.</p>
+          </div>
+
+          <h3 class="pb-subsection-title">Build the cross-functional team and agenda</h3>
+          <div class="pb-prose">
+            <p>Process 3P lives or dies on whether the people who own and understand the operational side are in the room. Include: process/manufacturing engineers, operations/production leaders, logistics/supply chain, quality and maintenance, and product engineering to handle design&ndash;process trade-offs. A typical one-day agenda: present Design 3P outputs and manufacturing concept; map external supply-chain value stream; map internal production value stream; identify knowledge gaps and critical steps; run 7 Alternatives on one or two high-impact steps; capture decisions and actions.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="play-p1">
+          <p class="pb-section-eyebrow">Play P1</p>
+          <h2 class="pb-section-title">Map External and Internal Value Streams</h2>
+
+          <div class="pb-section-img">
+            <img src="img/External value stream map.png" alt="External supply-chain value stream map">
+          </div>
+
+          <div class="pb-play">
+            <p class="pb-play-label">External flow</p>
+            <p class="pb-play-title">See how the supply chain will support or constrain your internal design</p>
+            <p class="pb-play-body">On a large wall: list key suppliers and the parts or materials they deliver. Show transport modes, lead times, lot sizes, and delivery frequencies. Mark major inventories, buffers, and hand-off points. Capture typical lead time, batch size, delivery frequency, and known reliability issues for each link. You want enough visibility to understand how external flow shapes your internal options.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/Internal value stream map.png" alt="Internal production value stream map">
+          </div>
+
+          <div class="pb-play">
+            <p class="pb-play-label">Internal flow</p>
+            <p class="pb-play-title">See the end-to-end internal flow from receiving to shipping</p>
+            <p class="pb-play-body">Map the internal value stream: break the process into major steps (fabrication, sub-assembly, final assembly, test, pack, ship), draw them in sequence, add queues or buffers between them. For each step capture process time, lead time, operator or machine counts, and known bottlenecks or quality issues. Mark where major capital or high-labour steps sit, and where CTQ/CTC issues from Design 3P are likely to appear in the flow.</p>
+          </div>
+
+          <h3 class="pb-subsection-title">Sketch the first future-state concept</h3>
+          <div class="pb-prose">
+            <p>With both maps visible, ask future-state questions: What is the takt time, and can each step meet it? Where do we see unnecessary waiting, transport, or rework? Which steps will drive capital investment? How can we reduce lead time and WIP while still meeting demand and variability? Use these to sketch a first future state that shows proposed process sequence, reduced inventories, targeted lead time, and candidate areas where different process concepts may be needed.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="play-p2">
+          <p class="pb-section-eyebrow">Play P2</p>
+          <h2 class="pb-section-title">Identify Knowledge Gaps and Critical Steps</h2>
+
+          <div class="pb-play">
+            <p class="pb-play-label">Purpose</p>
+            <p class="pb-play-title">Make unknowns explicit so you don&rsquo;t discard good options just because you lack data today</p>
+            <p class="pb-play-body">Capture knowledge gaps on a visible board as you discuss current vs. future state. For each gap assign an owner, a due date, and the next learning step (trial, lab test, supplier visit, capability study). Treat the gap list as a working artifact: add to it, update it when something is clarified, keep it where everyone can see it.</p>
+          </div>
+
+          <h3 class="pb-subsection-title">Select high-impact process steps for 7 Alternatives</h3>
+          <div class="pb-prose">
+            <p>Using the maps, the CTQ/CTC list from Design 3P, and the knowledge gap board, identify process steps where process choice will make or break system performance. Typical candidates: high capital cost operations, operations with high recurring labour content, steps with known yield or quality problems in similar products, long lead-time or bottleneck operations.</p>
+          </div>
+
+          <div class="pb-outputs">
+            <p class="pb-outputs-label">Outputs from Play P2</p>
+            <ul>
+              <li>A visible, owned knowledge gap list with next learning steps</li>
+              <li>A short list of critical process steps selected for 7 Alternatives, each with a clear reason why it matters</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="pb-section" id="play-p3">
+          <p class="pb-section-eyebrow">Play P3</p>
+          <h2 class="pb-section-title">Apply the 7 Alternatives Method</h2>
+
+          <div class="pb-play">
+            <p class="pb-play-label">Purpose</p>
+            <p class="pb-play-title">Compare multiple process options on high-impact steps quickly and fairly</p>
+            <p class="pb-play-body">Set up each high-impact step so alternatives can be compared without drowning in detail. Name the baseline process, agree on must-have evaluation criteria, and then generate at least six alternatives &mdash; plus the baseline &mdash; for a total of seven options on the matrix.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/7 Alternatives matrix.png" alt="7 Alternatives decision matrix">
+          </div>
+
+          <h3 class="pb-subsection-title">Choose evaluation criteria</h3>
+          <ul class="pb-list">
+            <li>Ability to meet takt</li>
+            <li>Process capability and expected yield</li>
+            <li>Safety and ergonomics</li>
+            <li>Automation potential</li>
+            <li>Environmental impact</li>
+            <li>Total cost (capital + recurring)</li>
+          </ul>
+
+          <h3 class="pb-subsection-title">Score Pugh-style and plan follow-up</h3>
+          <div class="pb-prose">
+            <p>For each alternative and each criterion, compare to the baseline using &ldquo;+&rdquo; if better, &ldquo;S&rdquo; if similar, and &ldquo;&ndash;&rdquo; if worse. Count the pluses and minuses. Options with clearly more &ldquo;+&rdquo; than &ldquo;&ndash;&rdquo; become candidates for further work.</p>
+            <p>For the 1&ndash;3 most promising alternatives per step, assign follow-up owners to estimate non-recurring costs (tooling, equipment, integration), recurring costs (labour, materials, maintenance), and plan necessary trials or supplier checks. The event&rsquo;s job is to narrow the field and commit to learning enough to make a good decision &mdash; not to finalize all numbers now.</p>
+          </div>
+
+          <div class="pb-outputs">
+            <p class="pb-outputs-label">Outputs from Play P3</p>
+            <ul>
+              <li>Completed or partially completed 7 Alternatives matrices for selected process steps</li>
+              <li>A short list of promising process options for each critical step, with initial qualitative evaluation</li>
+              <li>Clear follow-up actions to develop cost and feasibility data for shortlisted alternatives</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="pb-section" id="play-p4">
+          <p class="pb-section-eyebrow">Play P4</p>
+          <h2 class="pb-section-title">Build the Future-State Production Plan</h2>
+
+          <div class="pb-play">
+            <p class="pb-play-label">Purpose</p>
+            <p class="pb-play-title">Turn mapping and 7 Alternatives insights into a coherent way of running the product through the system</p>
+            <p class="pb-play-body">Start from the future-state value stream sketch and your shortlisted alternatives. Decide the overall process sequence, which operations belong together in the same line or cell, where in-house vs. supplier steps are located, and where you aim for one-piece flow vs. supermarkets or buffers.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="img/Future-state production plan.png" alt="Future-state production plan">
+          </div>
+
+          <h3 class="pb-subsection-title">Align capacity, takt, and capital</h3>
+          <div class="pb-prose">
+            <p>For the future-state concept, estimate: number of lines or cells needed, staffing assumptions by area or station, equipment counts and required uptime to meet takt. Check each major step against takt time and discuss where capacity might be tight or where there is unnecessary headroom. Review how the chosen process alternatives affect capital profile, flexibility to handle volume and mix changes, and risk concentration (single points of failure).</p>
+          </div>
+
+          <div class="pb-outputs">
+            <p class="pb-outputs-label">Package for Production 3P</p>
+            <ul>
+              <li>Current and future-state value stream maps for external and internal flows</li>
+              <li>Critical process steps with selected or shortlisted alternatives</li>
+              <li>Completed or partial 7 Alternatives matrices</li>
+              <li>Knowledge gap log with owners, due dates, and next learning steps</li>
+              <li>Draft production plan: process sequence, flow concept, capacity assumptions, and main capital directions</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="pb-section" id="connections">
+          <p class="pb-section-eyebrow">Section 15.6</p>
+          <h2 class="pb-section-title">How Process 3P Connects to Design and Production 3P</h2>
+          <div class="pb-prose">
+            <p>Process 3P sits between Design 3P and Production 3P and depends on both.</p>
+          </div>
+          <ul class="pb-list">
+            <li><strong>From Design 3P:</strong> The CTQ/CTC priorities and design changes focus value stream mapping and 7 Alternatives on the steps that matter most. Design simplifications often open up better process options or remove previously assumed constraints.</li>
+            <li><strong>Into Production 3P:</strong> The draft production plan, selected process alternatives, and knowledge gaps become inputs to layout design, PFEP, water spider routes, standard work, and pilot builds. Clarity about flow and capacity reduces trial-and-error during start-up and avoids last-minute capital surprises.</li>
+          </ul>
+
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;Seeing these links makes it easier to treat 3P as a continuous industrialization flow rather than three disconnected workshops.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <section class="pb-section" id="traps">
+          <p class="pb-section-eyebrow">Section 15.7</p>
+          <h2 class="pb-section-title">Common Traps in Process 3P</h2>
+          <div class="pb-traps">
+            <div class="pb-trap">
+              <span class="pb-trap-icon">⚠</span>
+              <div class="pb-trap-body"><strong>Optimising only the internal flow.</strong> Ignoring supplier lead times, reliability, and constraints leads to future-state designs that look good on paper but cannot be supported in practice.</div>
+            </div>
+            <div class="pb-trap">
+              <span class="pb-trap-icon">⚠</span>
+              <div class="pb-trap-body"><strong>Jumping to machines instead of process concepts.</strong> Choosing specific equipment before exploring different process options locks in cost and rigidity too early.</div>
+            </div>
+            <div class="pb-trap">
+              <span class="pb-trap-icon">⚠</span>
+              <div class="pb-trap-body"><strong>Trying to get perfect numbers too soon.</strong> Getting stuck in detailed cost or cycle-time estimation during the event prevents the team from using 7 Alternatives to get directional learning quickly.</div>
+            </div>
+            <div class="pb-trap">
+              <span class="pb-trap-icon">⚠</span>
+              <div class="pb-trap-body"><strong>Not making knowledge gaps explicit.</strong> When uncertainty stays invisible, promising alternatives are quietly discarded because they &ldquo;feel risky,&rdquo; and decisions revert to habit.</div>
+            </div>
+            <div class="pb-trap">
+              <span class="pb-trap-icon">⚠</span>
+              <div class="pb-trap-body"><strong>Leaving the production plan vague.</strong> If flow concept, capacity assumptions, and capital directions are not written down clearly, Production 3P has to rediscover or reinterpret key decisions.</div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+  <script>
+    const navLinks = document.querySelectorAll('.pb-nav a');
+    const sections = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>
