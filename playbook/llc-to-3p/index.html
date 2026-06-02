@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>From Learning Cycles to Lean 3P — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+    .pb-chapter-header { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--lp-color-border-subtle); margin-bottom: 2.5rem; }
+    .pb-chapter-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-3xl); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; color: var(--lp-color-text-main); margin: 0 0 1rem; }
+    .pb-chapter-lead { font-size: var(--lp-font-size-lg); color: var(--lp-color-text-muted); line-height: 1.7; max-width: 66ch; margin: 0; }
+    .pb-chapter-img { margin: 0 0 2.5rem; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-img img { width: 100%; height: auto; display: block; max-height: 340px; object-fit: cover; object-position: center top; }
+    .pb-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+    .pb-sidebar { position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto; }
+    .pb-sidebar-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-nav { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav > li > a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav > li > a:hover, .pb-nav > li > a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav > li > a.active { border-left-color: var(--lp-color-primary); }
+    .pb-chapter-nav { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-nav-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.6rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-nav a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.3rem 0.75rem; border-radius: var(--lp-radius-sm); line-height: 1.4; transition: color 0.15s, background 0.15s; }
+    .pb-chapter-nav a:hover { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-chapter-nav a.current { font-weight: 600; color: var(--lp-color-text-main); }
+    .pb-section { scroll-margin-top: 5rem; margin-bottom: 4rem; }
+    .pb-section + .pb-section { padding-top: 2.5rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-section-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.5rem; font-family: var(--lp-font-sans); }
+    .pb-section-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-2xl); font-weight: 400; letter-spacing: -0.02em; color: var(--lp-color-text-main); margin: 0 0 1.25rem; line-height: 1.15; }
+    .pb-prose { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.75; max-width: 68ch; }
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+    .pb-section-img { margin: 1.75rem 0; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); background: var(--lp-color-surface); }
+    .pb-section-img img { width: 100%; height: auto; display: block; }
+    .pb-pullquote { margin: 2rem 0; padding: 1.25rem 1.5rem; border-left: 3px solid var(--lp-color-primary); background: var(--lp-color-surface); border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0; }
+    .pb-pullquote p { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); line-height: 1.5; color: var(--lp-color-text-main); margin: 0; }
+    .pb-list { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.5rem; max-width: 68ch; }
+    .pb-list li { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .pb-list li::before { content: "→"; position: absolute; left: 0; color: var(--lp-color-primary); font-size: 0.85em; top: 0.15em; }
+    .pb-handoff { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; max-width: 68ch; }
+    .pb-handoff-card { padding: 1rem 1.25rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); }
+    .pb-handoff-card-label { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--lp-color-primary); font-family: var(--lp-font-sans); margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.08em; }
+    .pb-handoff-card-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-md); color: var(--lp-color-text-main); margin: 0 0 0.4rem; }
+    .pb-handoff-card-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0; }
+    @media (max-width: 860px) {
+      .pb-layout { grid-template-columns: 1fr; gap: 0; }
+      .pb-sidebar { position: static; max-height: none; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--lp-color-border-subtle); }
+      .pb-nav { flex-direction: row; flex-wrap: wrap; gap: 0.25rem; }
+      .pb-nav > li > a { border-left: none; border-bottom: 2px solid transparent; padding: 0.3rem 0.6rem; }
+      .pb-nav > li > a.active { border-left-color: transparent; border-bottom-color: var(--lp-color-primary); }
+      .pb-chapter-nav { display: none; }
+      .pb-handoff { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) { .pb-chapter-title { font-size: 2rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)"><rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect><rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect><rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect></g>
+          <g transform="translate(150 46)"><text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text><text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text><text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text></g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Lean Learning Cycles Playbook &mdash; Chapter 24</p>
+      <h1 class="pb-chapter-title">From Learning Cycles to Lean 3P</h1>
+      <p class="pb-chapter-lead">
+        Lean Learning Cycles and Lean 3P are two sides of the same coin. Together, they form one
+        continuous story: from fuzzy ideas, through disciplined learning, into well-prepared production.
+      </p>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="../llc-img/chapter-24.png" alt="From Learning Cycles to Lean 3P">
+    </div>
+
+    <div class="pb-layout">
+
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#information-phase">Early Learning &amp; 3P Information Phase</a></li>
+          <li><a href="#innovation-phase">Innovation as Learning Cycles</a></li>
+          <li><a href="#handover">The Hand-Over</a></li>
+        </ul>
+
+        <div class="pb-chapter-nav">
+          <p class="pb-chapter-nav-label">Section 3 &mdash; Lean Learning Cycles</p>
+          <a href="/playbook/llc-why/">18. Why Lean Learning Cycles</a>
+          <a href="/playbook/llc-what/">19. What Is a Learning Cycle?</a>
+          <a href="/playbook/llc-blocks/">20. The Seven Building Blocks</a>
+          <a href="/playbook/llc-first/">21. Your First Learning Cycle</a>
+          <a href="/playbook/llc-roles/">22. Roles of Coaches and Teams</a>
+          <a href="/playbook/llc-knowledge/">23. K Briefs and Visual Knowledge</a>
+          <a href="/playbook/llc-to-3p/" class="current">24. From Learning Cycles to Lean 3P</a>
+          <a href="/playbook/" style="margin-top:0.75rem;border-top:1px solid var(--lp-color-border-subtle);padding-top:0.75rem;">&larr; All chapters</a>
+        </div>
+      </aside>
+
+      <main>
+
+        <section class="pb-section" id="information-phase">
+          <p class="pb-section-eyebrow">Section 24.1</p>
+          <h2 class="pb-section-title">Early Learning and the 3P Information Phase</h2>
+          <div class="pb-prose">
+            <p>The Information phase of Lean 3P is about understanding volume, takt, constraints, past performance, and rough manufacturing concepts before you redesign or build anything. If you already use Lean Learning Cycles, much of this information is not new work &mdash; it is the natural output of your early knowledge creation.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="../llc-img/3p-information-phase.png" alt="Early learning feeding the 3P Information phase">
+          </div>
+
+          <ul class="pb-list">
+            <li>Pretotypes and product attributes make customer intent and system structure visible, directly feeding into early manufacturing plans and CTQ/CTC thinking.</li>
+            <li>Knowledge gaps and K Briefs from early cycles reveal where processes are likely to be risky or costly, guiding which areas deserve more attention in 3P.</li>
+            <li>Visual knowledge like trade-off curves and limit curves show where physics or process limits sit, informing realistic takt, capacity, and equipment choices.</li>
+          </ul>
+
+          <div class="pb-prose">
+            <p>In other words, the Information phase of 3P can be seen as harvesting and structuring the knowledge you built during Lean Learning Cycles, then extending it with manufacturing-specific data.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="innovation-phase">
+          <p class="pb-section-eyebrow">Section 24.2</p>
+          <h2 class="pb-section-title">Innovation Phase as Focused Learning Cycles</h2>
+          <div class="pb-prose">
+            <p>The Innovation phase of 3P is where cross-functional teams generate and explore multiple alternatives for product and process &mdash; using tools like Quick-Look Value Engineering and the 7 Alternatives method. This is deeply aligned with the set-based, experiment-driven spirit of Lean Learning Cycles.</p>
+          </div>
+
+          <ul class="pb-list">
+            <li>The priority matrix and key decisions/knowledge gaps from Learning Cycles point to which functions, subsystems, or process steps deserve the most creative energy in Innovation.</li>
+            <li>Innovation activities &mdash; like generating multiple process alternatives or simulating new layouts &mdash; can be structured as short learning cycles in their own right, with hypotheses, experiments, and K Briefs.</li>
+            <li>3P outputs (e.g., shortlisted process alternatives, early layout concepts, CTQ/CTC priorities) become new knowledge artefacts that feed back into your broader knowledge library.</li>
+          </ul>
+
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;Seen this way, Innovation is not a separate world; it is a concentrated burst of learning cycles focused on product&ndash;process combinations.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <section class="pb-section" id="handover">
+          <p class="pb-section-eyebrow">Section 24.3</p>
+          <h2 class="pb-section-title">Handing Over from Learning Cycles to 3P</h2>
+          <div class="pb-prose">
+            <p>The hand-over is not a rigid gate; it is a shift in emphasis from early product and system knowledge to designing and proving the operational value stream for the chosen concept.</p>
+          </div>
+
+          <div class="pb-handoff">
+            <div class="pb-handoff-card">
+              <p class="pb-handoff-card-label">Lean Learning Cycles</p>
+              <p class="pb-handoff-card-title">Focus: early product and system knowledge</p>
+              <p class="pb-handoff-card-body">Main artefacts: pretotypes, attributes, PBS, priority matrices, key decisions/gaps, K Briefs, trade-off and limit curves.</p>
+            </div>
+            <div class="pb-handoff-card">
+              <p class="pb-handoff-card-label">Lean 3P</p>
+              <p class="pb-handoff-card-title">Focus: designing and proving the operational value stream</p>
+              <p class="pb-handoff-card-body">Main artefacts: CTQ/CTC lists, value stream maps, 7 Alternatives matrices, layouts, PFEP, standard work, readiness checklists.</p>
+            </div>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="../llc-img/handing-over-to-3p.png" alt="Handing over from Learning Cycles to Lean 3P">
+          </div>
+
+          <div class="pb-prose">
+            <p>When early Learning Cycles have narrowed concepts and clarified key limits and trade-offs, you are ready to invest more energy in process and layout design. The Information phase of 3P uses early knowledge to set realistic boundaries. The Innovation phase runs its own focused learning cycles, now centred on process alternatives and product&ndash;process combinations.</p>
+            <p>For coaches and teams, this integrated view means you can frame 3P not as a separate method, but as the natural continuation of the learning journey that began with Lean Learning Cycles. The same habits &mdash; clear knowledge gaps, hypotheses, experiments, K Briefs, visual knowledge &mdash; work inside 3P events, making everything feel familiar rather than &ldquo;another framework&rdquo;.</p>
+          </div>
+
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;When Learning Cycles and 3P are used together, development feels less like a series of disconnected tools and more like one coherent system: learn early, decide wisely, industrialize robustly.&rdquo;</p>
+          </blockquote>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+  <script>
+    const navLinks = document.querySelectorAll('.pb-nav a');
+    const sections = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>

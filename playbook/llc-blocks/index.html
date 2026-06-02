@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Seven Building Blocks in Practice — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+    .pb-chapter-header { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--lp-color-border-subtle); margin-bottom: 2.5rem; }
+    .pb-chapter-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-3xl); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; color: var(--lp-color-text-main); margin: 0 0 1rem; }
+    .pb-chapter-lead { font-size: var(--lp-font-size-lg); color: var(--lp-color-text-muted); line-height: 1.7; max-width: 66ch; margin: 0; }
+    .pb-chapter-img { margin: 0 0 2.5rem; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-img img { width: 100%; height: auto; display: block; max-height: 340px; object-fit: cover; object-position: center top; }
+    .pb-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+    .pb-sidebar { position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto; }
+    .pb-sidebar-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-nav { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav > li > a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav > li > a:hover, .pb-nav > li > a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav > li > a.active { border-left-color: var(--lp-color-primary); }
+    .pb-chapter-nav { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-nav-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.6rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-nav a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.3rem 0.75rem; border-radius: var(--lp-radius-sm); line-height: 1.4; transition: color 0.15s, background 0.15s; }
+    .pb-chapter-nav a:hover { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-chapter-nav a.current { font-weight: 600; color: var(--lp-color-text-main); }
+    .pb-section { scroll-margin-top: 5rem; margin-bottom: 4rem; }
+    .pb-section + .pb-section { padding-top: 2.5rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-subsection { scroll-margin-top: 5rem; margin-top: 2.5rem; }
+    .pb-section-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.5rem; font-family: var(--lp-font-sans); }
+    .pb-section-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-2xl); font-weight: 400; letter-spacing: -0.02em; color: var(--lp-color-text-main); margin: 0 0 1.25rem; line-height: 1.15; }
+    .pb-subsection-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-xl); font-weight: 400; color: var(--lp-color-text-main); margin: 0 0 0.75rem; line-height: 1.2; }
+    .pb-prose { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.75; max-width: 68ch; }
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+    .pb-section-img { margin: 1.75rem 0; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); background: var(--lp-color-surface); }
+    .pb-section-img img { width: 100%; height: auto; display: block; }
+    .pb-pullquote { margin: 2rem 0; padding: 1.25rem 1.5rem; border-left: 3px solid var(--lp-color-primary); background: var(--lp-color-surface); border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0; }
+    .pb-pullquote p { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); line-height: 1.5; color: var(--lp-color-text-main); margin: 0; }
+    .pb-list { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.5rem; max-width: 68ch; }
+    .pb-list li { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .pb-list li::before { content: "→"; position: absolute; left: 0; color: var(--lp-color-primary); font-size: 0.85em; top: 0.15em; }
+    @media (max-width: 860px) {
+      .pb-layout { grid-template-columns: 1fr; gap: 0; }
+      .pb-sidebar { position: static; max-height: none; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--lp-color-border-subtle); }
+      .pb-nav { flex-direction: row; flex-wrap: wrap; gap: 0.25rem; }
+      .pb-nav > li > a { border-left: none; border-bottom: 2px solid transparent; padding: 0.3rem 0.6rem; }
+      .pb-nav > li > a.active { border-left-color: transparent; border-bottom-color: var(--lp-color-primary); }
+      .pb-chapter-nav { display: none; }
+    }
+    @media (max-width: 640px) { .pb-chapter-title { font-size: 2rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)"><rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect><rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect><rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect></g>
+          <g transform="translate(150 46)"><text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text><text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text><text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text></g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Lean Learning Cycles Playbook &mdash; Chapter 20</p>
+      <h1 class="pb-chapter-title">The Seven Building Blocks in Practice</h1>
+      <p class="pb-chapter-lead">
+        The seven building blocks of Lean Learning Cycles are simple on purpose. Start with lightweight
+        versions of each and grow them as your team gains confidence, rather than waiting until
+        everything is perfect.
+      </p>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="../llc-img/chapter-20.png" alt="The Seven Building Blocks in Practice">
+    </div>
+
+    <div class="pb-layout">
+
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#pretotype">Pretotype &amp; Attributes</a></li>
+          <li><a href="#priority-matrix">Priority Matrix</a></li>
+          <li><a href="#key-decisions">Key Decisions &amp; Gaps</a></li>
+          <li><a href="#increment-plan">Increment Plan</a></li>
+          <li><a href="#iteration-plan">Iteration Plan</a></li>
+          <li><a href="#execution">Cycle Execution</a></li>
+          <li><a href="#visual-knowledge">Visual Knowledge &amp; Events</a></li>
+        </ul>
+
+        <div class="pb-chapter-nav">
+          <p class="pb-chapter-nav-label">Section 3 &mdash; Lean Learning Cycles</p>
+          <a href="/playbook/llc-why/">18. Why Lean Learning Cycles</a>
+          <a href="/playbook/llc-what/">19. What Is a Learning Cycle?</a>
+          <a href="/playbook/llc-blocks/" class="current">20. The Seven Building Blocks</a>
+          <a href="/playbook/llc-first/">21. Your First Learning Cycle</a>
+          <a href="/playbook/llc-roles/">22. Roles of Coaches and Teams</a>
+          <a href="/playbook/llc-knowledge/">23. K Briefs and Visual Knowledge</a>
+          <a href="/playbook/llc-to-3p/">24. From Learning Cycles to Lean 3P</a>
+          <a href="/playbook/" style="margin-top:0.75rem;border-top:1px solid var(--lp-color-border-subtle);padding-top:0.75rem;">&larr; All chapters</a>
+        </div>
+      </aside>
+
+      <main>
+
+        <section class="pb-section" id="pretotype">
+          <p class="pb-section-eyebrow">Block 1</p>
+          <h2 class="pb-section-title">Pretotype and Product Attributes</h2>
+          <div class="pb-prose">
+            <p>A pretotype is a one- or two-page &ldquo;fake brochure&rdquo; that describes your product as if it already exists and customers can order it tomorrow. It focuses on customer outcomes &mdash; what changes in their world &mdash; rather than internal features or technology, and becomes the north star for later learning and experiments.</p>
+          </div>
+          <ul class="pb-list">
+            <li>Simple headlines, benefits, and a sketch or photo-like mock-up.</li>
+            <li>A few imagined quotes from users, written in their voice.</li>
+            <li>Technical jargon avoided wherever possible.</li>
+          </ul>
+          <div class="pb-prose">
+            <p>Product attributes and a simple Product Breakdown Structure (PBS) translate that pretotype into a technical view: buckets of functionality, performance ranges, constraints, standards, and key interfaces. Together, these give you a shared picture of what customers expect on the outside and how the system might be structured on the inside &mdash; without locking into detailed specifications too early.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="priority-matrix">
+          <p class="pb-section-eyebrow">Block 2</p>
+          <h2 class="pb-section-title">Priority Matrix</h2>
+          <div class="pb-prose">
+            <p>The priority matrix connects customer benefits from the pretotype to product attributes and PBS elements. Rows are benefits, columns are attributes; cells show where an attribute significantly contributes to a benefit.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="../llc-img/priority-matrix.png" alt="Priority Matrix">
+          </div>
+
+          <div class="pb-prose">
+            <p>For coaches and teams, this simple grid answers questions like: which attributes really matter for our most important customer outcomes? Where is there room for innovation? Which subsystems will likely drive risk or late changes if we ignore them?</p>
+            <p>The priority matrix helps you avoid spreading early learning effort too thin. Instead of trying to learn everything at once, you focus on attributes that strongly influence top benefits &mdash; the places where a wrong choice will hurt the most.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="key-decisions">
+          <p class="pb-section-eyebrow">Block 3</p>
+          <h2 class="pb-section-title">Key Decisions and Knowledge Gaps</h2>
+          <div class="pb-prose">
+            <p>In the overlap between important benefits and critical attributes, you find your key decisions &mdash; choices that will lock in cost, quality, and customer experience. These are high-impact, high-unknown decisions: costly to change later, and not yet supported by solid knowledge.</p>
+            <p>For each key decision, the team asks:</p>
+          </div>
+          <ul class="pb-list">
+            <li>What is keeping us from deciding today?</li>
+            <li>What is new, uncertain, or irreversibly expensive about this choice?</li>
+            <li>Where are we pushing boundaries in technology, customer value, or operations?</li>
+          </ul>
+          <div class="pb-prose">
+            <p>The answers become knowledge gaps &mdash; specific questions that need answers, such as: &ldquo;Can we achieve this stiffness in this envelope without exceeding cost and weight targets?&rdquo; These gaps are the basic &ldquo;tickets&rdquo; in your learning system: what you plan, execute, and close inside Lean Learning Cycles.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="increment-plan">
+          <p class="pb-section-eyebrow">Block 4</p>
+          <h2 class="pb-section-title">Increment Plan</h2>
+          <div class="pb-prose">
+            <p>An increment plan stretches over roughly 8&ndash;12 weeks of early development and acts as your learning roadmap. It sequences key decisions and knowledge gaps in a way that respects dependencies and risk, without pretending to be a detailed schedule.</p>
+          </div>
+          <ul class="pb-list">
+            <li>A simple timeline with 4&ndash;6 learning cycles.</li>
+            <li>Key decisions placed roughly where you hope to enable them.</li>
+            <li>Knowledge gaps mapped to cycles, showing when you intend to address them.</li>
+            <li>A short list of major risks and how they link to gaps and decisions.</li>
+          </ul>
+          <div class="pb-prose">
+            <p>The increment plan is meant to change. After each integration event, you update it based on what you learned. For coaches, this plan is a powerful visual tool: it shows leaders that the team is not just &ldquo;doing sprints&rdquo; but deliberately buying down risk and enabling specific decisions.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="iteration-plan">
+          <p class="pb-section-eyebrow">Block 5</p>
+          <h2 class="pb-section-title">Iteration Plan</h2>
+          <div class="pb-prose">
+            <p>The iteration plan shrinks the roadmap down to a single cycle, often two weeks long. It answers, in plain language: &ldquo;What are we trying to learn in the next two weeks, and how will we do it?&rdquo;</p>
+            <p>It typically includes 2&ndash;4 knowledge gaps chosen from the increment plan, each with a clear problem statement and hypothesis, one or more experiments with defined success criteria, and tasks, owners, and rough effort &mdash; all sized to fit the timebox.</p>
+            <p>The planning event is short and focused, often 1&ndash;2 hours with the cross-functional team: start from the increment plan, choose a small subset of gaps that move key decisions forward, and design experiments that are fast and cheap enough to run in the cycle.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="execution">
+          <p class="pb-section-eyebrow">Block 6</p>
+          <h2 class="pb-section-title">Learning Cycle Execution</h2>
+          <div class="pb-prose">
+            <p>Execution is where experiments happen &mdash; but in Lean Learning Cycles, execution is as much about discipline as it is about activity.</p>
+          </div>
+          <ul class="pb-list">
+            <li>Daily or regular short check-ins where the team reviews what was done, what will be done, and what was learned.</li>
+            <li>Focus on limits: not just &ldquo;does it work?&rdquo; but &ldquo;where does it break?&rdquo;, &ldquo;what range is feasible?&rdquo;, &ldquo;how sensitive is it?&rdquo;</li>
+            <li>Simple visualization of work in progress: boards showing which experiments are planned, running, or being analysed, and which K Briefs are in draft.</li>
+          </ul>
+
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;The heartbeat is learning, not task completion for its own sake.&rdquo;</p>
+          </blockquote>
+
+          <div class="pb-prose">
+            <p>The coach&rsquo;s role here is to protect the timebox, help the team frame surprises as learning rather than failure, and encourage completion of K Brief drafts during the cycle, not as an afterthought.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="visual-knowledge">
+          <p class="pb-section-eyebrow">Block 7</p>
+          <h2 class="pb-section-title">Visual Knowledge and Integration Events</h2>
+          <div class="pb-prose">
+            <p>Each cycle ends with an integration event &mdash; a time-boxed review where the team and key stakeholders step back from individual tasks to see the whole picture. The focus is not status, but knowledge and decisions.</p>
+            <p>The team discusses what they actually learned, which knowledge gaps are now closed or still open, whether they have learned enough to make any of the key decisions in scope, and what this means for the funnel.</p>
+          </div>
+          <ul class="pb-list">
+            <li><strong>Inputs:</strong> Knowledge Briefs (one-page A3s), trade-off curves, limit curves, causal diagrams, and updated PBS or risk lists.</li>
+            <li><strong>Outputs:</strong> Decisions made, options eliminated, updated increment plan, refined visual knowledge.</li>
+          </ul>
+          <div class="pb-prose" style="margin-top:0.75rem;">
+            <p>Over time, these K Briefs and visuals form a reusable knowledge base &mdash; a living library of trade-offs, limits, and insights that make each new project start stronger than the last.</p>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+  <script>
+    const navLinks = document.querySelectorAll('.pb-nav a');
+    const sections = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>

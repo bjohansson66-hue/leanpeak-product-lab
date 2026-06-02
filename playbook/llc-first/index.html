@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your First Lean Learning Cycle — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+    .pb-chapter-header { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--lp-color-border-subtle); margin-bottom: 2.5rem; }
+    .pb-chapter-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-3xl); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; color: var(--lp-color-text-main); margin: 0 0 1rem; }
+    .pb-chapter-lead { font-size: var(--lp-font-size-lg); color: var(--lp-color-text-muted); line-height: 1.7; max-width: 66ch; margin: 0; }
+    .pb-chapter-img { margin: 0 0 2.5rem; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-img img { width: 100%; height: auto; display: block; max-height: 340px; object-fit: cover; object-position: center top; }
+    .pb-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+    .pb-sidebar { position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto; }
+    .pb-sidebar-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-nav { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav > li > a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav > li > a:hover, .pb-nav > li > a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav > li > a.active { border-left-color: var(--lp-color-primary); }
+    .pb-chapter-nav { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-nav-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.6rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-nav a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.3rem 0.75rem; border-radius: var(--lp-radius-sm); line-height: 1.4; transition: color 0.15s, background 0.15s; }
+    .pb-chapter-nav a:hover { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-chapter-nav a.current { font-weight: 600; color: var(--lp-color-text-main); }
+    .pb-section { scroll-margin-top: 5rem; margin-bottom: 4rem; }
+    .pb-section + .pb-section { padding-top: 2.5rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-section-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.5rem; font-family: var(--lp-font-sans); }
+    .pb-section-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-2xl); font-weight: 400; letter-spacing: -0.02em; color: var(--lp-color-text-main); margin: 0 0 1.25rem; line-height: 1.15; }
+    .pb-prose { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.75; max-width: 68ch; }
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+    .pb-section-img { margin: 1.75rem 0; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); background: var(--lp-color-surface); }
+    .pb-section-img img { width: 100%; height: auto; display: block; }
+    .pb-pullquote { margin: 2rem 0; padding: 1.25rem 1.5rem; border-left: 3px solid var(--lp-color-primary); background: var(--lp-color-surface); border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0; }
+    .pb-pullquote p { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); line-height: 1.5; color: var(--lp-color-text-main); margin: 0; }
+    .pb-list { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.5rem; max-width: 68ch; }
+    .pb-list li { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .pb-list li::before { content: "→"; position: absolute; left: 0; color: var(--lp-color-primary); font-size: 0.85em; top: 0.15em; }
+    .pb-steps { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-step { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.875rem; align-items: start; }
+    .pb-step-num { width: 2rem; height: 2rem; border-radius: var(--lp-radius-md); background: var(--lp-color-primary-soft); color: var(--lp-color-primary); font-size: var(--lp-font-size-xs); font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: var(--lp-font-sans); }
+    .pb-step-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; padding-top: 0.2rem; }
+    @media (max-width: 860px) {
+      .pb-layout { grid-template-columns: 1fr; gap: 0; }
+      .pb-sidebar { position: static; max-height: none; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--lp-color-border-subtle); }
+      .pb-nav { flex-direction: row; flex-wrap: wrap; gap: 0.25rem; }
+      .pb-nav > li > a { border-left: none; border-bottom: 2px solid transparent; padding: 0.3rem 0.6rem; }
+      .pb-nav > li > a.active { border-left-color: transparent; border-bottom-color: var(--lp-color-primary); }
+      .pb-chapter-nav { display: none; }
+    }
+    @media (max-width: 640px) { .pb-chapter-title { font-size: 2rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)"><rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect><rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect><rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect></g>
+          <g transform="translate(150 46)"><text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text><text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text><text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text></g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Lean Learning Cycles Playbook &mdash; Chapter 21</p>
+      <h1 class="pb-chapter-title">Your First Lean Learning Cycle</h1>
+      <p class="pb-chapter-lead">
+        You do not need a perfect pilot project to start. Weave one 2-week cycle into an ongoing effort,
+        close a handful of important knowledge gaps, and prove to yourselves that focused learning
+        generates safer decisions than the usual mix of ad hoc tests and meetings.
+      </p>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="../llc-img/chapter-21.png" alt="Your First Lean Learning Cycle">
+    </div>
+
+    <div class="pb-layout">
+
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#pick-decision">Pick a Decision</a></li>
+          <li><a href="#step1">Step 1: Frame the Cycle</a></li>
+          <li><a href="#step2">Step 2: Design Experiments</a></li>
+          <li><a href="#step3">Step 3: Run the Cycle</a></li>
+          <li><a href="#step4">Step 4: Integration Event</a></li>
+          <li><a href="#step5">Step 5: Decide What&rsquo;s Next</a></li>
+        </ul>
+
+        <div class="pb-chapter-nav">
+          <p class="pb-chapter-nav-label">Section 3 &mdash; Lean Learning Cycles</p>
+          <a href="/playbook/llc-why/">18. Why Lean Learning Cycles</a>
+          <a href="/playbook/llc-what/">19. What Is a Learning Cycle?</a>
+          <a href="/playbook/llc-blocks/">20. The Seven Building Blocks</a>
+          <a href="/playbook/llc-first/" class="current">21. Your First Learning Cycle</a>
+          <a href="/playbook/llc-roles/">22. Roles of Coaches and Teams</a>
+          <a href="/playbook/llc-knowledge/">23. K Briefs and Visual Knowledge</a>
+          <a href="/playbook/llc-to-3p/">24. From Learning Cycles to Lean 3P</a>
+          <a href="/playbook/" style="margin-top:0.75rem;border-top:1px solid var(--lp-color-border-subtle);padding-top:0.75rem;">&larr; All chapters</a>
+        </div>
+      </aside>
+
+      <main>
+
+        <section class="pb-section" id="pick-decision">
+          <p class="pb-section-eyebrow">Before You Start</p>
+          <h2 class="pb-section-title">Pick a Decision, Not a Project</h2>
+          <div class="pb-prose">
+            <p>Most coaches and teams already have one product or module in mind where uncertainty feels high &mdash; a tricky interface, a new technology, or a demanding customer requirement. Instead of trying to design the whole project around Lean Learning Cycles, begin by choosing one concrete decision this module will help.</p>
+            <p>Ask three simple questions:</p>
+          </div>
+          <ul class="pb-list">
+            <li>Which decision do we wish we were more confident about?</li>
+            <li>What is keeping us from deciding today (the knowledge gaps)?</li>
+            <li>What is the latest point in time where this decision must be made to avoid delay?</li>
+          </ul>
+          <div class="pb-prose">
+            <p>Your first cycle will aim to close 1&ndash;3 of those knowledge gaps, not to solve everything.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="../llc-img/first-learning-cycle.png" alt="First Learning Cycle overview">
+          </div>
+        </section>
+
+        <section class="pb-section" id="step1">
+          <p class="pb-section-eyebrow">Step 1</p>
+          <h2 class="pb-section-title">Frame the Cycle in One Page</h2>
+          <div class="pb-prose">
+            <p>Before you dive into tasks, take an hour with the team to frame the cycle on a single page. Include:</p>
+          </div>
+          <div class="pb-steps">
+            <div class="pb-step">
+              <div class="pb-step-num">1a</div>
+              <div class="pb-step-body"><strong>Cycle goal</strong> &mdash; one sentence about which decision(s) you want to enable and which knowledge gaps you intend to address now.</div>
+            </div>
+            <div class="pb-step">
+              <div class="pb-step-num">1b</div>
+              <div class="pb-step-body"><strong>Context sketch</strong> &mdash; a tiny pretotype excerpt or diagram showing what part of the product you&rsquo;re focusing on, so everyone sees the same picture.</div>
+            </div>
+            <div class="pb-step">
+              <div class="pb-step-num">1c</div>
+              <div class="pb-step-body"><strong>Selected knowledge gaps</strong> &mdash; 2&ndash;4 specific questions you commit to working on in this cycle, written in plain language.</div>
+            </div>
+            <div class="pb-step">
+              <div class="pb-step-num">1d</div>
+              <div class="pb-step-body"><strong>Hypotheses</strong> &mdash; for each gap, a short statement of what you expect to learn or what you believe might be true.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="pb-section" id="step2">
+          <p class="pb-section-eyebrow">Step 2</p>
+          <h2 class="pb-section-title">Design Small Experiments</h2>
+          <div class="pb-prose">
+            <p>Translate those knowledge gaps and hypotheses into experiments that fit the timebox. For each selected gap:</p>
+          </div>
+          <div class="pb-steps">
+            <div class="pb-step">
+              <div class="pb-step-num">2a</div>
+              <div class="pb-step-body"><strong>Define a fast, cheap experiment</strong> &mdash; a bench test, a quick rig, a simulation, a serviceability trial with a mock-up, or a customer conversation based on a pretotype.</div>
+            </div>
+            <div class="pb-step">
+              <div class="pb-step-num">2b</div>
+              <div class="pb-step-body"><strong>Clarify success criteria</strong> &mdash; how will you know if the hypothesis is supported, refuted, or needs refinement? Consider limits, thresholds, qualitative observations, or customer reactions.</div>
+            </div>
+            <div class="pb-step">
+              <div class="pb-step-num">2c</div>
+              <div class="pb-step-body"><strong>Break work into tasks with owners</strong> &mdash; keep tasks small enough that you can see progress in days, not weeks, and make sure each experiment has someone clearly responsible.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="pb-section" id="step3">
+          <p class="pb-section-eyebrow">Step 3</p>
+          <h2 class="pb-section-title">Run the Cycle with a Daily Learning Focus</h2>
+          <div class="pb-prose">
+            <p>During the cycle, the difference is not just what you do, but how you talk about it. Introduce a short daily or every-other-day check-in of 10&ndash;15 minutes:</p>
+          </div>
+          <ul class="pb-list">
+            <li>Each owner shares what was done and, more importantly, what was learned.</li>
+            <li>Emerging surprises or issues are noted as potential new gaps or refinements.</li>
+            <li>The team adjusts tasks if needed, but stays within the timebox.</li>
+          </ul>
+          <div class="pb-prose">
+            <p>Use a simple board &mdash; physical or digital &mdash; to show knowledge gaps selected for this cycle, experiments in states (Planned, Running, Analysing, Documented), and K Brief drafts being prepared.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="step4">
+          <p class="pb-section-eyebrow">Step 4</p>
+          <h2 class="pb-section-title">Hold a First Integration Event</h2>
+          <div class="pb-prose">
+            <p>At the end of the 2-week cycle, hold a short but focused integration event &mdash; even if not everything went to plan.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="../llc-img/integration-event.png" alt="Integration event">
+          </div>
+
+          <div class="pb-prose">
+            <p>Prepare one K Brief draft per significant experiment (problem, hypothesis, method, results, implications) and one or two visual artefacts where possible.</p>
+            <p>In the event, discuss:</p>
+          </div>
+          <ul class="pb-list">
+            <li>What did we actually learn compared to what we expected?</li>
+            <li>Which knowledge gaps are now fully or partially closed?</li>
+            <li>Does this change our view of the key decision &mdash; can we narrow or eliminate options?</li>
+            <li>What surprises or new questions have appeared?</li>
+          </ul>
+          <div class="pb-prose">
+            <p>Capture outcomes visibly: mark gaps as closed, partially closed, or still open; note any decisions made or options removed; write down 1&ndash;2 improvements for the next cycle.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="step5">
+          <p class="pb-section-eyebrow">Step 5</p>
+          <h2 class="pb-section-title">Decide Whether and How to Continue</h2>
+          <div class="pb-prose">
+            <p>The final act of the first cycle is to decide what happens next. As a team and with key stakeholders:</p>
+          </div>
+          <ul class="pb-list">
+            <li>Update your increment plan or simple roadmap based on what you learned.</li>
+            <li>Re-rank remaining knowledge gaps by impact and urgency.</li>
+            <li>Decide whether to run another Learning Cycle immediately, pause, or adjust scope.</li>
+          </ul>
+          <div class="pb-prose">
+            <p>For many teams, seeing one short cycle through &mdash; from framing to integration &mdash; is enough to create a pull for more. Leaders begin to see that knowledge and risk are becoming visible earlier; engineers start to see that experiments can be smaller, faster, and more focused than they thought.</p>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+  <script>
+    const navLinks = document.querySelectorAll('.pb-nav a');
+    const sections = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roles of Coaches and Teams in Learning Cycles — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+    .pb-chapter-header { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--lp-color-border-subtle); margin-bottom: 2.5rem; }
+    .pb-chapter-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-3xl); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; color: var(--lp-color-text-main); margin: 0 0 1rem; }
+    .pb-chapter-lead { font-size: var(--lp-font-size-lg); color: var(--lp-color-text-muted); line-height: 1.7; max-width: 66ch; margin: 0; }
+    .pb-chapter-img { margin: 0 0 2.5rem; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-img img { width: 100%; height: auto; display: block; max-height: 340px; object-fit: cover; object-position: center top; }
+    .pb-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+    .pb-sidebar { position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto; }
+    .pb-sidebar-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-nav { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav > li > a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav > li > a:hover, .pb-nav > li > a.active { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-nav > li > a.active { border-left-color: var(--lp-color-primary); }
+    .pb-chapter-nav { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-nav-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.6rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-nav a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.3rem 0.75rem; border-radius: var(--lp-radius-sm); line-height: 1.4; transition: color 0.15s, background 0.15s; }
+    .pb-chapter-nav a:hover { color: var(--lp-color-primary); background: var(--lp-color-primary-soft); }
+    .pb-chapter-nav a.current { font-weight: 600; color: var(--lp-color-text-main); }
+    .pb-section { scroll-margin-top: 5rem; margin-bottom: 4rem; }
+    .pb-section + .pb-section { padding-top: 2.5rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-section-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.5rem; font-family: var(--lp-font-sans); }
+    .pb-section-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-2xl); font-weight: 400; letter-spacing: -0.02em; color: var(--lp-color-text-main); margin: 0 0 1.25rem; line-height: 1.15; }
+    .pb-subsection-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-xl); font-weight: 400; color: var(--lp-color-text-main); margin: 2rem 0 0.75rem; line-height: 1.2; }
+    .pb-prose { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.75; max-width: 68ch; }
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+    .pb-section-img { margin: 1.75rem 0; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); background: var(--lp-color-surface); }
+    .pb-section-img img { width: 100%; height: auto; display: block; }
+    .pb-pullquote { margin: 2rem 0; padding: 1.25rem 1.5rem; border-left: 3px solid var(--lp-color-primary); background: var(--lp-color-surface); border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0; }
+    .pb-pullquote p { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); line-height: 1.5; color: var(--lp-color-text-main); margin: 0; }
+    .pb-list { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.5rem; max-width: 68ch; }
+    .pb-list li { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .pb-list li::before { content: "→"; position: absolute; left: 0; color: var(--lp-color-primary); font-size: 0.85em; top: 0.15em; }
+    @media (max-width: 860px) {
+      .pb-layout { grid-template-columns: 1fr; gap: 0; }
+      .pb-sidebar { position: static; max-height: none; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--lp-color-border-subtle); }
+      .pb-nav { flex-direction: row; flex-wrap: wrap; gap: 0.25rem; }
+      .pb-nav > li > a { border-left: none; border-bottom: 2px solid transparent; padding: 0.3rem 0.6rem; }
+      .pb-nav > li > a.active { border-left-color: transparent; border-bottom-color: var(--lp-color-primary); }
+      .pb-chapter-nav { display: none; }
+    }
+    @media (max-width: 640px) { .pb-chapter-title { font-size: 2rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)"><rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect><rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect><rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect></g>
+          <g transform="translate(150 46)"><text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text><text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text><text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text></g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Lean Learning Cycles Playbook &mdash; Chapter 22</p>
+      <h1 class="pb-chapter-title">Roles of Coaches and Teams in Learning Cycles</h1>
+      <p class="pb-chapter-lead">
+        The tools themselves are simple. The difference comes from how people behave around knowledge gaps,
+        experiments, and decisions &mdash; and from coaches and teams each playing their part clearly.
+      </p>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="../llc-img/chapter-22.png" alt="Roles of Coaches and Teams">
+    </div>
+
+    <div class="pb-layout">
+
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#coaches">What Coaches Do</a></li>
+          <li><a href="#teams">What Teams Do</a></li>
+          <li><a href="#together">Working Together</a></li>
+        </ul>
+
+        <div class="pb-chapter-nav">
+          <p class="pb-chapter-nav-label">Section 3 &mdash; Lean Learning Cycles</p>
+          <a href="/playbook/llc-why/">18. Why Lean Learning Cycles</a>
+          <a href="/playbook/llc-what/">19. What Is a Learning Cycle?</a>
+          <a href="/playbook/llc-blocks/">20. The Seven Building Blocks</a>
+          <a href="/playbook/llc-first/">21. Your First Learning Cycle</a>
+          <a href="/playbook/llc-roles/" class="current">22. Roles of Coaches and Teams</a>
+          <a href="/playbook/llc-knowledge/">23. K Briefs and Visual Knowledge</a>
+          <a href="/playbook/llc-to-3p/">24. From Learning Cycles to Lean 3P</a>
+          <a href="/playbook/" style="margin-top:0.75rem;border-top:1px solid var(--lp-color-border-subtle);padding-top:0.75rem;">&larr; All chapters</a>
+        </div>
+      </aside>
+
+      <main>
+
+        <section class="pb-section" id="coaches">
+          <p class="pb-section-eyebrow">Section 22.1</p>
+          <h2 class="pb-section-title">What Coaches Actually Do</h2>
+          <div class="pb-prose">
+            <p>In Lean Learning Cycles, coaches are not template police or project managers. Their main job is to create the conditions where teams can learn quickly and safely &mdash; and to help them think scientifically about their real work.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="../llc-img/coach.png" alt="The coach role in Lean Learning Cycles">
+          </div>
+
+          <h3 class="pb-subsection-title">Guard the cadence</h3>
+          <ul class="pb-list">
+            <li>Help the team establish and respect regular cycles and integration events.</li>
+            <li>Protect time for planning, experiments, and reviews against other pressures.</li>
+          </ul>
+
+          <h3 class="pb-subsection-title">Clarify questions and gaps</h3>
+          <ul class="pb-list">
+            <li>Challenge vague goals like &ldquo;reduce risk&rdquo; until they are expressed as concrete knowledge gaps and hypotheses.</li>
+            <li>Bring the conversation back to &ldquo;What decision are we trying to enable?&rdquo; and &ldquo;What do we need to know to decide?&rdquo;</li>
+          </ul>
+
+          <h3 class="pb-subsection-title">Support experiment design</h3>
+          <ul class="pb-list">
+            <li>Help the team design experiments that are small, fast, and focused.</li>
+            <li>Encourage use of the scientific method and LAMDA patterns without turning them into heavy rituals.</li>
+          </ul>
+
+          <h3 class="pb-subsection-title">Make learning visible</h3>
+          <ul class="pb-list">
+            <li>Promote the use of simple K Briefs and visual knowledge, and ensure integration events use them to drive decisions.</li>
+            <li>Help teams connect new learning to existing knowledge, so the knowledge base grows instead of scattering into slide decks.</li>
+          </ul>
+
+          <h3 class="pb-subsection-title">Coach behaviour, not just content</h3>
+          <ul class="pb-list">
+            <li>Model curiosity when surprises appear.</li>
+            <li>Ask open questions instead of giving quick answers.</li>
+            <li>Reinforce behaviours like surfacing problems early, testing assumptions, and reflecting after each cycle.</li>
+          </ul>
+
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;Coaches are there to keep the system honest: to make sure cycles are about knowledge and decisions, not about ticking boxes.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <section class="pb-section" id="teams">
+          <p class="pb-section-eyebrow">Section 22.2</p>
+          <h2 class="pb-section-title">What Teams Actually Do</h2>
+          <div class="pb-prose">
+            <p>Teams bring the technical and customer reality into Lean Learning Cycles. Their role is to turn real uncertainties into experiments and to translate results into decisions and design changes.</p>
+          </div>
+
+          <div class="pb-section-img">
+            <img src="../llc-img/team.png" alt="The team role in Lean Learning Cycles">
+          </div>
+
+          <h3 class="pb-subsection-title">Bring real problems and examples</h3>
+          <ul class="pb-list">
+            <li>Use current or recent projects as the basis for knowledge gaps.</li>
+            <li>Share where late surprises, quality issues, or customer complaints have hurt in the past.</li>
+          </ul>
+
+          <h3 class="pb-subsection-title">Frame knowledge gaps and hypotheses</h3>
+          <ul class="pb-list">
+            <li>Help define what is unknown or risky in clear, operational terms.</li>
+            <li>Propose testable hypotheses based on their understanding of physics, customer use, or process behaviour.</li>
+          </ul>
+
+          <h3 class="pb-subsection-title">Design and run experiments</h3>
+          <ul class="pb-list">
+            <li>Build rigs, prototypes, simulations, or trials that can be run safely within the cycle.</li>
+            <li>Collect data and observations &mdash; not just pass/fail results &mdash; with an emphasis on limits and trade-offs.</li>
+          </ul>
+
+          <h3 class="pb-subsection-title">Capture K Briefs and visual knowledge</h3>
+          <ul class="pb-list">
+            <li>Summarise key experiments on one-page K Briefs.</li>
+            <li>Translate results into simple curves, diagrams, or updates to PBS, priority matrices, or risk lists.</li>
+          </ul>
+
+          <h3 class="pb-subsection-title">Participate actively in integration events</h3>
+          <ul class="pb-list">
+            <li>Explain what was learned in their own words.</li>
+            <li>Engage in decisions about narrowing options or redefining questions.</li>
+            <li>Suggest improvements to the next cycle based on what did or didn&rsquo;t work.</li>
+          </ul>
+        </section>
+
+        <section class="pb-section" id="together">
+          <p class="pb-section-eyebrow">Section 22.3</p>
+          <h2 class="pb-section-title">Working Together: A Small Example</h2>
+          <div class="pb-prose">
+            <p>Returning to the &ldquo;Compact Lift Module&rdquo; story: the coach helped the team write a one-page framing of the first cycle, clarify which drive concept decision they were really working toward, and design two short experiments around noise and serviceability. The team built quick rigs, ran tests at key loads, conducted a simple service trial with standard tools, and captured their insights in a K Brief and a rough trade-off curve.</p>
+            <p>At the integration event: the coach facilitated the discussion, keeping it focused on knowledge and decisions. The team presented what they learned and proposed removing one weak option from the set. Together, they updated their increment plan and chose the next knowledge gaps for the following cycle.</p>
+          </div>
+
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;Neither role is glamorous, but together they shift the pattern from &lsquo;hope and commit&rsquo; to &lsquo;learn and decide&rsquo;.&rdquo;</p>
+          </blockquote>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+  <script>
+    const navLinks = document.querySelectorAll('.pb-nav a');
+    const sections = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>
