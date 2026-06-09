@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Planet-Based Set-Based Design – Free Module · LeanPeak Product Lab</title>
+<meta name="description" content="A free e-learning module on Planet-Based Set-Based Design. Learn how to keep your sustainability solution space open and narrow responsibly — before your design decisions lock in carbon, water, and material commitments."/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#F8F9FA;--surface:#FFFFFF;--surface2:#F0F4F8;--border:#E2E8F0;
+  --text:#1E2A3A;--soft:#64748B;
+  --primary:#4A66AC;--primary-dim:rgba(74,102,172,.10);
+  --green:#6BAF92;--green-dim:rgba(107,175,146,.12);--green-dark:#2D7D60;
+  --orange:#F4A261;--orange-dim:rgba(244,162,97,.12);--orange-dark:#C4602A;
+  --coral:#E07A5F;--coral-dim:rgba(224,122,95,.12);--coral-dark:#B05040;
+  --red:#DC2626;--red-dim:rgba(220,38,38,.08);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+#app{max-width:780px;margin:0 auto;padding:0 1rem 4rem}
+.nav{display:flex;align-items:center;gap:.4rem;padding:1rem 0;flex-wrap:wrap}
+.nav-pill{font-size:.7rem;font-weight:500;padding:.2rem .55rem;border-radius:99px;background:var(--surface2);color:var(--soft);border:1px solid var(--border);cursor:default;white-space:nowrap}
+.nav-pill.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.nav-pill.done{background:var(--green-dim);color:var(--green-dark);border-color:var(--green)}
+.nav-sep{color:var(--border);font-size:.75rem}
+.mod-header{padding:1.5rem 0 1rem}
+.mod-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--primary);margin-bottom:.4rem}
+.mod-title{font-size:1.45rem;font-weight:700;line-height:1.25;color:var(--text);margin-bottom:.4rem}
+.mod-sub{font-size:.9rem;color:var(--soft)}
+.free-badge{display:inline-flex;align-items:center;gap:.3rem;background:var(--green-dim);color:var(--green-dark);border:1px solid var(--green);border-radius:99px;font-size:.68rem;font-weight:600;padding:.2rem .65rem;margin-bottom:.75rem;letter-spacing:.04em;text-transform:uppercase}
+.sec-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1rem}
+.sec-label{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--primary);margin-bottom:.35rem}
+.sec-title{font-size:1.1rem;font-weight:700;margin-bottom:.75rem;color:var(--text)}
+.sec-body{font-size:.9rem;color:var(--text);line-height:1.7}
+.sec-body p{margin-bottom:.75rem}
+.sec-body p:last-child{margin-bottom:0}
+.kc-box{background:var(--primary-dim);border-left:3px solid var(--primary);border-radius:6px;padding:.85rem 1rem;margin:.85rem 0}
+.kc-label{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--primary);margin-bottom:.35rem}
+.kc-list{list-style:none;padding:0}
+.kc-list li{font-size:.85rem;color:var(--text);padding:.25rem 0 .25rem 1rem;position:relative}
+.kc-list li::before{content:"→";position:absolute;left:0;color:var(--primary);font-size:.8rem}
+.callout{border-radius:8px;padding:.9rem 1rem;margin:.85rem 0;font-size:.87rem;line-height:1.6}
+.callout-green{background:var(--green-dim);border-left:3px solid var(--green)}
+.callout-orange{background:var(--orange-dim);border-left:3px solid var(--orange)}
+.diagram-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1rem;margin:1rem 0;overflow-x:auto}
+.diagram-title{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--soft);margin-bottom:.5rem}
+.act-intro{font-size:.9rem;color:var(--text);line-height:1.7;margin-bottom:1rem}
+.act-intro p{margin-bottom:.6rem}
+.canvas-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.75rem}
+@media(max-width:540px){.canvas-grid{grid-template-columns:1fr}}
+.canvas-field{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.85rem}
+.canvas-field label{display:block;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--primary);margin-bottom:.4rem}
+.canvas-field textarea{width:100%;border:1px solid var(--border);border-radius:6px;padding:.5rem .65rem;font-size:.83rem;font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);resize:vertical;min-height:72px;line-height:1.5}
+.canvas-field textarea:focus{outline:none;border-color:var(--primary)}
+.part-label{font-size:.75rem;font-weight:600;color:var(--soft);text-transform:uppercase;letter-spacing:.07em;margin:.85rem 0 .35rem;padding-bottom:.25rem;border-bottom:1px solid var(--border)}
+.quiz-q{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.2rem;margin-bottom:.85rem}
+.quiz-q-text{font-size:.92rem;font-weight:600;margin-bottom:.65rem;color:var(--text)}
+.quiz-opt{display:flex;align-items:flex-start;gap:.55rem;padding:.4rem .5rem;border-radius:6px;cursor:pointer;font-size:.87rem;color:var(--text);transition:background .15s}
+.quiz-opt:hover{background:var(--surface2)}
+.quiz-opt.selected{background:var(--primary-dim);color:var(--primary)}
+.quiz-opt.correct{background:var(--green-dim);color:var(--green-dark)}
+.quiz-opt.wrong{background:var(--red-dim);color:var(--red)}
+.quiz-opt input{margin-top:.2rem;accent-color:var(--primary);flex-shrink:0}
+.quiz-reflect{width:100%;border:1px solid var(--border);border-radius:6px;padding:.55rem .7rem;font-size:.85rem;font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);resize:vertical;min-height:72px;margin-top:.3rem}
+.quiz-reflect:focus{outline:none;border-color:var(--primary)}
+.quiz-result{text-align:center;padding:1.2rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:1rem}
+.quiz-score{font-size:2rem;font-weight:700;color:var(--primary)}
+.quiz-msg{font-size:.9rem;color:var(--soft);margin-top:.3rem}
+.quiz-exp{font-size:.78rem;color:var(--soft);margin-top:.5rem;padding:.45rem .6rem;background:var(--surface2);border-radius:5px}
+.btn-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.25rem}
+.btn{padding:.6rem 1.3rem;border-radius:8px;font-size:.88rem;font-weight:600;cursor:pointer;border:none;transition:opacity .15s}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{opacity:.88}
+.btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{background:var(--surface2)}
+.complete-wrap{text-align:center;padding:2rem 1rem}
+.complete-icon{font-size:2.5rem;margin-bottom:.75rem}
+.complete-title{font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:.4rem}
+.complete-sub{font-size:.9rem;color:var(--soft);margin-bottom:1.5rem;line-height:1.6;max-width:52ch;margin-left:auto;margin-right:auto}
+.complete-links{display:flex;gap:.65rem;flex-wrap:wrap;justify-content:center}
+.complete-next{display:inline-block;padding:.65rem 1.4rem;background:var(--primary);color:#fff;border-radius:8px;font-size:.88rem;font-weight:600;text-decoration:none}
+.complete-next:hover{opacity:.88}
+.complete-next.outline{background:var(--surface);color:var(--primary);border:1.5px solid var(--primary)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const COURSE = {
+  title: 'Planet-Based Set-Based Design',
+  subtitle: 'Make learning visible before you narrow — keep your sustainability solution space open until the evidence is in',
+  duration: '40–50 min'
+};
+
+const NAV_LABELS = ['Intro','Sec 1 of 5','Sec 2 of 5','Sec 3 of 5','Sec 4 of 5','Sec 5 of 5','Activity','Quiz','Complete'];
+
+let S = { screen:0, quizSel:[null,null,null,null,'',''], quizDone:false, quizScore:0 };
+
+const QUIZ = [
+  {
+    type:'single',
+    q:'In planet-based set-based design, what is the core problem with the traditional "point-based" approach to sustainable product development?',
+    opts:[
+      'It requires too many suppliers to evaluate alternative materials, which increases procurement cost.',
+      'It evaluates environmental impact only after most design decisions are already locked in — confirming a footprint rather than shaping one.',
+      'It forces design teams to spend too much time on life-cycle assessments instead of product development.',
+      'It is only suitable for large companies with dedicated sustainability functions.'
+    ],
+    correct:1,
+    exp:'Point-based sustainable design evaluates environmental performance too late — after material choices, process commitments, and supplier selections have already been made. By the time a life-cycle assessment is run, 70–90% of the product\'s footprint is already determined. Set-based design delays commitments until learning justifies them.'
+  },
+  {
+    type:'single',
+    q:'Which of the following best describes the five-domain solution space in planet-based set-based design?',
+    opts:[
+      'Five sequential phases of a sustainability review — each phase must be completed before the next begins.',
+      'Five parallel areas where design alternatives should stay open simultaneously: product architecture, material system, manufacturing/process, use/service/circularity, and business model/supply network.',
+      'Five ISO sustainability standards that must be met before a product can be launched in regulated markets.',
+      'Five types of environmental impact (carbon, water, land, biodiversity, toxicity) that must each be assessed individually.'
+    ],
+    correct:1,
+    exp:'The five domains are parallel, not sequential. Planet-based set-based design holds all five open at the same time, looking for how choices in one domain interact with choices in another. Narrowing one domain too early can close off better options in others — especially when material, process, and business model choices are deeply coupled.'
+  },
+  {
+    type:'single',
+    q:'What is "design waste" in the context of sustainable product development?',
+    opts:[
+      'Scrap and off-cut material generated during physical prototyping and testing.',
+      'The carbon emissions produced by the design team through travel, computation, and lab energy use.',
+      'Learning that is never created — sustainability alternatives that were never explored, ruled out too early, or whose trade-offs were never made visible.',
+      'Redundant life-cycle assessments run on the same product variant by multiple departments.'
+    ],
+    correct:2,
+    exp:'Design waste in the sustainability context is not physical scrap — it is lost learning. When teams specify a material before understanding recycled-content options, commit to a supplier before evaluating alternatives, or dismiss circular business models without analysis, they waste the opportunity to find a better solution. The unexplored space is the primary waste to eliminate.'
+  },
+  {
+    type:'single',
+    q:'In the Planet-Based A3 learning system, what triggers convergence in Stage E — "Narrow Responsibly"?',
+    opts:[
+      'Reaching the project schedule milestone designated for material selection, regardless of how much has been learned.',
+      'A compliance deadline set by the regulatory team or by a customer audit requirement.',
+      'The team can answer five questions: what alternatives were explored, what was learned, what the trade-offs are, what is ruled out and why, and whether an acceptable path forward exists.',
+      'The first alternative to pass a minimum sustainability threshold — to prevent over-analysis and delay.'
+    ],
+    correct:2,
+    exp:'"Narrow responsibly" means convergence is triggered by learning, not by schedule or compliance dates. Before committing in any domain, the team should be able to explain: what alternatives were explored, what was learned about each, what the trade-offs are, what was ruled out and why, and that at least one acceptable path forward exists. The A3 is the vehicle for that reasoning.'
+  },
+  {
+    type:'reflect',
+    q:'Think about a product or development project you are involved with. At what stage are sustainability criteria typically introduced — and which design decisions have already been made by then? What would "starting open" look like for that project?'
+  },
+  {
+    type:'reflect',
+    q:'Which of the five domains (product architecture, material system, manufacturing/process, use/service/circularity, business model/supply network) is most often treated as "already decided" in your context — and what learning might be lost as a result?'
+  }
+];
+
+// ── Diagrams ─────────────────────────────────────────────────────────────────
+
+function diagramTwoFunnels() {
+  return `<div class="diagram-wrap">
+<div class="diagram-title">Point-based vs. set-based sustainable design — when decisions get made relative to learning</div>
+<svg viewBox="0 0 680 218" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:680px;display:block">
+  <!-- Left: point-based -->
+  <rect x="8" y="8" width="316" height="202" rx="8" fill="#F8F9FA" stroke="#E2E8F0" stroke-width="1.5"/>
+  <rect x="8" y="8" width="316" height="30" rx="8" fill="#E07A5F"/>
+  <rect x="8" y="30" width="316" height="8" fill="#E07A5F"/>
+  <text x="166" y="27" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">POINT-BASED — commit early, assess late</text>
+  <!-- Wide top converges immediately -->
+  <polygon points="24,50 292,50 210,88 106,88" fill="#E07A5F" opacity="0.15" stroke="#E07A5F" stroke-width="1"/>
+  <!-- Decision dot: early -->
+  <circle cx="158" cy="90" r="7" fill="#E07A5F"/>
+  <text x="172" y="95" font-family="Inter,sans-serif" font-size="7" fill="#B05040" font-weight="600">Decision locked (early)</text>
+  <!-- Narrow tail -->
+  <line x1="106" y1="88" x2="136" y2="180" stroke="#E07A5F" stroke-width="1.5"/>
+  <line x1="210" y1="88" x2="180" y2="180" stroke="#E07A5F" stroke-width="1.5"/>
+  <text x="24" y="114" font-family="Inter,sans-serif" font-size="7.5" fill="#64748B">One option explored</text>
+  <text x="24" y="128" font-family="Inter,sans-serif" font-size="7.5" fill="#64748B">Supplier committed</text>
+  <text x="24" y="142" font-family="Inter,sans-serif" font-size="7.5" fill="#64748B">Process locked</text>
+  <!-- LCA box -->
+  <rect x="100" y="158" width="116" height="28" rx="5" fill="rgba(224,122,95,.12)" stroke="#E07A5F" stroke-width="1"/>
+  <text x="158" y="173" font-family="Inter,sans-serif" font-size="7.5" fill="#B05040" text-anchor="middle" font-weight="600">LCA runs here</text>
+  <text x="158" y="183" font-family="Inter,sans-serif" font-size="7" fill="#B05040" text-anchor="middle">80–90% decisions already locked</text>
+  <text x="166" y="204" font-family="Inter,sans-serif" font-size="7.5" fill="#DC2626" font-weight="600" text-anchor="middle">Compliance check — not learning</text>
+
+  <!-- Right: set-based -->
+  <rect x="356" y="8" width="316" height="202" rx="8" fill="#FFFFFF" stroke="#4A66AC" stroke-width="1.5"/>
+  <rect x="356" y="8" width="316" height="30" rx="8" fill="#4A66AC"/>
+  <rect x="356" y="30" width="316" height="8" fill="#4A66AC"/>
+  <text x="514" y="27" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">SET-BASED — stay wide, narrow on evidence</text>
+  <!-- Wide funnel stays wide -->
+  <polygon points="366,50 658,50 638,88 376,88" fill="#4A66AC" opacity="0.07" stroke="#4A66AC" stroke-width="1"/>
+  <rect x="376" y="88" width="262" height="52" fill="#4A66AC" opacity="0.04" stroke="#4A66AC" stroke-width="0.5" stroke-dasharray="4,3"/>
+  <!-- Late convergence -->
+  <line x1="376" y1="140" x2="456" y2="180" stroke="#4A66AC" stroke-width="1.5"/>
+  <line x1="638" y1="140" x2="558" y2="180" stroke="#4A66AC" stroke-width="1.5"/>
+  <circle cx="507" cy="148" r="7" fill="#4A66AC"/>
+  <text x="518" y="153" font-family="Inter,sans-serif" font-size="7" fill="#3A5290" font-weight="600">Commit on evidence</text>
+  <!-- Alt labels -->
+  <text x="372" y="112" font-family="Inter,sans-serif" font-size="7.5" fill="#1E2A3A">Alt A: recycled polymer (22% lower carbon)</text>
+  <text x="372" y="126" font-family="Inter,sans-serif" font-size="7.5" fill="#1E2A3A">Alt B: bio-based composite (needs process test)</text>
+  <text x="372" y="140" font-family="Inter,sans-serif" font-size="7.5" fill="#1E2A3A">Alt C: virgin + take-back loop</text>
+  <!-- Result -->
+  <rect x="446" y="158" width="122" height="28" rx="5" fill="rgba(74,102,172,.10)" stroke="#4A66AC" stroke-width="1"/>
+  <text x="507" y="173" font-family="Inter,sans-serif" font-size="7.5" fill="#3A5290" text-anchor="middle" font-weight="600">Commit: Alt A wins</text>
+  <text x="507" y="183" font-family="Inter,sans-serif" font-size="7" fill="#3A5290" text-anchor="middle">Trade-offs documented</text>
+  <text x="514" y="204" font-family="Inter,sans-serif" font-size="7.5" fill="#2D7D60" font-weight="600" text-anchor="middle">Learning before commitment</text>
+
+  <text x="340" y="110" font-family="Inter,sans-serif" font-size="15" fill="#4A66AC" text-anchor="middle">→</text>
+</svg>
+</div>`;
+}
+
+function diagramFiveDomains() {
+  const D = [
+    { name:'Product Architecture', sub:'Form · Modularity\nRepairability · End-of-life', col:'#4A66AC' },
+    { name:'Material System', sub:'Virgin · Recycled\nBio-based · Toxicity', col:'#6BAF92' },
+    { name:'Manufacturing & Process', sub:'Energy · Water\nWaste · Supplier footprint', col:'#F4A261' },
+    { name:'Use / Service & Circularity', sub:'Lifetime · Repairability\nTake-back · End-of-life loops', col:'#E07A5F' },
+    { name:'Business Model & Supply', sub:'Ownership models\nSupply chain transparency', col:'#8264B4' },
+  ];
+  let cols = '';
+  D.forEach((d,i) => {
+    const x = 8 + i*133;
+    const lines = d.sub.split('\n');
+    cols += `<rect x="${x}" y="34" width="125" height="128" rx="8" fill="rgba(0,0,0,.03)" stroke="${d.col}" stroke-width="1.5"/>
+    <rect x="${x}" y="34" width="125" height="26" rx="8" fill="${d.col}"/>
+    <rect x="${x}" y="52" width="125" height="8" fill="${d.col}"/>
+    <text x="${x+62}" y="50" font-family="Inter,sans-serif" font-size="6.8" font-weight="700" fill="#fff" text-anchor="middle">${d.name}</text>
+    ${lines.map((l,li)=>`<text x="${x+62}" y="${76+li*16}" font-family="Inter,sans-serif" font-size="7.5" fill="#1E2A3A" text-anchor="middle">${l}</text>`).join('')}
+    ${i<4?`<text x="${x+133}" y="100" font-family="Inter,sans-serif" font-size="12" fill="${d.col}" text-anchor="middle" opacity=".4">+</text>`:''}`;
+  });
+  return `<div class="diagram-wrap">
+<div class="diagram-title">Five sustainability domains — all five solution spaces must stay open simultaneously</div>
+<svg viewBox="0 0 673 175" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:673px;display:block">
+  <text x="336" y="20" font-family="Inter,sans-serif" font-size="8" font-weight="600" fill="#64748B" text-anchor="middle">Closing any domain too early constrains the others — choices interact across all five</text>
+  ${cols}
+  <text x="336" y="170" font-family="Inter,sans-serif" font-size="7.5" fill="#64748B" text-anchor="middle">Set-based design explores alternatives in all five domains before committing in any one</text>
+</svg>
+</div>`;
+}
+
+function diagramDesignWaste() {
+  const W = [
+    { label:'Early material lock-in', desc:'A material family is named in week 2 — before recycled or bio-based alternatives are evaluated', col:'#E07A5F' },
+    { label:'Premature supplier selection', desc:'A supplier is selected before design intent is stable enough to evaluate alternatives fairly', col:'#E07A5F' },
+    { label:'Point LCA, late in project', desc:'Life-cycle assessment runs after design is locked — confirming a footprint, not shaping one', col:'#E07A5F' },
+    { label:'Siloed sustainability review', desc:'Environmental function assesses separately — no shared learning, no early trade-offs in the design room', col:'#F4A261' },
+    { label:'Circular model dismissed early', desc:'"We are a product company" — take-back, leasing, or refurb ruled out without analysis', col:'#F4A261' },
+    { label:'Supply chain not designed', desc:'Sustainable supply chain treated as procurement\'s problem — not a design parameter explored in development', col:'#F4A261' },
+  ];
+  let rows = '';
+  W.forEach((w,i) => {
+    const y = 38 + i*24;
+    rows += `<rect x="8" y="${y}" width="656" height="22" fill="${i%2?'#F8F9FA':'#FFFFFF'}"/>
+    <circle cx="26" cy="${y+11}" r="5" fill="${w.col}" opacity=".7"/>
+    <text x="40" y="${y+15}" font-family="Inter,sans-serif" font-size="7.5" font-weight="600" fill="#1E2A3A">${w.label}</text>
+    <text x="216" y="${y+15}" font-family="Inter,sans-serif" font-size="7.5" fill="#64748B">${w.desc}</text>`;
+  });
+  return `<div class="diagram-wrap">
+<div class="diagram-title">Six common forms of design waste in sustainable product development</div>
+<svg viewBox="0 0 668 188" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:668px;display:block">
+  <rect x="8" y="8" width="656" height="28" rx="5" fill="#F0F4F8" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="26" y="25" font-family="Inter,sans-serif" font-size="7.5" font-weight="700" fill="#64748B">Waste</text>
+  <text x="216" y="25" font-family="Inter,sans-serif" font-size="7.5" font-weight="700" fill="#64748B">How it shows up</text>
+  ${rows}
+  <rect x="8" y="8" width="656" height="${28+6*24}" rx="5" fill="none" stroke="#E2E8F0" stroke-width="1.5"/>
+  <line x1="208" y1="8" x2="208" y2="${36+6*24}" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="334" y="184" font-family="Inter,sans-serif" font-size="7.5" fill="#64748B" text-anchor="middle">Design waste is learning never created — the unexplored alternatives that might have been better</text>
+</svg>
+</div>`;
+}
+
+function diagramA3Flow() {
+  const ST = [
+    { lbl:'A', name:'Understand', desc:'Frame the planetary problem. What sustainability outcomes matter? What do we not know?', col:'#4A66AC' },
+    { lbl:'B', name:'Explore', desc:'Open all five domains. Generate real material, process, architecture and business-model alternatives.', col:'#4A66AC' },
+    { lbl:'C', name:'Learn', desc:'Run targeted experiments. Material rubric. Process energy models. Circular feasibility checks.', col:'#6BAF92' },
+    { lbl:'D', name:'Compare', desc:'Trade-off matrix across alternatives. Which combinations dominate? Which are clearly ruled out?', col:'#6BAF92' },
+    { lbl:'E', name:'Narrow', desc:'Commit on evidence. Document what was ruled out and why. Record learning for future programmes.', col:'#F4A261' },
+  ];
+  let blocks = '';
+  ST.forEach((s,i) => {
+    const x = 8 + i*133;
+    blocks += `<rect x="${x}" y="34" width="125" height="118" rx="8" fill="#FFFFFF" stroke="${s.col}" stroke-width="1.5"/>
+    <circle cx="${x+18}" cy="${34+18}" r="11" fill="${s.col}"/>
+    <text x="${x+18}" y="${34+22}" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">${s.lbl}</text>
+    <text x="${x+70}" y="${34+22}" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" fill="${s.col}">${s.name}</text>
+    <foreignObject x="${x+8}" y="${34+34}" width="109" height="76"><div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Inter,sans-serif;font-size:7.5px;color:#1E2A3A;line-height:1.55">${s.desc}</div></foreignObject>
+    ${i<4?`<text x="${x+131}" y="96" font-family="Inter,sans-serif" font-size="13" fill="${s.col}" text-anchor="middle">→</text>`:``}`;
+  });
+  return `<div class="diagram-wrap">
+<div class="diagram-title">Planet-Based A3 learning stages A–E — from problem framing to evidence-based commitment</div>
+<svg viewBox="0 0 673 175" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:673px;display:block">
+  <text x="336" y="20" font-family="Inter,sans-serif" font-size="8" font-weight="600" fill="#64748B" text-anchor="middle">Learning accumulates across stages — narrowing is triggered by evidence, not schedule</text>
+  ${blocks}
+  <rect x="8" y="157" width="262" height="12" rx="3" fill="rgba(74,102,172,.09)"/>
+  <text x="139" y="167" font-family="Inter,sans-serif" font-size="7" fill="#4A66AC" font-weight="600" text-anchor="middle">Explore widely — resist the pull to commit</text>
+  <rect x="274" y="157" width="132" height="12" rx="3" fill="rgba(107,175,146,.10)"/>
+  <text x="340" y="167" font-family="Inter,sans-serif" font-size="7" fill="#2D7D60" font-weight="600" text-anchor="middle">Learn systematically</text>
+  <rect x="410" y="157" width="255" height="12" rx="3" fill="rgba(244,162,97,.10)"/>
+  <text x="537" y="167" font-family="Inter,sans-serif" font-size="7" fill="#C4602A" font-weight="600" text-anchor="middle">Narrow on evidence — document the reasoning</text>
+</svg>
+</div>`;
+}
+
+function diagramConvergence() {
+  const Qs = [
+    'What alternatives did we explore in this domain?',
+    'What did we learn about each alternative\'s performance?',
+    'What are the trade-offs (sustainability vs. cost vs. feasibility)?',
+    'Which alternatives are clearly ruled out — and why?',
+    'Does the remaining set have at least one acceptable path?'
+  ];
+  const Rs = [
+    'Alternatives are genuinely different — not minor variations',
+    'You can rank them on sustainability AND feasibility criteria',
+    'At least one alternative is clearly superior on the criteria that matter',
+    'You can explain trade-offs to a senior reviewer or supplier partner',
+    'Commitment enables the next learning stage — it does not close it off'
+  ];
+  const qRows = Qs.map((q,i)=>`<rect x="18" y="${48+i*22}" width="5" height="5" rx="1" fill="#4A66AC" opacity=".5"/><text x="30" y="${58+i*22}" font-family="Inter,sans-serif" font-size="7.5" fill="#1E2A3A">${q}</text>`).join('');
+  const rRows = Rs.map((r,i)=>`<circle cx="350" cy="${52+i*22}" r="3.5" fill="#2D7D60" opacity=".6"/><text x="360" y="${58+i*22}" font-family="Inter,sans-serif" font-size="7.5" fill="#1E2A3A">${r}</text>`).join('');
+  return `<div class="diagram-wrap">
+<div class="diagram-title">Convergence criteria — when is it right to commit in each domain?</div>
+<svg viewBox="0 0 668 172" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:668px;display:block">
+  <rect x="8" y="8" width="320" height="156" rx="8" fill="#F0F4F8" stroke="#4A66AC" stroke-width="1.5"/>
+  <rect x="8" y="8" width="320" height="26" rx="8" fill="#4A66AC"/>
+  <rect x="8" y="26" width="320" height="8" fill="#4A66AC"/>
+  <text x="168" y="24" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">Questions before you commit</text>
+  ${qRows}
+  <rect x="340" y="8" width="320" height="156" rx="8" fill="#F0FDF4" stroke="#6BAF92" stroke-width="1.5"/>
+  <rect x="340" y="8" width="320" height="26" rx="8" fill="#6BAF92"/>
+  <rect x="340" y="26" width="320" height="8" fill="#6BAF92"/>
+  <text x="500" y="24" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">Signals you are ready to narrow</text>
+  ${rRows}
+</svg>
+</div>`;
+}
+
+// ── Screens ───────────────────────────────────────────────────────────────────
+
+function screenIntro() {
+  return `<div class="mod-header">
+  <div class="free-badge">Free · No sign-in required</div>
+  <div class="mod-eyebrow">Planet-Based Set-Based Design</div>
+  <div class="mod-title">${COURSE.title}</div>
+  <div class="mod-sub">${COURSE.subtitle}</div>
+</div>
+<div class="sec-card">
+  <div class="sec-label">What this module is about</div>
+  <div class="sec-body">
+    <p>Most sustainable product development programmes share the same failure mode: sustainability criteria arrive too late. Materials are chosen, suppliers selected, and production processes committed — and then, near the end of the design phase, an environmental team runs a life-cycle assessment. The results confirm what the design has already decided. Targets are missed. Redesign is expensive. The cycle repeats.</p>
+    <p>This module introduces a different approach: planet-based set-based design. Instead of evaluating sustainability performance after decisions are made, it treats the solution space — the full range of material, process, architecture, and business model alternatives — as the primary object of learning. Teams stay wide until the evidence is in, then narrow responsibly.</p>
+    <p>The approach applies lean set-based concurrent engineering (SBCE) directly to sustainability: five parallel design domains, a structured learning system (Stages A–E), a material candidate rubric, and explicit convergence criteria that trigger commitment when knowledge — not schedule — justifies it.</p>
+  </div>
+  <div class="kc-box">
+    <div class="kc-label">What you will be able to do</div>
+    <ul class="kc-list">
+      <li>Explain why point-based sustainable design fails — and what "design waste" means in this context</li>
+      <li>Describe the five sustainability domains and why all five must stay open simultaneously</li>
+      <li>Use the Planet-Based A3 learning system (Stages A–E) to structure exploration and commitment</li>
+      <li>Apply a material candidate rubric to compare alternatives across sustainability and feasibility criteria</li>
+      <li>Define convergence criteria — and know when it is right to narrow in each domain</li>
+      <li>Sketch a planet-based set-based design plan for one product family or development programme</li>
+    </ul>
+  </div>
+  <div class="sec-body" style="margin-top:.5rem">
+    <p style="color:var(--soft);font-size:.83rem">Five sections · 12-field activity canvas · Quiz · ${COURSE.duration} · Free and open access</p>
+  </div>
+</div>`;
+}
+
+function screenSec1() {
+  return `<div class="sec-card">
+  <div class="sec-label">Section 1 of 5</div>
+  <div class="sec-title">The Decision Problem: Why Sustainable Design Keeps Failing</div>
+  <div class="sec-body">
+    <p>Sustainability targets are set. Commitments are made. Design teams are briefed. And then the product launches with a carbon footprint that is structurally similar to its predecessor. Not because the team was careless — but because the most consequential decisions were already made before sustainability criteria were fully understood.</p>
+    <p>This is the core problem. It is not a problem of values or tools. It is a problem of when decisions get made relative to when learning happens. In most development programmes, the pattern is predictable: a concept is chosen in the first weeks, materials are specified in the first months, suppliers are selected well before the design is stable, and manufacturing processes are committed before sustainability alternatives have been seriously evaluated. By the time an environmental assessment is run, it is confirming a footprint that was determined months ago — not shaping one that could still be different.</p>
+    <p>This is what we mean by "point-based" sustainable design. The development process converges on a single solution — one material, one supplier, one manufacturing route, one business model — before it has generated enough learning to know whether that solution is actually the best available. A life-cycle assessment at that stage is not a design tool. It is a compliance check.</p>
+    <p>The planetary cost of this pattern is significant. Products that reach mass production typically lock in 70–90% of their lifetime environmental impact during the first 20% of the design process. Architecture choices, material families, and process routes established in early concept work determine what is even possible downstream. When those choices are made before alternatives are evaluated, the sustainability outcome is determined by default — not by design.</p>
+    <p>The alternative is to treat the decision process itself as the design problem. Not "which material should we use?" asked once, early, with limited information. But "what do we need to learn about material alternatives before we can commit responsibly?" — and then building a learning system around that question, across all the dimensions that matter for planetary impact.</p>
+  </div>
+  ${diagramTwoFunnels()}
+  <div class="kc-box">
+    <div class="kc-label">Key concepts — Section 1</div>
+    <ul class="kc-list">
+      <li>Point-based sustainable design: one solution chosen early, sustainability assessed late — a compliance check, not a design tool</li>
+      <li>70–90% of lifetime environmental impact is determined in the first 20% of the design process</li>
+      <li>The core problem is timing: when decisions get made relative to when learning happens</li>
+      <li>Set-based design reframes the question: "what do we need to learn before we can commit responsibly?"</li>
+      <li>The full range of alternatives — the solution space — is the primary object of design</li>
+    </ul>
+  </div>
+</div>`;
+}
+
+function screenSec2() {
+  return `<div class="sec-card">
+  <div class="sec-label">Section 2 of 5</div>
+  <div class="sec-title">Design Waste: The Learning You Never Created</div>
+  <div class="sec-body">
+    <p>In lean product development, waste is not primarily physical — it is informational. The most expensive waste in a design process is not scrap or rework. It is learning that was never created: alternatives that were never explored, trade-offs that were never made visible, decisions made on assumption instead of evidence. When a team specifies a material family in the first planning meeting — before any alternatives have been evaluated — the sustainability solution space collapses instantly. Whatever was not on the table in that meeting will not be found.</p>
+    <p>Planet-based set-based design identifies six common forms of this design waste. <strong>Early material lock-in</strong> is the most prevalent: a material is named in a concept document, and from that point it is treated as a constraint rather than a variable. The team spends the rest of the programme optimising around a choice that should have been part of the learning process. <strong>Premature supplier selection</strong> has the same effect — when a supplier is involved before the design intent is stable, their existing capabilities shape the design in ways that may never be explicitly acknowledged.</p>
+    <p><strong>Point LCA, run late in the project,</strong> looks like learning but is not. Running a life-cycle assessment after material, process, and supply chain decisions are locked produces numbers — but those numbers confirm a decision rather than inform one. If the footprint is worse than the target, the team has few options: absorb the miss, negotiate the target, or attempt a late redesign that is expensive, slow, and often resisted.</p>
+    <p><strong>Siloed sustainability reviews</strong> are another form of waste. When an environmental team assesses a product separately from the design team — producing a report handed over rather than discussed — the result is almost always a list of recommendations that arrive too late to influence anything important. The knowledge never enters the design conversation at the moment decisions are actually being made.</p>
+    <p>Finally, two forms of waste that are often invisible: <strong>circular business models dismissed early</strong> ("we are a product company — that is a different business") and <strong>supply chain sustainability treated as procurement's problem</strong> rather than a design parameter. Both close off alternatives that might have produced substantially better sustainability outcomes — without anyone explicitly deciding to close them.</p>
+    <p>The discipline of planet-based set-based design begins with making this waste visible. Before you can create a learning system, you need to see where the learning is currently not happening — what alternatives are being ruled out without analysis, and why.</p>
+  </div>
+  ${diagramDesignWaste()}
+  <div class="kc-box">
+    <div class="kc-label">Key concepts — Section 2</div>
+    <ul class="kc-list">
+      <li>Design waste is learning never created — alternatives not explored, trade-offs not made visible</li>
+      <li>Six forms: early material lock-in · premature supplier selection · point LCA late · siloed reviews · circular models dismissed · supply chain not designed</li>
+      <li>Point LCA looks like learning but confirms a decision — it does not inform one</li>
+      <li>Making waste visible is the first step — you cannot build a learning system for learning you cannot see is missing</li>
+      <li>The goal is to make sustainability a design parameter from day one — not an assessment at the end</li>
+    </ul>
+  </div>
+</div>`;
+}
+
+function screenSec3() {
+  return `<div class="sec-card">
+  <div class="sec-label">Section 3 of 5</div>
+  <div class="sec-title">The Solution Space: Five Domains, All Open at Once</div>
+  <div class="sec-body">
+    <p>A product's environmental impact is not determined by any single design parameter. It emerges from the interaction of multiple systems: what the product is made of, how it is produced, how it is used, how long it lasts, and what happens at the end of its life — and who owns it, finances it, and supports it throughout. Planet-based set-based design organises these dimensions into five sustainability domains, each representing a space of alternatives that should be explored in parallel before any one is committed.</p>
+    <p><strong>Product architecture</strong> — the physical form, modularity, interface design, and structural choices that determine whether a product can be repaired, upgraded, disassembled, and eventually recovered. A product designed as a sealed, glued unit has fundamentally different end-of-life options than one designed with accessible modules and standardised fasteners. These choices are made early and hard to reverse — which is exactly why they must be part of the early solution space rather than default outcomes of conventional design practice.</p>
+    <p><strong>Material system</strong> — not just "which polymer" or "which alloy," but the full question of material strategy. Virgin materials, recycled-content materials, bio-based alternatives, and materials designed for circular sourcing all have different carbon, water, toxicity, and supply security profiles. They also interact with product architecture and manufacturing process in ways that must be understood before any one option is selected. Exploring this domain means generating real material candidates with specific performance data — not just noting that alternatives exist.</p>
+    <p><strong>Manufacturing and process</strong> — the energy intensity, water use, process waste, and supplier footprint associated with producing the product. Manufacturing often represents 20–40% of a product's lifetime footprint, and the choices here interact strongly with material choices. A bio-based material requiring high-temperature processing may have a larger net footprint than a recycled synthetic processed at lower temperature. These interactions cannot be seen if material and process choices are made separately and sequentially.</p>
+    <p><strong>Use, service, and circularity</strong> — what happens after the product leaves the factory. For many product categories, use-phase energy and lifetime extension are the dominant sustainability levers. A product used for ten years has dramatically different lifecycle sustainability than an identical product designed for three years and replacement. Repairability, software updates, refurbishment programmes, take-back schemes, and end-of-life recovery are all design parameters — connected to choices made in the first three domains.</p>
+    <p><strong>Business model and supply network</strong> — the ownership models, financing structures, and supply chain relationships that shape what sustainability options are even feasible. A leasing model changes the incentive structure around product durability. A supply chain with full material transparency enables recycled-content verification. A partnership with a refurbishment provider creates end-of-life options that a pure product business cannot access. These are not add-ons to the design — they are part of the design space, and closing them off early eliminates alternatives in all other domains.</p>
+  </div>
+  ${diagramFiveDomains()}
+  <div class="sec-body">
+    <p>The critical insight: these five domains are not independent. Closing one early — choosing a material family before product architecture is stable, or committing to a supplier before manufacturing alternatives are evaluated — constrains the others in ways that may not be visible. A set-based approach holds all five open simultaneously, actively looking for combinations that are superior on sustainability and feasibility criteria together.</p>
+  </div>
+  <div class="kc-box">
+    <div class="kc-label">Key concepts — Section 3</div>
+    <ul class="kc-list">
+      <li>Five domains: product architecture · material system · manufacturing/process · use/service/circularity · business model/supply network</li>
+      <li>All five must stay open simultaneously — closing one early constrains the others in ways that may not be visible</li>
+      <li>Product architecture choices (modularity, interfaces, fasteners) determine what is possible in every other domain</li>
+      <li>Material and process choices interact — they must be explored in combination, not sequentially</li>
+      <li>Business model and supply network are design parameters — not post-design additions</li>
+    </ul>
+  </div>
+</div>`;
+}
+
+function screenSec4() {
+  return `<div class="sec-card">
+  <div class="sec-label">Section 4 of 5</div>
+  <div class="sec-title">The Learning System: Planet-Based A3 Stages A–E</div>
+  <div class="sec-body">
+    <p>Keeping the solution space open is not enough on its own. Without a structured learning system, "staying wide" becomes vague — teams generate alternatives but do not systematically evaluate them, or they evaluate on dimensions that do not capture the sustainability trade-offs that matter most. The Planet-Based A3 learning system provides that structure: five stages (A through E) that move from problem framing through exploration, systematic learning, comparison, and evidence-based commitment.</p>
+    <p><strong>Stage A — Understand</strong> is about framing the planetary problem correctly before any design work begins. What sustainability outcomes matter most for this product and market? What do we not know? Which planetary boundaries are most relevant — carbon, water, material circularity, biodiversity, toxicity? Who are the stakeholders who care, and what do they need to see? Stage A is not about generating solutions. It is about making explicit what the team needs to learn — and who needs to be involved.</p>
+    <p><strong>Stage B — Explore</strong> is where the solution space is deliberately opened. For each of the five domains, the team generates real alternatives: not "we could use a recycled material" but specific material candidates with known properties. Not "a take-back scheme might be possible" but a concrete description of what it would require and enable. The goal is to produce alternatives that are genuinely different — representing meaningfully different sustainability outcomes — rather than minor variations on a default solution. This is where the <strong>material candidate rubric</strong> is introduced: a structured tool for capturing what is known and unknown about each alternative across multiple sustainability dimensions.</p>
+    <p><strong>Stage C — Learn</strong> is where targeted experiments are run against the Stage B alternatives. Material samples are tested. Energy models are run for different process routes. Circular feasibility is assessed: can the take-back infrastructure handle this material? What is realistic recycled-content availability at target volume? What does a supplier need to deliver the sustainable option at the required quality and cost? Stage C tests the solution space against reality — some alternatives that seemed promising are ruled out; others that seemed marginal prove superior.</p>
+    <p><strong>Stage D — Compare</strong> is where Stage C learning is made visible in a form that supports decision-making. A trade-off matrix — alternatives on one axis, evaluation criteria on the other — shows which alternatives are superior on which dimensions, and what the real trade-offs are between sustainability, performance, cost, and supply security. Stage D does not declare a winner. It makes the choice transparent: which alternatives clearly dominate, which are clearly ruled out, and which require a deliberate trade-off decision by someone with the authority to make it.</p>
+    <p><strong>Stage E — Narrow</strong> is where commitment is made — on evidence, not on schedule or default. Before committing in any domain, the team should be able to answer five questions: What alternatives were explored? What was learned about each? What are the trade-offs? Which are ruled out and why? Does the remaining set have at least one acceptable option? When those questions can be answered, the team narrows — and the reasoning is documented on the A3, so future programmes can build on it rather than rediscovering the same learning.</p>
+  </div>
+  ${diagramA3Flow()}
+  <div class="callout callout-orange">
+    <strong>The material candidate rubric</strong> is a key tool in Stages B and C. It captures each material alternative against a common set of criteria: embodied carbon, recycled content availability, bio-based fraction, processing energy, supplier sustainability rating, end-of-life recoverability, regulatory risk, and cost delta. The rubric does not produce a single score — it makes the multi-dimensional trade-off visible so it can be discussed and decided explicitly.
+  </div>
+  <div class="kc-box">
+    <div class="kc-label">Key concepts — Section 4</div>
+    <ul class="kc-list">
+      <li>Five stages A–E: Understand → Explore → Learn → Compare → Narrow</li>
+      <li>Stage A: frame the planetary problem — what do we need to learn, not what is the solution?</li>
+      <li>Stage B: generate real alternatives — specific, meaningfully different, not minor variations on a default</li>
+      <li>Stage C: run targeted experiments — test alternatives against reality before committing</li>
+      <li>Stage D: compare explicitly — trade-off matrix, not a single score or a declaration of a winner</li>
+      <li>Stage E: narrow on evidence — document reasoning so future programmes build on it, not repeat it</li>
+      <li>Material candidate rubric: captures multi-dimensional trade-offs — makes the comparison visible and discussable</li>
+    </ul>
+  </div>
+</div>`;
+}
+
+function screenSec5() {
+  return `<div class="sec-card">
+  <div class="sec-label">Section 5 of 5</div>
+  <div class="sec-title">Narrow Responsibly: Convergence Criteria and What to Preserve</div>
+  <div class="sec-body">
+    <p>"Narrow responsibly" distinguishes planet-based set-based design from both reckless speed (commit before you know anything) and paralysis (never commit because you never know enough). Responsible convergence has three components: clear criteria for when you are ready, a deliberate process for making the commitment, and a record of what you learned — including what was ruled out and why.</p>
+    <p>The criteria for readiness are not about achieving certainty. They are about reaching the threshold where the cost of delay — in learning, time, and cross-functional coordination — exceeds the value of additional exploration. In practice, this means you can answer the five Stage E questions: you explored real alternatives, generated specific learning about each, understand the trade-offs, know which options are ruled out and can explain why, and have at least one acceptable path forward. When those conditions are met, delay costs more than it is worth. When they are not met, premature commitment is the expensive choice.</p>
+    <p>Convergence does not happen uniformly across all five domains at the same time. Product architecture commitments may be needed earlier than material commitments, because architecture constrains everything else. Business model commitments may trail the others — they depend on market conditions, partner availability, and regulatory context that may not be stable at the start of the design process. A planet-based set-based plan explicitly schedules convergence by domain, with timelines driven by different dependency structures — not by a single project schedule applying the same deadline to every decision.</p>
+    <p>The record of what was ruled out is as important as the decision itself. When a bio-based material alternative is evaluated and found infeasible at the required scale, that learning is valuable. If it is not documented, the next programme will repeat the evaluation — at the same cost, potentially reaching the same conclusion. If it is documented — with the specific scale threshold, the supply chain constraint, and the point at which that constraint might change — the next programme can start from that knowledge and ask a better question. The A3 is the vehicle for this: not a decision document, but a learning record.</p>
+    <p>Finally, narrowing responsibly includes knowing when you have narrowed enough for this programme and when to preserve optionality for the next one. Some sustainability decisions — particularly those requiring significant supplier investment, tooling, or infrastructure — may be appropriate to make once and hold for a product generation. Others — particularly business model and supply network decisions — may be worth revisiting more frequently as market and regulatory environments evolve. Part of the Stage E discipline is explicitly categorising which commitments are structural (intended to hold for the product lifecycle) and which are provisional (intended to be revisited in the next development cycle).</p>
+  </div>
+  ${diagramConvergence()}
+  <div class="callout callout-green">
+    <strong>The learning record</strong> — what you explored, what you learned, what you ruled out and why, and what you committed to — is one of the most valuable outputs of a planet-based set-based design process. It is not a compliance document. It is the foundation for the next programme's Stage A.
+  </div>
+  <div class="kc-box">
+    <div class="kc-label">Key concepts — Section 5</div>
+    <ul class="kc-list">
+      <li>Narrow when the cost of delay exceeds the value of additional exploration — not at a schedule deadline</li>
+      <li>Readiness: explored real alternatives · generated specific learning · understand trade-offs · can explain what's ruled out · have an acceptable path forward</li>
+      <li>Convergence is domain-by-domain — not all five domains commit at the same time</li>
+      <li>The learning record (what was explored, learned, ruled out, and why) is as valuable as the decision itself</li>
+      <li>Classify commitments: structural (holds for product lifecycle) vs. provisional (revisited in next cycle)</li>
+      <li>Stage E output is the foundation for the next programme's Stage A — learning compounds across programmes</li>
+    </ul>
+  </div>
+</div>`;
+}
+
+function screenActivity() {
+  const F = [
+    { id:'f1', label:'F1 · Product or programme name and context', ph:'Name the product family or development programme. What is it, who is it for, and what makes its sustainability performance important? What market or regulatory context makes this urgent now?' },
+    { id:'f2', label:'F2 · Current sustainability decision pattern', ph:'How are sustainability criteria currently introduced in this programme? When are material, process, supplier, and business model choices typically made? When does a life-cycle assessment run — and which decisions have already been made by then?' },
+    { id:'f3', label:'F3 · Where design waste is showing up', ph:'Which of the six forms of design waste (early material lock-in, premature supplier selection, point LCA late, siloed reviews, circular models dismissed, supply chain not designed) are most visible in your context? Give a specific example of each form you recognise.' },
+    { id:'f4', label:'F4 · Planetary problem framing (Stage A)', ph:'What sustainability outcomes matter most for this product — carbon, water, material circularity, toxicity, biodiversity? What do you not yet know? Who are the stakeholders who care about this, and what do they need to see?' },
+    { id:'f5', label:'F5 · Domain where alternatives are most urgently needed', ph:'Which of the five domains (product architecture, material system, manufacturing/process, use/service/circularity, business model/supply network) has the fewest genuine alternatives currently under consideration? What is the current default — and why was it defaulted to?' },
+    { id:'f6', label:'F6 · Material candidates for Stage B (if applicable)', ph:'Name 2–4 material candidates that represent genuinely different sustainability profiles for this product. What is known about each? What needs to be learned in Stage C? What criteria will you use to compare them in Stage D?' },
+    { id:'f7', label:'F7 · Circular and business model alternatives (Stage B)', ph:'What circular or alternative business model options have been considered — or explicitly dismissed — for this product? (Leasing, take-back, refurb, repair-as-a-service, material passports.) What would it take to seriously evaluate one of them?' },
+    { id:'f8', label:'F8 · Stage C learning priorities', ph:'What are the 2–4 most important things you need to learn in Stage C before comparing alternatives in Stage D? (Material performance tests, process energy models, circular feasibility assessments, supply chain readiness checks, regulatory risk reviews.)' },
+    { id:'f9', label:'F9 · Stage D trade-off criteria', ph:'What criteria will you use to compare alternatives in Stage D? Name the 4–6 dimensions that matter most: embodied carbon, recycled content, processing energy, end-of-life recoverability, supply security, cost delta, regulatory risk. How will you present the matrix — weighted or unweighted?' },
+    { id:'f10', label:'F10 · Convergence plan by domain', ph:'In what sequence do you expect to narrow across the five domains? What drives the sequence — dependency, lead times, supplier engagement, regulatory deadlines? What would trigger convergence in the first domain? What are the "not before" conditions for the last?' },
+    { id:'f11', label:'F11 · What to preserve in the learning record', ph:'What learning from this programme should be documented so the next programme can build on it — not repeat it? Specifically: which material alternatives were ruled out, at what scale thresholds, and under what supply conditions? What would change those conclusions?' },
+    { id:'f12', label:'F12 · First concrete action and reflection', ph:'What is the single most important thing to do in the next two weeks to start a planet-based set-based design process for this programme? And: what is the hardest cultural or organisational barrier you expect to face — the pull toward early commitment, siloed review, or something else?' }
+  ];
+  return `<div class="sec-card">
+  <div class="sec-label">Activity</div>
+  <div class="sec-title">Plan a Planet-Based Set-Based Design Process for One Programme</div>
+  <div class="act-intro">
+    <p>This canvas takes you from the concepts in the five sections to a concrete plan for a real product family or development programme. You will map your current decision pattern, identify where design waste is showing up, generate a first set of real alternatives across the five domains, and sketch a learning plan using A3 Stages A–E.</p>
+    <p>Part A focuses on understanding your current state and framing the problem (Stages A–B). Part B focuses on designing the learning and convergence process (Stages C–E). The output is a clear enough starting point to brief a cross-functional team and begin Stage B exploration next week.</p>
+  </div>
+  <div class="part-label">Part A — Current State and Solution Space (Stages A–B)</div>
+  <div class="canvas-grid">
+    ${F.slice(0,6).map(f=>`<div class="canvas-field"><label>${f.label}</label><textarea id="${f.id}" placeholder="${f.ph}"></textarea></div>`).join('')}
+  </div>
+  <div class="part-label">Part B — Learning System and Convergence Plan (Stages C–E)</div>
+  <div class="canvas-grid">
+    ${F.slice(6).map(f=>`<div class="canvas-field"><label>${f.label}</label><textarea id="${f.id}" placeholder="${f.ph}"></textarea></div>`).join('')}
+  </div>
+</div>`;
+}
+
+function screenQuiz() {
+  if (S.quizDone) {
+    const pass = S.quizScore >= 4;
+    return `<div class="sec-card">
+    <div class="sec-label">Quiz</div>
+    <div class="sec-title">Check your understanding</div>
+    <div class="quiz-result">
+      <div class="quiz-score">${S.quizScore} / 6</div>
+      <div class="quiz-msg">${pass?'Module complete. Well done.':'Review the sections and try again.'}</div>
+    </div>
+    ${QUIZ.map((q,qi)=>{
+      if(q.type==='reflect') return `<div class="quiz-q"><div class="quiz-q-text">Reflection ${qi-3}: ${q.q}</div><div style="font-size:.82rem;color:var(--soft);padding:.3rem 0">${S.quizSel[qi]||'(no answer recorded)'}</div></div>`;
+      return `<div class="quiz-q"><div class="quiz-q-text">Q${qi+1}: ${q.q}</div>${q.opts.map((o,oi)=>{let cls='';if(S.quizSel[qi]===oi)cls=oi===q.correct?'correct':'wrong';else if(oi===q.correct)cls='correct';return `<div class="quiz-opt ${cls}">${o}</div>`;}).join('')}<div class="quiz-exp">${q.exp}</div></div>`;
+    }).join('')}
+    <div class="btn-row">${pass?`<button class="btn btn-primary" onclick="goTo(8)">See completion →</button>`:`<button class="btn btn-primary" onclick="retryQuiz()">Try again</button>`}</div>
+  </div>`;
+  }
+  return `<div class="sec-card">
+  <div class="sec-label">Quiz</div>
+  <div class="sec-title">Check your understanding</div>
+  ${QUIZ.map((q,qi)=>{
+    if(q.type==='reflect') return `<div class="quiz-q"><div class="quiz-q-text">Reflection ${qi-3}: ${q.q}</div><textarea class="quiz-reflect" id="qr${qi}" placeholder="Write your answer here…">${S.quizSel[qi]||''}</textarea></div>`;
+    return `<div class="quiz-q"><div class="quiz-q-text">Q${qi+1}: ${q.q}</div>${q.opts.map((o,oi)=>`<label class="quiz-opt ${S.quizSel[qi]===oi?'selected':''}"><input type="radio" name="q${qi}" value="${oi}" ${S.quizSel[qi]===oi?'checked':''} onchange="selOpt(${qi},${oi})"/> ${o}</label>`).join('')}</div>`;
+  }).join('')}
+  <div class="btn-row"><button class="btn btn-primary" onclick="submitQuiz()">Submit answers</button></div>
+</div>`;
+}
+
+function screenComplete() {
+  return `<div class="sec-card">
+  <div class="complete-wrap">
+    <div class="complete-icon">✓</div>
+    <div class="complete-title">Module complete!</div>
+    <div class="complete-sub">You have worked through the five core ideas of planet-based set-based design: why point-based sustainable design fails, what design waste means, how the five-domain solution space works, the Planet-Based A3 learning system (Stages A–E), and what responsible convergence looks like. The hardest part is not learning the framework — it is running your next development programme with the solution space open long enough to actually learn something.</div>
+    <div class="complete-links">
+      <a class="complete-next" href="/elearning/">Browse all e-learning modules</a>
+      <a class="complete-next outline" href="/lean-3p-product-development/">What is Lean 3P for product development? →</a>
+    </div>
+  </div>
+</div>`;
+}
+
+// ── Engine ────────────────────────────────────────────────────────────────────
+
+function allAnswered(){
+  for(let i=0;i<4;i++){if(S.quizSel[i]===null)return false;}
+  if(!S.quizSel[4]||S.quizSel[4].trim()==='')return false;
+  if(!S.quizSel[5]||S.quizSel[5].trim()==='')return false;
+  return true;
+}
+function selOpt(qi,oi){S.quizSel[qi]=oi;renderApp();}
+function submitQuiz(){
+  for(let i=4;i<6;i++){const el=document.getElementById('qr'+i);if(el)S.quizSel[i]=el.value;}
+  if(!allAnswered()){alert('Please answer all questions before submitting.');return;}
+  let score=0;
+  for(let i=0;i<4;i++){if(S.quizSel[i]===QUIZ[i].correct)score++;}
+  if(S.quizSel[4].trim().length>0)score++;
+  if(S.quizSel[5].trim().length>0)score++;
+  S.quizScore=score;S.quizDone=true;
+  if(score>=4)S.screen=8;
+  renderApp();
+}
+function retryQuiz(){S.quizSel=[null,null,null,null,'',''];S.quizDone=false;S.quizScore=0;S.screen=7;renderApp();}
+function goTo(n){S.screen=n;window.scrollTo(0,0);renderApp();}
+function renderApp(){
+  const screens=[screenIntro,screenSec1,screenSec2,screenSec3,screenSec4,screenSec5,screenActivity,screenQuiz,screenComplete];
+  const nav=NAV_LABELS.map((l,i)=>{
+    let cls='nav-pill';
+    if(i===S.screen)cls+=' active';
+    else if(i<S.screen)cls+=' done';
+    return `<span class="${cls}">${l}</span>${i<NAV_LABELS.length-1?'<span class="nav-sep">›</span>':''}`;
+  }).join('');
+  const hideNav=S.screen===8;
+  const hideBtns=S.screen>=7;
+  const nextLabel=S.screen===5?'Activity →':S.screen===6?'Final Quiz →':'Next →';
+  const btnRow=hideBtns?'':(`<div class="btn-row">${S.screen>0?`<button class="btn btn-secondary" onclick="goTo(${S.screen-1})">← Back</button>`:''}<button class="btn btn-primary" onclick="goTo(${S.screen+1})">${nextLabel}</button></div>`);
+  document.getElementById('app').innerHTML=`${hideNav?'':`<div class="nav">${nav}</div>`}<div>${screens[S.screen]()}</div>${btnRow}`;
+}
+renderApp();
+</script>
+</body>
+</html>
