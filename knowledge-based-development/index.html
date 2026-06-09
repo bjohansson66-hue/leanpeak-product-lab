@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What Is Knowledge-Based Development? – LeanPeak Product Lab</title>
+  <meta name="description" content="Knowledge-based development is a development approach where the primary output is validated knowledge that drives better decisions — not completed activities. Learn the core practices, K-Briefs, knowledge-based milestones, and how to get started.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="What Is Knowledge-Based Development? – LeanPeak Product Lab">
+  <meta property="og:description" content="How knowledge-based development differs from activity-based development, the core practices (Learning Cycles, K-Briefs, knowledge-based milestones, obeya), and where to read more in the LeanPeak Playbook.">
+  <meta property="og:url" content="https://leanpeakproductlab.com/knowledge-based-development/">
+  <meta property="og:site_name" content="LeanPeak Product Lab">
+  <link rel="canonical" href="https://leanpeakproductlab.com/knowledge-based-development/">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="../leanpeak-theme.css">
+  <style>
+    .pb-page{max-width:1120px;margin:0 auto;padding:0 1.5rem 5rem}
+    .pb-chapter-header{padding:3rem 0 2.5rem;border-bottom:1px solid var(--lp-color-border-subtle);margin-bottom:2.5rem}
+    .pb-chapter-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-3xl);font-weight:400;letter-spacing:-.03em;line-height:1.1;color:var(--lp-color-text-main);margin:0 0 1rem}
+    .pb-chapter-lead{font-size:var(--lp-font-size-lg);color:var(--lp-color-text-muted);line-height:1.7;max-width:72ch;margin:0}
+    .pb-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:3.5rem;align-items:start}
+    .pb-sidebar{position:sticky;top:2rem;max-height:calc(100vh - 4rem);overflow-y:auto}
+    .pb-sidebar-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-nav{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.1rem}
+    .pb-nav>li>a{display:block;font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);text-decoration:none;padding:.35rem .75rem;border-radius:var(--lp-radius-sm);border-left:2px solid transparent;line-height:1.4;transition:color .15s,background .15s}
+    .pb-nav>li>a:hover{color:var(--lp-color-primary);background:var(--lp-color-primary-soft)}
+    .pb-resources-box{margin-top:2rem;padding:1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md)}
+    .pb-resources-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-resources-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.35rem}
+    .pb-resources-list li a{font-size:var(--lp-font-size-sm);color:var(--lp-color-primary);text-decoration:none;line-height:1.4}
+    .pb-resources-list li a:hover{text-decoration:underline}
+    .pb-section{scroll-margin-top:5rem;margin-bottom:4rem}
+    .pb-section+.pb-section{padding-top:2.5rem;border-top:1px solid var(--lp-color-border-subtle)}
+    .pb-section-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .5rem;font-family:var(--lp-font-sans)}
+    .pb-section-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-2xl);font-weight:400;letter-spacing:-.02em;color:var(--lp-color-text-main);margin:0 0 1.25rem;line-height:1.15}
+    .pb-prose{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.75;max-width:70ch}
+    .pb-prose p{margin:0 0 1rem}
+    .pb-prose p:last-child{margin-bottom:0}
+    .pb-pullquote{margin:2rem 0;padding:1.25rem 1.5rem;border-left:3px solid var(--lp-color-primary);background:var(--lp-color-surface);border-radius:0 var(--lp-radius-md) var(--lp-radius-md) 0}
+    .pb-pullquote p{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);line-height:1.5;color:var(--lp-color-text-main);margin:0}
+    .pb-list{list-style:none;padding:0;margin:1rem 0;display:flex;flex-direction:column;gap:.5rem;max-width:68ch}
+    .pb-list li{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.65;padding-left:1.25rem;position:relative}
+    .pb-list li::before{content:"→";position:absolute;left:0;color:var(--lp-color-primary);font-size:.85em;top:.15em}
+    .pb-comparison{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.25rem 0;max-width:70ch}
+    .pb-comp-col{padding:1rem 1.25rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md)}
+    .pb-comp-col-label{font-size:var(--lp-font-size-xs);letter-spacing:.1em;text-transform:uppercase;font-family:var(--lp-font-sans);font-weight:700;margin:0 0 .75rem}
+    .pb-comp-col-label.act{color:var(--lp-color-text-soft)}
+    .pb-comp-col-label.kno{color:var(--lp-color-primary)}
+    .pb-comp-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.4rem}
+    .pb-comp-col ul li{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);padding-left:1rem;position:relative;line-height:1.55}
+    .pb-comp-col ul li::before{content:"·";position:absolute;left:0;font-size:.8em;top:.1em;color:var(--lp-color-text-soft)}
+    .pb-comp-col.kno ul li::before{content:"→";color:var(--lp-color-primary)}
+    .pb-card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1.5rem 0}
+    .pb-info-card{padding:1rem 1.25rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md)}
+    .pb-info-card-num{font-size:var(--lp-font-size-xs);font-weight:700;color:var(--lp-color-primary);font-family:var(--lp-font-sans);margin-bottom:.4rem}
+    .pb-info-card-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-md);color:var(--lp-color-text-main);margin:0 0 .4rem;line-height:1.25}
+    .pb-info-card-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.6;margin:0}
+    .pb-chapter-links{display:flex;flex-direction:column;gap:.5rem;margin:1.25rem 0;max-width:70ch}
+    .pb-chapter-link{display:grid;grid-template-columns:2.5rem minmax(0,1fr) auto;gap:.75rem;align-items:center;padding:.85rem 1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md);text-decoration:none;color:inherit;transition:background .15s,border-color .15s}
+    .pb-chapter-link:hover{background:var(--lp-color-primary-soft);border-color:var(--lp-color-primary)}
+    .pb-chapter-link:hover .pb-chapter-link-arrow{color:var(--lp-color-primary)}
+    .pb-chapter-link-num{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);font-weight:400;color:var(--lp-color-border-strong);line-height:1}
+    .pb-chapter-link-label{font-size:var(--lp-font-size-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .2rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-link-title{font-size:var(--lp-font-size-sm);font-weight:600;color:var(--lp-color-text-main);margin:0 0 .2rem;line-height:1.3}
+    .pb-chapter-link-desc{font-size:var(--lp-font-size-xs);color:var(--lp-color-text-muted);line-height:1.5;margin:0}
+    .pb-chapter-link-arrow{font-size:1.1rem;color:var(--lp-color-text-soft);flex-shrink:0;transition:color .15s}
+    .pb-elearning-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin:1.25rem 0}
+    .pb-elearning-card{padding:.85rem 1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md);text-decoration:none;color:inherit;transition:background .15s,border-color .15s;display:block}
+    .pb-elearning-card:hover{background:var(--lp-color-primary-soft);border-color:var(--lp-color-primary)}
+    .pb-elearning-card-label{font-size:var(--lp-font-size-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--lp-color-primary);font-family:var(--lp-font-sans);margin:0 0 .3rem}
+    .pb-elearning-card-title{font-size:var(--lp-font-size-sm);font-weight:600;color:var(--lp-color-text-main);line-height:1.3;margin:0 0 .2rem}
+    .pb-elearning-card-meta{font-size:var(--lp-font-size-xs);color:var(--lp-color-text-muted)}
+    .pb-cta-box{margin:2rem 0;padding:1.5rem 1.75rem;background:var(--lp-color-primary-soft);border:1px solid var(--lp-color-primary);border-radius:var(--lp-radius-lg);max-width:70ch}
+    .pb-cta-box-title{font-size:var(--lp-font-size-md);font-weight:600;color:var(--lp-color-text-main);margin:0 0 .5rem}
+    .pb-cta-box-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.65;margin:0 0 1rem}
+    .pb-cta-box a{display:inline-block;padding:.5rem 1.1rem;background:var(--lp-color-primary);color:#fff;border-radius:var(--lp-radius-sm);font-size:var(--lp-font-size-sm);font-weight:600;text-decoration:none}
+    .pb-cta-box a:hover{opacity:.9}
+    .pb-steps{display:flex;flex-direction:column;gap:.65rem;margin:1.25rem 0;max-width:70ch}
+    .pb-step{display:grid;grid-template-columns:2rem minmax(0,1fr);gap:.875rem;align-items:start}
+    .pb-step-num-box{width:2rem;height:2rem;border-radius:var(--lp-radius-sm);background:var(--lp-color-primary-soft);color:var(--lp-color-primary);font-size:var(--lp-font-size-xs);font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--lp-font-sans)}
+    .pb-step-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.65;padding-top:.2rem}
+    @media(max-width:860px){.pb-layout{grid-template-columns:1fr;gap:0}.pb-sidebar{position:static;max-height:none;padding-bottom:1.5rem;margin-bottom:2rem;border-bottom:1px solid var(--lp-color-border-subtle)}.pb-nav{flex-direction:row;flex-wrap:wrap;gap:.25rem}.pb-nav>li>a{border-left:none;padding:.3rem .6rem}.pb-card-grid,.pb-elearning-grid,.pb-comparison{grid-template-columns:1fr}.pb-chapter-link{grid-template-columns:2rem minmax(0,1fr)}.pb-chapter-link-arrow{display:none}}
+    @media(max-width:640px){.pb-chapter-title{font-size:2rem}}
+  </style>
+</head>
+<body>
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="kbd-logo" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="kbd-logo">LeanPeakProductLab logo</title>
+          <g transform="translate(24 36)"><rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"/><rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"/><rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"/></g>
+          <g transform="translate(150 46)"><text x="0" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text><text x="218" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text><text x="2" y="92" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text></g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">Playbook</a>
+        <a href="/elearning/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">E-Learning</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">LeanPeak Product Lab &mdash; Resource Guide</p>
+      <h1 class="pb-chapter-title">What Is Knowledge-Based Development?</h1>
+      <p class="pb-chapter-lead">Knowledge-based development is an approach to product and process creation where the primary output is validated knowledge that drives better decisions &mdash; not completed tasks or delivered documents. It applies lean thinking to the flow of learning itself: front-loading knowledge creation, delaying decisions until knowledge is sufficient, and capturing insights in reusable form.</p>
+    </div>
+
+    <div class="pb-layout">
+      <aside class="pb-sidebar">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#definition">What Is It?</a></li>
+          <li><a href="#problem">The Problem It Solves</a></li>
+          <li><a href="#differs">How It Differs</a></li>
+          <li><a href="#practices">Core Practices</a></li>
+          <li><a href="#playbook">In the Playbook</a></li>
+          <li><a href="#elearning">E-Learning Modules</a></li>
+          <li><a href="#get-started">How to Get Started</a></li>
+        </ul>
+        <div class="pb-resources-box">
+          <p class="pb-resources-label">Quick links</p>
+          <ul class="pb-resources-list">
+            <li><a href="/playbook/validate/">→ Experimentation &amp; Learning (Ch 6)</a></li>
+            <li><a href="/playbook/decisions/">→ Validation &amp; Decisions (Ch 7)</a></li>
+            <li><a href="/playbook/llc-blocks/">→ 7 Building Blocks (Ch 20)</a></li>
+            <li><a href="/playbook/llc-knowledge/">→ K-Briefs &amp; Visual Knowledge (Ch 23)</a></li>
+            <li><a href="/lean-learning-cycles/">→ Lean Learning Cycles guide</a></li>
+            <li><a href="/lean-product-process-development/">→ LPPD overview guide</a></li>
+            <li><a href="/elearning/">→ All e-learning modules</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main>
+        <section class="pb-section" id="definition">
+          <p class="pb-section-eyebrow">Definition</p>
+          <h2 class="pb-section-title">What Is Knowledge-Based Development?</h2>
+          <div class="pb-prose">
+            <p><strong>Knowledge-based development</strong> is a development philosophy and practice in which the primary output of development work is not deliverables, prototypes, or milestone reports &mdash; it is validated knowledge that enables better decisions. Every experiment, prototype, simulation, and review is designed to answer a specific question. The answer is captured in a form that can be reused. And decisions are made when knowledge is sufficient, not when a calendar date arrives.</p>
+            <p>The philosophy connects directly to lean principles: <strong>front-loading</strong> means creating knowledge early, when it is cheap to learn and cheap to change. <strong>Delaying decisions</strong> means not committing to a design direction before you have the knowledge to commit with confidence. <strong>Reusing learning</strong> means that knowledge earned in one project is not lost &mdash; it is captured, organized, and accessible to the team that starts the next project.</p>
+            <p>Knowledge-based development is not anti-execution or anti-delivery. It is pro-learning before execution. The goal is not to slow down development. It is to front-load the right learning so that execution is fast, predictable, and free of the expensive surprises that come from acting on assumptions.</p>
+          </div>
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;In activity-based development, the plan defines what will be done. In knowledge-based development, the questions define what needs to be learned. Documents are containers for learning, not proof of progress.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <section class="pb-section" id="problem">
+          <p class="pb-section-eyebrow">The problem</p>
+          <h2 class="pb-section-title">The Problem It Solves</h2>
+          <div class="pb-prose">
+            <p>The most common symptom of activity-based development is what practitioners call &ldquo;busy but blind&rdquo;: teams are working hard, meetings are full, prototypes are being built, reports are being written &mdash; but nobody can say with confidence what the team now knows that it didn&rsquo;t know three months ago. Development produces activity and documentation, but not reliably validated learning.</p>
+          </div>
+          <ul class="pb-list">
+            <li>Decisions made on assumptions and seniority rather than evidence &mdash; the most senior person in the room wins</li>
+            <li>Repeated mistakes across projects because learning is captured in project archives nobody reads, not in reusable knowledge artifacts</li>
+            <li>Late risk discovery: key uncertainties are not identified until they become problems, typically at validation or launch</li>
+            <li>Milestones that measure deliverable completion rather than knowledge sufficiency &mdash; teams pass gates on schedule but not on understanding</li>
+            <li>Prototypes built to demonstrate rather than to learn &mdash; confirming what the team already believes rather than testing what it needs to know</li>
+            <li>&ldquo;Learning events&rdquo; that are actually review meetings: findings are presented, acknowledged, and then forgotten</li>
+          </ul>
+          <div class="pb-prose" style="margin-top:.5rem">
+            <p>Knowledge-based development addresses each of these by making questions &mdash; not tasks &mdash; the unit of planning. When you plan in questions, you know when you have answered them. When you plan in tasks, you know only when you have finished them. Those are not the same thing.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="differs">
+          <p class="pb-section-eyebrow">The contrast</p>
+          <h2 class="pb-section-title">How It Differs from Activity-Based Development</h2>
+          <div class="pb-prose">
+            <p>The difference is not about tools or formats &mdash; it is about what drives the work. In activity-based development, the plan drives the work: what needs to be done by when. In knowledge-based development, questions drive the work: what needs to be known before which decision.</p>
+          </div>
+          <div class="pb-comparison">
+            <div class="pb-comp-col">
+              <p class="pb-comp-col-label act">Activity-Based Development</p>
+              <ul>
+                <li>Plans, milestones, and deliverables define progress</li>
+                <li>Prototypes demonstrate the design</li>
+                <li>Reviews check whether deliverables are complete</li>
+                <li>Documents prove that work was done</li>
+                <li>Decisions happen at milestones, on schedule</li>
+                <li>Learning is implicit — captured if someone remembers</li>
+                <li>Knowledge lives in project archives</li>
+                <li>Next project starts from the same baseline</li>
+              </ul>
+            </div>
+            <div class="pb-comp-col kno">
+              <p class="pb-comp-col-label kno">Knowledge-Based Development</p>
+              <ul>
+                <li>Questions, experiments, and decisions define progress</li>
+                <li>Prototypes test specific hypotheses</li>
+                <li>Reviews ask &ldquo;what did we learn?&rdquo; and &ldquo;what do we now know?&rdquo;</li>
+                <li>Documents are containers for learning — K-Briefs, A3s, trade-off curves</li>
+                <li>Decisions happen when knowledge is sufficient, not when calendar arrives</li>
+                <li>Learning is explicit — captured in reusable form as part of the work</li>
+                <li>Knowledge lives in a shared, searchable knowledge base</li>
+                <li>Next project starts from a higher knowledge baseline</li>
+              </ul>
+            </div>
+          </div>
+          <div class="pb-prose" style="margin-top:.75rem">
+            <p>The shift does not require a new process or a new tool. It requires a different question to start every project, every phase, and every review: &ldquo;What do we need to learn &mdash; and what does that learning look like?&rdquo;</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="practices">
+          <p class="pb-section-eyebrow">The practices</p>
+          <h2 class="pb-section-title">Core Practices in Knowledge-Based Development</h2>
+          <div class="pb-card-grid" style="max-width:100%">
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">PRACTICE 1</p>
+              <h3 class="pb-info-card-title">Lean Learning Cycles</h3>
+              <p class="pb-info-card-body">Short, time-boxed loops (1&ndash;2 weeks) with explicit learning questions, minimum experiments, and captured outcomes. Each cycle starts from a decision gap and ends with a validated insight. The 7-block structure gives cycles rigor without bureaucracy. See the full <a href="/lean-learning-cycles/" style="color:var(--lp-color-primary)">Learning Cycles guide</a>.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">PRACTICE 2</p>
+              <h3 class="pb-info-card-title">Knowledge Artifacts — K-Briefs</h3>
+              <p class="pb-info-card-body">A K-Brief is a one-page knowledge artifact: the question asked, the answer found, the conditions under which it holds, and the implications for design decisions. Searchable, shareable, and reusable across projects and teams. K-Briefs transform individual experiments into organizational knowledge.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">PRACTICE 3</p>
+              <h3 class="pb-info-card-title">Trade-Off and Limit Curves</h3>
+              <p class="pb-info-card-body">Visual representations of the design space: what is possible, what is not, and what the key trade-offs are between competing requirements. Limit curves define the boundaries; trade-off curves show the shape of the space within them. Both make expert knowledge explicit and transferable.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">PRACTICE 4</p>
+              <h3 class="pb-info-card-title">Knowledge-Based Milestones</h3>
+              <p class="pb-info-card-body">Milestones defined by knowledge criteria, not deliverable checklists. Instead of &ldquo;CAD model complete,&rdquo; a knowledge-based milestone asks: &ldquo;Do we know enough about the fatigue performance of this interface to commit to the current architecture?&rdquo; A team can answer yes or no — and the answer tells them whether they are ready to proceed.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">PRACTICE 5</p>
+              <h3 class="pb-info-card-title">Obeya &amp; Visual Knowledge Walls</h3>
+              <p class="pb-info-card-body">The obeya (literally: big room) is the shared visual space where the team&rsquo;s knowledge is made visible and current. A well-designed obeya makes the current state of knowledge, open questions, and key decisions visible to everyone &mdash; so that reviews are conversations about what we know and what we need to know, not reports about what was done.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">PRACTICE 6</p>
+              <h3 class="pb-info-card-title">Set-Based Design</h3>
+              <p class="pb-info-card-body">Exploring multiple design alternatives in parallel and converging as knowledge increases. Set-based design delays commitment until confidence is sufficient &mdash; but it does not delay learning. Running multiple alternatives creates more knowledge faster, because different paths surface different constraints and trade-offs.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="pb-section" id="playbook">
+          <p class="pb-section-eyebrow">In the Playbook</p>
+          <h2 class="pb-section-title">Knowledge-Based Development in the Playbook</h2>
+          <div class="pb-prose">
+            <p>Knowledge-based development runs as a thread through the full LeanPeak Playbook. The primary references are Chapters 6&ndash;7 (Validate &amp; Learn, Validation &amp; Decisions) and Chapters 20 and 23 in the Lean Learning Cycles section (7 Building Blocks and K-Briefs). Together these chapters show the full system: how to create learning intentionally, how to make decisions when knowledge is ready, and how to capture and reuse what the team learned.</p>
+          </div>
+          <div class="pb-chapter-links">
+            <a class="pb-chapter-link" href="/playbook/validate/"><span class="pb-chapter-link-num">6</span><div><p class="pb-chapter-link-label">Chapter 6 &mdash; Experimentation &amp; Learning</p><p class="pb-chapter-link-title">Experimentation &amp; Learning</p><p class="pb-chapter-link-desc">Experiment A3s, learning cycle design, and the practices that make uncertainty a resource rather than a risk to be avoided.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/decisions/"><span class="pb-chapter-link-num">7</span><div><p class="pb-chapter-link-label">Chapter 7 &mdash; Validation &amp; Decisions</p><p class="pb-chapter-link-title">Validation, Learning &amp; Decisions</p><p class="pb-chapter-link-desc">Knowledge-based milestones, review formats that create pull rather than just report progress, and the behaviours that make decisions trustworthy.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/llc-blocks/"><span class="pb-chapter-link-num">20</span><div><p class="pb-chapter-link-label">Chapter 20 &mdash; 7 Building Blocks</p><p class="pb-chapter-link-title">The Seven Building Blocks of a Learning Cycle</p><p class="pb-chapter-link-desc">The structural elements that make a learning cycle disciplined: learning question, priority matrix, key decisions, increment and iteration plans, execution, and K-Brief.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/llc-knowledge/"><span class="pb-chapter-link-num">23</span><div><p class="pb-chapter-link-label">Chapter 23 &mdash; K-Briefs</p><p class="pb-chapter-link-title">K-Briefs &amp; Visual Knowledge</p><p class="pb-chapter-link-desc">How to write a K-Brief, what makes knowledge reusable, and how to build a visual knowledge system that compounds across projects and generations of products.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+          </div>
+        </section>
+
+        <section class="pb-section" id="elearning">
+          <p class="pb-section-eyebrow">E-Learning</p>
+          <h2 class="pb-section-title">E-Learning Modules</h2>
+          <div class="pb-prose">
+            <p>The modules below from Chapters 6 and 7 cover the full knowledge-based development system: experiment design, learning cycles, knowledge-based reviews, and practical upgrades to your current milestone and decision cadence. They are designed for product development teams and leaders &mdash; both to understand the concepts and to apply them to a current project. Modules require a subscription.</p>
+          </div>
+          <div class="pb-elearning-grid">
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-6-module-1"><p class="pb-elearning-card-label">Ch 6 &middot; Module 1</p><p class="pb-elearning-card-title">Experiment A3 and Learning Design</p><p class="pb-elearning-card-meta">20–25 min</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-6-module-2"><p class="pb-elearning-card-label">Ch 6 &middot; Module 2</p><p class="pb-elearning-card-title">Running Experiments in Development</p><p class="pb-elearning-card-meta">20–25 min</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-6-module-3"><p class="pb-elearning-card-label">Ch 6 &middot; Module 3</p><p class="pb-elearning-card-title">Learning After Launch</p><p class="pb-elearning-card-meta">20–25 min</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-7-module-1"><p class="pb-elearning-card-label">Ch 7 &middot; Module 1</p><p class="pb-elearning-card-title">From Output Reviews to Knowledge Reviews</p><p class="pb-elearning-card-meta">25–30 min</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-7-module-2"><p class="pb-elearning-card-label">Ch 7 &middot; Module 2</p><p class="pb-elearning-card-title">Experiments at Portfolio &amp; Review Level</p><p class="pb-elearning-card-meta">25–30 min</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-7-module-5"><p class="pb-elearning-card-label">Ch 7 &middot; Module 5</p><p class="pb-elearning-card-title">Practical Start: Upgrade Your Next Review</p><p class="pb-elearning-card-meta">Capstone · 25–30 min</p></a>
+          </div>
+          <div class="pb-cta-box">
+            <p class="pb-cta-box-title">Access the full library</p>
+            <p class="pb-cta-box-body">Chapters 6 and 7 together have 11 modules on experimentation, learning, and knowledge-based decisions. Sign in to access your full library.</p>
+            <a href="https://app.leanpeakproductlab.com/sign-in">Sign in to access modules &rarr;</a>
+          </div>
+        </section>
+
+        <section class="pb-section" id="get-started">
+          <p class="pb-section-eyebrow">Getting started</p>
+          <h2 class="pb-section-title">How to Get Started</h2>
+          <div class="pb-prose">
+            <p>The fastest entry point to knowledge-based development is a single upcoming decision. Not a programme, not a new process. One decision, expressed as a learning question, with a minimum experiment to answer it. That is a knowledge-based development practice.</p>
+          </div>
+          <div class="pb-steps">
+            <div class="pb-step"><div class="pb-step-num-box">1</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Choose one upcoming decision</strong> that currently relies on assumption or expert opinion rather than evidence. It could be a material choice, an interface decision, a process parameter, or a supplier selection. Express it as a learning question: &ldquo;What would we need to know to make this decision confidently?&rdquo;</div></div>
+            <div class="pb-step"><div class="pb-step-num-box">2</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Design a minimum experiment</strong> that answers the question in two weeks. What is the simplest test, simulation, prototype, or analysis that gives a credible answer? Resist the temptation to test everything &mdash; test only what is needed to answer the question.</div></div>
+            <div class="pb-step"><div class="pb-step-num-box">3</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Write a one-page K-Brief</strong> after the experiment. The question, the answer, the conditions under which it holds, and what it means for the design. File it somewhere the next team that faces the same question can find it.</div></div>
+            <div class="pb-step"><div class="pb-step-num-box">4</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Start using &ldquo;What did we learn?&rdquo;</strong> as the closing question in every project review &mdash; not &ldquo;What did we do?&rdquo; or &ldquo;Are we on schedule?&rdquo; One question changes the nature of every review.</div></div>
+            <div class="pb-step"><div class="pb-step-num-box">5</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">For the next milestone review</strong>, replace one deliverable checklist item with a knowledge question: &ldquo;Do we know enough about X to commit to the current direction?&rdquo; Run the experiment needed to answer it before the review, not after.</div></div>
+          </div>
+          <div class="pb-prose" style="margin-top:.75rem">
+            <p>Read Chapter 6 (Experimentation &amp; Learning) for the full practice of experiment design and learning cycle structure. Read Chapter 7 (Validation, Learning &amp; Decisions) for knowledge-based milestones and review formats. Read Chapter 23 (K-Briefs &amp; Visual Knowledge) for the full K-Brief system and how to build a team knowledge base.</p>
+          </div>
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.5rem;">
+            <a href="/playbook/validate/" style="display:inline-block;padding:.55rem 1.2rem;background:var(--lp-color-primary);color:#fff;border-radius:var(--lp-radius-sm);font-size:.875rem;font-weight:600;text-decoration:none;">Read Chapter 6: Experimentation &rarr;</a>
+            <a href="/lean-learning-cycles/" style="display:inline-block;padding:.55rem 1.2rem;background:var(--lp-color-surface);color:var(--lp-color-text-main);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-sm);font-size:.875rem;font-weight:600;text-decoration:none;">Lean Learning Cycles guide</a>
+            <a href="/playbook/llc-knowledge/" style="display:inline-block;padding:.55rem 1.2rem;background:var(--lp-color-surface);color:var(--lp-color-text-main);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-sm);font-size:.875rem;font-weight:600;text-decoration:none;">K-Briefs &amp; Visual Knowledge (Ch 23)</a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="/js/portal-auth.js" defer></script>
+</body>
+</html>

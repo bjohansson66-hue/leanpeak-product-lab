@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What Is a Development Value Stream? – LeanPeak Product Lab</title>
+  <meta name="description" content="A development value stream is the end-to-end flow of work and knowledge from idea to launched product. Learn how to see it, map it, and design flow across discovery, design, validation, industrialization, and launch.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="What Is a Development Value Stream? – LeanPeak Product Lab">
+  <meta property="og:description" content="How to see, map, and improve your development value stream — including the difference from production value streams, flow concepts in development, and the LPPD playbook chapters that use value stream thinking as their backbone.">
+  <meta property="og:url" content="https://leanpeakproductlab.com/development-value-stream/">
+  <meta property="og:site_name" content="LeanPeak Product Lab">
+  <link rel="canonical" href="https://leanpeakproductlab.com/development-value-stream/">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="../leanpeak-theme.css">
+  <style>
+    .pb-page{max-width:1120px;margin:0 auto;padding:0 1.5rem 5rem}
+    .pb-chapter-header{padding:3rem 0 2.5rem;border-bottom:1px solid var(--lp-color-border-subtle);margin-bottom:2.5rem}
+    .pb-chapter-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-3xl);font-weight:400;letter-spacing:-.03em;line-height:1.1;color:var(--lp-color-text-main);margin:0 0 1rem}
+    .pb-chapter-lead{font-size:var(--lp-font-size-lg);color:var(--lp-color-text-muted);line-height:1.7;max-width:72ch;margin:0}
+    .pb-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:3.5rem;align-items:start}
+    .pb-sidebar{position:sticky;top:2rem;max-height:calc(100vh - 4rem);overflow-y:auto}
+    .pb-sidebar-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-nav{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.1rem}
+    .pb-nav>li>a{display:block;font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);text-decoration:none;padding:.35rem .75rem;border-radius:var(--lp-radius-sm);border-left:2px solid transparent;line-height:1.4;transition:color .15s,background .15s}
+    .pb-nav>li>a:hover{color:var(--lp-color-primary);background:var(--lp-color-primary-soft)}
+    .pb-resources-box{margin-top:2rem;padding:1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md)}
+    .pb-resources-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-resources-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.35rem}
+    .pb-resources-list li a{font-size:var(--lp-font-size-sm);color:var(--lp-color-primary);text-decoration:none;line-height:1.4}
+    .pb-resources-list li a:hover{text-decoration:underline}
+    .pb-section{scroll-margin-top:5rem;margin-bottom:4rem}
+    .pb-section+.pb-section{padding-top:2.5rem;border-top:1px solid var(--lp-color-border-subtle)}
+    .pb-section-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .5rem;font-family:var(--lp-font-sans)}
+    .pb-section-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-2xl);font-weight:400;letter-spacing:-.02em;color:var(--lp-color-text-main);margin:0 0 1.25rem;line-height:1.15}
+    .pb-prose{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.75;max-width:70ch}
+    .pb-prose p{margin:0 0 1rem}
+    .pb-prose p:last-child{margin-bottom:0}
+    .pb-pullquote{margin:2rem 0;padding:1.25rem 1.5rem;border-left:3px solid var(--lp-color-primary);background:var(--lp-color-surface);border-radius:0 var(--lp-radius-md) var(--lp-radius-md) 0}
+    .pb-pullquote p{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);line-height:1.5;color:var(--lp-color-text-main);margin:0}
+    .pb-list{list-style:none;padding:0;margin:1rem 0;display:flex;flex-direction:column;gap:.5rem;max-width:68ch}
+    .pb-list li{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.65;padding-left:1.25rem;position:relative}
+    .pb-list li::before{content:"→";position:absolute;left:0;color:var(--lp-color-primary);font-size:.85em;top:.15em}
+    .pb-shifts{display:flex;flex-direction:column;gap:.5rem;margin:1.25rem 0;max-width:70ch}
+    .pb-shift{display:grid;grid-template-columns:1fr auto 1fr;gap:.75rem;align-items:center;padding:.65rem 1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md);font-size:var(--lp-font-size-sm)}
+    .pb-shift-from{color:var(--lp-color-text-muted)}
+    .pb-shift-arrow{color:var(--lp-color-primary);font-size:1.1em;text-align:center}
+    .pb-shift-to{color:var(--lp-color-text-main);font-weight:500}
+    .pb-card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1.5rem 0}
+    .pb-info-card{padding:1rem 1.25rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md)}
+    .pb-info-card-num{font-size:var(--lp-font-size-xs);font-weight:700;color:var(--lp-color-primary);font-family:var(--lp-font-sans);margin-bottom:.4rem}
+    .pb-info-card-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-md);color:var(--lp-color-text-main);margin:0 0 .4rem;line-height:1.25}
+    .pb-info-card-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.6;margin:0}
+    .pb-chapter-links{display:flex;flex-direction:column;gap:.5rem;margin:1.25rem 0;max-width:70ch}
+    .pb-chapter-link{display:grid;grid-template-columns:2.5rem minmax(0,1fr) auto;gap:.75rem;align-items:center;padding:.85rem 1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md);text-decoration:none;color:inherit;transition:background .15s,border-color .15s}
+    .pb-chapter-link:hover{background:var(--lp-color-primary-soft);border-color:var(--lp-color-primary)}
+    .pb-chapter-link:hover .pb-chapter-link-arrow{color:var(--lp-color-primary)}
+    .pb-chapter-link-num{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);font-weight:400;color:var(--lp-color-border-strong);line-height:1}
+    .pb-chapter-link-label{font-size:var(--lp-font-size-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .2rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-link-title{font-size:var(--lp-font-size-sm);font-weight:600;color:var(--lp-color-text-main);margin:0 0 .2rem;line-height:1.3}
+    .pb-chapter-link-desc{font-size:var(--lp-font-size-xs);color:var(--lp-color-text-muted);line-height:1.5;margin:0}
+    .pb-chapter-link-arrow{font-size:1.1rem;color:var(--lp-color-text-soft);flex-shrink:0;transition:color .15s}
+    .pb-elearning-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin:1.25rem 0}
+    .pb-elearning-card{padding:.85rem 1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md);text-decoration:none;color:inherit;transition:background .15s,border-color .15s;display:block}
+    .pb-elearning-card:hover{background:var(--lp-color-primary-soft);border-color:var(--lp-color-primary)}
+    .pb-elearning-card-label{font-size:var(--lp-font-size-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--lp-color-primary);font-family:var(--lp-font-sans);margin:0 0 .3rem}
+    .pb-elearning-card-title{font-size:var(--lp-font-size-sm);font-weight:600;color:var(--lp-color-text-main);line-height:1.3;margin:0 0 .2rem}
+    .pb-elearning-card-meta{font-size:var(--lp-font-size-xs);color:var(--lp-color-text-muted)}
+    .pb-cta-box{margin:2rem 0;padding:1.5rem 1.75rem;background:var(--lp-color-primary-soft);border:1px solid var(--lp-color-primary);border-radius:var(--lp-radius-lg);max-width:70ch}
+    .pb-cta-box-title{font-size:var(--lp-font-size-md);font-weight:600;color:var(--lp-color-text-main);margin:0 0 .5rem}
+    .pb-cta-box-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.65;margin:0 0 1rem}
+    .pb-cta-box a{display:inline-block;padding:.5rem 1.1rem;background:var(--lp-color-primary);color:#fff;border-radius:var(--lp-radius-sm);font-size:var(--lp-font-size-sm);font-weight:600;text-decoration:none}
+    .pb-cta-box a:hover{opacity:.9}
+    .pb-steps{display:flex;flex-direction:column;gap:.65rem;margin:1.25rem 0;max-width:70ch}
+    .pb-step{display:grid;grid-template-columns:2rem minmax(0,1fr);gap:.875rem;align-items:start}
+    .pb-step-num-box{width:2rem;height:2rem;border-radius:var(--lp-radius-sm);background:var(--lp-color-primary-soft);color:var(--lp-color-primary);font-size:var(--lp-font-size-xs);font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--lp-font-sans)}
+    .pb-step-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.65;padding-top:.2rem}
+    @media(max-width:860px){.pb-layout{grid-template-columns:1fr;gap:0}.pb-sidebar{position:static;max-height:none;padding-bottom:1.5rem;margin-bottom:2rem;border-bottom:1px solid var(--lp-color-border-subtle)}.pb-nav{flex-direction:row;flex-wrap:wrap;gap:.25rem}.pb-nav>li>a{border-left:none;padding:.3rem .6rem}.pb-card-grid,.pb-elearning-grid{grid-template-columns:1fr}.pb-shift{grid-template-columns:1fr}.pb-shift-arrow{display:none}.pb-chapter-link{grid-template-columns:2rem minmax(0,1fr)}.pb-chapter-link-arrow{display:none}}
+    @media(max-width:640px){.pb-chapter-title{font-size:2rem}}
+  </style>
+</head>
+<body>
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="dvs-logo" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="dvs-logo">LeanPeakProductLab logo</title>
+          <g transform="translate(24 36)"><rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"/><rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"/><rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"/></g>
+          <g transform="translate(150 46)"><text x="0" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text><text x="218" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text><text x="2" y="92" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text></g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">Playbook</a>
+        <a href="/elearning/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">E-Learning</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">LeanPeak Product Lab &mdash; Resource Guide</p>
+      <h1 class="pb-chapter-title">What Is a Development Value Stream?</h1>
+      <p class="pb-chapter-lead">A development value stream is the end-to-end flow of work and knowledge from idea to launched product &mdash; for a specific product family or platform. Unlike project plans, it focuses on how value is created and how knowledge moves. This page explains how to see it, map it, and design flow across it.</p>
+    </div>
+
+    <div class="pb-layout">
+      <aside class="pb-sidebar">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#definition">What Is It?</a></li>
+          <li><a href="#problem">The Problem It Solves</a></li>
+          <li><a href="#vs-production">Dev vs. Production Value Streams</a></li>
+          <li><a href="#see-it">How to See Your Value Stream</a></li>
+          <li><a href="#flow">Designing Flow in Development</a></li>
+          <li><a href="#playbook">In the Playbook</a></li>
+          <li><a href="#elearning">E-Learning Modules</a></li>
+          <li><a href="#get-started">How to Get Started</a></li>
+        </ul>
+        <div class="pb-resources-box">
+          <p class="pb-resources-label">Quick links</p>
+          <ul class="pb-resources-list">
+            <li><a href="/playbook/">→ Playbook main page</a></li>
+            <li><a href="/playbook/design/">→ Design &amp; Flow (Chapter 5)</a></li>
+            <li><a href="/playbook/strategy/">→ Strategy &amp; Value Streams (Ch 3)</a></li>
+            <li><a href="/playbook/scaling/">→ Scaling &amp; Launch (Ch 8)</a></li>
+            <li><a href="/elearning/">→ All e-learning modules</a></li>
+            <li><a href="/lean-product-process-development/">→ LPPD overview guide</a></li>
+            <li><a href="/lean-learning-cycles/">→ Lean Learning Cycles guide</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main>
+        <section class="pb-section" id="definition">
+          <p class="pb-section-eyebrow">Definition</p>
+          <h2 class="pb-section-title">What Is a Development Value Stream?</h2>
+          <div class="pb-prose">
+            <p>A <strong>development value stream</strong> is the complete, end-to-end flow of work and knowledge that takes a product idea from strategy and customer insight through concept, design, validation, industrialization, launch, and lifecycle learning &mdash; for a specific product family or platform. It includes every step that adds or should add value, every handoff, every wait, and every decision point along the way.</p>
+            <p>Unlike a project plan &mdash; which describes what tasks will be done and by when &mdash; a development value stream map focuses on how value is created and how knowledge moves. It reveals where time is lost, where learning is happening too late, where decisions are made without sufficient knowledge, and where cross-functional handoffs break the flow of work and information.</p>
+            <p>The development value stream is the unit of design in LPPD. When an organization asks &ldquo;how do we improve our development?&rdquo;, the LPPD answer is: &ldquo;design the development value stream the way a lean manufacturer designs a production line &mdash; with flow, cadence, and visible work in progress.&rdquo;</p>
+          </div>
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;A project plan tells you what will be done. A development value stream map tells you how knowledge will flow — and where it is currently being lost, delayed, or ignored.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <section class="pb-section" id="problem">
+          <p class="pb-section-eyebrow">The problem</p>
+          <h2 class="pb-section-title">The Problem It Solves</h2>
+          <div class="pb-prose">
+            <p>Most development organisations have no shared picture of their development flow. They have project plans, milestone schedules, and org charts &mdash; but no view of how work actually moves from idea to launch, where it gets stuck, and where value is being created or destroyed. The consequences are predictable and chronic:</p>
+          </div>
+          <ul class="pb-list">
+            <li>Fragmented projects: each project is planned independently, with no view of how the same flow problems repeat across projects</li>
+            <li>Siloed teams: engineering, manufacturing, quality, and supply chain each optimize their own phase without shared context about upstream or downstream impact</li>
+            <li>Invisible bottlenecks: the constraints that slow every project are never named, never addressed, and recur reliably</li>
+            <li>Knowledge that does not move: insights from one phase are not visible to the team in the next phase, creating rework and re-discovery</li>
+            <li>No shared language for what &ldquo;good&rdquo; looks like: without a picture of the intended flow, there is nothing to improve toward</li>
+          </ul>
+          <div class="pb-prose" style="margin-top:.5rem">
+            <p>Mapping the development value stream gives teams a shared, honest picture of how development actually works &mdash; not how they think it works or how the process documentation says it works. That shared picture is the starting point for any improvement.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="vs-production">
+          <p class="pb-section-eyebrow">Comparison</p>
+          <h2 class="pb-section-title">Development vs. Production Value Streams</h2>
+          <div class="pb-prose">
+            <p>Production value stream mapping is well established. Practitioners know how to map a production line: identify the process steps, measure cycle time and inventory, find the bottleneck, design for flow. Development value streams share the same logic &mdash; flow, waste, lead time, WIP &mdash; but differ in important ways that make direct application of production tools incomplete.</p>
+          </div>
+          <div class="pb-shifts">
+            <div class="pb-shift"><span class="pb-shift-from">Output is a physical product (units per hour)</span><span class="pb-shift-arrow">vs</span><span class="pb-shift-to">Output is knowledge that drives decisions — measured in certainty, not units</span></div>
+            <div class="pb-shift"><span class="pb-shift-from">Process steps are repeatable and known in advance</span><span class="pb-shift-arrow">vs</span><span class="pb-shift-to">Uncertainty is intrinsic — the path changes as you learn</span></div>
+            <div class="pb-shift"><span class="pb-shift-from">Inventory is visible: parts, bins, queues</span><span class="pb-shift-arrow">vs</span><span class="pb-shift-to">WIP is invisible: in-progress experiments, uncaptured insights, open questions</span></div>
+            <div class="pb-shift"><span class="pb-shift-from">Waste is physical: overproduction, motion, waiting</span><span class="pb-shift-arrow">vs</span><span class="pb-shift-to">Waste is cognitive: redundant analysis, late risk discovery, repeated mistakes</span></div>
+            <div class="pb-shift"><span class="pb-shift-from">Flow is about materials and throughput</span><span class="pb-shift-arrow">vs</span><span class="pb-shift-to">Flow is about knowledge and decisions — predictable learning and decision cycles</span></div>
+          </div>
+          <div class="pb-prose" style="margin-top:.75rem">
+            <p>The practical implication is that production VSM tools are necessary but not sufficient for development. You need to map both the flow of work and the flow of decisions and knowledge &mdash; asking not just &ldquo;where does the work go next?&rdquo; but &ldquo;who needs to know what, when, and what happens if they don&rsquo;t?&rdquo;</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="see-it">
+          <p class="pb-section-eyebrow">The map</p>
+          <h2 class="pb-section-title">How to See Your Development Value Stream</h2>
+          <div class="pb-prose">
+            <p>A development value stream map does not need to be complex to be useful. A first-pass map can be created in a half-day workshop with key people from across the stream. The goal is not accuracy down to the day &mdash; it is a shared, honest picture of the overall flow.</p>
+            <p>The map covers the whole development flow for one product family: from strategy and portfolio decisions, through customer and problem discovery, concept and architecture, detailed design, validation and experiments, industrialization and 3P work, launch, and lifecycle learning. For each major phase, the map shows: what work is happening, what decisions are being made, what knowledge needs to move and to whom, and where the flow is breaking down.</p>
+          </div>
+          <div class="pb-card-grid" style="max-width:100%">
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">MAP LAYER 1</p>
+              <h3 class="pb-info-card-title">Flow of work</h3>
+              <p class="pb-info-card-body">The major phases and handoffs: strategy → discovery → concept → design → validation → industrialization → launch → lifecycle. Where does work get stuck? Where are the longest waits? What crosses organizational boundaries?</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">MAP LAYER 2</p>
+              <h3 class="pb-info-card-title">Flow of decisions</h3>
+              <p class="pb-info-card-body">The key decisions in each phase: what is being decided, when, by whom, and with what information? Where are decisions being made before the necessary knowledge is available? Where are decisions being deferred when they should be made?</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">MAP LAYER 3</p>
+              <h3 class="pb-info-card-title">Flow of knowledge</h3>
+              <p class="pb-info-card-body">What does each phase need to know from the previous phase to do its work well? What knowledge is currently not moving? Where is the same thing being re-learned? Where is learning happening too late to influence decisions?</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">MAP LAYER 4</p>
+              <h3 class="pb-info-card-title">Flow of people</h3>
+              <p class="pb-info-card-body">Who needs to be involved at each phase, and who is actually involved? Where are critical functions absent from key decisions? Where are too many people involved in low-value activities while too few are involved in high-value ones?</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="pb-section" id="flow">
+          <p class="pb-section-eyebrow">Designing flow</p>
+          <h2 class="pb-section-title">Designing Flow in Development</h2>
+          <div class="pb-prose">
+            <p>Flow in development does not mean everyone is always busy. It means that knowledge and decisions move predictably through the system, without long waits, without rework driven by late information, and without bottlenecks that stop everything while one team finishes a gate deliverable. Designing flow in development means designing the conditions under which learning happens on time and decisions can be made with confidence.</p>
+            <p>The core concepts that create flow in a development value stream are drawn from Chapter 5 of the LPPD Playbook:</p>
+          </div>
+          <ul class="pb-list">
+            <li><strong>Cadence</strong>: a regular rhythm of integration events and learning reviews that creates predictable decision points across the stream — not just at formal milestones</li>
+            <li><strong>WIP limits on knowledge work</strong>: limiting the number of open experiments and active alternatives so that learning cycles complete, rather than accumulating endless open questions</li>
+            <li><strong>Integration events</strong>: structured moments where cross-functional teams converge to share knowledge, review alternatives, and make decisions together — not in separate review meetings</li>
+            <li><strong>Obeya</strong>: the shared visual space where the development team sees the whole stream at once — strategy, current project state, open decisions, and learning results &mdash; updated continuously</li>
+            <li><strong>Set-based design</strong>: running multiple design alternatives in parallel and converging as knowledge accumulates, rather than committing to a single direction early and defending it</li>
+            <li><strong>Chief engineer accountability</strong>: one person with end-to-end responsibility for the value stream — not for managing tasks, but for ensuring that the right knowledge reaches the right decision at the right time</li>
+          </ul>
+          <div class="pb-prose" style="margin-top:.5rem">
+            <p>The goal of all these practices is the same: predictable learning and decision cycles. When a team knows that every two weeks there will be a knowledge review, that every month there will be an integration event, and that every key decision has an explicit knowledge requirement, the stream begins to flow.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="playbook">
+          <p class="pb-section-eyebrow">In the Playbook</p>
+          <h2 class="pb-section-title">Development Value Stream in the Playbook</h2>
+          <div class="pb-prose">
+            <p>The development value stream runs as a backbone through the entire LeanPeak Playbook. Chapter 5 is the primary reference for designing flow; Chapter 3 connects the value stream to strategy; Chapters 6&ndash;8 cover how knowledge moves through validation, decisions, and launch.</p>
+          </div>
+          <div class="pb-chapter-links">
+            <a class="pb-chapter-link" href="/playbook/strategy/"><span class="pb-chapter-link-num">3</span><div><p class="pb-chapter-link-label">Chapter 3 &mdash; Strategy &amp; Value Creation</p><p class="pb-chapter-link-title">From True North to Value Streams</p><p class="pb-chapter-link-desc">How strategic intent flows into the development value stream and shapes which product families and platforms to invest in.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/design/"><span class="pb-chapter-link-num">5</span><div><p class="pb-chapter-link-label">Chapter 5 &mdash; Design &amp; Flow</p><p class="pb-chapter-link-title">From Insight to Design &amp; Flow</p><p class="pb-chapter-link-desc">The primary reference for designing the development value stream: set-based design, obeya, visual management, cadence, and early product-process integration.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/validate/"><span class="pb-chapter-link-num">6</span><div><p class="pb-chapter-link-label">Chapter 6 &mdash; Experimentation &amp; Learning</p><p class="pb-chapter-link-title">Experimentation &amp; Learning</p><p class="pb-chapter-link-desc">How experiments and learning cycles create the knowledge that moves through the value stream and drives decisions forward.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/scaling/"><span class="pb-chapter-link-num">8</span><div><p class="pb-chapter-link-label">Chapter 8 &mdash; Scaling &amp; Launch</p><p class="pb-chapter-link-title">Scaling, Launch &amp; Lifecycle</p><p class="pb-chapter-link-desc">How the development value stream connects to the production value stream at launch — and how lifecycle learning feeds back into the next development cycle.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+          </div>
+        </section>
+
+        <section class="pb-section" id="elearning">
+          <p class="pb-section-eyebrow">E-Learning</p>
+          <h2 class="pb-section-title">E-Learning Modules</h2>
+          <div class="pb-prose">
+            <p>The modules below cover the development value stream from strategy through design, validation, and launch. They are designed for leaders, chief engineers, and team leads who want to understand and improve the development system, not just individual projects. Modules require a subscription.</p>
+          </div>
+          <div class="pb-elearning-grid">
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-3-module-1"><p class="pb-elearning-card-label">Ch 3 &middot; Module 1</p><p class="pb-elearning-card-title">From True North to Value Streams</p><p class="pb-elearning-card-meta">25–30 min</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-5-module-1"><p class="pb-elearning-card-label">Ch 5 &middot; Modules 1–5</p><p class="pb-elearning-card-title">Design &amp; Flow — full set</p><p class="pb-elearning-card-meta">5 modules · 25–40 min each</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-5-module-3"><p class="pb-elearning-card-label">Ch 5 &middot; Module 3</p><p class="pb-elearning-card-title">Designing the Development Value Stream</p><p class="pb-elearning-card-meta">30–35 min</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-5-module-4"><p class="pb-elearning-card-label">Ch 5 &middot; Module 4</p><p class="pb-elearning-card-title">Visual Management &amp; Obeya for Design &amp; Flow</p><p class="pb-elearning-card-meta">35–40 min</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-8-module-5"><p class="pb-elearning-card-label">Ch 8 &middot; Module 5</p><p class="pb-elearning-card-title">Lifecycle Thinking and Roadmaps</p><p class="pb-elearning-card-meta">35–40 min</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-10-module-1"><p class="pb-elearning-card-label">Ch 10 &middot; Module 1</p><p class="pb-elearning-card-title">Start From One Value Stream</p><p class="pb-elearning-card-meta">20–25 min</p></a>
+          </div>
+          <div class="pb-cta-box">
+            <p class="pb-cta-box-title">Access the full library</p>
+            <p class="pb-cta-box-body">Modules require a subscription. Sign in to access the full LPPD and Lean 3P e-learning library.</p>
+            <a href="https://app.leanpeakproductlab.com/sign-in">Sign in to access modules &rarr;</a>
+          </div>
+        </section>
+
+        <section class="pb-section" id="get-started">
+          <p class="pb-section-eyebrow">Getting started</p>
+          <h2 class="pb-section-title">How to Get Started</h2>
+          <div class="pb-prose">
+            <p>The best starting point is a simple mapping workshop with the right people &mdash; not a consulting engagement or a data-heavy analysis. The goal is a shared, honest picture of how development actually works for one product family. You can do this in half a day.</p>
+          </div>
+          <div class="pb-steps">
+            <div class="pb-step"><div class="pb-step-num-box">1</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Choose one product family or platform.</strong> Not the whole portfolio. One stream, one team, one mapping session. Pick one where improvement would matter.</div></div>
+            <div class="pb-step"><div class="pb-step-num-box">2</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Assemble the cross-functional mapping team.</strong> Product management, engineering, manufacturing, quality, supply chain, and a recent project leader. You need people who have lived the stream, not just people who manage it.</div></div>
+            <div class="pb-step"><div class="pb-step-num-box">3</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Walk the stream on a whiteboard or sticky notes.</strong> Start from strategy (why does this product family exist?) and end at lifecycle learning (what does the next project start knowing that this one didn&rsquo;t?). Name every major phase, handoff, wait, and decision.</div></div>
+            <div class="pb-step"><div class="pb-step-num-box">4</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Mark the flow problems.</strong> Where does work wait for information? Where are decisions made without sufficient knowledge? Where is the same thing being re-discovered? Where do functions hand off and lose context? Identify 2&ndash;3 obvious flow problems to address first.</div></div>
+            <div class="pb-step"><div class="pb-step-num-box">5</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Choose one improvement and try it.</strong> An obeya for direction and visibility, a cadenced knowledge review, an integration event format that brings functions together earlier. One practice, embedded in real work, is more valuable than a complete redesign on paper.</div></div>
+          </div>
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.5rem;">
+            <a href="/playbook/design/" style="display:inline-block;padding:.55rem 1.2rem;background:var(--lp-color-primary);color:#fff;border-radius:var(--lp-radius-sm);font-size:.875rem;font-weight:600;text-decoration:none;">Read Chapter 5: Design &amp; Flow &rarr;</a>
+            <a href="/lean-product-process-development/" style="display:inline-block;padding:.55rem 1.2rem;background:var(--lp-color-surface);color:var(--lp-color-text-main);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-sm);font-size:.875rem;font-weight:600;text-decoration:none;">LPPD overview guide</a>
+            <a href="/lean-learning-cycles/" style="display:inline-block;padding:.55rem 1.2rem;background:var(--lp-color-surface);color:var(--lp-color-text-main);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-sm);font-size:.875rem;font-weight:600;text-decoration:none;">Lean Learning Cycles guide</a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="/js/portal-auth.js" defer></script>
+</body>
+</html>

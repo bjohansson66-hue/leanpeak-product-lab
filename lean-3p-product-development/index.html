@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What Is Modern Lean 3P for Product Development? – LeanPeak Product Lab</title>
+  <meta name="description" content="Lean 3P for product development means designing product and process together from the concept stage — not as a late factory exercise. Learn how 3P integrates with LPPD, the 4-phase flow, and the three 3P event types.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="What Is Modern Lean 3P for Product Development? – LeanPeak Product Lab">
+  <meta property="og:description" content="3P as part of LPPD: how Design 3P, Process 3P, and Production 3P connect across development milestones — with the full playbook and e-learning modules.">
+  <meta property="og:url" content="https://leanpeakproductlab.com/lean-3p-product-development/">
+  <meta property="og:site_name" content="LeanPeak Product Lab">
+  <link rel="canonical" href="https://leanpeakproductlab.com/lean-3p-product-development/">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="../leanpeak-theme.css">
+  <style>
+    .pb-page{max-width:1120px;margin:0 auto;padding:0 1.5rem 5rem}
+    .pb-chapter-header{padding:3rem 0 2.5rem;border-bottom:1px solid var(--lp-color-border-subtle);margin-bottom:2.5rem}
+    .pb-chapter-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-3xl);font-weight:400;letter-spacing:-.03em;line-height:1.1;color:var(--lp-color-text-main);margin:0 0 1rem}
+    .pb-chapter-lead{font-size:var(--lp-font-size-lg);color:var(--lp-color-text-muted);line-height:1.7;max-width:72ch;margin:0}
+    .pb-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:3.5rem;align-items:start}
+    .pb-sidebar{position:sticky;top:2rem;max-height:calc(100vh - 4rem);overflow-y:auto}
+    .pb-sidebar-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-nav{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.1rem}
+    .pb-nav>li>a{display:block;font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);text-decoration:none;padding:.35rem .75rem;border-radius:var(--lp-radius-sm);border-left:2px solid transparent;line-height:1.4;transition:color .15s,background .15s}
+    .pb-nav>li>a:hover{color:var(--lp-color-primary);background:var(--lp-color-primary-soft)}
+    .pb-resources-box{margin-top:2rem;padding:1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md)}
+    .pb-resources-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-resources-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.35rem}
+    .pb-resources-list li a{font-size:var(--lp-font-size-sm);color:var(--lp-color-primary);text-decoration:none;line-height:1.4}
+    .pb-resources-list li a:hover{text-decoration:underline}
+    .pb-section{scroll-margin-top:5rem;margin-bottom:4rem}
+    .pb-section+.pb-section{padding-top:2.5rem;border-top:1px solid var(--lp-color-border-subtle)}
+    .pb-section-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .5rem;font-family:var(--lp-font-sans)}
+    .pb-section-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-2xl);font-weight:400;letter-spacing:-.02em;color:var(--lp-color-text-main);margin:0 0 1.25rem;line-height:1.15}
+    .pb-prose{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.75;max-width:70ch}
+    .pb-prose p{margin:0 0 1rem}
+    .pb-prose p:last-child{margin-bottom:0}
+    .pb-pullquote{margin:2rem 0;padding:1.25rem 1.5rem;border-left:3px solid var(--lp-color-primary);background:var(--lp-color-surface);border-radius:0 var(--lp-radius-md) var(--lp-radius-md) 0}
+    .pb-pullquote p{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);line-height:1.5;color:var(--lp-color-text-main);margin:0}
+    .pb-list{list-style:none;padding:0;margin:1rem 0;display:flex;flex-direction:column;gap:.5rem;max-width:68ch}
+    .pb-list li{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.65;padding-left:1.25rem;position:relative}
+    .pb-list li::before{content:"→";position:absolute;left:0;color:var(--lp-color-primary);font-size:.85em;top:.15em}
+    .pb-card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1.5rem 0}
+    .pb-info-card{padding:1rem 1.25rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md)}
+    .pb-info-card-num{font-size:var(--lp-font-size-xs);font-weight:700;color:var(--lp-color-primary);font-family:var(--lp-font-sans);margin-bottom:.4rem}
+    .pb-info-card-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-md);color:var(--lp-color-text-main);margin:0 0 .4rem;line-height:1.25}
+    .pb-info-card-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.6;margin:0}
+    .pb-chapter-links{display:flex;flex-direction:column;gap:.5rem;margin:1.25rem 0;max-width:70ch}
+    .pb-chapter-link{display:grid;grid-template-columns:2.5rem minmax(0,1fr) auto;gap:.75rem;align-items:center;padding:.85rem 1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md);text-decoration:none;color:inherit;transition:background .15s,border-color .15s}
+    .pb-chapter-link:hover{background:var(--lp-color-primary-soft);border-color:var(--lp-color-primary)}
+    .pb-chapter-link:hover .pb-chapter-link-arrow{color:var(--lp-color-primary)}
+    .pb-chapter-link-num{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);font-weight:400;color:var(--lp-color-border-strong);line-height:1}
+    .pb-chapter-link-label{font-size:var(--lp-font-size-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .2rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-link-title{font-size:var(--lp-font-size-sm);font-weight:600;color:var(--lp-color-text-main);margin:0 0 .2rem;line-height:1.3}
+    .pb-chapter-link-desc{font-size:var(--lp-font-size-xs);color:var(--lp-color-text-muted);line-height:1.5;margin:0}
+    .pb-chapter-link-arrow{font-size:1.1rem;color:var(--lp-color-text-soft);flex-shrink:0;transition:color .15s}
+    .pb-elearning-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin:1.25rem 0}
+    .pb-elearning-card{padding:.85rem 1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md);text-decoration:none;color:inherit;transition:background .15s,border-color .15s;display:block}
+    .pb-elearning-card:hover{background:var(--lp-color-primary-soft);border-color:var(--lp-color-primary)}
+    .pb-elearning-card-label{font-size:var(--lp-font-size-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--lp-color-primary);font-family:var(--lp-font-sans);margin:0 0 .3rem}
+    .pb-elearning-card-title{font-size:var(--lp-font-size-sm);font-weight:600;color:var(--lp-color-text-main);line-height:1.3;margin:0 0 .2rem}
+    .pb-elearning-card-meta{font-size:var(--lp-font-size-xs);color:var(--lp-color-text-muted)}
+    .pb-cta-box{margin:2rem 0;padding:1.5rem 1.75rem;background:var(--lp-color-primary-soft);border:1px solid var(--lp-color-primary);border-radius:var(--lp-radius-lg);max-width:70ch}
+    .pb-cta-box-title{font-size:var(--lp-font-size-md);font-weight:600;color:var(--lp-color-text-main);margin:0 0 .5rem}
+    .pb-cta-box-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.65;margin:0 0 1rem}
+    .pb-cta-box a{display:inline-block;padding:.5rem 1.1rem;background:var(--lp-color-primary);color:#fff;border-radius:var(--lp-radius-sm);font-size:var(--lp-font-size-sm);font-weight:600;text-decoration:none}
+    .pb-cta-box a:hover{opacity:.9}
+    .pb-milestone-row{display:flex;flex-direction:column;gap:.5rem;margin:1.25rem 0;max-width:70ch}
+    .pb-milestone{display:grid;grid-template-columns:10rem minmax(0,1fr);gap:1rem;align-items:start;padding:.75rem 1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md);font-size:var(--lp-font-size-sm)}
+    .pb-milestone-label{font-weight:600;color:var(--lp-color-primary)}
+    .pb-milestone-body{color:var(--lp-color-text-muted);line-height:1.55}
+    @media(max-width:860px){.pb-layout{grid-template-columns:1fr;gap:0}.pb-sidebar{position:static;max-height:none;padding-bottom:1.5rem;margin-bottom:2rem;border-bottom:1px solid var(--lp-color-border-subtle)}.pb-nav{flex-direction:row;flex-wrap:wrap;gap:.25rem}.pb-nav>li>a{border-left:none;padding:.3rem .6rem}.pb-card-grid,.pb-elearning-grid{grid-template-columns:1fr}.pb-chapter-link{grid-template-columns:2rem minmax(0,1fr)}.pb-chapter-link-arrow,.pb-milestone-label{display:none}}
+    @media(max-width:640px){.pb-chapter-title{font-size:2rem}}
+  </style>
+</head>
+<body>
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="l3pd-logo" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="l3pd-logo">LeanPeakProductLab logo</title>
+          <g transform="translate(24 36)"><rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"/><rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"/><rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"/></g>
+          <g transform="translate(150 46)"><text x="0" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text><text x="218" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text><text x="2" y="92" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text></g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">Playbook</a>
+        <a href="/elearning/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">E-Learning</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">LeanPeak Product Lab &mdash; Resource Guide</p>
+      <h1 class="pb-chapter-title">What Is Modern Lean 3P for Product Development?</h1>
+      <p class="pb-chapter-lead">Lean 3P &mdash; the Production Preparation Process &mdash; is most powerful when it is integrated with product development from the concept stage, not treated as a late factory exercise. This page covers 3P as part of the LPPD system: the problem it solves, the four-phase flow, and where the three 3P event types sit in the development timeline.</p>
+    </div>
+
+    <div class="pb-layout">
+      <aside class="pb-sidebar">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#definition">What Is Modern Lean 3P?</a></li>
+          <li><a href="#problem">The Problem in Development</a></li>
+          <li><a href="#lppd">3P as Part of LPPD</a></li>
+          <li><a href="#four-phases">The 4-Phase Flow</a></li>
+          <li><a href="#events">3P Events Across Development</a></li>
+          <li><a href="#playbook">Lean 3P Playbook</a></li>
+          <li><a href="#elearning">E-Learning Modules</a></li>
+          <li><a href="#get-started">How to Get Started</a></li>
+        </ul>
+        <div class="pb-resources-box">
+          <p class="pb-resources-label">Quick links</p>
+          <ul class="pb-resources-list">
+            <li><a href="/lean-3p-guide/">→ Lean 3P Beginner&rsquo;s Guide</a></li>
+            <li><a href="/playbook/3p-why/">→ Why Lean 3P? (Ch 11)</a></li>
+            <li><a href="/playbook/3p-foundations/">→ Foundations (Ch 12)</a></li>
+            <li><a href="/playbook/3p-flow/">→ The 3P Flow (Ch 13)</a></li>
+            <li><a href="/playbook/3p-design/">→ Design 3P (Ch 14)</a></li>
+            <li><a href="/playbook/3p-process/">→ Process 3P (Ch 15)</a></li>
+            <li><a href="/playbook/3p-production/">→ Production 3P (Ch 16)</a></li>
+            <li><a href="https://app.leanpeakproductlab.com/tools/3p-scorecard">→ 3P Readiness Scorecard</a></li>
+            <li><a href="/lean-product-process-development/">→ LPPD overview guide</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main>
+        <section class="pb-section" id="definition">
+          <p class="pb-section-eyebrow">Definition</p>
+          <h2 class="pb-section-title">What Is Modern Lean 3P for Product Development?</h2>
+          <div class="pb-prose">
+            <p>The traditional view of Lean 3P (Production Preparation Process) is a factory-floor exercise: bring together a cross-functional team, build cardboard mockups of the production line, evaluate alternatives, and choose the best concept. This view is not wrong &mdash; but it starts far too late. By the time a product is ready for a Production 3P event, most of the decisions that determine how easy or hard it will be to manufacture have already been made.</p>
+            <p>Modern Lean 3P for product development starts at the concept stage, when product architecture, key interfaces, and critical-to-quality requirements are still being defined. The goal is to design product and process together &mdash; so that manufacturability is not something added to a finished design, but something built into the concept from the beginning.</p>
+            <p>This means 3P is not a single event or a late-stage programme. It is a thread that runs through the full development lifecycle, from the first concept sketches to the vertical start-up of the production line. It connects directly to the Lean Learning Cycles that generate the knowledge feeding design decisions, to the set-based design practices that explore alternatives before committing, and to the obeya where the development team sees the whole picture at once.</p>
+          </div>
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;Product and process are not two separate questions. They are one question asked at increasing levels of resolution across the development lifecycle. 3P gives you the structured events and tools to answer that question well.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <section class="pb-section" id="problem">
+          <p class="pb-section-eyebrow">The problem</p>
+          <h2 class="pb-section-title">The Problem It Solves in Development</h2>
+          <div class="pb-prose">
+            <p>The traditional product development &ndash; industrialization gap creates a predictable cluster of problems. Engineering closes out the product design with minimal manufacturing input. Manufacturing inherits a design that was not optimized for their processes. Tooling is designed to fit the product, not to enable flow. The result is discovered at pilot production or ramp-up, when changes are expensive, schedules are fixed, and teams are under pressure.</p>
+          </div>
+          <ul class="pb-list">
+            <li>Manufacturability problems discovered at pilot production, when tooling is already built</li>
+            <li>Gaps between early concept work and the industrialization process — two separate tracks that converge too late</li>
+            <li>Fragile launches driven by design decisions made without manufacturing knowledge</li>
+            <li>Firefighting on the line for months after launch, treating symptoms of design-process misalignment</li>
+            <li>Capital committed to process equipment before the process concept is validated</li>
+            <li>Operator ergonomics and quality built into the design by accident, not by intent</li>
+          </ul>
+          <div class="pb-prose" style="margin-top:.5rem">
+            <p>Modern Lean 3P addresses all of these by changing <em>when</em> product-process co-design happens, not just how it is organized. The key insight is that the earlier in development you do this work, the cheaper and more effective it is. A cardboard mockup costs hundreds of euros. A tooling change costs tens of thousands. A ramp-up delay costs millions.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="lppd">
+          <p class="pb-section-eyebrow">The system</p>
+          <h2 class="pb-section-title">3P as Part of LPPD</h2>
+          <div class="pb-prose">
+            <p>In the LeanPeak framework, Lean 3P is the industrialization layer of the full LPPD system. It is fed by the learning and knowledge that comes from Lean Learning Cycles and set-based design in early development, and it produces the manufacturing system that launches the product and sustains it through its lifecycle.</p>
+            <p>Think of the relationship in three lenses &mdash; Product, People, Process &mdash; running in parallel across the development timeline. The <strong>Product</strong> lens covers what is being designed and for whom: customer value, architecture, interfaces, performance requirements. The <strong>People</strong> lens covers who will build the product: operator experience, ergonomics, skills, and training. The <strong>Process</strong> lens covers how it will be built: flow, layout, equipment, standard work, material management. Lean 3P integrates all three lenses in a series of structured events, ensuring that none of them is designed in isolation from the others.</p>
+            <p>This means that 3P is not a standalone programme you run separately from LPPD. It is what happens when you take LPPD&rsquo;s principle of &ldquo;design product and process together&rdquo; seriously and give it specific events, tools, and decision criteria across the development phases.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="four-phases">
+          <p class="pb-section-eyebrow">The framework</p>
+          <h2 class="pb-section-title">The 4-Phase Industrialization Flow</h2>
+          <div class="pb-prose">
+            <p>The LeanPeak 3P system organizes industrialization work into four phases. The phases overlap and cycle, but each has a primary focus and a set of decisions that belong in it.</p>
+          </div>
+          <div class="pb-card-grid" style="max-width:100%">
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">PHASE 1 · INFORMATION</p>
+              <h3 class="pb-info-card-title">Understand before designing</h3>
+              <p class="pb-info-card-body">Gather the facts needed to design the right process. CTQ and CTC analysis, APN scoring, value stream mapping, and early concept alternatives. The goal is to understand the manufacturability challenge thoroughly before proposing solutions. Key output: a clear picture of where the risk is and what questions need to be answered.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">PHASE 2 · INNOVATION</p>
+              <h3 class="pb-info-card-title">Explore before committing</h3>
+              <p class="pb-info-card-body">Generate and explore multiple product-process concepts using cardboard mockups, 7-Alternatives thinking, and cross-functional concept events. Convergence happens through structured evaluation, not premature commitment. Key output: two or three validated concepts ready for capital decisions.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">PHASE 3 · PROCESS DESIGN</p>
+              <h3 class="pb-info-card-title">Detail with confidence</h3>
+              <p class="pb-info-card-body">Design the selected concept in detail: PFEP, water spider routes, standard work, poka-yoke, ergonomic station design, layout, and material flow. Capital decisions are made here — with confidence, because the concept is already validated. Key output: a production-ready process design and a vertical start-up plan.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">PHASE 4 · OPTIMIZATION</p>
+              <h3 class="pb-info-card-title">Launch and learn</h3>
+              <p class="pb-info-card-body">Launch as a learning event with a vertical start-up staircase. Measure real performance against targets. Run optimization 3P events to close gaps. Document what works so the next product family starts higher. Key output: stable full-rate production and reusable process knowledge.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="pb-section" id="events">
+          <p class="pb-section-eyebrow">The events</p>
+          <h2 class="pb-section-title">3P Events Across Development</h2>
+          <div class="pb-prose">
+            <p>Three core event types run across the four phases, each anchored to a specific development milestone. Together, they form the visible, time-boxed structure of 3P in a product development program.</p>
+          </div>
+          <div class="pb-milestone-row">
+            <div class="pb-milestone">
+              <div class="pb-milestone-label">Design 3P</div>
+              <div class="pb-milestone-body"><strong>Anchor: before concept freeze.</strong> Focus: product architecture and its implications for manufacturability. CTQ/CTC mapping, APN scoring, quick-look value engineering, and a Design 3P plan that identifies the hotspots to address. Participants: product engineers, manufacturing engineers, quality. Output: a focused set of design-for-manufacturability directions that feed into the concept event.</div>
+            </div>
+            <div class="pb-milestone">
+              <div class="pb-milestone-label">Process 3P</div>
+              <div class="pb-milestone-body"><strong>Anchor: during detailed design, before tooling commitment.</strong> Focus: the operational value stream. Map the flow, find the high-impact steps, run 7-alternatives thinking, build a future-state production plan. Participants: manufacturing engineers, production, supply chain, operators. Output: two or three validated process concepts ready for a Concept 3P event and capital decision.</div>
+            </div>
+            <div class="pb-milestone">
+              <div class="pb-milestone-label">Production 3P</div>
+              <div class="pb-milestone-body"><strong>Anchor: before pilot production, as tooling is being finalized.</strong> Focus: physical layout, material flow, standard work, and the vertical start-up plan. PFEP, water spider routes, poka-yoke design, ergonomic validation. Participants: production, maintenance, quality, operators, industrial engineering. Output: a detailed production system design and a phased ramp-up plan with clear entry/exit criteria.</div>
+            </div>
+          </div>
+          <div class="pb-prose" style="margin-top:.75rem">
+            <p>The events are not rigid ceremonies. They are structured decision points where cross-functional teams converge, evaluate evidence from Learning Cycles and experiments, and make clear decisions about the next phase of design. Between events, teams are running the experiments and building the knowledge that feeds the next event.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="playbook">
+          <p class="pb-section-eyebrow">Lean 3P Playbook &mdash; Section 2 (Chapters 11&ndash;16)</p>
+          <h2 class="pb-section-title">Read the Full Lean 3P Playbook</h2>
+          <div class="pb-prose">
+            <p>Section 2 of the LeanPeak Playbook covers Lean 3P as an end-to-end system across six chapters. It is not a collection of workshop recipes &mdash; it is a coherent framework for how product-process co-design happens across the full development lifecycle. All chapters are free to read.</p>
+          </div>
+          <div class="pb-chapter-links">
+            <a class="pb-chapter-link" href="/playbook/3p-why/"><span class="pb-chapter-link-num">11</span><div><p class="pb-chapter-link-label">Chapter 11 &mdash; Why Lean 3P?</p><p class="pb-chapter-link-title">Why Lean 3P Industrialization?</p><p class="pb-chapter-link-desc">The launch problems 3P solves and what it does differently from traditional industrialization approaches.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/3p-foundations/"><span class="pb-chapter-link-num">12</span><div><p class="pb-chapter-link-label">Chapter 12 &mdash; Foundations</p><p class="pb-chapter-link-title">How Lean 3P Thinks: Foundations and Mental Models</p><p class="pb-chapter-link-desc">Set-based design, concurrent development, delay decisions not learning, and the operator-as-surgeon mindset.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/3p-flow/"><span class="pb-chapter-link-num">13</span><div><p class="pb-chapter-link-label">Chapter 13 &mdash; The 3P Flow</p><p class="pb-chapter-link-title">The 3P Industrialization Flow: Four Phases, Three Events</p><p class="pb-chapter-link-desc">The four-phase flow and how the Concept, Process, and Optimization 3P events fit within it.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/3p-design/"><span class="pb-chapter-link-num">14</span><div><p class="pb-chapter-link-label">Chapter 14 &mdash; Design 3P</p><p class="pb-chapter-link-title">Design 3P: Make the Product Manufacturable Early</p><p class="pb-chapter-link-desc">CTQ/CTC analysis, APN scoring, value engineering for manufacturability, and the Design 3P plan.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/3p-process/"><span class="pb-chapter-link-num">15</span><div><p class="pb-chapter-link-label">Chapter 15 &mdash; Process 3P</p><p class="pb-chapter-link-title">Process 3P: Make the Process Buildable Early</p><p class="pb-chapter-link-desc">Value stream mapping, high-impact step selection, 7-alternatives, and the future-state production plan.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/3p-production/"><span class="pb-chapter-link-num">16</span><div><p class="pb-chapter-link-label">Chapter 16 &mdash; Production 3P</p><p class="pb-chapter-link-title">Production 3P: Make the Layout Buildable and Ramp Fast</p><p class="pb-chapter-link-desc">Layout, PFEP, standard work, poka-yoke, vertical start-up, and the full 3P launch system.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+          </div>
+        </section>
+
+        <section class="pb-section" id="elearning">
+          <p class="pb-section-eyebrow">E-Learning &mdash; Chapters 11&ndash;16</p>
+          <h2 class="pb-section-title">E-Learning Modules</h2>
+          <div class="pb-prose">
+            <p>Each 3P playbook chapter has a set of companion e-learning modules covering Design 3P, Process 3P, Production 3P, and the 3P launch system. The modules are designed for engineers, manufacturing leads, and industrialization specialists who want to apply the concepts in a real project. Modules require a subscription.</p>
+          </div>
+          <div class="pb-elearning-grid">
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-11-module-1"><p class="pb-elearning-card-label">Ch 11 &middot; Overview</p><p class="pb-elearning-card-title">Why Lean 3P? (3 modules)</p><p class="pb-elearning-card-meta">Launch problems · What 3P does · When to use it</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-12-module-1"><p class="pb-elearning-card-label">Ch 12 &middot; Foundations</p><p class="pb-elearning-card-title">3P Mental Models (4 modules)</p><p class="pb-elearning-card-meta">Set-based · Concurrent · Delay decisions · Operator mindset</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-13-module-1"><p class="pb-elearning-card-label">Ch 13 &middot; The Flow</p><p class="pb-elearning-card-title">4-Phase Flow &amp; 3P Events (2 modules + capstone)</p><p class="pb-elearning-card-meta">4-phase flow · Three core events</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-14-module-1"><p class="pb-elearning-card-label">Ch 14 &middot; Design 3P</p><p class="pb-elearning-card-title">Design 3P (4 modules)</p><p class="pb-elearning-card-meta">CTQ/CTC · APN scoring · Value engineering · 3P plan</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-15-module-1"><p class="pb-elearning-card-label">Ch 15 &middot; Process 3P</p><p class="pb-elearning-card-title">Process 3P (4 modules)</p><p class="pb-elearning-card-meta">Value stream · 7 alternatives · Future-state plan</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-16-module-1"><p class="pb-elearning-card-label">Ch 16 &middot; Production 3P</p><p class="pb-elearning-card-title">Production 3P (4 modules)</p><p class="pb-elearning-card-meta">Layout · PFEP · Standard work · Vertical start-up</p></a>
+          </div>
+          <div class="pb-cta-box">
+            <p class="pb-cta-box-title">Access all 21 Lean 3P modules</p>
+            <p class="pb-cta-box-body">Chapters 11&ndash;16 · 21 modules total. Sign in to access your library. The 3P Readiness Scorecard is also available to help you identify where to start.</p>
+            <a href="https://app.leanpeakproductlab.com/sign-in">Sign in to access modules &rarr;</a>
+          </div>
+        </section>
+
+        <section class="pb-section" id="get-started">
+          <p class="pb-section-eyebrow">Getting started</p>
+          <h2 class="pb-section-title">How to Get Started</h2>
+          <div class="pb-prose">
+            <p>The best entry point for most teams is a small, focused Design 3P pass on one upcoming product or platform. Not a full programme. One product family, one concept freeze coming up, one session with the right people in the room.</p>
+          </div>
+          <ul class="pb-list">
+            <li><strong>Start by mapping current launch pains</strong> — where do engineering changes, ramp-up problems, and quality issues tend to appear? That is where 3P would have helped most.</li>
+            <li><strong>Identify one upcoming product or platform</strong> where concept freeze is 2&ndash;6 months away. That is your Design 3P candidate: early enough to change, important enough to care about.</li>
+            <li><strong>Run a CTQ/CTC session</strong> (Chapter 14) with the product and manufacturing teams. Map the critical quality and cost requirements, score them with APN, and identify the 2&ndash;3 hotspot areas most at risk of manufacturability problems.</li>
+            <li><strong>Map the operational value stream</strong> (Chapter 15) for the production scenario you are designing toward. Find the high-impact steps and run 7-alternatives thinking for the most complex one.</li>
+            <li><strong>Use the 3P Readiness Scorecard</strong> to assess your starting point and identify which capability gaps to close before the first Concept 3P Event.</li>
+          </ul>
+          <div class="pb-cta-box" style="margin-top:1.25rem">
+            <p class="pb-cta-box-title">3P Readiness Scorecard</p>
+            <p class="pb-cta-box-body">Use the scorecard to assess your organisation&rsquo;s readiness for Lean 3P across the key dimensions of a successful program — and identify the gaps that matter most before you start.</p>
+            <a href="https://app.leanpeakproductlab.com/tools/3p-scorecard">Open the 3P Scorecard &rarr;</a>
+          </div>
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;">
+            <a href="/lean-3p-guide/" style="display:inline-block;padding:.55rem 1.2rem;background:var(--lp-color-primary);color:#fff;border-radius:var(--lp-radius-sm);font-size:.875rem;font-weight:600;text-decoration:none;">Lean 3P Beginner&rsquo;s Guide &rarr;</a>
+            <a href="/playbook/3p-why/" style="display:inline-block;padding:.55rem 1.2rem;background:var(--lp-color-surface);color:var(--lp-color-text-main);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-sm);font-size:.875rem;font-weight:600;text-decoration:none;">Read Chapter 11</a>
+            <a href="/lean-product-process-development/" style="display:inline-block;padding:.55rem 1.2rem;background:var(--lp-color-surface);color:var(--lp-color-text-main);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-sm);font-size:.875rem;font-weight:600;text-decoration:none;">LPPD overview guide</a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="/js/portal-auth.js" defer></script>
+</body>
+</html>

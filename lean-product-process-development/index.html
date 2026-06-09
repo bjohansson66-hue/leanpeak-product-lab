@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What Is Lean Product &amp; Process Development (LPPD)? – LeanPeak Product Lab</title>
+  <meta name="description" content="LPPD is a systems approach to creating products, services, and the processes that deliver them — integrating product, process, and learning. Learn the core principles, playbook chapters, and how to get started.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="What Is Lean Product &amp; Process Development (LPPD)? – LeanPeak Product Lab">
+  <meta property="og:description" content="A practitioner's guide to LPPD: definition, six core principles, key mental models, the full playbook, and how to start from one value stream.">
+  <meta property="og:url" content="https://leanpeakproductlab.com/lean-product-process-development/">
+  <meta property="og:site_name" content="LeanPeak Product Lab">
+  <link rel="canonical" href="https://leanpeakproductlab.com/lean-product-process-development/">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="../leanpeak-theme.css">
+  <style>
+    .pb-page{max-width:1120px;margin:0 auto;padding:0 1.5rem 5rem}
+    .pb-chapter-header{padding:3rem 0 2.5rem;border-bottom:1px solid var(--lp-color-border-subtle);margin-bottom:2.5rem}
+    .pb-chapter-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-3xl);font-weight:400;letter-spacing:-.03em;line-height:1.1;color:var(--lp-color-text-main);margin:0 0 1rem}
+    .pb-chapter-lead{font-size:var(--lp-font-size-lg);color:var(--lp-color-text-muted);line-height:1.7;max-width:72ch;margin:0}
+    .pb-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:3.5rem;align-items:start}
+    .pb-sidebar{position:sticky;top:2rem;max-height:calc(100vh - 4rem);overflow-y:auto}
+    .pb-sidebar-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-nav{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.1rem}
+    .pb-nav>li>a{display:block;font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);text-decoration:none;padding:.35rem .75rem;border-radius:var(--lp-radius-sm);border-left:2px solid transparent;line-height:1.4;transition:color .15s,background .15s}
+    .pb-nav>li>a:hover{color:var(--lp-color-primary);background:var(--lp-color-primary-soft)}
+    .pb-resources-box{margin-top:2rem;padding:1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md)}
+    .pb-resources-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-resources-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.35rem}
+    .pb-resources-list li a{font-size:var(--lp-font-size-sm);color:var(--lp-color-primary);text-decoration:none;line-height:1.4}
+    .pb-resources-list li a:hover{text-decoration:underline}
+    .pb-section{scroll-margin-top:5rem;margin-bottom:4rem}
+    .pb-section+.pb-section{padding-top:2.5rem;border-top:1px solid var(--lp-color-border-subtle)}
+    .pb-section-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .5rem;font-family:var(--lp-font-sans)}
+    .pb-section-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-2xl);font-weight:400;letter-spacing:-.02em;color:var(--lp-color-text-main);margin:0 0 1.25rem;line-height:1.15}
+    .pb-prose{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.75;max-width:70ch}
+    .pb-prose p{margin:0 0 1rem}
+    .pb-prose p:last-child{margin-bottom:0}
+    .pb-pullquote{margin:2rem 0;padding:1.25rem 1.5rem;border-left:3px solid var(--lp-color-primary);background:var(--lp-color-surface);border-radius:0 var(--lp-radius-md) var(--lp-radius-md) 0}
+    .pb-pullquote p{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);line-height:1.5;color:var(--lp-color-text-main);margin:0}
+    .pb-list{list-style:none;padding:0;margin:1rem 0;display:flex;flex-direction:column;gap:.5rem;max-width:68ch}
+    .pb-list li{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.65;padding-left:1.25rem;position:relative}
+    .pb-list li::before{content:"→";position:absolute;left:0;color:var(--lp-color-primary);font-size:.85em;top:.15em}
+    .pb-card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1.5rem 0}
+    .pb-info-card{padding:1rem 1.25rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md)}
+    .pb-info-card-num{font-size:var(--lp-font-size-xs);font-weight:700;color:var(--lp-color-primary);font-family:var(--lp-font-sans);margin-bottom:.4rem}
+    .pb-info-card-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-md);color:var(--lp-color-text-main);margin:0 0 .4rem;line-height:1.25}
+    .pb-info-card-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.6;margin:0}
+    .pb-chapter-links{display:flex;flex-direction:column;gap:.5rem;margin:1.25rem 0;max-width:70ch}
+    .pb-chapter-link{display:grid;grid-template-columns:2.5rem minmax(0,1fr) auto;gap:.75rem;align-items:center;padding:.85rem 1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md);text-decoration:none;color:inherit;transition:background .15s,border-color .15s}
+    .pb-chapter-link:hover{background:var(--lp-color-primary-soft);border-color:var(--lp-color-primary)}
+    .pb-chapter-link:hover .pb-chapter-link-arrow{color:var(--lp-color-primary)}
+    .pb-chapter-link-num{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);font-weight:400;color:var(--lp-color-border-strong);line-height:1}
+    .pb-chapter-link-label{font-size:var(--lp-font-size-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .2rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-link-title{font-size:var(--lp-font-size-sm);font-weight:600;color:var(--lp-color-text-main);margin:0 0 .2rem;line-height:1.3}
+    .pb-chapter-link-desc{font-size:var(--lp-font-size-xs);color:var(--lp-color-text-muted);line-height:1.5;margin:0}
+    .pb-chapter-link-arrow{font-size:1.1rem;color:var(--lp-color-text-soft);flex-shrink:0;transition:color .15s}
+    .pb-elearning-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin:1.25rem 0}
+    .pb-elearning-card{padding:.85rem 1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md);text-decoration:none;color:inherit;transition:background .15s,border-color .15s;display:block}
+    .pb-elearning-card:hover{background:var(--lp-color-primary-soft);border-color:var(--lp-color-primary)}
+    .pb-elearning-card-label{font-size:var(--lp-font-size-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--lp-color-primary);font-family:var(--lp-font-sans);margin:0 0 .3rem}
+    .pb-elearning-card-title{font-size:var(--lp-font-size-sm);font-weight:600;color:var(--lp-color-text-main);line-height:1.3;margin:0 0 .2rem}
+    .pb-elearning-card-meta{font-size:var(--lp-font-size-xs);color:var(--lp-color-text-muted)}
+    .pb-cta-box{margin:2rem 0;padding:1.5rem 1.75rem;background:var(--lp-color-primary-soft);border:1px solid var(--lp-color-primary);border-radius:var(--lp-radius-lg);max-width:70ch}
+    .pb-cta-box-title{font-size:var(--lp-font-size-md);font-weight:600;color:var(--lp-color-text-main);margin:0 0 .5rem}
+    .pb-cta-box-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.65;margin:0 0 1rem}
+    .pb-cta-box a{display:inline-block;padding:.5rem 1.1rem;background:var(--lp-color-primary);color:#fff;border-radius:var(--lp-radius-sm);font-size:var(--lp-font-size-sm);font-weight:600;text-decoration:none}
+    .pb-steps{display:flex;flex-direction:column;gap:.65rem;margin:1.25rem 0;max-width:70ch}
+    .pb-step{display:grid;grid-template-columns:2rem minmax(0,1fr);gap:.875rem;align-items:start}
+    .pb-step-num-box{width:2rem;height:2rem;border-radius:var(--lp-radius-sm);background:var(--lp-color-primary-soft);color:var(--lp-color-primary);font-size:var(--lp-font-size-xs);font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--lp-font-sans)}
+    .pb-step-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.65;padding-top:.2rem}
+    @media(max-width:860px){.pb-layout{grid-template-columns:1fr;gap:0}.pb-sidebar{position:static;max-height:none;padding-bottom:1.5rem;margin-bottom:2rem;border-bottom:1px solid var(--lp-color-border-subtle)}.pb-nav{flex-direction:row;flex-wrap:wrap;gap:.25rem}.pb-nav>li>a{border-left:none;padding:.3rem .6rem}.pb-card-grid,.pb-elearning-grid{grid-template-columns:1fr}.pb-chapter-link{grid-template-columns:2rem minmax(0,1fr)}.pb-chapter-link-arrow{display:none}}
+    @media(max-width:640px){.pb-chapter-title{font-size:2rem}}
+  </style>
+</head>
+<body>
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppd-logo" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppd-logo">LeanPeakProductLab logo</title>
+          <g transform="translate(24 36)"><rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"/><rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"/><rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"/></g>
+          <g transform="translate(150 46)"><text x="0" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text><text x="218" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text><text x="2" y="92" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text></g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">Playbook</a>
+        <a href="/elearning/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">E-Learning</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">LeanPeak Product Lab &mdash; Resource Guide</p>
+      <h1 class="pb-chapter-title">What Is Lean Product &amp; Process Development (LPPD)?</h1>
+      <p class="pb-chapter-lead">LPPD is a systems approach to creating products, services, and the processes that deliver them &mdash; integrating product design, process design, and learning into a single development system. This page explains how it works, the core principles, and how to get started.</p>
+    </div>
+
+    <div class="pb-layout">
+      <aside class="pb-sidebar">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#definition">What Is LPPD?</a></li>
+          <li><a href="#problem">The Problem It Solves</a></li>
+          <li><a href="#system">How LPPD Thinks as a System</a></li>
+          <li><a href="#principles">The Core Principles</a></li>
+          <li><a href="#playbook">LPPD Playbook</a></li>
+          <li><a href="#elearning">E-Learning Modules</a></li>
+          <li><a href="#get-started">How to Get Started</a></li>
+        </ul>
+        <div class="pb-resources-box">
+          <p class="pb-resources-label">Quick links</p>
+          <ul class="pb-resources-list">
+            <li><a href="/playbook/">→ Full Playbook index</a></li>
+            <li><a href="/playbook/foundations/">→ Foundations (Chapter 2)</a></li>
+            <li><a href="/playbook/strategy/">→ Strategy &amp; Value Creation (Ch 3)</a></li>
+            <li><a href="/playbook/discover/">→ Customer &amp; Discovery (Ch 4)</a></li>
+            <li><a href="/playbook/design/">→ Design &amp; Flow (Ch 5)</a></li>
+            <li><a href="/playbook/validate/">→ Validate &amp; Learn (Ch 6)</a></li>
+            <li><a href="/playbook/decisions/">→ Decisions (Ch 7)</a></li>
+            <li><a href="/playbook/scaling/">→ Scaling &amp; Launch (Ch 8)</a></li>
+            <li><a href="/playbook/culture/">→ Culture &amp; Coaching (Ch 9)</a></li>
+            <li><a href="/elearning/">→ All e-learning modules</a></li>
+            <li><a href="/development-value-stream/">→ Development Value Stream guide</a></li>
+            <li><a href="/lean-3p-guide/">→ Lean 3P Beginner's Guide</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main>
+        <section class="pb-section" id="definition">
+          <p class="pb-section-eyebrow">Definition</p>
+          <h2 class="pb-section-title">What Is Lean Product &amp; Process Development?</h2>
+          <div class="pb-prose">
+            <p><strong>Lean Product and Process Development (LPPD)</strong> is a systems approach to creating new products, services, and the manufacturing or operational processes that deliver them. It extends lean thinking from the factory floor &mdash; where it is well understood &mdash; into the development process, where most of the value and most of the waste are actually created.</p>
+            <p>The central insight of LPPD is that product and process design cannot be treated as separate activities handed off sequentially. When engineering finishes and throws the design over the wall to manufacturing, the result is late risk discovery, expensive changes, and ramp-ups that drag on for months. LPPD redesigns the development system itself so that product, process, and customer knowledge are created together, in a coordinated and visible way, from the earliest stages of a project.</p>
+            <p>LPPD originated in the Toyota Product Development System and has been refined and extended by researchers, consultants, and practitioners across industries including automotive, medical devices, aerospace, consumer goods, and software-hardware products. At LeanPeak, LPPD is the foundation on which the full playbook is built &mdash; from strategy and discovery through design, validation, industrialization, launch, and lifecycle learning.</p>
+          </div>
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;LPPD does not make development faster by adding tools. It makes development faster by making learning visible early &mdash; so teams are solving real problems instead of discovering them at launch.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <section class="pb-section" id="problem">
+          <p class="pb-section-eyebrow">The problem</p>
+          <h2 class="pb-section-title">The Problem LPPD Solves</h2>
+          <div class="pb-prose">
+            <p>Traditional product development is organized around phases, gates, and deliverables. Each phase produces documents and prototypes that pass through a gate review. The logic is that if teams complete the right deliverables in the right order, a good product will result. In practice, this produces a characteristic set of problems:</p>
+          </div>
+          <ul class="pb-list">
+            <li>Risk is discovered late &mdash; at prototype or pilot &mdash; when it is expensive to fix</li>
+            <li>Teams work in silos: engineering, manufacturing, quality, and purchasing each optimize their own phase without shared context</li>
+            <li>Milestones measure deliverable completion, not knowledge sufficiency &mdash; teams pass gates without genuinely knowing what they thought they knew</li>
+            <li>Design decisions are locked in early, before the information needed to make them well is available</li>
+            <li>The disconnect between product design and manufacturing process leads to manufacturability problems at launch</li>
+            <li>Learning from one project is rarely captured in a reusable form &mdash; the same mistakes recur across projects and generations of products</li>
+          </ul>
+          <div class="pb-prose" style="margin-top:.5rem">
+            <p>LPPD addresses each of these by treating development as a knowledge-creation and decision-making system, not a deliverable-production system. The unit of planning shifts from activities and documents to questions, experiments, and decisions. The measure of progress shifts from &ldquo;what did we complete?&rdquo; to &ldquo;what did we learn, and what do we now know?&rdquo;</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="system">
+          <p class="pb-section-eyebrow">The system</p>
+          <h2 class="pb-section-title">How LPPD Thinks as a System</h2>
+          <div class="pb-prose">
+            <p>LPPD is not a collection of tools. It is a development system &mdash; a coherent set of principles, practices, and structures that work together to create faster, more predictable, higher-quality development. The development value stream is the unit of design: instead of asking &ldquo;how do we improve this project?&rdquo;, LPPD asks &ldquo;how do we design the flow of knowledge and decisions across the whole development system?&rdquo;</p>
+            <p>Three things run in parallel rather than sequentially: <strong>product design</strong> (what we are making and for whom), <strong>process design</strong> (how we will make it), and <strong>knowledge creation</strong> (what we need to learn, and what we have learned so far). When these are synchronized &mdash; when key decisions are made at the point of maximum knowledge, not at the point of maximum pressure &mdash; development becomes both faster and more reliable.</p>
+            <p>Set-based thinking is central to how LPPD handles uncertainty. Instead of committing to a single design direction early and defending it through the project, LPPD teams explore multiple alternatives in parallel, eliminating them systematically as knowledge increases. This delays the moment of commitment until confidence is sufficient, but it does not delay learning &mdash; learning runs ahead of commitment.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="principles">
+          <p class="pb-section-eyebrow">The principles</p>
+          <h2 class="pb-section-title">The Core Principles of LPPD</h2>
+          <div class="pb-prose">
+            <p>The LeanPeak LPPD system is built on six guiding principles. Each principle is not a rule but a lens: a way of asking &ldquo;are we working in a way that creates value, or are we creating waste that looks like progress?&rdquo;</p>
+          </div>
+          <div class="pb-card-grid" style="max-width:100%;grid-template-columns:repeat(3,1fr);">
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">PRINCIPLE 1</p>
+              <h3 class="pb-info-card-title">People First</h3>
+              <p class="pb-info-card-body">Develop the people who develop the products. Chief engineers, coaches, and functional experts are the primary vehicle for knowledge creation and reuse. Tools and processes follow people, not the other way around.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">PRINCIPLE 2</p>
+              <h3 class="pb-info-card-title">Understand Before Executing</h3>
+              <p class="pb-info-card-body">Front-load knowledge creation. Identify and resolve the critical uncertainties before committing to a design direction. The cheapest time to learn is always before the decision is made.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">PRINCIPLE 3</p>
+              <h3 class="pb-info-card-title">Team Sport</h3>
+              <p class="pb-info-card-body">Product and process are designed together by cross-functional teams working in shared visual spaces (obeya). Siloed sequential handoffs are replaced by coordinated parallel work.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">PRINCIPLE 4</p>
+              <h3 class="pb-info-card-title">Synchronized Workflows</h3>
+              <p class="pb-info-card-body">Development has a rhythm: cadenced learning cycles, integration events, and milestone reviews that are knowledge-based, not calendar-based. Flow in development means predictable learning and decision cycles.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">PRINCIPLE 5</p>
+              <h3 class="pb-info-card-title">Learning &amp; Reuse</h3>
+              <p class="pb-info-card-body">Knowledge earned in one project is captured in reusable form (K-Briefs, limit curves, trade-off curves) and flows forward into the next. Each generation of products starts from a higher knowledge baseline.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">PRINCIPLE 6</p>
+              <h3 class="pb-info-card-title">Design the Value Stream</h3>
+              <p class="pb-info-card-body">The development system itself is designed and improved, not just the products it creates. The development value stream — from idea to lifecycle learning — is the unit of analysis and improvement.</p>
+            </div>
+          </div>
+          <div class="pb-prose" style="margin-top:.75rem">
+            <p>The key mental models that make these principles operational include: the <strong>Product&ndash;Market Fit Pyramid</strong> (what does the customer actually need?), <strong>Set-Based Design</strong> (explore alternatives before committing), the <strong>A3</strong> (one-page problem-solving and decision documentation), <strong>Obeya</strong> (the visual war room where the development team sees the whole system at once), and the <strong>Development Value Stream</strong> (the end-to-end flow of work and knowledge from idea to launch).</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="playbook">
+          <p class="pb-section-eyebrow">LPPD Playbook &mdash; Section 1 (Chapters 1&ndash;10)</p>
+          <h2 class="pb-section-title">Read the Full LPPD Playbook</h2>
+          <div class="pb-prose">
+            <p>Section 1 of the LeanPeak Playbook covers Lean Product and Process Development across ten chapters. Each chapter is organized as a set of &ldquo;plays&rdquo; &mdash; specific practices teams can try in their current development work, without needing a full programme to get started. All chapters are free to read.</p>
+          </div>
+          <div class="pb-chapter-links">
+            <a class="pb-chapter-link" href="/playbook/introduction/"><span class="pb-chapter-link-num">1</span><div><p class="pb-chapter-link-label">Chapter 1</p><p class="pb-chapter-link-title">Why This Playbook Exists</p><p class="pb-chapter-link-desc">Who it&rsquo;s for, how to use it, and the working agreements that make LPPD stick.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/foundations/"><span class="pb-chapter-link-num">2</span><div><p class="pb-chapter-link-label">Chapter 2</p><p class="pb-chapter-link-title">Foundations</p><p class="pb-chapter-link-desc">The six guiding principles and core mental models — the foundation for every other chapter.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/strategy/"><span class="pb-chapter-link-num">3</span><div><p class="pb-chapter-link-label">Chapter 3</p><p class="pb-chapter-link-title">Strategy &amp; Value Creation</p><p class="pb-chapter-link-desc">From True North to value streams: how strategy flows into product development priorities and portfolio bets.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/discover/"><span class="pb-chapter-link-num">4</span><div><p class="pb-chapter-link-label">Chapter 4</p><p class="pb-chapter-link-title">Customer &amp; Problem Understanding</p><p class="pb-chapter-link-desc">Gemba-based discovery, pretotype brochures, and the plays that build real customer insight before design begins.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/design/"><span class="pb-chapter-link-num">5</span><div><p class="pb-chapter-link-label">Chapter 5</p><p class="pb-chapter-link-title">From Insight to Design &amp; Flow</p><p class="pb-chapter-link-desc">Set-based design, obeya, visual management, and early product-process integration — designing the development value stream.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/validate/"><span class="pb-chapter-link-num">6</span><div><p class="pb-chapter-link-label">Chapter 6</p><p class="pb-chapter-link-title">Experimentation &amp; Learning</p><p class="pb-chapter-link-desc">Experiment A3s, learning cycles, and the practices that make uncertainty a resource rather than a risk.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/decisions/"><span class="pb-chapter-link-num">7</span><div><p class="pb-chapter-link-label">Chapter 7</p><p class="pb-chapter-link-title">Validation, Learning, and Decisions</p><p class="pb-chapter-link-desc">Knowledge-based milestones, review formats that create pull, and the behaviours that make decisions trustworthy.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/scaling/"><span class="pb-chapter-link-num">8</span><div><p class="pb-chapter-link-label">Chapter 8</p><p class="pb-chapter-link-title">Scaling, Launch &amp; Lifecycle</p><p class="pb-chapter-link-desc">Product-process synchronization, launch as a learning event, lifecycle thinking, and feeding next-generation development.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/culture/"><span class="pb-chapter-link-num">9</span><div><p class="pb-chapter-link-label">Chapter 9</p><p class="pb-chapter-link-title">Culture, Leadership &amp; Coaching</p><p class="pb-chapter-link-desc">Lean leadership behaviours, building a coaching culture, and developing lean leaders at every level.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+            <a class="pb-chapter-link" href="/playbook/putting-to-work/"><span class="pb-chapter-link-num">10</span><div><p class="pb-chapter-link-label">Chapter 10</p><p class="pb-chapter-link-title">Putting This Playbook to Work</p><p class="pb-chapter-link-desc">How to start, what to adapt, and how to build momentum — without a big programme.</p></div><span class="pb-chapter-link-arrow">→</span></a>
+          </div>
+        </section>
+
+        <section class="pb-section" id="elearning">
+          <p class="pb-section-eyebrow">E-Learning &mdash; Chapters 2&ndash;10</p>
+          <h2 class="pb-section-title">Learn LPPD Through Guided Modules</h2>
+          <div class="pb-prose">
+            <p>Each playbook chapter has a companion set of e-learning modules with structured activities and reflection exercises. The modules are designed for product development teams working through the ideas in real projects &mdash; not as an abstract training course. They match the playbook chapters directly. Modules require a subscription; sign in to access your library.</p>
+          </div>
+          <div class="pb-elearning-grid">
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-2-module-1"><p class="pb-elearning-card-label">Ch 2 &middot; Foundations</p><p class="pb-elearning-card-title">Foundations of LPPD</p><p class="pb-elearning-card-meta">4 modules &middot; from 20 min each</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-3-module-1"><p class="pb-elearning-card-label">Ch 3 &middot; Strategy</p><p class="pb-elearning-card-title">Strategy &amp; Value Streams</p><p class="pb-elearning-card-meta">4 modules &middot; from 25 min each</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-4-module-1"><p class="pb-elearning-card-label">Ch 4 &middot; Discovery</p><p class="pb-elearning-card-title">Customer &amp; Problem Understanding</p><p class="pb-elearning-card-meta">5 modules &middot; from 20 min each</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-5-module-1"><p class="pb-elearning-card-label">Ch 5 &middot; Design &amp; Flow</p><p class="pb-elearning-card-title">From Insight to Design &amp; Flow</p><p class="pb-elearning-card-meta">5 modules &middot; from 25 min each</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-6-module-1"><p class="pb-elearning-card-label">Ch 6 &middot; Experimentation</p><p class="pb-elearning-card-title">Experimentation &amp; Learning</p><p class="pb-elearning-card-meta">6 modules &middot; from 20 min each</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-7-module-1"><p class="pb-elearning-card-label">Ch 7 &middot; Decisions</p><p class="pb-elearning-card-title">Validation, Learning &amp; Decisions</p><p class="pb-elearning-card-meta">5 modules &middot; from 20 min each</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-8-module-1"><p class="pb-elearning-card-label">Ch 8 &middot; Scaling &amp; Launch</p><p class="pb-elearning-card-title">Scaling, Launch &amp; Lifecycle</p><p class="pb-elearning-card-meta">6 modules &middot; from 25 min each</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-9-module-1"><p class="pb-elearning-card-label">Ch 9 &middot; Leadership</p><p class="pb-elearning-card-title">Culture, Leadership &amp; Coaching</p><p class="pb-elearning-card-meta">3 modules &middot; from 20 min each</p></a>
+            <a class="pb-elearning-card" href="https://app.leanpeakproductlab.com/elearning/chapter-10-module-1"><p class="pb-elearning-card-label">Ch 10 &middot; Implementation</p><p class="pb-elearning-card-title">Start From One Value Stream</p><p class="pb-elearning-card-meta">1 module &middot; 20–25 min</p></a>
+          </div>
+          <div class="pb-cta-box">
+            <p class="pb-cta-box-title">Access all LPPD modules</p>
+            <p class="pb-cta-box-body">The full LPPD e-learning library covers Chapters 2&ndash;10 (39 modules) plus the Lean 3P track (Chapters 11&ndash;16, 21 modules). Sign in to access your library.</p>
+            <a href="https://app.leanpeakproductlab.com/sign-in">Sign in to access modules &rarr;</a>
+          </div>
+        </section>
+
+        <section class="pb-section" id="get-started">
+          <p class="pb-section-eyebrow">Getting started</p>
+          <h2 class="pb-section-title">How to Get Started with LPPD</h2>
+          <div class="pb-prose">
+            <p>The most common mistake when starting LPPD is trying to implement everything at once &mdash; setting up an obeya, running learning cycles, mapping the value stream, and training the whole organisation simultaneously. The result is exhaustion, not transformation. LPPD works best when it starts small, in real work, with a clear learning challenge.</p>
+          </div>
+          <div class="pb-steps">
+            <div class="pb-step"><div class="pb-step-num-box">1</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Start from one value stream</strong> — choose one product family or platform where improvement matters and where people want to change. Not the whole portfolio. One stream.</div></div>
+            <div class="pb-step"><div class="pb-step-num-box">2</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Agree on a True North</strong> for that stream: what does &ldquo;ideal development&rdquo; look like for this product family? What customer outcomes are you trying to create, and what development outcomes (speed, quality, cost) would tell you the system is working?</div></div>
+            <div class="pb-step"><div class="pb-step-num-box">3</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Map the development value stream</strong> — from idea to lifecycle. Where is learning being lost? Where are decisions being made without sufficient knowledge? Where are the longest waits and the biggest handoffs?</div></div>
+            <div class="pb-step"><div class="pb-step-num-box">4</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Introduce two plays</strong> that match the most pressing pain: an obeya or visual management practice for direction and priorities; a Learning Cycle or experiment format for the biggest knowledge gap in the current project.</div></div>
+            <div class="pb-step"><div class="pb-step-num-box">5</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Run a 6&ndash;12 month pilot</strong> in that value stream. Review what works quarterly. At the end, decide what to keep, what to change, and what to spread to the next stream — based on evidence, not enthusiasm.</div></div>
+          </div>
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.5rem;">
+            <a href="/playbook/foundations/" style="display:inline-block;padding:.55rem 1.2rem;background:var(--lp-color-primary);color:#fff;border-radius:var(--lp-radius-sm);font-size:.875rem;font-weight:600;text-decoration:none;">Read the Foundations chapter &rarr;</a>
+            <a href="/development-value-stream/" style="display:inline-block;padding:.55rem 1.2rem;background:var(--lp-color-surface);color:var(--lp-color-text-main);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-sm);font-size:.875rem;font-weight:600;text-decoration:none;">Development Value Stream guide</a>
+            <a href="/lean-learning-cycles/" style="display:inline-block;padding:.55rem 1.2rem;background:var(--lp-color-surface);color:var(--lp-color-text-main);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-sm);font-size:.875rem;font-weight:600;text-decoration:none;">Lean Learning Cycles guide</a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="/js/portal-auth.js" defer></script>
+</body>
+</html>

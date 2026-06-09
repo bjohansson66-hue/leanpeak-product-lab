@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What Are Lean Learning Cycles? – LeanPeak Product Lab</title>
+  <meta name="description" content="Lean Learning Cycles are short, time-boxed loops that turn development questions into validated knowledge. Learn what they are, the 7 building blocks, and how to run your first cycle.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="What Are Lean Learning Cycles? – LeanPeak Product Lab">
+  <meta property="og:description" content="A practitioner's guide to Lean Learning Cycles: definition, the 7 building blocks, playbook chapters 18–24, and how to start with one real decision.">
+  <meta property="og:url" content="https://leanpeakproductlab.com/lean-learning-cycles/">
+  <meta property="og:site_name" content="LeanPeak Product Lab">
+  <link rel="canonical" href="https://leanpeakproductlab.com/lean-learning-cycles/">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="../leanpeak-theme.css">
+  <style>
+    .pb-page{max-width:1120px;margin:0 auto;padding:0 1.5rem 5rem}
+    .pb-chapter-header{padding:3rem 0 2.5rem;border-bottom:1px solid var(--lp-color-border-subtle);margin-bottom:2.5rem}
+    .pb-chapter-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-3xl);font-weight:400;letter-spacing:-.03em;line-height:1.1;color:var(--lp-color-text-main);margin:0 0 1rem}
+    .pb-chapter-lead{font-size:var(--lp-font-size-lg);color:var(--lp-color-text-muted);line-height:1.7;max-width:72ch;margin:0}
+    .pb-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:3.5rem;align-items:start}
+    .pb-sidebar{position:sticky;top:2rem;max-height:calc(100vh - 4rem);overflow-y:auto}
+    .pb-sidebar-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-nav{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.1rem}
+    .pb-nav>li>a{display:block;font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);text-decoration:none;padding:.35rem .75rem;border-radius:var(--lp-radius-sm);border-left:2px solid transparent;line-height:1.4;transition:color .15s,background .15s,border-color .15s}
+    .pb-nav>li>a:hover{color:var(--lp-color-primary);background:var(--lp-color-primary-soft)}
+    .pb-resources-box{margin-top:2rem;padding:1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md)}
+    .pb-resources-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-resources-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.35rem}
+    .pb-resources-list li a{font-size:var(--lp-font-size-sm);color:var(--lp-color-primary);text-decoration:none;display:flex;align-items:flex-start;gap:.4rem;line-height:1.4}
+    .pb-resources-list li a:hover{text-decoration:underline}
+    .pb-section{scroll-margin-top:5rem;margin-bottom:4rem}
+    .pb-section+.pb-section{padding-top:2.5rem;border-top:1px solid var(--lp-color-border-subtle)}
+    .pb-section-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .5rem;font-family:var(--lp-font-sans)}
+    .pb-section-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-2xl);font-weight:400;letter-spacing:-.02em;color:var(--lp-color-text-main);margin:0 0 1.25rem;line-height:1.15}
+    .pb-prose{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.75;max-width:70ch}
+    .pb-prose p{margin:0 0 1rem}
+    .pb-prose p:last-child{margin-bottom:0}
+    .pb-pullquote{margin:2rem 0;padding:1.25rem 1.5rem;border-left:3px solid var(--lp-color-primary);background:var(--lp-color-surface);border-radius:0 var(--lp-radius-md) var(--lp-radius-md) 0}
+    .pb-pullquote p{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);line-height:1.5;color:var(--lp-color-text-main);margin:0}
+    .pb-list{list-style:none;padding:0;margin:1rem 0;display:flex;flex-direction:column;gap:.5rem;max-width:68ch}
+    .pb-list li{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.65;padding-left:1.25rem;position:relative}
+    .pb-list li::before{content:"→";position:absolute;left:0;color:var(--lp-color-primary);font-size:.85em;top:.15em}
+    .pb-card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1.5rem 0;max-width:70ch}
+    .pb-info-card{padding:1rem 1.25rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md)}
+    .pb-info-card-num{font-size:var(--lp-font-size-xs);font-weight:700;color:var(--lp-color-primary);font-family:var(--lp-font-sans);margin-bottom:.4rem}
+    .pb-info-card-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-md);color:var(--lp-color-text-main);margin:0 0 .4rem;line-height:1.25}
+    .pb-info-card-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.6;margin:0}
+    .pb-chapter-links{display:flex;flex-direction:column;gap:.5rem;margin:1.25rem 0;max-width:70ch}
+    .pb-chapter-link{display:grid;grid-template-columns:2.5rem minmax(0,1fr) auto;gap:.75rem;align-items:center;padding:.85rem 1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md);text-decoration:none;color:inherit;transition:background .15s,border-color .15s}
+    .pb-chapter-link:hover{background:var(--lp-color-primary-soft);border-color:var(--lp-color-primary)}
+    .pb-chapter-link:hover .pb-chapter-link-arrow{color:var(--lp-color-primary)}
+    .pb-chapter-link-num{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);font-weight:400;color:var(--lp-color-border-strong);line-height:1}
+    .pb-chapter-link-label{font-size:var(--lp-font-size-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .2rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-link-title{font-size:var(--lp-font-size-sm);font-weight:600;color:var(--lp-color-text-main);margin:0 0 .2rem;line-height:1.3}
+    .pb-chapter-link-desc{font-size:var(--lp-font-size-xs);color:var(--lp-color-text-muted);line-height:1.5;margin:0}
+    .pb-chapter-link-arrow{font-size:1.1rem;color:var(--lp-color-text-soft);flex-shrink:0;transition:color .15s}
+    .pb-cta-box{margin:2rem 0;padding:1.5rem 1.75rem;background:var(--lp-color-primary-soft);border:1px solid var(--lp-color-primary);border-radius:var(--lp-radius-lg);max-width:70ch}
+    .pb-cta-box-title{font-size:var(--lp-font-size-md);font-weight:600;color:var(--lp-color-text-main);margin:0 0 .5rem}
+    .pb-cta-box-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.65;margin:0 0 1rem}
+    .pb-cta-box a{display:inline-block;padding:.5rem 1.1rem;background:var(--lp-color-primary);color:#fff;border-radius:var(--lp-radius-sm);font-size:var(--lp-font-size-sm);font-weight:600;text-decoration:none}
+    .pb-cta-box a:hover{opacity:.9}
+    .pb-steps{display:flex;flex-direction:column;gap:.65rem;margin:1.25rem 0;max-width:70ch}
+    .pb-step{display:grid;grid-template-columns:2rem minmax(0,1fr);gap:.875rem;align-items:start}
+    .pb-step-num-box{width:2rem;height:2rem;border-radius:var(--lp-radius-sm);background:var(--lp-color-primary-soft);color:var(--lp-color-primary);font-size:var(--lp-font-size-xs);font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--lp-font-sans)}
+    .pb-step-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.65;padding-top:.2rem}
+    @media(max-width:860px){.pb-layout{grid-template-columns:1fr;gap:0}.pb-sidebar{position:static;max-height:none;padding-bottom:1.5rem;margin-bottom:2rem;border-bottom:1px solid var(--lp-color-border-subtle)}.pb-nav{flex-direction:row;flex-wrap:wrap;gap:.25rem}.pb-nav>li>a{border-left:none;padding:.3rem .6rem}.pb-card-grid{grid-template-columns:1fr}.pb-chapter-link{grid-template-columns:2rem minmax(0,1fr)}.pb-chapter-link-arrow{display:none}}
+    @media(max-width:640px){.pb-chapter-title{font-size:2rem}}
+  </style>
+</head>
+<body>
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lc-logo-title" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lc-logo-title">LeanPeakProductLab logo</title>
+          <g transform="translate(24 36)"><rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"/><rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"/><rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"/></g>
+          <g transform="translate(150 46)"><text x="0" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text><text x="218" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text><text x="2" y="92" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text></g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">Playbook</a>
+        <a href="/elearning/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">E-Learning</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">LeanPeak Product Lab &mdash; Resource Guide</p>
+      <h1 class="pb-chapter-title">What Are Lean Learning Cycles?</h1>
+      <p class="pb-chapter-lead">Lean Learning Cycles are short, time-boxed loops designed to answer specific development questions before a decision is made. They turn early development from &ldquo;activity and opinions&rdquo; into targeted experiments and reusable knowledge.</p>
+    </div>
+
+    <div class="pb-layout">
+      <aside class="pb-sidebar">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#definition">What Are Learning Cycles?</a></li>
+          <li><a href="#problem">The Problem They Solve</a></li>
+          <li><a href="#how-they-work">How They Work</a></li>
+          <li><a href="#seven-blocks">The 7 Building Blocks</a></li>
+          <li><a href="#playbook">Learning Cycles Playbook</a></li>
+          <li><a href="#elearning">E-Learning Modules</a></li>
+          <li><a href="#get-started">How to Get Started</a></li>
+        </ul>
+        <div class="pb-resources-box">
+          <p class="pb-resources-label">Quick links</p>
+          <ul class="pb-resources-list">
+            <li><a href="/playbook/llc-why/">→ Why Learning Cycles? (Ch 18)</a></li>
+            <li><a href="/playbook/llc-what/">→ What Is a Learning Cycle? (Ch 19)</a></li>
+            <li><a href="/playbook/llc-blocks/">→ The 7 Building Blocks (Ch 20)</a></li>
+            <li><a href="/playbook/llc-first/">→ Your First Learning Cycle (Ch 21)</a></li>
+            <li><a href="/playbook/llc-roles/">→ Roles of Coaches &amp; Teams (Ch 22)</a></li>
+            <li><a href="/playbook/llc-knowledge/">→ K-Briefs &amp; Visual Knowledge (Ch 23)</a></li>
+            <li><a href="/playbook/llc-to-3p/">→ From Learning Cycles to 3P (Ch 24)</a></li>
+            <li><a href="/elearning/">→ All e-learning modules</a></li>
+            <li><a href="/knowledge-based-development/">→ Knowledge-Based Development guide</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main>
+        <section class="pb-section" id="definition">
+          <p class="pb-section-eyebrow">Definition</p>
+          <h2 class="pb-section-title">What Are Lean Learning Cycles?</h2>
+          <div class="pb-prose">
+            <p>A <strong>Lean Learning Cycle</strong> is a short, structured, time-boxed loop that a development team uses to answer a specific question before making a decision. Each cycle starts with a clearly stated learning question &mdash; something the team does not yet know but needs to know to move forward confidently &mdash; and ends with a validated insight recorded as reusable knowledge.</p>
+            <p>The word &ldquo;cycle&rdquo; is deliberate. Development work is inherently iterative: you do not know everything at the start. The question is whether that iteration is random and reactive, or purposeful and directed. Learning Cycles make it purposeful. Instead of &ldquo;let&rsquo;s build a prototype and see what happens,&rdquo; a Learning Cycle starts from &ldquo;here is the specific question we need to answer, here is how we will answer it, and here is what we will do with the answer.&rdquo;</p>
+            <p>Learning Cycles are not a project management framework. They sit inside the existing flow of development work &mdash; embedded in your current milestones, reviews, and rhythms &mdash; and make the learning inside that work visible, structured, and reusable across projects and teams.</p>
+          </div>
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;A Lean Learning Cycle does not add work to development. It makes the learning that is already happening intentional &mdash; so it actually drives the next decision instead of being forgotten.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <section class="pb-section" id="problem">
+          <p class="pb-section-eyebrow">The problem</p>
+          <h2 class="pb-section-title">The Problem They Solve</h2>
+          <div class="pb-prose">
+            <p>Most development teams are busy. Work is happening, prototypes are being built, simulations are running, meetings are full. But ask the team at a milestone review what they <em>learned</em> in the last phase, and the answer is often vague: &ldquo;We validated the concept,&rdquo; or &ldquo;We tested the design.&rdquo; Ask what they will do differently on the next project as a result, and there is silence.</p>
+            <p>The root cause is that most development work is organized around activities, not questions. The plan says: &ldquo;build prototype, run test, update model.&rdquo; It does not say: &ldquo;answer the question of whether our current material choice will meet the fatigue requirement under temperature cycling.&rdquo; Activities can be completed without learning anything useful. Questions cannot.</p>
+          </div>
+          <ul class="pb-list">
+            <li>Late engineering changes because key assumptions were never tested early enough</li>
+            <li>Hidden knowledge gaps that only surface at launch &mdash; when they are expensive to fix</li>
+            <li>Repeated mistakes across projects because learning is never captured in a reusable form</li>
+            <li>Vague milestones that measure deliverable completion, not knowledge sufficiency</li>
+            <li>Teams jumping from idea to detailed design without systematically reducing uncertainty</li>
+            <li>Decisions made on opinions and seniority rather than evidence and data</li>
+          </ul>
+          <div class="pb-prose" style="margin-top:.5rem">
+            <p>Lean Learning Cycles solve these problems by making questions &mdash; not activities &mdash; the unit of development planning. When you plan in questions, you know when you have answered them. When you plan in activities, you know only when you have finished them.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="how-they-work">
+          <p class="pb-section-eyebrow">The method</p>
+          <h2 class="pb-section-title">How Lean Learning Cycles Work</h2>
+          <div class="pb-prose">
+            <p>A Learning Cycle has a fixed, short cadence &mdash; typically one to two weeks per cycle &mdash; focused on one or a few tightly related development questions. The cadence creates rhythm. Short cycles create feedback. And the repeating structure ensures that each cycle builds on the one before.</p>
+            <p>Each cycle follows the same pattern: you start from a specific question or knowledge gap, choose the minimum experiment needed to answer it, run the experiment, capture the insight, and use it to inform the next decision or set up the next cycle. The cycle is not finished when the test is done. It is finished when the learning is recorded in a form that the next person who faces the same question can use.</p>
+          </div>
+          <div class="pb-card-grid" style="max-width:100%">
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">PLAN</p>
+              <h3 class="pb-info-card-title">Start from a question, not a task</h3>
+              <p class="pb-info-card-body">State the key decision or knowledge gap. What exactly do you not know — and what would it take to know it? What is the minimum experiment that answers the question?</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">RUN</p>
+              <h3 class="pb-info-card-title">Do the minimum, not the maximum</h3>
+              <p class="pb-info-card-body">Run the experiment. Keep it as small as possible while still giving a credible answer. Speed of learning matters more than completeness of testing at this stage.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">REVIEW</p>
+              <h3 class="pb-info-card-title">What did we actually learn?</h3>
+              <p class="pb-info-card-body">Compare the result to the prediction. What was confirmed? What was surprising? What does this change about the design or the next decision? What is the next question?</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">CAPTURE</p>
+              <h3 class="pb-info-card-title">Record it in a reusable form</h3>
+              <p class="pb-info-card-body">Write a K-Brief or knowledge artifact. One page. The question, the answer, the condition under which it holds, and what to do with it. Reusable across teams and projects.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="pb-section" id="seven-blocks">
+          <p class="pb-section-eyebrow">The framework</p>
+          <h2 class="pb-section-title">The 7 Building Blocks</h2>
+          <div class="pb-prose">
+            <p>The seven building blocks give a Learning Cycle structure without heavy bureaucracy. They are lightweight enough to fit on a visible board and disciplined enough to ensure that cycles are genuinely learning-focused rather than just busy.</p>
+          </div>
+          <div class="pb-card-grid" style="max-width:100%;grid-template-columns:repeat(3,1fr);">
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">BLOCK 1</p>
+              <h3 class="pb-info-card-title">Learning Question</h3>
+              <p class="pb-info-card-body">The specific, answerable question this cycle is designed to resolve. One question per cycle, stated in plain language.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">BLOCK 2</p>
+              <h3 class="pb-info-card-title">Priority Matrix</h3>
+              <p class="pb-info-card-body">A ranked view of which questions matter most — by impact on the design and urgency relative to upcoming decisions.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">BLOCK 3</p>
+              <h3 class="pb-info-card-title">Key Decisions &amp; Gaps</h3>
+              <p class="pb-info-card-body">The decisions that are coming in the next phase and the knowledge gaps that need to be closed before those decisions can be made confidently.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">BLOCK 4</p>
+              <h3 class="pb-info-card-title">Increment Plan</h3>
+              <p class="pb-info-card-body">The overall learning roadmap: which questions need to be answered in which order across multiple cycles to reach a key milestone.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">BLOCK 5</p>
+              <h3 class="pb-info-card-title">Iteration Plan</h3>
+              <p class="pb-info-card-body">The specific experiment(s) for this cycle: what will be built or tested, who owns it, what the prediction is, and what success looks like.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-num">BLOCK 6</p>
+              <h3 class="pb-info-card-title">Execution</h3>
+              <p class="pb-info-card-body">Running the experiment and tracking it visually. Short, daily check-ins keep the cycle on track and surface blockers before they cost time.</p>
+            </div>
+            <div class="pb-info-card" style="grid-column:1/-1;max-width:calc(33.3% - .5rem)">
+              <p class="pb-info-card-num">BLOCK 7</p>
+              <h3 class="pb-info-card-title">Visual Knowledge &mdash; K-Brief</h3>
+              <p class="pb-info-card-body">A one-page knowledge artifact capturing the question, the answer, the conditions, and the implications. Searchable, shareable, and reusable across future projects.</p>
+            </div>
+          </div>
+          <div class="pb-prose" style="margin-top:.75rem">
+            <p>The seven blocks are described in full in Chapter 20 of the Lean Learning Cycles Playbook. Teams that use all seven consistently find that the discipline of stating a question, predicting an answer, and then comparing that prediction to reality is enough to transform how they work &mdash; without any new tools or software.</p>
+          </div>
+        </section>
+
+        <section class="pb-section" id="playbook">
+          <p class="pb-section-eyebrow">Lean Learning Cycles Playbook &mdash; Chapters 18&ndash;24</p>
+          <h2 class="pb-section-title">Read the Full Lean Learning Cycles Playbook</h2>
+          <div class="pb-prose">
+            <p>The Lean Learning Cycles Playbook is Section 3 of the LeanPeak Playbook. It covers the full system across seven chapters &mdash; from the reasoning behind Learning Cycles through each of the seven building blocks, your first cycle, roles, visual knowledge, and the connection to Lean 3P. All chapters are free to read.</p>
+          </div>
+          <div class="pb-chapter-links">
+            <a class="pb-chapter-link" href="/playbook/llc-why/">
+              <span class="pb-chapter-link-num">18</span>
+              <div><p class="pb-chapter-link-label">Chapter 18 &mdash; Why Learning Cycles?</p><p class="pb-chapter-link-title">Why Lean Learning Cycles?</p><p class="pb-chapter-link-desc">The familiar pattern of late learning and how Learning Cycles break it. Start here if you are new to the method.</p></div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/llc-what/">
+              <span class="pb-chapter-link-num">19</span>
+              <div><p class="pb-chapter-link-label">Chapter 19 &mdash; What Is a Cycle?</p><p class="pb-chapter-link-title">What Is a Lean Learning Cycle?</p><p class="pb-chapter-link-desc">Definition, anatomy of a cycle, cadence, and how cycles connect to decisions and milestones.</p></div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/llc-blocks/">
+              <span class="pb-chapter-link-num">20</span>
+              <div><p class="pb-chapter-link-label">Chapter 20 &mdash; 7 Building Blocks</p><p class="pb-chapter-link-title">The Seven Building Blocks</p><p class="pb-chapter-link-desc">Each block explained with examples: learning question, priority matrix, key decisions, increment plan, iteration plan, execution, and K-Brief.</p></div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/llc-first/">
+              <span class="pb-chapter-link-num">21</span>
+              <div><p class="pb-chapter-link-label">Chapter 21 &mdash; First Cycle</p><p class="pb-chapter-link-title">Your First Learning Cycle</p><p class="pb-chapter-link-desc">A step-by-step guide to running your first cycle embedded in real work. Templates, facilitation notes, and common pitfalls.</p></div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/llc-roles/">
+              <span class="pb-chapter-link-num">22</span>
+              <div><p class="pb-chapter-link-label">Chapter 22 &mdash; Roles</p><p class="pb-chapter-link-title">Roles of Coaches and Teams</p><p class="pb-chapter-link-desc">Who does what in a Learning Cycle: team responsibilities, the coach role, and how leadership supports cycle-based development.</p></div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/llc-knowledge/">
+              <span class="pb-chapter-link-num">23</span>
+              <div><p class="pb-chapter-link-label">Chapter 23 &mdash; K-Briefs</p><p class="pb-chapter-link-title">K-Briefs and Visual Knowledge</p><p class="pb-chapter-link-desc">How to write a K-Brief, what makes knowledge reusable, and how to build a visual knowledge system that compound across projects.</p></div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/llc-to-3p/">
+              <span class="pb-chapter-link-num">24</span>
+              <div><p class="pb-chapter-link-label">Chapter 24 &mdash; Learning Cycles to 3P</p><p class="pb-chapter-link-title">From Learning Cycles to Lean 3P</p><p class="pb-chapter-link-desc">How Lean Learning Cycles feed the Lean 3P industrialization process — carrying knowledge from early development into process and production design.</p></div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="pb-section" id="elearning">
+          <p class="pb-section-eyebrow">E-Learning</p>
+          <h2 class="pb-section-title">E-Learning Modules</h2>
+          <div class="pb-prose">
+            <p>Dedicated e-learning modules for Lean Learning Cycles are in development. They will cover the full Learning Cycles system — overview, building blocks, your first cycle, coaching cycles, and K-Briefs — with structured activities and reflection exercises designed for product development teams, coaches, and leaders.</p>
+            <p>In the meantime, the modules below from Chapters 6 and 7 cover experimentation, learning, and knowledge-based decisions in depth &mdash; the practices at the core of every Learning Cycle.</p>
+          </div>
+          <div class="pb-cta-box">
+            <p class="pb-cta-box-title">Related modules: Experimentation &amp; Decisions (Chapters 6–7)</p>
+            <p class="pb-cta-box-body">Chapter 6 covers experiment design, A3 thinking, and learning as a system. Chapter 7 covers knowledge-based decisions, visual management for learning, and practical upgrades to your current review cadence. Both require a subscription. Sign in to access.</p>
+            <a href="https://app.leanpeakproductlab.com/sign-in">Sign in to access modules &rarr;</a>
+          </div>
+        </section>
+
+        <section class="pb-section" id="get-started">
+          <p class="pb-section-eyebrow">Getting started</p>
+          <h2 class="pb-section-title">How to Get Started</h2>
+          <div class="pb-prose">
+            <p>The fastest way to understand Lean Learning Cycles is to run one. Pick a real decision that is coming up in your current project &mdash; something that will be made in the next two to four weeks &mdash; and run a single two-week cycle to reduce the uncertainty behind it. Not a programme, not a training. One question, one experiment, one K-Brief.</p>
+          </div>
+          <div class="pb-steps">
+            <div class="pb-step"><div class="pb-step-num-box">1</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Pick one upcoming decision</strong> that currently relies on assumption or opinion rather than evidence. State it as a learning question: &ldquo;What is the minimum we need to know to make this decision confidently?&rdquo;</div></div>
+            <div class="pb-step"><div class="pb-step-num-box">2</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Design the minimum experiment</strong> that answers the question. What is the simplest test, prototype, or analysis that would give you a credible answer in two weeks?</div></div>
+            <div class="pb-step"><div class="pb-step-num-box">3</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Make a prediction before you start.</strong> Write down what you expect the answer to be. Predictions matter: comparing your expectation to the result is where most of the learning happens.</div></div>
+            <div class="pb-step"><div class="pb-step-num-box">4</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Run the experiment on a visible board.</strong> Track progress daily. Keep it lightweight &mdash; a sticky note or a shared doc column is enough for a first cycle.</div></div>
+            <div class="pb-step"><div class="pb-step-num-box">5</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Write a one-page K-Brief.</strong> The question, the answer, the condition under which it holds, and what to do with it. File it somewhere the next team can find it.</div></div>
+            <div class="pb-step"><div class="pb-step-num-box">6</div><div class="pb-step-body"><strong style="color:var(--lp-color-text-main)">Use the insight to inform the decision</strong> — then identify the next question. That second question is the start of your next cycle.</div></div>
+          </div>
+          <div class="pb-prose" style="margin-top:.75rem">
+            <p>Read Chapter 21 (Your First Learning Cycle) for templates, facilitation notes, and a detailed walkthrough. The full Playbook &mdash; Chapters 18&ndash;24 &mdash; covers the complete system.</p>
+          </div>
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.5rem;">
+            <a href="/playbook/llc-why/" style="display:inline-block;padding:.55rem 1.2rem;background:var(--lp-color-primary);color:#fff;border-radius:var(--lp-radius-sm);font-size:.875rem;font-weight:600;text-decoration:none;">Read Chapter 18 &rarr;</a>
+            <a href="/playbook/llc-first/" style="display:inline-block;padding:.55rem 1.2rem;background:var(--lp-color-surface);color:var(--lp-color-text-main);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-sm);font-size:.875rem;font-weight:600;text-decoration:none;">Run your first cycle (Ch 21)</a>
+            <a href="/knowledge-based-development/" style="display:inline-block;padding:.55rem 1.2rem;background:var(--lp-color-surface);color:var(--lp-color-text-main);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-sm);font-size:.875rem;font-weight:600;text-decoration:none;">Knowledge-Based Development guide</a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="/js/portal-auth.js" defer></script>
+</body>
+</html>
