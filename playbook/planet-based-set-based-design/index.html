@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Planet-Based Set-Based Design — LeanPeak Product Lab Playbook</title>
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    /* ── PBSD custom palette ── */
+    :root {
+      --pbsd-blue:   #4A66AC;
+      --pbsd-blue-soft: rgba(74, 102, 172, 0.10);
+      --pbsd-green:  #6BAF92;
+      --pbsd-green-soft: rgba(107, 175, 146, 0.12);
+      --pbsd-orange: #F4A261;
+      --pbsd-orange-soft: rgba(244, 162, 97, 0.12);
+      --pbsd-coral:  #E07A5F;
+      --pbsd-coral-soft: rgba(224, 122, 95, 0.12);
+    }
+
+    /* ── Page shell ── */
+    .pb-page { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+
+    .pb-chapter-header { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--lp-color-border-subtle); margin-bottom: 2.5rem; }
+    .pb-chapter-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-3xl); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; color: var(--lp-color-text-main); margin: 0 0 1rem; }
+    .pb-chapter-lead { font-size: var(--lp-font-size-lg); color: var(--lp-color-text-muted); line-height: 1.7; max-width: 66ch; margin: 0 0 1.5rem; }
+
+    .pb-cta-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .pb-btn-primary { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.25rem; background: var(--pbsd-blue); color: #fff; border-radius: var(--lp-radius-md); font-size: var(--lp-font-size-sm); font-weight: 600; text-decoration: none; transition: opacity 0.15s; }
+    .pb-btn-primary:hover { opacity: 0.88; }
+    .pb-btn-outline { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.25rem; border: 1.5px solid var(--pbsd-green); color: var(--pbsd-green); border-radius: var(--lp-radius-md); font-size: var(--lp-font-size-sm); font-weight: 600; text-decoration: none; transition: background 0.15s; }
+    .pb-btn-outline:hover { background: var(--pbsd-green-soft); }
+
+    /* ── Layout ── */
+    .pb-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+    .pb-sidebar { position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow-y: auto; }
+    .pb-sidebar-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.75rem; font-family: var(--lp-font-sans); }
+    .pb-nav { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+    .pb-nav > li > a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.35rem 0.75rem; border-radius: var(--lp-radius-sm); border-left: 2px solid transparent; line-height: 1.4; transition: color 0.15s, background 0.15s, border-color 0.15s; }
+    .pb-nav > li > a:hover, .pb-nav > li > a.active { color: var(--pbsd-blue); background: var(--pbsd-blue-soft); }
+    .pb-nav > li > a.active { border-left-color: var(--pbsd-blue); }
+    .pb-chapter-nav { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-chapter-nav-label { font-size: var(--lp-font-size-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.6rem; font-family: var(--lp-font-sans); }
+    .pb-chapter-nav a { display: block; font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); text-decoration: none; padding: 0.3rem 0.75rem; border-radius: var(--lp-radius-sm); line-height: 1.4; transition: color 0.15s, background 0.15s; }
+    .pb-chapter-nav a:hover { color: var(--pbsd-blue); background: var(--pbsd-blue-soft); }
+    .pb-chapter-nav a.current { font-weight: 600; color: var(--lp-color-text-main); }
+
+    /* ── Sections ── */
+    .pb-section { scroll-margin-top: 5rem; margin-bottom: 4rem; }
+    .pb-section + .pb-section { padding-top: 2.5rem; border-top: 1px solid var(--lp-color-border-subtle); }
+    .pb-section-eyebrow { font-size: var(--lp-font-size-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-color-text-soft); margin: 0 0 0.5rem; font-family: var(--lp-font-sans); }
+    .pb-section-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-2xl); font-weight: 400; letter-spacing: -0.02em; color: var(--lp-color-text-main); margin: 0 0 1.25rem; line-height: 1.15; }
+    .pb-prose { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.75; max-width: 68ch; }
+    .pb-prose p { margin: 0 0 1rem; }
+    .pb-prose p:last-child { margin-bottom: 0; }
+
+    /* ── Section image ── */
+    .pb-section-img { margin: 1.75rem 0; border-radius: var(--lp-radius-lg); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); background: var(--lp-color-surface); }
+    .pb-section-img img { width: 100%; height: auto; display: block; }
+    .pb-section-img figcaption { font-size: var(--lp-font-size-xs); color: var(--lp-color-text-soft); padding: 0.5rem 1rem; border-top: 1px solid var(--lp-color-border-subtle); }
+
+    /* ── Pullquote ── */
+    .pb-pullquote { margin: 2rem 0; padding: 1.25rem 1.5rem; border-left: 3px solid var(--pbsd-coral); background: var(--pbsd-coral-soft); border-radius: 0 var(--lp-radius-md) var(--lp-radius-md) 0; }
+    .pb-pullquote p { font-family: var(--lp-font-display); font-size: var(--lp-font-size-lg); line-height: 1.5; color: var(--lp-color-text-main); margin: 0; }
+
+    /* ── Callouts ── */
+    .pb-callout { margin: 1.5rem 0; padding: 1rem 1.25rem; border-radius: var(--lp-radius-md); font-size: var(--lp-font-size-sm); line-height: 1.65; color: var(--lp-color-text-muted); max-width: 68ch; }
+    .pb-callout strong { color: var(--lp-color-text-main); }
+    .pb-callout--coral { background: var(--pbsd-coral-soft); border-left: 3px solid var(--pbsd-coral); }
+    .pb-callout--green { background: var(--pbsd-green-soft); border-left: 3px solid var(--pbsd-green); }
+    .pb-callout--blue  { background: var(--pbsd-blue-soft);  border-left: 3px solid var(--pbsd-blue); }
+    .pb-callout--orange { background: var(--pbsd-orange-soft); border-left: 3px solid var(--pbsd-orange); }
+
+    /* ── Lists ── */
+    .pb-list { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.5rem; max-width: 68ch; }
+    .pb-list li { font-size: var(--lp-font-size-md); color: var(--lp-color-text-muted); line-height: 1.65; padding-left: 1.25rem; position: relative; }
+    .pb-list li::before { content: "→"; position: absolute; left: 0; color: var(--pbsd-blue); font-size: 0.85em; top: 0.15em; }
+    .pb-list li strong { color: var(--lp-color-text-main); }
+
+    /* ── Compare table ── */
+    .pb-compare { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: var(--lp-font-size-sm); max-width: 68ch; }
+    .pb-compare th { padding: 0.5rem 1rem; text-align: left; font-family: var(--lp-font-sans); font-size: var(--lp-font-size-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border-bottom: 2px solid var(--lp-color-border-subtle); }
+    .pb-compare th:first-child { color: var(--pbsd-coral); border-bottom-color: var(--pbsd-coral); }
+    .pb-compare th:last-child  { color: var(--pbsd-green); border-bottom-color: var(--pbsd-green); }
+    .pb-compare td { padding: 0.55rem 1rem; color: var(--lp-color-text-muted); line-height: 1.55; border-bottom: 1px solid var(--lp-color-border-subtle); vertical-align: top; }
+    .pb-compare tr:last-child td { border-bottom: none; }
+    .pb-compare td:last-child { color: var(--lp-color-text-main); font-weight: 500; }
+
+    /* ── Shifts ── */
+    .pb-shifts { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-shift { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0.75rem; align-items: center; padding: 0.65rem 1rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); font-size: var(--lp-font-size-sm); }
+    .pb-shift-from { color: var(--lp-color-text-muted); }
+    .pb-shift-arrow { color: var(--pbsd-blue); font-size: 1.1em; text-align: center; }
+    .pb-shift-to { color: var(--lp-color-text-main); font-weight: 500; }
+
+    /* ── Domain chips + grid ── */
+    .pb-domain-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 1.5rem; }
+    .pb-domain-chip { display: inline-block; padding: 0.3rem 0.85rem; border-radius: 999px; font-size: var(--lp-font-size-xs); font-weight: 600; font-family: var(--lp-font-sans); letter-spacing: 0.04em; }
+    .pb-domain-chip--blue   { background: var(--pbsd-blue-soft);   color: var(--pbsd-blue); }
+    .pb-domain-chip--green  { background: var(--pbsd-green-soft);  color: #2D7D60; }
+    .pb-domain-chip--orange { background: var(--pbsd-orange-soft); color: #A0570A; }
+    .pb-domain-chip--coral  { background: var(--pbsd-coral-soft);  color: #B84B30; }
+    .pb-domain-chip--teal   { background: var(--lp-color-primary-soft); color: var(--lp-color-primary); }
+
+    .pb-domain-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin: 0.75rem 0 1.5rem; }
+    .pb-domain-card { padding: 1rem 1.1rem; border-radius: var(--lp-radius-md); border: 1px solid var(--lp-color-border-subtle); background: var(--lp-color-surface); }
+    .pb-domain-card-label { font-size: var(--lp-font-size-xs); font-weight: 700; font-family: var(--lp-font-sans); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 0.35rem; }
+    .pb-domain-card-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-md); color: var(--lp-color-text-main); margin: 0 0 0.35rem; }
+    .pb-domain-card-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0; }
+
+    /* ── A3 stages ── */
+    .pb-stages { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-stage { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: 0.875rem; align-items: start; }
+    .pb-stage-badge { width: 2.5rem; height: 2.5rem; border-radius: var(--lp-radius-md); display: flex; align-items: center; justify-content: center; font-size: var(--lp-font-size-sm); font-weight: 700; flex-shrink: 0; font-family: var(--lp-font-sans); }
+    .pb-stage-badge--blue   { background: var(--pbsd-blue-soft);   color: var(--pbsd-blue); }
+    .pb-stage-badge--green  { background: var(--pbsd-green-soft);  color: #2D7D60; }
+    .pb-stage-badge--orange { background: var(--pbsd-orange-soft); color: #A0570A; }
+    .pb-stage-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; padding-top: 0.35rem; }
+    .pb-stage-body strong { color: var(--lp-color-text-main); }
+
+    /* ── Tools grid ── */
+    .pb-tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0; }
+    .pb-tool-card { border-radius: var(--lp-radius-md); overflow: hidden; border: 1px solid var(--lp-color-border-subtle); background: var(--lp-color-surface); }
+    .pb-tool-card img { width: 100%; height: auto; display: block; }
+    .pb-tool-card-body { padding: 0.75rem 1rem; }
+    .pb-tool-card-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-md); color: var(--lp-color-text-main); margin: 0 0 0.25rem; }
+    .pb-tool-card-body p { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.55; margin: 0; }
+
+    /* ── Info cards ── */
+    .pb-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0; }
+    .pb-info-card { padding: 1rem 1.25rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); }
+    .pb-info-card-label { font-size: var(--lp-font-size-xs); font-weight: 700; color: var(--pbsd-blue); font-family: var(--lp-font-sans); margin-bottom: 0.4rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    .pb-info-card-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-md); color: var(--lp-color-text-main); margin: 0 0 0.4rem; }
+    .pb-info-card-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.6; margin: 0; }
+
+    /* ── Template download card ── */
+    .pb-template-card { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; border-radius: var(--lp-radius-md); border: 1.5px solid var(--pbsd-green); background: var(--pbsd-green-soft); margin: 1.5rem 0; max-width: 68ch; text-decoration: none; transition: background 0.15s; }
+    .pb-template-card:hover { background: rgba(107,175,146,0.2); }
+    .pb-template-icon { width: 2.5rem; height: 2.5rem; flex-shrink: 0; color: var(--pbsd-green); }
+    .pb-template-card-body { flex: 1; }
+    .pb-template-card-title { font-size: var(--lp-font-size-sm); font-weight: 700; color: var(--lp-color-text-main); margin: 0 0 0.2rem; }
+    .pb-template-card-body p { font-size: var(--lp-font-size-xs); color: var(--lp-color-text-muted); margin: 0; }
+    .pb-template-card-arrow { color: var(--pbsd-green); font-size: 1.2rem; }
+
+    /* ── Audience grid ── */
+    .pb-audience-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-audience-item { padding: 0.65rem 1rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-md); font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.5; }
+    .pb-audience-item strong { display: block; color: var(--lp-color-text-main); margin-bottom: 0.1rem; }
+
+    /* ── Monday list ── */
+    .pb-monday-list { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.25rem 0; max-width: 68ch; }
+    .pb-monday-item { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: 0.875rem; align-items: start; }
+    .pb-monday-num { width: 2.25rem; height: 2.25rem; border-radius: var(--lp-radius-md); background: var(--pbsd-blue-soft); color: var(--pbsd-blue); font-size: var(--lp-font-size-xs); font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: var(--lp-font-sans); }
+    .pb-monday-body { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); line-height: 1.65; padding-top: 0.3rem; }
+    .pb-monday-body strong { color: var(--lp-color-text-main); }
+
+    /* ── Video embed ── */
+    .pb-video-section { margin: 0 0 3rem; }
+    .pb-video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--lp-radius-lg); border: 1px solid var(--lp-color-border-subtle); background: #000; }
+    .pb-video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+    .pb-video-caption { font-size: var(--lp-font-size-xs); color: var(--lp-color-text-soft); margin: 0.6rem 0 0; text-align: center; }
+
+    /* ── CTA block ── */
+    .pb-cta-block { padding: 2rem; background: var(--lp-color-surface); border: 1px solid var(--lp-color-border-subtle); border-radius: var(--lp-radius-lg); margin-top: 2.5rem; }
+    .pb-cta-block-title { font-family: var(--lp-font-display); font-size: var(--lp-font-size-xl); color: var(--lp-color-text-main); margin: 0 0 0.5rem; }
+    .pb-cta-block-lead { font-size: var(--lp-font-size-sm); color: var(--lp-color-text-muted); margin: 0 0 1.25rem; line-height: 1.6; max-width: 56ch; }
+    .pb-cta-buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .pb-cta-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.55rem 1.1rem; border-radius: var(--lp-radius-md); font-size: var(--lp-font-size-sm); font-weight: 600; text-decoration: none; transition: opacity 0.15s, background 0.15s; }
+    .pb-cta-btn--blue   { background: var(--pbsd-blue);  color: #fff; }
+    .pb-cta-btn--blue:hover { opacity: 0.88; }
+    .pb-cta-btn--green  { background: var(--pbsd-green); color: #fff; }
+    .pb-cta-btn--green:hover { opacity: 0.88; }
+    .pb-cta-btn--outline { border: 1.5px solid var(--lp-color-border-subtle); color: var(--lp-color-text-muted); background: #fff; }
+    .pb-cta-btn--outline:hover { background: var(--lp-color-surface); }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .pb-layout { grid-template-columns: 1fr; gap: 0; }
+      .pb-sidebar { position: static; max-height: none; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--lp-color-border-subtle); }
+      .pb-nav { flex-direction: row; flex-wrap: wrap; gap: 0.25rem; }
+      .pb-nav > li > a { border-left: none; border-bottom: 2px solid transparent; padding: 0.3rem 0.6rem; }
+      .pb-nav > li > a.active { border-left-color: transparent; border-bottom-color: var(--pbsd-blue); }
+      .pb-chapter-nav { display: none; }
+      .pb-card-grid { grid-template-columns: 1fr; }
+      .pb-domain-grid { grid-template-columns: 1fr; }
+      .pb-tools-grid { grid-template-columns: 1fr; }
+      .pb-shift { grid-template-columns: 1fr; }
+      .pb-shift-arrow { display: none; }
+    }
+    @media (max-width: 640px) {
+      .pb-chapter-title { font-size: 2rem; }
+      .pb-audience-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lppl-logo-title lppl-logo-desc" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="lppl-logo-title">LeanPeakProductLab logo</title>
+          <desc id="lppl-logo-desc">Three-step peak symbol with LeanPeakProductLab wordmark</desc>
+          <g transform="translate(24 36)">
+            <rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"></rect>
+            <rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"></rect>
+            <rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"></rect>
+          </g>
+          <g transform="translate(150 46)">
+            <text x="0" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text>
+            <text x="218" y="58" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text>
+            <text x="2" y="92" font-family='Inter, "Segoe UI", Arial, sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ · DECIDE · ACT</text>
+          </g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:0.875rem;color:var(--lp-color-primary);font-weight:600;text-decoration:none;">Playbook</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:0.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Playbook Guide &mdash; Planet-Based Design</p>
+      <h1 class="pb-chapter-title">Planet-Based Set-Based Design</h1>
+      <p class="pb-chapter-lead">
+        Make learning visible before you narrow. How to keep all five sustainability domains open simultaneously,
+        avoid design waste, and narrow to the right solution — not just the fastest one.
+      </p>
+      <div class="pb-cta-row">
+        <a href="#video" class="pb-btn-primary">&#9654; Watch the video</a>
+        <a href="https://drive.google.com/drive/folders/16l9aEz9j6gne90oC1jVAEql_1yBy5oC6?usp=share_link" class="pb-btn-outline" target="_blank" rel="noopener noreferrer">&#8599; Open the templates</a>
+      </div>
+    </div>
+
+    <!-- ── Video ── -->
+    <div class="pb-video-section" id="video">
+      <div class="pb-video-wrapper">
+        <iframe src="https://www.youtube.com/embed/csVneiEXAkI" title="Planet-Based Set-Based Design" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <p class="pb-video-caption">Introduction to Planet-Based Set-Based Design — the case for keeping options open before you narrow.</p>
+
+      <a href="https://drive.google.com/drive/folders/16l9aEz9j6gne90oC1jVAEql_1yBy5oC6?usp=share_link" class="pb-template-card" target="_blank" rel="noopener noreferrer">
+        <svg class="pb-template-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z" />
+        </svg>
+        <div class="pb-template-card-body">
+          <p class="pb-template-card-title">Download Templates &amp; Tools</p>
+          <p>Material Candidate Rubric, Disposition Lanes Board, Planet-Based A3 worksheet — Google Drive folder, free to copy.</p>
+        </div>
+        <span class="pb-template-card-arrow">&#8599;</span>
+      </a>
+    </div>
+
+    <div class="pb-layout">
+
+      <!-- ── Sidebar ── -->
+      <aside class="pb-sidebar" aria-label="Page sections">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#problem">The Decision Problem</a></li>
+          <li><a href="#shift">The Core Shift</a></li>
+          <li><a href="#solution-space">Five Domains</a></li>
+          <li><a href="#a3-learning">The A3 Learning System</a></li>
+          <li><a href="#tools">Tools &amp; Templates</a></li>
+          <li><a href="#who">Who This Is For</a></li>
+          <li><a href="#monday">Monday Morning</a></li>
+          <li><a href="#related">Related Content</a></li>
+        </ul>
+
+        <div class="pb-chapter-nav">
+          <p class="pb-chapter-nav-label">Playbook Guides</p>
+          <a href="/playbook/introduction/" class="pb-chapter-nav">Introduction</a>
+          <a href="/playbook/true-north/" class="pb-chapter-nav">Chapter 1 — True North</a>
+          <a href="/playbook/foundations/" class="pb-chapter-nav">Chapter 2 — Foundations</a>
+          <a href="/playbook/strategy/" class="pb-chapter-nav">Chapter 3 — Strategy</a>
+          <a href="/playbook/discovery/" class="pb-chapter-nav">Chapter 4 — Discovery</a>
+          <a href="/playbook/design/" class="pb-chapter-nav">Chapter 5 — Design &amp; Flow</a>
+          <a href="/playbook/experiments/" class="pb-chapter-nav">Chapter 6 — Experiments</a>
+          <a href="/playbook/decisions/" class="pb-chapter-nav">Chapter 7 — Decisions</a>
+          <a href="/playbook/launch/" class="pb-chapter-nav">Chapter 8 — Launch</a>
+          <a href="/playbook/culture/" class="pb-chapter-nav">Chapter 9 — Culture</a>
+          <a href="/playbook/start/" class="pb-chapter-nav">Chapter 10 — Getting Started</a>
+          <a href="/playbook/3p-why/" class="pb-chapter-nav">Chapter 11 — Why Lean 3P</a>
+          <a href="/playbook/3p-foundations/" class="pb-chapter-nav">Chapter 12 — 3P Foundations</a>
+          <a href="/playbook/3p-flow/" class="pb-chapter-nav">Chapter 13 — The 3P Flow</a>
+          <a href="/playbook/3p-design/" class="pb-chapter-nav">Chapter 14 — Design 3P</a>
+          <a href="/playbook/3p-process/" class="pb-chapter-nav">Chapter 15 — Process 3P</a>
+          <a href="/playbook/3p-production/" class="pb-chapter-nav">Chapter 16 — Production 3P</a>
+          <a href="/playbook/planet-based-set-based-design/" class="pb-chapter-nav current">Guide — Planet-Based SBD</a>
+        </div>
+      </aside>
+
+      <!-- ── Main content ── -->
+      <main>
+
+        <!-- The Decision Problem -->
+        <section class="pb-section" id="problem">
+          <p class="pb-section-eyebrow">Why It Matters</p>
+          <h2 class="pb-section-title">The Decision Problem</h2>
+
+          <div class="pb-pullquote">
+            <p>"Most companies don't have a sustainability problem. They have a decision-making problem."</p>
+          </div>
+
+          <div class="pb-prose">
+            <p>Sustainable design fails when teams commit too early. A material gets chosen in week two. A process route gets locked before manufacturing is in the room. An architecture decision settles before anyone has tested the lifecycle assumptions. Each early commitment closes a door — and behind those doors are often the best options.</p>
+            <p>The result is predictable: teams spend late-stage resources on workarounds rather than solutions. Regulatory requirements tighten, supplier materials change, and circular economy targets arrive after the design is frozen. You're not failing because you didn't care about sustainability. You're failing because the system forces premature decisions.</p>
+          </div>
+
+          <div class="pb-callout pb-callout--coral">
+            <strong>Design waste in sustainable development</strong> — Every option explored and abandoned without learning something useful is waste. Every decision made before the team had the information to make it well is waste. Planet-Based Set-Based Design eliminates both by treating option-keeping as a discipline, not an indecision.
+          </div>
+
+          <div class="pb-prose">
+            <p>Point-based sustainable design picks one direction and refines it. When that direction hits a constraint — a supplier gap, a process incompatibility, an end-of-life problem — the team either backtracks expensively or ships a compromise. Set-based design changes the question from "which option is right?" to "what do we need to learn before we narrow?"</p>
+          </div>
+        </section>
+
+        <!-- The Core Shift -->
+        <section class="pb-section" id="shift">
+          <p class="pb-section-eyebrow">The Approach</p>
+          <h2 class="pb-section-title">The Core Shift</h2>
+
+          <div class="pb-prose">
+            <p>Planet-Based Set-Based Design applies set-based concurrent engineering to sustainability. Instead of converging on one sustainable solution path, teams define a set of viable candidates across multiple domains and narrow systematically — using learning, not assumptions, as the convergence signal.</p>
+          </div>
+
+          <table class="pb-compare">
+            <thead>
+              <tr>
+                <th>Point-Based Approach</th>
+                <th>Set-Based Approach</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Pick the "best" sustainable material in week 2</td>
+                <td>Define 3–5 material candidates; narrow after supplier testing</td>
+              </tr>
+              <tr>
+                <td>One process route evaluated in depth</td>
+                <td>Multiple process routes sketched, lensed, eliminated by data</td>
+              </tr>
+              <tr>
+                <td>Circularity retrofit at end of design</td>
+                <td>End-of-life scenarios included from the first set</td>
+              </tr>
+              <tr>
+                <td>Business model decided before product architecture</td>
+                <td>Business model options kept open until architecture stabilises</td>
+              </tr>
+              <tr>
+                <td>Sustainability = compliance checkpoint</td>
+                <td>Sustainability = shared constraint across all design domains</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="pb-shifts">
+            <div class="pb-shift">
+              <span class="pb-shift-from">Late-stage sustainability discovery</span>
+              <span class="pb-shift-arrow">→</span>
+              <span class="pb-shift-to">Front-loaded option exploration</span>
+            </div>
+            <div class="pb-shift">
+              <span class="pb-shift-from">Decisions driven by momentum</span>
+              <span class="pb-shift-arrow">→</span>
+              <span class="pb-shift-to">Decisions driven by learning</span>
+            </div>
+            <div class="pb-shift">
+              <span class="pb-shift-from">Sustainability as trade-off</span>
+              <span class="pb-shift-arrow">→</span>
+              <span class="pb-shift-to">Sustainability as shared design space</span>
+            </div>
+            <div class="pb-shift">
+              <span class="pb-shift-from">One team, one view</span>
+              <span class="pb-shift-arrow">→</span>
+              <span class="pb-shift-to">Cross-functional set ownership</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Five Domains -->
+        <section class="pb-section" id="solution-space">
+          <p class="pb-section-eyebrow">The Solution Space</p>
+          <h2 class="pb-section-title">Five Sustainability Domains</h2>
+
+          <div class="pb-prose">
+            <p>Planet-Based Set-Based Design keeps five domains open simultaneously. Most approaches focus on one — usually materials. That's where the design waste hides. A great material choice attached to the wrong architecture, the wrong process, or the wrong business model is still a bad outcome.</p>
+          </div>
+
+          <div class="pb-domain-chips">
+            <span class="pb-domain-chip pb-domain-chip--blue">1. Product Architecture</span>
+            <span class="pb-domain-chip pb-domain-chip--green">2. Material System</span>
+            <span class="pb-domain-chip pb-domain-chip--orange">3. Manufacturing &amp; Process</span>
+            <span class="pb-domain-chip pb-domain-chip--coral">4. Use, Service &amp; Circularity</span>
+            <span class="pb-domain-chip pb-domain-chip--teal">5. Business Model &amp; Supply Network</span>
+          </div>
+
+          <div class="pb-domain-grid">
+            <div class="pb-domain-card">
+              <p class="pb-domain-card-label" style="color:var(--pbsd-blue)">Domain 1</p>
+              <p class="pb-domain-card-title">Product Architecture</p>
+              <p class="pb-domain-card-body">Modularity, disassembly, repairability, and platform choices. Architecture decisions lock in nearly every downstream sustainability outcome — keep them open longest.</p>
+            </div>
+            <div class="pb-domain-card">
+              <p class="pb-domain-card-label" style="color:#2D7D60">Domain 2</p>
+              <p class="pb-domain-card-title">Material System</p>
+              <p class="pb-domain-card-body">Candidate materials scored across embodied carbon, recyclability, toxicity, supply security, and processability. Tracked with a structured rubric, not gut feel.</p>
+            </div>
+            <div class="pb-domain-card">
+              <p class="pb-domain-card-label" style="color:#A0570A">Domain 3</p>
+              <p class="pb-domain-card-title">Manufacturing &amp; Process</p>
+              <p class="pb-domain-card-body">Energy intensity, scrap rates, process compatibility with chosen materials, and supplier sustainability credentials. Process routes evaluated concurrently with product options.</p>
+            </div>
+            <div class="pb-domain-card">
+              <p class="pb-domain-card-label" style="color:#B84B30">Domain 4</p>
+              <p class="pb-domain-card-title">Use, Service &amp; Circularity</p>
+              <p class="pb-domain-card-body">In-use environmental impact, serviceability, take-back routes, remanufacturing viability, and end-of-life disposition. These options are only available if the architecture allows them.</p>
+            </div>
+            <div class="pb-domain-card" style="grid-column: span 2;">
+              <p class="pb-domain-card-label" style="color:var(--lp-color-primary)">Domain 5</p>
+              <p class="pb-domain-card-title">Business Model &amp; Supply Network</p>
+              <p class="pb-domain-card-body">Ownership vs. access models, supply chain sustainability, traceability requirements, and regulatory positioning. Business model shapes what sustainability the company can actually deliver — and capture value from.</p>
+            </div>
+          </div>
+
+          <div class="pb-callout pb-callout--blue">
+            <strong>The constraint across all five domains:</strong> every option kept alive must be feasible to explore with the team's current capacity and timeline. The discipline is not keeping everything — it's keeping what you can actually learn from before the next narrowing gate.
+          </div>
+        </section>
+
+        <!-- A3 Learning System -->
+        <section class="pb-section" id="a3-learning">
+          <p class="pb-section-eyebrow">The Method</p>
+          <h2 class="pb-section-title">The Planet-Based A3 Learning System</h2>
+
+          <div class="pb-prose">
+            <p>The Planet-Based A3 is a single-page learning system that tracks the team's knowledge state across all five domains, stage by stage. It's not a deliverable — it's a working document that makes uncertainty visible so the team can decide what to learn next.</p>
+            <p>There are five stages. Each stage has a clear entry condition, a learning question, and an exit condition. A low-confidence score at stage exit is not failure — it's a signal to run another learning loop before narrowing.</p>
+          </div>
+
+          <div class="pb-stages">
+            <div class="pb-stage">
+              <div class="pb-stage-badge pb-stage-badge--blue">A</div>
+              <div class="pb-stage-body">
+                <strong>Understand — What problem are we actually solving?</strong><br>
+                Customer and societal context, regulatory landscape, existing product lifecycle data, and supply chain baseline. Define the five-domain set for this project. No narrowing yet.
+              </div>
+            </div>
+            <div class="pb-stage">
+              <div class="pb-stage-badge pb-stage-badge--blue">B</div>
+              <div class="pb-stage-body">
+                <strong>Explore — What options exist across all five domains?</strong><br>
+                Divergent generation. Sketch at least three candidates per domain. Use the material rubric for Domain 2. Populate disposition lanes with early impressions. Resist elimination at this stage.
+              </div>
+            </div>
+            <div class="pb-stage">
+              <div class="pb-stage-badge pb-stage-badge--green">C</div>
+              <div class="pb-stage-body">
+                <strong>Learn — What do we know, and what are we guessing?</strong><br>
+                Structured learning activities: supplier testing, prototype experiments, LCA estimates, circular economy scenario modelling. Score each candidate against rubric criteria. Update confidence levels.
+              </div>
+            </div>
+            <div class="pb-stage">
+              <div class="pb-stage-badge pb-stage-badge--green">D</div>
+              <div class="pb-stage-body">
+                <strong>Compare — What does the learning reveal?</strong><br>
+                Cross-domain comparison. Use disposition lanes to group candidates: proceed, watch, eliminate, redesign. Look for cross-domain dependencies: a material choice that enables or blocks a circularity option.
+              </div>
+            </div>
+            <div class="pb-stage">
+              <div class="pb-stage-badge pb-stage-badge--orange">E</div>
+              <div class="pb-stage-body">
+                <strong>Narrow — What can we responsibly commit to?</strong><br>
+                Converge on the set with the highest knowledge confidence. Document what was learned and why alternatives were eliminated. Low confidence = run another C–D loop before committing.
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-callout pb-callout--orange">
+            <strong>Confidence scoring matters:</strong> teams that skip Stage C tend to eliminate options based on preference, not evidence. The rubric forces the question: "Is this a data-based elimination, or are we just more comfortable with this option?" If you can't answer that, you haven't learned enough yet.
+          </div>
+        </section>
+
+        <!-- Tools and Templates -->
+        <section class="pb-section" id="tools">
+          <p class="pb-section-eyebrow">Tools &amp; Templates</p>
+          <h2 class="pb-section-title">What You'll Work With</h2>
+
+          <div class="pb-prose">
+            <p>Two core visual tools support the learning system. Both are designed to be used on a physical or digital wall — not as spreadsheets.</p>
+          </div>
+
+          <div class="pb-tools-grid">
+            <div class="pb-tool-card">
+              <figure class="pb-section-img" style="margin:0;border-radius:0;border:none;">
+                <img src="img/material-rubric.png" alt="Material System Rubric Template">
+              </figure>
+              <div class="pb-tool-card-body">
+                <p class="pb-tool-card-title">Material System Rubric</p>
+                <p>Score each material candidate across six criteria: embodied carbon, recyclability, toxicity profile, supply security, processability, and circular end-of-life fit. Supports structured comparison at Stage D.</p>
+              </div>
+            </div>
+            <div class="pb-tool-card">
+              <figure class="pb-section-img" style="margin:0;border-radius:0;border:none;">
+                <img src="img/disposition-lanes.png" alt="Disposition Lanes Board">
+              </figure>
+              <div class="pb-tool-card-body">
+                <p class="pb-tool-card-title">Disposition Lanes Board</p>
+                <p>Four lanes: Proceed, Watch, Eliminate, Redesign. Each option in the set gets a card. Cards move between lanes as learning accumulates. Makes the team's evolving knowledge state visible to everyone.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-card-grid">
+            <div class="pb-info-card">
+              <p class="pb-info-card-label">Template 3</p>
+              <p class="pb-info-card-title">Planet-Based A3 Worksheet</p>
+              <p class="pb-info-card-body">Single-page A3 format. Sections for all five domains, confidence scores per stage, and the learning question and exit condition for each stage A–E.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-label">Template 4</p>
+              <p class="pb-info-card-title">Domain Set Canvas</p>
+              <p class="pb-info-card-body">Map your option set across all five domains in one view. Highlights cross-domain dependencies — e.g. a material choice that blocks or enables circularity options.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-label">Template 5</p>
+              <p class="pb-info-card-title">Learning Sprint Planner</p>
+              <p class="pb-info-card-body">Plan the activities, owners, and timeline for a Stage C learning sprint. Output: updated rubric scores and revised disposition lanes ready for Stage D comparison.</p>
+            </div>
+          </div>
+
+          <a href="https://drive.google.com/drive/folders/16l9aEz9j6gne90oC1jVAEql_1yBy5oC6?usp=share_link" class="pb-template-card" target="_blank" rel="noopener noreferrer">
+            <svg class="pb-template-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z" />
+            </svg>
+            <div class="pb-template-card-body">
+              <p class="pb-template-card-title">All Templates — Google Drive Folder</p>
+              <p>Free to copy and adapt. Includes all five templates plus a quick-start guide for your first Planet-Based A3 session.</p>
+            </div>
+            <span class="pb-template-card-arrow">&#8599;</span>
+          </a>
+        </section>
+
+        <!-- Who It's For -->
+        <section class="pb-section" id="who">
+          <p class="pb-section-eyebrow">Audience</p>
+          <h2 class="pb-section-title">Who This Is For</h2>
+
+          <div class="pb-prose">
+            <p>Planet-Based Set-Based Design is most useful when you're in the early-to-middle phases of product development — after you know what problem you're solving, but before architecture and material decisions become expensive to reverse.</p>
+          </div>
+
+          <div class="pb-audience-grid">
+            <div class="pb-audience-item">
+              <strong>Product Leaders</strong>
+              Running development programmes where sustainability is a stated goal but keeps getting deferred to "after the first release."
+            </div>
+            <div class="pb-audience-item">
+              <strong>Development Engineers</strong>
+              Working on architecture or material selection and want a structured way to keep options open without slowing the team down.
+            </div>
+            <div class="pb-audience-item">
+              <strong>Sustainability Managers</strong>
+              Trying to move from compliance reporting to upstream design influence — before the critical decisions are already made.
+            </div>
+            <div class="pb-audience-item">
+              <strong>Operations &amp; Manufacturing</strong>
+              Being handed designs that can't be produced cleanly and want to be in the room when process options are still being set.
+            </div>
+            <div class="pb-audience-item">
+              <strong>LPPD Coaches</strong>
+              Looking for a concrete application of set-based concurrent engineering in a sustainability context.
+            </div>
+            <div class="pb-audience-item">
+              <strong>Supply Chain Teams</strong>
+              Owning supplier sustainability credentials and wanting those constraints visible to design teams before commitments are made.
+            </div>
+          </div>
+
+          <div class="pb-callout pb-callout--green">
+            <strong>The goal is not the greenest-looking material.</strong> The goal is a product system — architecture, materials, process, lifecycle model, and business model — that performs sustainably as a whole. That requires cross-functional ownership of the set from the start.
+          </div>
+        </section>
+
+        <!-- Monday Morning -->
+        <section class="pb-section" id="monday">
+          <p class="pb-section-eyebrow">Getting Started</p>
+          <h2 class="pb-section-title">What Changes Monday Morning</h2>
+
+          <div class="pb-prose">
+            <p>You don't need a new development process to start. These six actions work inside any existing programme.</p>
+          </div>
+
+          <div class="pb-monday-list">
+            <div class="pb-monday-item">
+              <div class="pb-monday-num">1</div>
+              <div class="pb-monday-body">
+                <strong>Map your current option set.</strong> List every material, process, and architecture decision that is still open on your current project. That's your starting set. If the list is short, that's a diagnostic signal.
+              </div>
+            </div>
+            <div class="pb-monday-item">
+              <div class="pb-monday-num">2</div>
+              <div class="pb-monday-body">
+                <strong>Set up disposition lanes.</strong> Print or draw four swim-lanes: Proceed / Watch / Eliminate / Redesign. Place one card per open option. Revisit in your next design review.
+              </div>
+            </div>
+            <div class="pb-monday-item">
+              <div class="pb-monday-num">3</div>
+              <div class="pb-monday-body">
+                <strong>Score your material candidates with the rubric.</strong> Pick the top three material options on your current project. Score each against the six rubric criteria. The gaps in your knowledge will show up immediately.
+              </div>
+            </div>
+            <div class="pb-monday-item">
+              <div class="pb-monday-num">4</div>
+              <div class="pb-monday-body">
+                <strong>Bring the five domains into your next design review.</strong> Ask explicitly: "Which of the five sustainability domains have we looked at this sprint? Which haven't we touched?" One question changes the agenda.
+              </div>
+            </div>
+            <div class="pb-monday-item">
+              <div class="pb-monday-num">5</div>
+              <div class="pb-monday-body">
+                <strong>Plan a Stage C learning sprint.</strong> Identify the two or three most uncertain options in your set. Design a focused sprint — experiments, supplier calls, LCA estimates — to raise confidence before the next narrowing gate.
+              </div>
+            </div>
+            <div class="pb-monday-item">
+              <div class="pb-monday-num">6</div>
+              <div class="pb-monday-body">
+                <strong>Document eliminations.</strong> Every time an option leaves your set, write down why — data-based or assumption-based. That record is what lets you reopen options responsibly if conditions change.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Related Content -->
+        <section class="pb-section" id="related">
+          <p class="pb-section-eyebrow">Go Deeper</p>
+          <h2 class="pb-section-title">Related Content</h2>
+
+          <div class="pb-prose">
+            <p>Planet-Based Set-Based Design draws directly on the LPPD foundations for set-based concurrent engineering, experiment-driven learning, and integrating manufacturing early. These chapters connect the method to the broader system.</p>
+          </div>
+
+          <div class="pb-card-grid">
+            <div class="pb-info-card">
+              <p class="pb-info-card-label">Chapter 5</p>
+              <p class="pb-info-card-title">From Insight to Design &amp; Flow</p>
+              <p class="pb-info-card-body">The LPPD set-based design foundation — how to keep architecture and module options open and narrow by eliminating, not just selecting. The theory behind the Planet-Based application.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-label">Chapter 6</p>
+              <p class="pb-info-card-title">Experiments &amp; Learning Loops</p>
+              <p class="pb-info-card-body">How to design the Stage C learning activities that generate real confidence scores rather than guesswork. The Experiment A3 format works directly with the Planet-Based rubric.</p>
+            </div>
+            <div class="pb-info-card">
+              <p class="pb-info-card-label">Chapter 12</p>
+              <p class="pb-info-card-title">3P Foundations</p>
+              <p class="pb-info-card-body">Concurrent product and process development — the operator-as-surgeon mindset and delayed decisions that make manufacturing sustainability options visible earlier in the design cycle.</p>
+            </div>
+          </div>
+
+          <div class="pb-cta-block">
+            <p class="pb-cta-block-title">Ready to go further?</p>
+            <p class="pb-cta-block-lead">Try the free e-learning module, or explore the playbook chapters that build the full LPPD foundation for sustainable product development.</p>
+            <div class="pb-cta-buttons">
+              <a href="/planet-based-sbd/" class="pb-cta-btn pb-cta-btn--green">&#9654; Free Module: Planet-Based SBD</a>
+              <a href="/playbook/design/" class="pb-cta-btn pb-cta-btn--blue">Chapter 5 — Design &amp; Flow</a>
+              <a href="/playbook/experiments/" class="pb-cta-btn pb-cta-btn--outline">Chapter 6 — Experiments</a>
+              <a href="/elearning/" class="pb-cta-btn pb-cta-btn--outline">All E-Learning Modules</a>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+
+  <script>
+    (function () {
+      const allLinks = document.querySelectorAll('.pb-nav a');
+      const sections = Array.from(allLinks).map(a => {
+        const href = a.getAttribute('href');
+        return href && href.startsWith('#') ? document.querySelector(href) : null;
+      }).filter(Boolean);
+      const observer = new IntersectionObserver(
+        entries => entries.forEach(e => {
+          if (e.isIntersecting) {
+            const id = '#' + e.target.id;
+            allLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+          }
+        }),
+        { rootMargin: '-15% 0px -75% 0px', threshold: 0 }
+      );
+      sections.forEach(s => observer.observe(s));
+    })();
+  </script>
+
+  <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
+  <script defer>
+    (function () {
+      function init() { CustomGPT.init({ p_id: '89818', p_key: '263a30f8ca292918be27e31bd50d1074' }); }
+      document.readyState === 'complete' ? init() : window.addEventListener('load', init);
+    })();
+  </script>
+
+</body>
+</html>
