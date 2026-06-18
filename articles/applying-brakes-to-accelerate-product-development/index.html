@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Applying Brakes to Accelerate Product Development – LeanPeak Product Lab</title>
+  <meta name="description" content="Why disciplined learning, fact-based decisions, and reflection are not delays in product development, but the controls that let teams move faster with less risk and rework.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Applying Brakes to Accelerate Product Development">
+  <meta property="og:description" content="Why disciplined learning, fact-based decisions, and reflection are not delays in product development, but the controls that let teams move faster with less risk and rework.">
+  <meta property="og:image" content="https://leanpeakproductlab.com/articles/img/brakes.png">
+  <meta property="og:url" content="https://leanpeakproductlab.com/articles/applying-brakes-to-accelerate-product-development/">
+  <meta property="og:site_name" content="LeanPeak Product Lab">
+  <link rel="canonical" href="https://leanpeakproductlab.com/articles/applying-brakes-to-accelerate-product-development/">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page{max-width:1120px;margin:0 auto;padding:0 1.5rem 5rem}
+    .pb-chapter-header{padding:3rem 0 2.5rem;border-bottom:1px solid var(--lp-color-border-subtle);margin-bottom:2.5rem}
+    .pb-chapter-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-3xl);font-weight:400;letter-spacing:-.03em;line-height:1.1;color:var(--lp-color-text-main);margin:0 0 1rem}
+    .pb-chapter-lead{font-size:var(--lp-font-size-lg);color:var(--lp-color-text-muted);line-height:1.7;max-width:72ch}
+    .pb-chapter-lead p{margin:0 0 1rem}
+    .pb-chapter-lead p:last-child{margin:0}
+    .pb-chapter-img{margin:0 0 2.5rem;border-radius:var(--lp-radius-lg);overflow:hidden;border:1px solid var(--lp-color-border-subtle)}
+    .pb-chapter-img img{width:100%;height:auto;display:block;max-height:440px;object-fit:cover;object-position:center}
+    .pb-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:3.5rem;align-items:start}
+    .pb-sidebar{position:sticky;top:2rem;max-height:calc(100vh - 4rem);overflow-y:auto}
+    .pb-sidebar-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-nav{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.1rem}
+    .pb-nav>li>a{display:block;font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);text-decoration:none;padding:.35rem .75rem;border-radius:var(--lp-radius-sm);border-left:2px solid transparent;line-height:1.4;transition:color .15s,background .15s,border-color .15s}
+    .pb-nav>li>a:hover{color:var(--lp-color-primary);background:var(--lp-color-primary-soft)}
+    .pb-nav>li>a.active{color:var(--lp-color-primary);background:var(--lp-color-primary-soft);border-left-color:var(--lp-color-primary)}
+    .pb-resources-box{margin-top:2rem;padding:1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md)}
+    .pb-resources-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-resources-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.35rem}
+    .pb-resources-list li a{font-size:var(--lp-font-size-sm);color:var(--lp-color-primary);text-decoration:none;display:flex;align-items:flex-start;gap:.4rem;line-height:1.4}
+    .pb-resources-list li a:hover{text-decoration:underline}
+    .pb-section{scroll-margin-top:5rem;margin-bottom:4rem}
+    .pb-section+.pb-section{padding-top:2.5rem;border-top:1px solid var(--lp-color-border-subtle)}
+    .pb-section-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .5rem;font-family:var(--lp-font-sans)}
+    .pb-section-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-2xl);font-weight:400;letter-spacing:-.02em;color:var(--lp-color-text-main);margin:0 0 1.25rem;line-height:1.15}
+    .pb-prose{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.75;max-width:70ch}
+    .pb-prose p{margin:0 0 1rem}
+    .pb-prose p:last-child{margin-bottom:0}
+    .pb-pullquote{margin:2rem 0;padding:1.25rem 1.5rem;border-left:3px solid var(--lp-color-primary);background:var(--lp-color-surface);border-radius:0 var(--lp-radius-md) var(--lp-radius-md) 0;max-width:68ch}
+    .pb-pullquote p{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);line-height:1.5;color:var(--lp-color-text-main);margin:0}
+    .pb-list{list-style:none;padding:0;margin:1rem 0;display:flex;flex-direction:column;gap:.5rem;max-width:68ch}
+    .pb-list li{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.65;padding-left:1.25rem;position:relative}
+    .pb-list li::before{content:"→";position:absolute;left:0;color:var(--lp-color-primary);font-size:.85em;top:.15em}
+    .pb-chapter-links{display:flex;flex-direction:column;gap:.5rem;margin:1.25rem 0;max-width:70ch}
+    .pb-chapter-link{display:grid;grid-template-columns:2.5rem minmax(0,1fr) auto;gap:.75rem;align-items:center;padding:.85rem 1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md);text-decoration:none;color:inherit;transition:background .15s,border-color .15s}
+    .pb-chapter-link:hover{background:var(--lp-color-primary-soft);border-color:var(--lp-color-primary)}
+    .pb-chapter-link:hover .pb-chapter-link-arrow{color:var(--lp-color-primary)}
+    .pb-chapter-link-num{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);font-weight:400;color:var(--lp-color-border-strong);line-height:1;text-align:center}
+    .pb-chapter-link-label{font-size:var(--lp-font-size-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .2rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-link-title{font-size:var(--lp-font-size-sm);font-weight:600;color:var(--lp-color-text-main);margin:0 0 .2rem;line-height:1.3}
+    .pb-chapter-link-desc{font-size:var(--lp-font-size-xs);color:var(--lp-color-text-muted);line-height:1.5;margin:0}
+    .pb-chapter-link-arrow{font-size:1.1rem;color:var(--lp-color-text-soft);flex-shrink:0;transition:color .15s}
+    .pb-cta-box{margin:0 0 1.5rem;padding:1.5rem 1.75rem;background:var(--lp-color-primary-soft);border:1px solid var(--lp-color-primary);border-radius:var(--lp-radius-lg);max-width:70ch}
+    .pb-cta-box-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.65;margin:0}
+    @media(max-width:860px){.pb-layout{grid-template-columns:1fr;gap:0}.pb-sidebar{position:static;max-height:none;padding-bottom:1.5rem;margin-bottom:2rem;border-bottom:1px solid var(--lp-color-border-subtle)}.pb-nav{flex-direction:row;flex-wrap:wrap;gap:.25rem}.pb-nav>li>a{border-left:none;padding:.3rem .6rem}.pb-chapter-link{grid-template-columns:2rem minmax(0,1fr)}.pb-chapter-link-arrow{display:none}}
+    @media(max-width:640px){.pb-chapter-title{font-size:2rem}}
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="art-logo-title" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="art-logo-title">LeanPeakProductLab logo</title>
+          <g transform="translate(24 36)"><rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"/><rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"/><rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"/></g>
+          <g transform="translate(150 46)"><text x="0" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text><text x="218" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text><text x="2" y="92" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ &middot; DECIDE &middot; ACT</text></g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">Playbook</a>
+        <a href="/elearning/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">E-Learning</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Playbook Companion Article &bull; Validate &amp; Learn</p>
+      <h1 class="pb-chapter-title">Applying Brakes to Accelerate Product Development</h1>
+      <div class="pb-chapter-lead">
+        <p>In product development, the disciplines that feel like brakes often turn out to be the very things that make speed possible. Teams that pause to test assumptions, review evidence, and reflect on what they are learning usually move faster overall than teams that rush ahead on confidence alone.</p>
+        <p>This article expands the Validate &amp; Learn side of the Lean PPD Playbook. It is for leaders and teams who feel pressure to move quickly, but need a clearer way to explain why disciplined learning, cadence, and fact-based decisions are not bureaucracy &mdash; they are control systems for innovation.</p>
+      </div>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="../img/brakes.png" alt="Abstract illustration of controlled motion and disciplined development — brakes that make speed possible">
+    </div>
+
+    <div class="pb-layout">
+
+      <aside class="pb-sidebar">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#why-brakes">Why brakes make speed possible</a></li>
+          <li><a href="#real-brakes">What the real brakes are</a></li>
+          <li><a href="#reflection">Reflection is not delay</a></li>
+          <li><a href="#practical">Practical brakes for speed and control</a></li>
+          <li><a href="#lean-connection">How this connects to LPPD</a></li>
+          <li><a href="#practice">Put this into practice</a></li>
+          <li><a href="#related">Related reading</a></li>
+        </ul>
+        <div class="pb-resources-box">
+          <p class="pb-resources-label">Quick links</p>
+          <ul class="pb-resources-list">
+            <li><a href="/playbook/validate/">→ Validate &amp; Learn (Ch 6)</a></li>
+            <li><a href="/playbook/validate/#experiments">→ Designing Experiments</a></li>
+            <li><a href="/playbook/validate/#milestones">→ Knowledge-Based Milestones</a></li>
+            <li><a href="/lean-learning-cycles/">→ Lean Learning Cycles guide</a></li>
+            <li><a href="/playbook/design/">→ Design &amp; Flow (Ch 5)</a></li>
+            <li><a href="/playbook/culture/">→ Culture &amp; Leadership (Ch 9)</a></li>
+            <li><a href="/playbook/">→ Full Playbook</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main>
+
+        <!-- Section 1 -->
+        <section class="pb-section" id="why-brakes">
+          <p class="pb-section-eyebrow">The core idea</p>
+          <h2 class="pb-section-title">Why brakes make speed possible</h2>
+          <div class="pb-prose">
+            <p>Imagine driving a car without brakes. You would not drive faster. You would drive more cautiously, limit your options, and rely on obstacles to stop you. Brakes do not reduce a car&rsquo;s potential speed. They make speed usable.</p>
+            <p>The same logic applies in product development. Teams do not move faster because they avoid checks, evidence, or reflection. They move faster when they have reliable ways to stop, inspect, adjust, and commit with confidence. Without that, development becomes cautious in the wrong places and reckless in the expensive ones.</p>
+            <p>Many organisations still confuse urgency with progress. They push teams to commit early, close questions quickly, and move past uncertainty before it has been understood. The result is familiar: late design changes, repeated loops, overstretched teams, and products that meet internal plans better than customer reality.</p>
+          </div>
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;Without reliable brakes, development becomes cautious in the wrong places and reckless in the expensive ones.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="pb-section" id="real-brakes">
+          <p class="pb-section-eyebrow">What actually slows teams down</p>
+          <h2 class="pb-section-title">What the real brakes are in product development</h2>
+          <div class="pb-prose">
+            <p>In Lean Product Development, the useful brakes are not approvals for their own sake. They are the disciplines that help teams learn before they commit too much.</p>
+            <p>These include:</p>
+          </div>
+          <ul class="pb-list">
+            <li>Fact-based decisions instead of assumption-based decisions.</li>
+            <li>Short learning cycles instead of long hidden work periods.</li>
+            <li>Prototypes, simulations, and experiments that reveal limits early.</li>
+            <li>Integration events that force teams to compare results and surface conflicts.</li>
+            <li>Visible knowledge capture so learning is not lost between projects.</li>
+          </ul>
+          <div class="pb-prose" style="margin-top:1.25rem;">
+            <p>These practices do not slow development down. They reduce avoidable uncertainty and prevent the team from accelerating into expensive mistakes.</p>
+            <p>A team with no good brakes often appears fast in the beginning. Decisions get made quickly. Plans look confident. Work starts everywhere. But because those decisions are weakly informed, speed collapses later under the weight of rework, technical surprises, and organisational friction.</p>
+          </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="pb-section" id="reflection">
+          <p class="pb-section-eyebrow">A misunderstood practice</p>
+          <h2 class="pb-section-title">Reflection is not delay</h2>
+          <div class="pb-prose">
+            <p>Reflection is often misunderstood as something soft, slow, or optional. In reality, reflection is one of the strongest controls a development system has.</p>
+            <p>Reflection improves decision-making because it helps teams examine what actually happened, not just what they hoped would happen. It exposes weak assumptions, hidden bias, and patterns that would otherwise repeat. It improves innovation because it creates feedback loops that refine both the product and the way the team works.</p>
+            <p>It also strengthens empathy. When teams reflect seriously on customer feedback, field observations, and usage data, they become less attached to internal opinions and more grounded in customer reality. Reflection helps teams build products that fit the world they are entering, not the world they imagined.</p>
+            <p>At team level, reflection improves trust and collaboration. People can raise issues earlier, connect their work more clearly to shared goals, and adapt together when reality changes. At leadership level, it supports resilience, because setbacks become material for learning rather than just signs of failure.</p>
+          </div>
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;Setbacks become material for learning rather than just signs of failure &mdash; but only if the team has a practice of looking back honestly.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <!-- Section 4 -->
+        <section class="pb-section" id="practical">
+          <p class="pb-section-eyebrow">From principle to practice</p>
+          <h2 class="pb-section-title">Practical brakes that improve speed and control</h2>
+          <div class="pb-prose">
+            <p>Useful brakes in development are practical and visible.</p>
+            <p><strong>Structured reflection sessions</strong> help teams review decisions, outcomes, surprises, and process problems before those patterns harden. This can be done through short workshops, guided review questions, or lightweight retrospectives tied to actual product decisions.</p>
+            <p><strong>Continuous reflection across the lifecycle</strong> keeps teams aligned as work moves from discovery to concept, design, integration, launch, and improvement. Instead of saving learning for the end, the team keeps inspecting what is changing and what it means.</p>
+            <p><strong>Feedback loops</strong> are another essential brake. Teams need regular ways to gather customer insight, technical evidence, and operational learning, then use that information to refine designs and plans.</p>
+            <p><strong>Empirical decision-making</strong> matters just as much. Strong teams collect relevant data, use models or simulations where appropriate, and compare options against real constraints instead of internal preference. Benchmarking, early tests, and explicit success criteria all help reduce uncertainty before major commitments are made.</p>
+            <p><strong>Risk management through early prototyping</strong>, testing, and scenario planning lets teams surface technical, customer, or operational risks while options are still open.</p>
+            <p>Finally, good brakes depend on team dynamics. Open communication, visible knowledge sharing, and a learning-oriented mindset make it easier for teams to absorb setbacks and improve without blame. When teams document lessons and reuse knowledge systematically, the organisation becomes faster over time &mdash; not just project by project.</p>
+          </div>
+        </section>
+
+        <!-- Section 5 -->
+        <section class="pb-section" id="lean-connection">
+          <p class="pb-section-eyebrow">The Lean PPD connection</p>
+          <h2 class="pb-section-title">How this connects to Lean Product Development</h2>
+          <div class="pb-prose">
+            <p>In Lean Product &amp; Process Development, these brakes show up as concrete practices: learning cycles, hypothesis-driven experiments, integration events, set-based exploration, visual management, and knowledge capture. The goal is not to slow work down. The goal is to create enough control and visibility that teams can move quickly without paying for it later through avoidable rework.</p>
+            <p>That is why disciplined learning is one of the best acceleration mechanisms in development. When teams can stop safely, they can move decisively. When they can inspect reality early, they do not need to fear speed. And when they can turn learning into reusable knowledge, every future project starts with better brakes than the last.</p>
+          </div>
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;When teams can stop safely, they can move decisively. Disciplined learning is not the opposite of speed &mdash; it is the condition for it.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <!-- Put this into practice -->
+        <section class="pb-section" id="practice">
+          <p class="pb-section-eyebrow">Next steps</p>
+          <h2 class="pb-section-title">Put this into practice</h2>
+          <div class="pb-cta-box">
+            <p class="pb-cta-box-body">Use this article when your team is under pressure to &ldquo;go faster&rdquo; and needs a better way to explain why evidence, cadence, and reflection improve speed rather than reduce it. The next practical step is to turn that principle into action through Lean Learning Cycles, knowledge-based reviews, and visible experiment planning.</p>
+          </div>
+          <div class="pb-chapter-links">
+            <a class="pb-chapter-link" href="/playbook/validate/">
+              <span class="pb-chapter-link-num">6</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 6</p>
+                <p class="pb-chapter-link-title">Validate &amp; Learn</p>
+                <p class="pb-chapter-link-desc">Experiments, prototyping ladders, knowledge-based milestones, and learning cycles in practice.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/lean-learning-cycles/">
+              <span class="pb-chapter-link-num" style="font-size:var(--lp-font-size-sm);letter-spacing:-.02em;">LLC</span>
+              <div>
+                <p class="pb-chapter-link-label">Resource Guide</p>
+                <p class="pb-chapter-link-title">What Are Lean Learning Cycles?</p>
+                <p class="pb-chapter-link-desc">The structured method behind the brake: short loops that answer specific questions before decisions are locked in.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/design/">
+              <span class="pb-chapter-link-num">5</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 5</p>
+                <p class="pb-chapter-link-title">Design &amp; Flow</p>
+                <p class="pb-chapter-link-desc">How LPPD structures design work so that checks, gates, and integration events create flow rather than friction.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- Related reading -->
+        <section class="pb-section" id="related">
+          <p class="pb-section-eyebrow">Go deeper</p>
+          <h2 class="pb-section-title">Related reading</h2>
+          <div class="pb-chapter-links">
+            <a class="pb-chapter-link" href="/lean-learning-cycles/">
+              <span class="pb-chapter-link-num" style="font-size:var(--lp-font-size-sm);letter-spacing:-.02em;">LLC</span>
+              <div>
+                <p class="pb-chapter-link-label">Resource Guide</p>
+                <p class="pb-chapter-link-title">What Are Lean Learning Cycles?</p>
+                <p class="pb-chapter-link-desc">Short, time-boxed loops that turn development questions into validated knowledge.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/design/">
+              <span class="pb-chapter-link-num">5</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 5</p>
+                <p class="pb-chapter-link-title">Design &amp; Flow</p>
+                <p class="pb-chapter-link-desc">Set-based design, architecture choices, and development value streams.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/culture/">
+              <span class="pb-chapter-link-num">9</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 9</p>
+                <p class="pb-chapter-link-title">Culture, Leadership &amp; Coaching</p>
+                <p class="pb-chapter-link-desc">How leaders create the conditions for learning-oriented teams to use their brakes well.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+
+  <script>
+    (function () {
+      const allLinks = document.querySelectorAll('.pb-nav a');
+      const sections = Array.from(allLinks)
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const id = '#' + entry.target.id;
+              allLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+            }
+          });
+        },
+        { rootMargin: '-15% 0px -75% 0px', threshold: 0 }
+      );
+      sections.forEach(s => observer.observe(s));
+    })();
+  </script>
+
+  <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
+  <script defer>
+    (function () {
+      function init() { CustomGPT.init({ p_id: '89818', p_key: '263a30f8ca292918be27e31bd50d1074' }); }
+      document.readyState === 'complete' ? init() : window.addEventListener('load', init);
+    })();
+  </script>
+
+</body>
+</html>
