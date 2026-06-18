@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scientific Thinking in Lean Product Development – LeanPeak Product Lab</title>
+  <meta name="description" content="How the scientific model, Toyota Kata, and visual experiment boards turn product development from guesswork into a disciplined learning system.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Scientific Thinking in Lean Product Development">
+  <meta property="og:description" content="How the scientific model, Toyota Kata, and visual experiment boards turn product development from guesswork into a disciplined learning system.">
+  <meta property="og:image" content="https://leanpeakproductlab.com/articles/img/scientific.png">
+  <meta property="og:url" content="https://leanpeakproductlab.com/articles/scientific-thinking-in-lean-product-development/">
+  <meta property="og:site_name" content="LeanPeak Product Lab">
+  <link rel="canonical" href="https://leanpeakproductlab.com/articles/scientific-thinking-in-lean-product-development/">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page{max-width:1120px;margin:0 auto;padding:0 1.5rem 5rem}
+    .pb-chapter-header{padding:3rem 0 2.5rem;border-bottom:1px solid var(--lp-color-border-subtle);margin-bottom:2.5rem}
+    .pb-chapter-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-3xl);font-weight:400;letter-spacing:-.03em;line-height:1.1;color:var(--lp-color-text-main);margin:0 0 1rem}
+    .pb-chapter-lead{font-size:var(--lp-font-size-lg);color:var(--lp-color-text-muted);line-height:1.7;max-width:72ch}
+    .pb-chapter-lead p{margin:0 0 1rem}
+    .pb-chapter-lead p:last-child{margin:0}
+    .pb-chapter-img{margin:0 0 2.5rem;border-radius:var(--lp-radius-lg);overflow:hidden;border:1px solid var(--lp-color-border-subtle)}
+    .pb-chapter-img img{width:100%;height:auto;display:block;max-height:440px;object-fit:cover;object-position:center}
+    .pb-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:3.5rem;align-items:start}
+    .pb-sidebar{position:sticky;top:2rem;max-height:calc(100vh - 4rem);overflow-y:auto}
+    .pb-sidebar-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-nav{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.1rem}
+    .pb-nav>li>a{display:block;font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);text-decoration:none;padding:.35rem .75rem;border-radius:var(--lp-radius-sm);border-left:2px solid transparent;line-height:1.4;transition:color .15s,background .15s,border-color .15s}
+    .pb-nav>li>a:hover{color:var(--lp-color-primary);background:var(--lp-color-primary-soft)}
+    .pb-nav>li>a.active{color:var(--lp-color-primary);background:var(--lp-color-primary-soft);border-left-color:var(--lp-color-primary)}
+    .pb-resources-box{margin-top:2rem;padding:1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md)}
+    .pb-resources-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-resources-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.35rem}
+    .pb-resources-list li a{font-size:var(--lp-font-size-sm);color:var(--lp-color-primary);text-decoration:none;display:flex;align-items:flex-start;gap:.4rem;line-height:1.4}
+    .pb-resources-list li a:hover{text-decoration:underline}
+    .pb-section{scroll-margin-top:5rem;margin-bottom:4rem}
+    .pb-section+.pb-section{padding-top:2.5rem;border-top:1px solid var(--lp-color-border-subtle)}
+    .pb-section-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .5rem;font-family:var(--lp-font-sans)}
+    .pb-section-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-2xl);font-weight:400;letter-spacing:-.02em;color:var(--lp-color-text-main);margin:0 0 1.25rem;line-height:1.15}
+    .pb-prose{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.75;max-width:70ch}
+    .pb-prose p{margin:0 0 1rem}
+    .pb-prose p:last-child{margin-bottom:0}
+    .pb-pullquote{margin:2rem 0;padding:1.25rem 1.5rem;border-left:3px solid var(--lp-color-primary);background:var(--lp-color-surface);border-radius:0 var(--lp-radius-md) var(--lp-radius-md) 0;max-width:68ch}
+    .pb-pullquote p{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);line-height:1.5;color:var(--lp-color-text-main);margin:0}
+    .pb-list{list-style:none;padding:0;margin:1rem 0;display:flex;flex-direction:column;gap:.5rem;max-width:68ch}
+    .pb-list li{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.65;padding-left:1.25rem;position:relative}
+    .pb-list li::before{content:"→";position:absolute;left:0;color:var(--lp-color-primary);font-size:.85em;top:.15em}
+    .pb-steps{display:flex;flex-direction:column;gap:.65rem;margin:1.25rem 0;max-width:70ch}
+    .pb-step{display:grid;grid-template-columns:2rem minmax(0,1fr);gap:.875rem;align-items:start}
+    .pb-step-num-box{width:2rem;height:2rem;border-radius:var(--lp-radius-sm);background:var(--lp-color-primary-soft);color:var(--lp-color-primary);font-size:var(--lp-font-size-xs);font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--lp-font-sans)}
+    .pb-step-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.65;padding-top:.2rem}
+    .pb-step-body strong{color:var(--lp-color-text-main)}
+    .pb-chapter-links{display:flex;flex-direction:column;gap:.5rem;margin:1.25rem 0;max-width:70ch}
+    .pb-chapter-link{display:grid;grid-template-columns:2.5rem minmax(0,1fr) auto;gap:.75rem;align-items:center;padding:.85rem 1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md);text-decoration:none;color:inherit;transition:background .15s,border-color .15s}
+    .pb-chapter-link:hover{background:var(--lp-color-primary-soft);border-color:var(--lp-color-primary)}
+    .pb-chapter-link:hover .pb-chapter-link-arrow{color:var(--lp-color-primary)}
+    .pb-chapter-link-num{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);font-weight:400;color:var(--lp-color-border-strong);line-height:1;text-align:center}
+    .pb-chapter-link-label{font-size:var(--lp-font-size-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .2rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-link-title{font-size:var(--lp-font-size-sm);font-weight:600;color:var(--lp-color-text-main);margin:0 0 .2rem;line-height:1.3}
+    .pb-chapter-link-desc{font-size:var(--lp-font-size-xs);color:var(--lp-color-text-muted);line-height:1.5;margin:0}
+    .pb-chapter-link-arrow{font-size:1.1rem;color:var(--lp-color-text-soft);flex-shrink:0;transition:color .15s}
+    .pb-cta-box{margin:0 0 1.5rem;padding:1.5rem 1.75rem;background:var(--lp-color-primary-soft);border:1px solid var(--lp-color-primary);border-radius:var(--lp-radius-lg);max-width:70ch}
+    .pb-cta-box-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.65;margin:0}
+    @media(max-width:860px){.pb-layout{grid-template-columns:1fr;gap:0}.pb-sidebar{position:static;max-height:none;padding-bottom:1.5rem;margin-bottom:2rem;border-bottom:1px solid var(--lp-color-border-subtle)}.pb-nav{flex-direction:row;flex-wrap:wrap;gap:.25rem}.pb-nav>li>a{border-left:none;padding:.3rem .6rem}.pb-chapter-link{grid-template-columns:2rem minmax(0,1fr)}.pb-chapter-link-arrow{display:none}}
+    @media(max-width:640px){.pb-chapter-title{font-size:2rem}}
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="art-logo-title" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="art-logo-title">LeanPeakProductLab logo</title>
+          <g transform="translate(24 36)"><rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"/><rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"/><rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"/></g>
+          <g transform="translate(150 46)"><text x="0" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text><text x="218" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text><text x="2" y="92" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ &middot; DECIDE &middot; ACT</text></g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">Playbook</a>
+        <a href="/elearning/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">E-Learning</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Playbook Companion Article &bull; Validate &amp; Learn</p>
+      <h1 class="pb-chapter-title">Scientific Thinking in Lean Product Development</h1>
+      <div class="pb-chapter-lead">
+        <p>The best product development systems do not rely on heroic intuition. They rely on systematic learning. Scientific thinking gives teams a repeatable way to turn uncertainty into knowledge, and knowledge into better decisions about customers, concepts, and designs.</p>
+        <p>This article expands the Validate &amp; Learn side of the Lean PPD Playbook. It shows how the scientific model, Toyota Kata, and visual experiment boards can turn product development from a sequence of hunches into a disciplined learning system.</p>
+      </div>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="../img/scientific.png" alt="Team collaborating around an experiment board with hypotheses, test results, and learning cycles">
+    </div>
+
+    <div class="pb-layout">
+
+      <aside class="pb-sidebar">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#why-matters">Why scientific thinking matters</a></li>
+          <li><a href="#scientific-model">The scientific model</a></li>
+          <li><a href="#prototypes">Models and prototypes as experiments</a></li>
+          <li><a href="#toyota-kata">Toyota Kata</a></li>
+          <li><a href="#visual-boards">Visual experiment boards</a></li>
+          <li><a href="#together">Putting it together in LPPD</a></li>
+          <li><a href="#practice">Put this into practice</a></li>
+          <li><a href="#related">Related reading</a></li>
+        </ul>
+        <div class="pb-resources-box">
+          <p class="pb-resources-label">Quick links</p>
+          <ul class="pb-resources-list">
+            <li><a href="/playbook/validate/">→ Validate &amp; Learn (Ch 6)</a></li>
+            <li><a href="/playbook/validate/#experiments">→ Designing Experiments</a></li>
+            <li><a href="/playbook/validate/#milestones">→ Knowledge-Based Milestones</a></li>
+            <li><a href="/lean-learning-cycles/">→ Lean Learning Cycles guide</a></li>
+            <li><a href="/playbook/discover/#customer-problem">→ Customer &amp; Problem Understanding</a></li>
+            <li><a href="/playbook/design/">→ Design &amp; Flow (Ch 5)</a></li>
+            <li><a href="/playbook/culture/">→ Culture &amp; Leadership (Ch 9)</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main>
+
+        <!-- Section 1 -->
+        <section class="pb-section" id="why-matters">
+          <p class="pb-section-eyebrow">The starting point</p>
+          <h2 class="pb-section-title">Why scientific thinking matters in development</h2>
+          <div class="pb-prose">
+            <p>Traditional product development often treats uncertainty as something to be pushed aside quickly. Teams feel pressure to lock requirements, freeze architectures, and &ldquo;get going&rdquo; long before they fully understand customer needs, technical limits, or flow constraints. That approach can feel fast in the beginning, but it typically shifts risk downstream into late changes and rework.</p>
+            <p>Scientific thinking offers a different pattern. Instead of pretending uncertainty is small, it treats uncertainty as the main material of early development. Teams observe, frame problems explicitly, formulate hypotheses, run experiments, analyse what happened, and then adjust. This cycle repeats as designs and knowledge mature.</p>
+            <p>In Lean Product &amp; Process Development, this is not an academic exercise. It is the core of how teams learn early enough to influence architecture, process, and launch decisions.</p>
+          </div>
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;Scientific thinking treats uncertainty as the main material of early development &mdash; not as a problem to be pushed past.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="pb-section" id="scientific-model">
+          <p class="pb-section-eyebrow">The core loop</p>
+          <h2 class="pb-section-title">The scientific model as a product development pattern</h2>
+          <div class="pb-prose">
+            <p>The scientific model is built around a simple but powerful loop: observe, hypothesise, experiment, analyse, and iterate. In product development, the same pattern appears when teams:</p>
+          </div>
+          <ul class="pb-list">
+            <li>Observe customers, users, and systems to understand problems and context.</li>
+            <li>Formulate questions and hypotheses about value, feasibility, and flow.</li>
+            <li>Design experiments, prototypes, or models to test those hypotheses.</li>
+            <li>Analyse results using clear signals and metrics.</li>
+            <li>Iterate based on what they learned, refining both the product and their understanding.</li>
+          </ul>
+          <div class="pb-prose" style="margin-top:1.25rem;">
+            <p>Observation and problem framing come first. Teams study user behaviour, market signals, and system performance to see where real problems, opportunities, and gaps exist. That is the Discover side of the playbook.</p>
+            <p>From there, they articulate explicit questions and hypotheses. For example: &ldquo;If we add this interaction, we expect engagement to increase for this user segment,&rdquo; or &ldquo;If we change this interface, we expect assembly time to fall below a specific threshold.&rdquo; Good hypotheses are testable, measurable, and tied to a concrete decision.</p>
+            <p>Experiments and prototypes follow. Teams build pretotypes, mock-ups, rigs, simulations, or minimum viable products and put them in front of real users or real conditions. They design experiments to isolate variables and see cause and effect &mdash; not just to demonstrate what they already believe.</p>
+            <p>After experiments run, the team analyses results. They compare what actually happened to what they expected, using meaningful metrics such as task completion, failure rates, throughput, or customer behaviour. If a hypothesis is supported, they move forward. If it is not, they adjust or rethink.</p>
+            <p>The loop continues. Each cycle informs the next set of hypotheses and experiments, keeping development responsive to real-world feedback and changing conditions.</p>
+          </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="pb-section" id="prototypes">
+          <p class="pb-section-eyebrow">Making it concrete</p>
+          <h2 class="pb-section-title">Models and prototypes as experiments</h2>
+          <div class="pb-prose">
+            <p>Throughout development, different kinds of models act as experiments:</p>
+          </div>
+          <ul class="pb-list">
+            <li>Concept models to explore ideas and check feasibility.</li>
+            <li>Proof-of-concept models to show that core principles can work in practice.</li>
+            <li>Ergonomic and interaction models to test how users physically and cognitively interact with a product.</li>
+            <li>Pre-production validation models that refine the design for manufacturing, service, and real use.</li>
+          </ul>
+          <div class="pb-prose" style="margin-top:1.25rem;">
+            <p>Each model is a structured way to test assumptions: about physics, usability, manufacturability, cost, or user value. By sequencing these models thoughtfully, teams can reduce risk and avoid expensive surprises later.</p>
+            <p>The benefits of this approach are familiar in Lean PPD:</p>
+          </div>
+          <ul class="pb-list">
+            <li>Risk is reduced because flaws appear early, when change is cheap.</li>
+            <li>Decisions become more evidence-based and less dependent on opinion.</li>
+            <li>Innovation cycles speed up because learning happens in small, fast loops.</li>
+            <li>Cross-functional collaboration improves because engineers, designers, and business stakeholders share a common learning process.</li>
+          </ul>
+        </section>
+
+        <!-- Section 4 -->
+        <section class="pb-section" id="toyota-kata">
+          <p class="pb-section-eyebrow">Scientific thinking as habit</p>
+          <h2 class="pb-section-title">Toyota Kata: scientific thinking as a daily routine</h2>
+          <div class="pb-prose">
+            <p>Scientific thinking is most powerful when it becomes a habit, not a special event. Toyota Kata is one way to make that happen.</p>
+            <p>The Improvement Kata follows a four-step pattern:</p>
+          </div>
+          <div class="pb-steps">
+            <div class="pb-step">
+              <div class="pb-step-num-box">1</div>
+              <div class="pb-step-body"><strong>Understand the direction or challenge</strong> &mdash; set a clear target condition that reflects where you are trying to get to.</div>
+            </div>
+            <div class="pb-step">
+              <div class="pb-step-num-box">2</div>
+              <div class="pb-step-body"><strong>Grasp the current condition</strong> &mdash; understand where you actually are today, based on evidence and observation rather than assumption.</div>
+            </div>
+            <div class="pb-step">
+              <div class="pb-step-num-box">3</div>
+              <div class="pb-step-body"><strong>Establish the next target condition</strong> &mdash; define a reachable step toward the challenge, specific enough to test within a short cycle.</div>
+            </div>
+            <div class="pb-step">
+              <div class="pb-step-num-box">4</div>
+              <div class="pb-step-body"><strong>Experiment toward that condition</strong> &mdash; run small, fast experiments and learn from each one before deciding on the next step.</div>
+            </div>
+          </div>
+          <div class="pb-prose" style="margin-top:1.25rem;">
+            <p>This mirrors the scientific method in a practical way. It turns vague improvement work into a sequence of concrete experiments tied to direction and reality.</p>
+            <p>The Coaching Kata supports this by giving leaders a simple routine of questions to ask: Where are we now? Where are we trying to get to? What is the next step? What did we learn? What will we try next? Through deliberate practice, teams internalise scientific thinking and leaders learn to support it.</p>
+          </div>
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;Through deliberate practice, teams internalise scientific thinking. It becomes the way they work, not something they do in a workshop once a quarter.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <!-- Section 5 -->
+        <section class="pb-section" id="visual-boards">
+          <p class="pb-section-eyebrow">Making learning visible</p>
+          <h2 class="pb-section-title">Visual experiment boards</h2>
+          <div class="pb-prose">
+            <p>Visual tools make scientific work easier to run and easier to share. A structured experiment board &mdash; like the Javelin Board or a team-designed equivalent &mdash; helps teams:</p>
+          </div>
+          <ul class="pb-list">
+            <li>Capture hypotheses about customers, problems, and solutions.</li>
+            <li>Identify the riskiest assumptions to address first.</li>
+            <li>Plan and prioritise experiments: interviews, pretotypes, simulations, or offers.</li>
+            <li>Define clear success criteria and signals before running the experiment.</li>
+            <li>Track results and decisions: persevere, pivot, or stop.</li>
+          </ul>
+          <div class="pb-prose" style="margin-top:1.25rem;">
+            <p>The board becomes a shared memory of what has been tried, what was learned, and what remains uncertain. It makes scientific thinking visible and concrete instead of leaving it buried in slides and notes.</p>
+            <p>Crucially, it creates a shared surface. When engineers, designers, and commercial team members can all see the hypothesis wall, the experiment queue, and the results together, alignment is easier to achieve &mdash; and disagreements surface earlier, when they are cheaper to resolve.</p>
+          </div>
+        </section>
+
+        <!-- Section 6 -->
+        <section class="pb-section" id="together">
+          <p class="pb-section-eyebrow">The full system</p>
+          <h2 class="pb-section-title">Putting it together in Lean Product Development</h2>
+          <div class="pb-prose">
+            <p>When you combine scientific thinking, routines like Toyota Kata, and visual experiment boards with Lean Learning Cycles, you get a coherent system:</p>
+          </div>
+          <ul class="pb-list">
+            <li><strong>Discover and Strategy</strong> define direction, customer problems, and value hypotheses.</li>
+            <li><strong>Scientific thinking and Kata</strong> provide the pattern for breaking those challenges into target conditions and experiments.</li>
+            <li><strong>Experiment boards and learning cycles</strong> provide the cadence and visibility for running those experiments.</li>
+            <li><strong>Integration events and knowledge capture</strong> turn results into decisions and reusable knowledge.</li>
+          </ul>
+          <div class="pb-prose" style="margin-top:1.25rem;">
+            <p>The result is a development system where uncertainty is surfaced early, tested regularly, and reduced systematically. Teams become better at both learning and deciding. Products become more aligned with real user needs and operational reality.</p>
+          </div>
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;Uncertainty surfaced early and tested regularly is not a sign of a weak team. It is the mark of a team that knows how to learn its way to a good answer.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <!-- Put this into practice -->
+        <section class="pb-section" id="practice">
+          <p class="pb-section-eyebrow">Next steps</p>
+          <h2 class="pb-section-title">Put this into practice</h2>
+          <div class="pb-cta-box">
+            <p class="pb-cta-box-body">Use this article with teams who are new to scientific thinking in development, or with leaders who want to see how Lean Learning Cycles, experiments, and routines fit together. The next step is to embed scientific thinking into your own system by defining clear target conditions, mapping knowledge gaps and hypotheses, designing experiments across the development stream, and using Lean Learning Cycles to run those experiments with a fixed cadence.</p>
+          </div>
+          <div class="pb-chapter-links">
+            <a class="pb-chapter-link" href="/playbook/validate/">
+              <span class="pb-chapter-link-num">6</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 6</p>
+                <p class="pb-chapter-link-title">Validate &amp; Learn</p>
+                <p class="pb-chapter-link-desc">Experiments, prototyping ladders, knowledge-based milestones, and Lean Learning Cycles in practice.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/lean-learning-cycles/">
+              <span class="pb-chapter-link-num" style="font-size:var(--lp-font-size-sm);letter-spacing:-.02em;">LLC</span>
+              <div>
+                <p class="pb-chapter-link-label">Resource Guide</p>
+                <p class="pb-chapter-link-title">What Are Lean Learning Cycles?</p>
+                <p class="pb-chapter-link-desc">The structured cadence that makes scientific thinking a repeatable part of development work.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/design/">
+              <span class="pb-chapter-link-num">5</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 5</p>
+                <p class="pb-chapter-link-title">Design &amp; Flow</p>
+                <p class="pb-chapter-link-desc">How scientific thinking is embedded in set-based design, integration events, and visual management.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- Related reading -->
+        <section class="pb-section" id="related">
+          <p class="pb-section-eyebrow">Go deeper</p>
+          <h2 class="pb-section-title">Related reading</h2>
+          <div class="pb-chapter-links">
+            <a class="pb-chapter-link" href="/playbook/discover/#customer-problem">
+              <span class="pb-chapter-link-num">4.1</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 4 &mdash; Section 4.1</p>
+                <p class="pb-chapter-link-title">Discover: Customer &amp; Problem Understanding</p>
+                <p class="pb-chapter-link-desc">Observation and problem framing &mdash; where scientific thinking in development begins.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/lean-learning-cycles/">
+              <span class="pb-chapter-link-num" style="font-size:var(--lp-font-size-sm);letter-spacing:-.02em;">LLC</span>
+              <div>
+                <p class="pb-chapter-link-label">Resource Guide</p>
+                <p class="pb-chapter-link-title">What Are Lean Learning Cycles?</p>
+                <p class="pb-chapter-link-desc">Short, time-boxed loops that turn scientific hypotheses into validated knowledge.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/culture/">
+              <span class="pb-chapter-link-num">9</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 9</p>
+                <p class="pb-chapter-link-title">Culture, Leadership &amp; Coaching</p>
+                <p class="pb-chapter-link-desc">How leaders create the conditions for scientific thinking to become a team habit rather than a one-off event.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+
+  <script>
+    (function () {
+      const allLinks = document.querySelectorAll('.pb-nav a');
+      const sections = Array.from(allLinks)
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const id = '#' + entry.target.id;
+              allLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+            }
+          });
+        },
+        { rootMargin: '-15% 0px -75% 0px', threshold: 0 }
+      );
+      sections.forEach(s => observer.observe(s));
+    })();
+  </script>
+
+  <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
+  <script defer>
+    (function () {
+      function init() { CustomGPT.init({ p_id: '89818', p_key: '263a30f8ca292918be27e31bd50d1074' }); }
+      document.readyState === 'complete' ? init() : window.addEventListener('load', init);
+    })();
+  </script>
+
+</body>
+</html>
