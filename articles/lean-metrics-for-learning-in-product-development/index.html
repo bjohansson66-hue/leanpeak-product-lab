@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lean Metrics for Learning in Product Development – LeanPeak Product Lab</title>
+  <meta name="description" content="Which metrics help development teams learn faster, waste less, and make better decisions? A practical guide to measuring learning cycles, customer validation, flow, and improvement in Lean PPD.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Lean Metrics for Learning in Product Development">
+  <meta property="og:description" content="Which metrics help development teams learn faster, waste less, and make better decisions? A practical guide to measuring learning cycles, customer validation, flow, and improvement in Lean PPD.">
+  <meta property="og:image" content="https://leanpeakproductlab.com/articles/img/metrics.png">
+  <meta property="og:url" content="https://leanpeakproductlab.com/articles/lean-metrics-for-learning-in-product-development/">
+  <meta property="og:site_name" content="LeanPeak Product Lab">
+  <link rel="canonical" href="https://leanpeakproductlab.com/articles/lean-metrics-for-learning-in-product-development/">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page{max-width:1120px;margin:0 auto;padding:0 1.5rem 5rem}
+    .pb-chapter-header{padding:3rem 0 2.5rem;border-bottom:1px solid var(--lp-color-border-subtle);margin-bottom:2.5rem}
+    .pb-chapter-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-3xl);font-weight:400;letter-spacing:-.03em;line-height:1.1;color:var(--lp-color-text-main);margin:0 0 1rem}
+    .pb-chapter-lead{font-size:var(--lp-font-size-lg);color:var(--lp-color-text-muted);line-height:1.7;max-width:72ch}
+    .pb-chapter-lead p{margin:0 0 1rem}
+    .pb-chapter-lead p:last-child{margin:0}
+    .pb-chapter-img{margin:0 0 2.5rem;border-radius:var(--lp-radius-lg);overflow:hidden;border:1px solid var(--lp-color-border-subtle)}
+    .pb-chapter-img img{width:100%;height:auto;display:block;max-height:440px;object-fit:cover;object-position:center}
+    .pb-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:3.5rem;align-items:start}
+    .pb-sidebar{position:sticky;top:2rem;max-height:calc(100vh - 4rem);overflow-y:auto}
+    .pb-sidebar-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-nav{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.1rem}
+    .pb-nav>li>a{display:block;font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);text-decoration:none;padding:.35rem .75rem;border-radius:var(--lp-radius-sm);border-left:2px solid transparent;line-height:1.4;transition:color .15s,background .15s,border-color .15s}
+    .pb-nav>li>a:hover{color:var(--lp-color-primary);background:var(--lp-color-primary-soft)}
+    .pb-nav>li>a.active{color:var(--lp-color-primary);background:var(--lp-color-primary-soft);border-left-color:var(--lp-color-primary)}
+    .pb-resources-box{margin-top:2rem;padding:1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md)}
+    .pb-resources-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-resources-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.35rem}
+    .pb-resources-list li a{font-size:var(--lp-font-size-sm);color:var(--lp-color-primary);text-decoration:none;display:flex;align-items:flex-start;gap:.4rem;line-height:1.4}
+    .pb-resources-list li a:hover{text-decoration:underline}
+    .pb-section{scroll-margin-top:5rem;margin-bottom:4rem}
+    .pb-section+.pb-section{padding-top:2.5rem;border-top:1px solid var(--lp-color-border-subtle)}
+    .pb-section-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .5rem;font-family:var(--lp-font-sans)}
+    .pb-section-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-2xl);font-weight:400;letter-spacing:-.02em;color:var(--lp-color-text-main);margin:0 0 1.25rem;line-height:1.15}
+    .pb-prose{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.75;max-width:70ch}
+    .pb-prose p{margin:0 0 1rem}
+    .pb-prose p:last-child{margin-bottom:0}
+    .pb-pullquote{margin:2rem 0;padding:1.25rem 1.5rem;border-left:3px solid var(--lp-color-primary);background:var(--lp-color-surface);border-radius:0 var(--lp-radius-md) var(--lp-radius-md) 0;max-width:68ch}
+    .pb-pullquote p{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);line-height:1.5;color:var(--lp-color-text-main);margin:0}
+    .pb-list{list-style:none;padding:0;margin:1rem 0;display:flex;flex-direction:column;gap:.5rem;max-width:68ch}
+    .pb-list li{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.65;padding-left:1.25rem;position:relative}
+    .pb-list li::before{content:"→";position:absolute;left:0;color:var(--lp-color-primary);font-size:.85em;top:.15em}
+    .pb-chapter-links{display:flex;flex-direction:column;gap:.5rem;margin:1.25rem 0;max-width:70ch}
+    .pb-chapter-link{display:grid;grid-template-columns:2.5rem minmax(0,1fr) auto;gap:.75rem;align-items:center;padding:.85rem 1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md);text-decoration:none;color:inherit;transition:background .15s,border-color .15s}
+    .pb-chapter-link:hover{background:var(--lp-color-primary-soft);border-color:var(--lp-color-primary)}
+    .pb-chapter-link:hover .pb-chapter-link-arrow{color:var(--lp-color-primary)}
+    .pb-chapter-link-num{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);font-weight:400;color:var(--lp-color-border-strong);line-height:1;text-align:center}
+    .pb-chapter-link-label{font-size:var(--lp-font-size-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .2rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-link-title{font-size:var(--lp-font-size-sm);font-weight:600;color:var(--lp-color-text-main);margin:0 0 .2rem;line-height:1.3}
+    .pb-chapter-link-desc{font-size:var(--lp-font-size-xs);color:var(--lp-color-text-muted);line-height:1.5;margin:0}
+    .pb-chapter-link-arrow{font-size:1.1rem;color:var(--lp-color-text-soft);flex-shrink:0;transition:color .15s}
+    .pb-cta-box{margin:0 0 1.5rem;padding:1.5rem 1.75rem;background:var(--lp-color-primary-soft);border:1px solid var(--lp-color-primary);border-radius:var(--lp-radius-lg);max-width:70ch}
+    .pb-cta-box-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.65;margin:0}
+    @media(max-width:860px){.pb-layout{grid-template-columns:1fr;gap:0}.pb-sidebar{position:static;max-height:none;padding-bottom:1.5rem;margin-bottom:2rem;border-bottom:1px solid var(--lp-color-border-subtle)}.pb-nav{flex-direction:row;flex-wrap:wrap;gap:.25rem}.pb-nav>li>a{border-left:none;padding:.3rem .6rem}.pb-chapter-link{grid-template-columns:2rem minmax(0,1fr)}.pb-chapter-link-arrow{display:none}}
+    @media(max-width:640px){.pb-chapter-title{font-size:2rem}}
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="art-logo-title" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="art-logo-title">LeanPeakProductLab logo</title>
+          <g transform="translate(24 36)"><rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"/><rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"/><rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"/></g>
+          <g transform="translate(150 46)"><text x="0" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text><text x="218" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text><text x="2" y="92" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ &middot; DECIDE &middot; ACT</text></g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">Playbook</a>
+        <a href="/elearning/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">E-Learning</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Playbook Companion Article &bull; Validate &amp; Learn</p>
+      <h1 class="pb-chapter-title">Lean Metrics for Learning in Product Development</h1>
+      <div class="pb-chapter-lead">
+        <p>Most development organisations measure the wrong things. They track schedule adherence, budget variance, and defect counts &mdash; metrics that reveal whether work went to plan, not whether the team learned what it needed to know. In Lean Product Development, the most important question is not &ldquo;are we on time?&rdquo; but &ldquo;are we learning fast enough to make good decisions?&rdquo;</p>
+        <p>This article expands the measurement side of the Lean PPD Playbook. It is for leaders and teams who want to complement traditional project metrics with indicators that actually support learning, reduce waste, and improve the quality of decisions across the development lifecycle.</p>
+      </div>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="../img/metrics.png" alt="Abstract illustration of measurement and learning signals in product development">
+    </div>
+
+    <div class="pb-layout">
+
+      <aside class="pb-sidebar">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#why-metrics">Why metrics must change</a></li>
+          <li><a href="#learning-cycles">Metrics for learning cycles</a></li>
+          <li><a href="#customer-validation">Metrics for customer validation</a></li>
+          <li><a href="#flow">Metrics for flow</a></li>
+          <li><a href="#waste-rework">Metrics for waste &amp; rework</a></li>
+          <li><a href="#continuous-improvement">Metrics for improvement</a></li>
+          <li><a href="#project-metrics">Without losing the learning focus</a></li>
+          <li><a href="#practice">Put this into practice</a></li>
+          <li><a href="#related">Related reading</a></li>
+        </ul>
+        <div class="pb-resources-box">
+          <p class="pb-resources-label">Quick links</p>
+          <ul class="pb-resources-list">
+            <li><a href="/playbook/validate/">→ Validate &amp; Learn (Ch 6)</a></li>
+            <li><a href="/playbook/validate/#experiments">→ Designing Experiments</a></li>
+            <li><a href="/playbook/validate/#milestones">→ Knowledge-Based Milestones</a></li>
+            <li><a href="/lean-learning-cycles/">→ Lean Learning Cycles guide</a></li>
+            <li><a href="/playbook/strategy/">→ Strategy &amp; Portfolio (Ch 3)</a></li>
+            <li><a href="/playbook/design/#obeya">→ Visual Management &amp; Obeya</a></li>
+            <li><a href="/playbook/">→ Full Playbook</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main>
+
+        <!-- Section 1 -->
+        <section class="pb-section" id="why-metrics">
+          <p class="pb-section-eyebrow">The measurement problem</p>
+          <h2 class="pb-section-title">Why Lean metrics must change in development</h2>
+          <div class="pb-prose">
+            <p>Development is fundamentally different from production. In production, you repeat a known process and measure variation from the expected. In development, you are building knowledge you do not yet have. The goal is not to execute a fixed plan without deviation &mdash; it is to reduce uncertainty fast enough to make good decisions before they become expensive.</p>
+            <p>This distinction matters for metrics. If you measure a development team the same way you measure a production line &mdash; through output volume, schedule hit rate, and cost-to-budget &mdash; you create incentives that work against learning. Teams will avoid experiments that might fail. They will downplay surprises that contradict the plan. They will keep moving forward on weak assumptions because stopping to test feels like falling behind.</p>
+            <p>Lean metrics for development shift the emphasis. Instead of measuring conformance to a plan, they measure the quality and speed of learning. Instead of tracking cost and schedule alone, they make the development of knowledge visible. The result is not less rigour &mdash; it is rigour applied to what actually matters: reducing the right uncertainties at the right time.</p>
+          </div>
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;If your metrics reward forward motion above all else, you will reward teams for learning less. They will move faster into avoidable problems.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="pb-section" id="learning-cycles">
+          <p class="pb-section-eyebrow">Measuring the learning engine</p>
+          <h2 class="pb-section-title">Metrics for learning cycles</h2>
+          <div class="pb-prose">
+            <p>Learning cycles are the fundamental unit of knowledge-building in Lean Product Development. Measuring them well reveals whether the team is learning at the pace the project requires.</p>
+            <p><strong>Experiment velocity</strong> tracks how many meaningful experiments or significant tests a team completes per period. A low number is not always bad &mdash; it may reflect high-quality, well-designed tests &mdash; but declining velocity is a warning sign that learning has stalled or that cycles are growing too long to be useful.</p>
+            <p><strong>Validated learning rate</strong> tracks the proportion of tested assumptions that yield a clear, actionable result. A high rate suggests the team is designing good tests against real uncertainties. A low rate may indicate experiments are testing the wrong things, or that the team lacks clarity on what it needs to learn before the next major decision.</p>
+            <p><strong>Time-to-learn</strong> measures how long it takes from stating a hypothesis to obtaining a clear result. Long cycle times often reveal hidden bottlenecks &mdash; slow approvals, equipment queues, or unclear ownership of learning tasks. Shortening time-to-learn is one of the highest-leverage improvements a development team can make.</p>
+            <p><strong>Pivot or persevere ratio</strong> tracks how often a learning cycle results in a changed direction versus confirmed continuation. This is a health indicator, not a target. If every cycle confirms the plan, the team may be running easy tests. If every cycle triggers a major change, the team may lack a stable enough direction to learn effectively.</p>
+          </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="pb-section" id="customer-validation">
+          <p class="pb-section-eyebrow">Are you learning what customers need?</p>
+          <h2 class="pb-section-title">Metrics for customer validation</h2>
+          <div class="pb-prose">
+            <p>Customer-facing metrics in development measure whether the team is closing the gap between internal assumptions and external reality. They are not the same as post-launch satisfaction scores &mdash; they operate during development, when adjustments are still possible and inexpensive.</p>
+            <p><strong>Product-market fit signals</strong> track early evidence that a proposed solution actually addresses a real problem for a real customer segment. This might be measured through willingness-to-pay conversations, simulated purchase decisions, or structured pretotype responses. The key is that signals must come from real interactions, not internal confidence.</p>
+            <p><strong>Adoption rate in pilots</strong> measures how quickly target users incorporate an early version into real behaviour. Even crude prototypes can yield meaningful adoption signals if tested in realistic conditions. Low adoption usually indicates either a wrong problem, a wrong solution, or a wrong user segment &mdash; and catching that early is the entire point.</p>
+            <p><strong>Customer feedback loop time</strong> tracks how long it takes from building something to receiving structured customer input about it. Long feedback loops are a systems problem: they mean the team operates for extended periods on assumptions rather than evidence. Shortening this loop &mdash; through earlier access to customers, faster prototyping, and lighter testing protocols &mdash; is often more valuable than any individual insight the feedback produces.</p>
+          </div>
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;Feedback loop time is a systems indicator. Long loops mean you are building on assumptions for longer than necessary &mdash; and paying for it in late surprises.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <!-- Section 4 -->
+        <section class="pb-section" id="flow">
+          <p class="pb-section-eyebrow">Seeing how knowledge moves</p>
+          <h2 class="pb-section-title">Metrics for flow in development</h2>
+          <div class="pb-prose">
+            <p>Flow metrics in development reveal how work and knowledge move through the system. Poor flow is rarely visible on a schedule &mdash; it shows up as hidden waiting, invisible queues, and teams blocked on decisions that should already have been made.</p>
+            <p><strong>Cycle time per knowledge task</strong> tracks how long a specific learning activity takes from start to finish, including all waiting time. When cycle time is long relative to the actual work time, the excess is almost always waste &mdash; queuing, context-switching, unclear ownership, or delayed decisions.</p>
+            <p><strong>Experiment throughput</strong> measures the number of completed experiments per period across the team or programme. Unlike velocity at the individual level, throughput captures whether the whole system is producing learning at the rate the programme needs. A team that is individually busy but collectively producing few completed experiments has a flow problem, not a capacity problem.</p>
+            <p><strong>Work in progress limits</strong> are less a metric than a discipline, but tracking WIP in development reveals a great deal about how learning is being managed. Teams with many simultaneous open experiments often have difficulty completing any of them to a standard that yields clear decisions. Reducing WIP and finishing fewer things faster is almost always the right direction.</p>
+          </div>
+        </section>
+
+        <!-- Section 5 -->
+        <section class="pb-section" id="waste-rework">
+          <p class="pb-section-eyebrow">Finding what costs you twice</p>
+          <h2 class="pb-section-title">Metrics for waste and rework</h2>
+          <div class="pb-prose">
+            <p>Waste in development is harder to see than waste on a production line, but it is just as costly. Rework driven by late surprises, duplicated effort caused by poor knowledge transfer, and decisions revisited because earlier data was ignored are all forms of waste that metrics can help surface.</p>
+            <p><strong>Rework rate</strong> tracks the proportion of completed work that needs to be substantially revisited or redone. High rework rates are a lagging indicator of upstream learning failures &mdash; problems not caught early enough, assumptions not tested, or integration points not checked until too late. The metric is most useful when tracked by phase, so the team can see where in the process learning is weakest.</p>
+            <p><strong>Defect escape rate</strong> measures how many issues are discovered after the point at which they could cheaply have been resolved. In development terms, this might mean issues found at system integration that should have been caught in subsystem testing, or customer problems discovered at launch that early pilots should have revealed. Each escaped defect represents a learning opportunity that was skipped.</p>
+            <p><strong>Resource allocation efficiency</strong> tracks the proportion of team capacity spent on value-creating learning versus waiting, rework, and administration. This metric is deliberately uncomfortable to track &mdash; teams will often find that a large share of their time is consumed by non-learning activities. But making that visible is the only way to address it.</p>
+          </div>
+        </section>
+
+        <!-- Section 6 -->
+        <section class="pb-section" id="continuous-improvement">
+          <p class="pb-section-eyebrow">Measuring the improvement system itself</p>
+          <h2 class="pb-section-title">Metrics for continuous improvement</h2>
+          <div class="pb-prose">
+            <p>Lean Product Development is not just about improving individual products &mdash; it is about improving the system that creates them. Metrics for continuous improvement measure whether the organisation is getting better at development over time, not just on the current project.</p>
+            <p><strong>Implementation rate of improvement ideas</strong> tracks the proportion of identified improvements that actually get implemented within a reasonable timeframe. A low implementation rate signals that improvement is being treated as a discussion rather than a discipline. Ideas identified but never acted on demoralise teams and erode the credibility of retrospectives and review processes.</p>
+            <p><strong>Impact of implemented improvements</strong> measures whether the improvements that were made actually changed the indicators they were intended to affect. This closes the loop on improvement cycles and prevents teams from implementing changes that feel useful but produce no measurable result. Even rough before-and-after comparisons are more powerful than tracking improvement activity alone.</p>
+            <p><strong>Knowledge reuse rate</strong> tracks the extent to which learning from past projects is actively used in current ones. This might be measured by the proportion of design decisions supported by prior knowledge rather than assumptions, or the frequency with which engineering standards and guidelines are applied to new work. High reuse rates are a sign that the organisation is building cumulative capability, not starting from scratch each time.</p>
+          </div>
+        </section>
+
+        <!-- Section 7 -->
+        <section class="pb-section" id="project-metrics">
+          <p class="pb-section-eyebrow">Keeping both in balance</p>
+          <h2 class="pb-section-title">Using project metrics without losing the learning focus</h2>
+          <div class="pb-prose">
+            <p>None of this means abandoning schedule, budget, or milestone tracking. Those metrics serve a real purpose: they ensure that development systems remain accountable, that resources are used responsibly, and that commitments to partners, customers, and supply chains are honoured.</p>
+            <p>The problem is not project metrics &mdash; it is project metrics without learning metrics alongside them. When the only visible measures are time and cost, teams unconsciously optimise for those things at the expense of the learning that makes them sustainable. They deliver on plan but with unresolved questions that surface as expensive problems later.</p>
+            <p>The practical solution is a layered measurement system. At the programme level, schedule and budget milestones provide overall governance. At the phase and cycle level, learning metrics &mdash; experiment velocity, validated learning rate, customer feedback loop time &mdash; provide the operational intelligence that helps teams make good decisions within those constraints.</p>
+            <p>The two layers reinforce each other when leaders treat learning metrics as leading indicators of programme health, not as additional administrative burden. A team that is learning at the right rate, reducing uncertainty systematically, and surfacing surprises early will almost always deliver better outcomes than a team that is merely on schedule.</p>
+          </div>
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;A team that is learning at the right rate and surfacing surprises early will almost always deliver better outcomes than a team that is merely on schedule.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <!-- Put this into practice -->
+        <section class="pb-section" id="practice">
+          <p class="pb-section-eyebrow">Next steps</p>
+          <h2 class="pb-section-title">Put this into practice</h2>
+          <div class="pb-cta-box">
+            <p class="pb-cta-box-body">Start with two or three metrics that address the most visible gaps in your current measurement system &mdash; perhaps experiment velocity, rework rate, or customer feedback loop time. Track them explicitly alongside your existing project indicators for one or two cycles, then review what they reveal. The goal is not to add measurement overhead but to make learning visible enough to manage.</p>
+          </div>
+          <div class="pb-chapter-links">
+            <a class="pb-chapter-link" href="/playbook/validate/">
+              <span class="pb-chapter-link-num">6</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 6</p>
+                <p class="pb-chapter-link-title">Validate &amp; Learn</p>
+                <p class="pb-chapter-link-desc">Experiments, prototyping ladders, knowledge-based milestones, and learning cycles in practice.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/lean-learning-cycles/">
+              <span class="pb-chapter-link-num" style="font-size:var(--lp-font-size-sm);letter-spacing:-.02em;">LLC</span>
+              <div>
+                <p class="pb-chapter-link-label">Resource Guide</p>
+                <p class="pb-chapter-link-title">What Are Lean Learning Cycles?</p>
+                <p class="pb-chapter-link-desc">The structured method for running short, focused cycles that answer specific questions before decisions are locked in.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/design/">
+              <span class="pb-chapter-link-num">5</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 5</p>
+                <p class="pb-chapter-link-title">Design &amp; Flow</p>
+                <p class="pb-chapter-link-desc">How LPPD structures design work so that integration events and visual management make learning visible across the team.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- Related reading -->
+        <section class="pb-section" id="related">
+          <p class="pb-section-eyebrow">Go deeper</p>
+          <h2 class="pb-section-title">Related reading</h2>
+          <div class="pb-chapter-links">
+            <a class="pb-chapter-link" href="/lean-learning-cycles/">
+              <span class="pb-chapter-link-num" style="font-size:var(--lp-font-size-sm);letter-spacing:-.02em;">LLC</span>
+              <div>
+                <p class="pb-chapter-link-label">Resource Guide</p>
+                <p class="pb-chapter-link-title">What Are Lean Learning Cycles?</p>
+                <p class="pb-chapter-link-desc">Short, time-boxed loops that turn development questions into validated knowledge &mdash; the engine behind the metrics.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/strategy/">
+              <span class="pb-chapter-link-num">3</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 3</p>
+                <p class="pb-chapter-link-title">Strategy &amp; Portfolio</p>
+                <p class="pb-chapter-link-desc">How portfolio-level metrics and strategic learning cycles shape the bets that get resourced and pursued.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/design/#obeya">
+              <span class="pb-chapter-link-num">5.4</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 5 &bull; Section 4</p>
+                <p class="pb-chapter-link-title">Visual Management &amp; Obeya</p>
+                <p class="pb-chapter-link-desc">How to make learning metrics and decision status visible to the whole team through structured visual management.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+
+  <script>
+    (function () {
+      const allLinks = document.querySelectorAll('.pb-nav a');
+      const sections = Array.from(allLinks)
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const id = '#' + entry.target.id;
+              allLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+            }
+          });
+        },
+        { rootMargin: '-15% 0px -75% 0px', threshold: 0 }
+      );
+      sections.forEach(s => observer.observe(s));
+    })();
+  </script>
+
+  <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
+  <script defer>
+    (function () {
+      function init() { CustomGPT.init({ p_id: '89818', p_key: '263a30f8ca292918be27e31bd50d1074' }); }
+      document.readyState === 'complete' ? init() : window.addEventListener('load', init);
+    })();
+  </script>
+
+</body>
+</html>
