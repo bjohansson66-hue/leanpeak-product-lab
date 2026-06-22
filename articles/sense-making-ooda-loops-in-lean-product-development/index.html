@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sense-Making and OODA Loops in Lean Product Development – LeanPeak Product Lab</title>
+  <meta name="description" content="How the OODA loop and sense-making give product teams a practical way to read the environment, decide faster, and learn their way through uncertainty.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Sense-Making and OODA Loops in Lean Product Development">
+  <meta property="og:description" content="How the OODA loop and sense-making give product teams a practical way to read the environment, decide faster, and learn their way through uncertainty.">
+  <meta property="og:image" content="https://leanpeakproductlab.com/articles/img/ooda-loop.png">
+  <meta property="og:url" content="https://leanpeakproductlab.com/articles/sense-making-ooda-loops-in-lean-product-development/">
+  <meta property="og:site_name" content="LeanPeak Product Lab">
+  <link rel="canonical" href="https://leanpeakproductlab.com/articles/sense-making-ooda-loops-in-lean-product-development/">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page{max-width:1120px;margin:0 auto;padding:0 1.5rem 5rem}
+    .pb-chapter-header{padding:3rem 0 2.5rem;border-bottom:1px solid var(--lp-color-border-subtle);margin-bottom:2.5rem}
+    .pb-chapter-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-3xl);font-weight:400;letter-spacing:-.03em;line-height:1.1;color:var(--lp-color-text-main);margin:0 0 1rem}
+    .pb-chapter-lead{font-size:var(--lp-font-size-lg);color:var(--lp-color-text-muted);line-height:1.7;max-width:72ch}
+    .pb-chapter-lead p{margin:0 0 1rem}
+    .pb-chapter-lead p:last-child{margin:0}
+    .pb-chapter-img{margin:0 0 2.5rem;border-radius:var(--lp-radius-lg);overflow:hidden;border:1px solid var(--lp-color-border-subtle)}
+    .pb-chapter-img img{width:100%;height:auto;display:block;max-height:440px;object-fit:cover;object-position:center}
+    .pb-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:3.5rem;align-items:start}
+    .pb-sidebar{position:sticky;top:2rem;max-height:calc(100vh - 4rem);overflow-y:auto}
+    .pb-sidebar-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-nav{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.1rem}
+    .pb-nav>li>a{display:block;font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);text-decoration:none;padding:.35rem .75rem;border-radius:var(--lp-radius-sm);border-left:2px solid transparent;line-height:1.4;transition:color .15s,background .15s,border-color .15s}
+    .pb-nav>li>a:hover{color:var(--lp-color-primary);background:var(--lp-color-primary-soft)}
+    .pb-nav>li>a.active{color:var(--lp-color-primary);background:var(--lp-color-primary-soft);border-left-color:var(--lp-color-primary)}
+    .pb-resources-box{margin-top:2rem;padding:1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md)}
+    .pb-resources-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-resources-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.35rem}
+    .pb-resources-list li a{font-size:var(--lp-font-size-sm);color:var(--lp-color-primary);text-decoration:none;display:flex;align-items:flex-start;gap:.4rem;line-height:1.4}
+    .pb-resources-list li a:hover{text-decoration:underline}
+    .pb-section{scroll-margin-top:5rem;margin-bottom:4rem}
+    .pb-section+.pb-section{padding-top:2.5rem;border-top:1px solid var(--lp-color-border-subtle)}
+    .pb-section-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .5rem;font-family:var(--lp-font-sans)}
+    .pb-section-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-2xl);font-weight:400;letter-spacing:-.02em;color:var(--lp-color-text-main);margin:0 0 1.25rem;line-height:1.15}
+    .pb-prose{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.75;max-width:70ch}
+    .pb-prose p{margin:0 0 1rem}
+    .pb-prose p:last-child{margin-bottom:0}
+    .pb-pullquote{margin:2rem 0;padding:1.25rem 1.5rem;border-left:3px solid var(--lp-color-primary);background:var(--lp-color-surface);border-radius:0 var(--lp-radius-md) var(--lp-radius-md) 0;max-width:68ch}
+    .pb-pullquote p{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);line-height:1.5;color:var(--lp-color-text-main);margin:0}
+    .pb-list{list-style:none;padding:0;margin:1rem 0;display:flex;flex-direction:column;gap:.5rem;max-width:68ch}
+    .pb-list li{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.65;padding-left:1.25rem;position:relative}
+    .pb-list li::before{content:"→";position:absolute;left:0;color:var(--lp-color-primary);font-size:.85em;top:.15em}
+    .pb-ooda{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--lp-color-border-subtle);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md);overflow:hidden;margin:1.5rem 0;max-width:68ch}
+    .pb-ooda-step{background:var(--lp-color-surface);padding:1rem 1.1rem}
+    .pb-ooda-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-primary);font-family:var(--lp-font-sans);margin:0 0 .3rem;font-weight:600}
+    .pb-ooda-name{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);color:var(--lp-color-text-main);margin:0 0 .4rem;line-height:1.1}
+    .pb-ooda-desc{font-size:var(--lp-font-size-xs);color:var(--lp-color-text-muted);line-height:1.5;margin:0}
+    .pb-chapter-links{display:flex;flex-direction:column;gap:.5rem;margin:1.25rem 0;max-width:70ch}
+    .pb-chapter-link{display:grid;grid-template-columns:2.5rem minmax(0,1fr) auto;gap:.75rem;align-items:center;padding:.85rem 1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md);text-decoration:none;color:inherit;transition:background .15s,border-color .15s}
+    .pb-chapter-link:hover{background:var(--lp-color-primary-soft);border-color:var(--lp-color-primary)}
+    .pb-chapter-link:hover .pb-chapter-link-arrow{color:var(--lp-color-primary)}
+    .pb-chapter-link-num{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);font-weight:400;color:var(--lp-color-border-strong);line-height:1;text-align:center}
+    .pb-chapter-link-label{font-size:var(--lp-font-size-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .2rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-link-title{font-size:var(--lp-font-size-sm);font-weight:600;color:var(--lp-color-text-main);margin:0 0 .2rem;line-height:1.3}
+    .pb-chapter-link-desc{font-size:var(--lp-font-size-xs);color:var(--lp-color-text-muted);line-height:1.5;margin:0}
+    .pb-chapter-link-arrow{font-size:1.1rem;color:var(--lp-color-text-soft);flex-shrink:0;transition:color .15s}
+    .pb-cta-box{margin:0 0 1.5rem;padding:1.5rem 1.75rem;background:var(--lp-color-primary-soft);border:1px solid var(--lp-color-primary);border-radius:var(--lp-radius-lg);max-width:70ch}
+    .pb-cta-box-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.65;margin:0}
+    @media(max-width:860px){.pb-layout{grid-template-columns:1fr;gap:0}.pb-sidebar{position:static;max-height:none;padding-bottom:1.5rem;margin-bottom:2rem;border-bottom:1px solid var(--lp-color-border-subtle)}.pb-nav{flex-direction:row;flex-wrap:wrap;gap:.25rem}.pb-nav>li>a{border-left:none;padding:.3rem .6rem}.pb-chapter-link{grid-template-columns:2rem minmax(0,1fr)}.pb-chapter-link-arrow{display:none}.pb-ooda{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:640px){.pb-chapter-title{font-size:2rem}.pb-ooda{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="art-logo-title" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="art-logo-title">LeanPeakProductLab logo</title>
+          <g transform="translate(24 36)"><rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"/><rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"/><rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"/></g>
+          <g transform="translate(150 46)"><text x="0" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text><text x="218" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text><text x="2" y="92" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ &middot; DECIDE &middot; ACT</text></g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">Playbook</a>
+        <a href="/elearning/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">E-Learning</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Playbook Companion Article &bull; Strategy &amp; Value Creation</p>
+      <h1 class="pb-chapter-title">Sense-Making and OODA Loops in Lean Product Development</h1>
+      <div class="pb-chapter-lead">
+        <p>In product development, advantage rarely comes from having perfect plans. It comes from seeing what is really happening, understanding what it means, and adjusting faster than others. That work is sense-making.</p>
+        <p>The OODA loop &mdash; Observe, Orient, Decide, Act &mdash; gives teams a simple way to turn sense-making into a repeatable cycle. Combined with Lean Product &amp; Process Development, it becomes a practical way to steer through uncertainty and improve decisions at every level of the development system.</p>
+      </div>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="../img/ooda-loop.png" alt="Team mapping signals, options, and decisions around a shared visual board">
+    </div>
+
+    <div class="pb-layout">
+
+      <aside class="pb-sidebar">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#why-sense-making">Why sense-making matters</a></li>
+          <li><a href="#ooda-loop">The OODA loop as a learning cycle</a></li>
+          <li><a href="#sense-making-ooda">Sense-making inside OODA</a></li>
+          <li><a href="#teams-safety">Teams and psychological safety</a></li>
+          <li><a href="#competitive-advantage">Competitive advantage</a></li>
+          <li><a href="#practice">Put this into practice</a></li>
+          <li><a href="#related">Related reading</a></li>
+        </ul>
+        <div class="pb-resources-box">
+          <p class="pb-resources-label">Quick links</p>
+          <ul class="pb-resources-list">
+            <li><a href="/playbook/strategy/">→ Strategy &amp; Value Creation (Ch 3)</a></li>
+            <li><a href="/playbook/decisions/">→ Validation, Learning &amp; Decisions (Ch 7)</a></li>
+            <li><a href="/playbook/validate/">→ Validate &amp; Learn (Ch 6)</a></li>
+            <li><a href="/lean-learning-cycles/">→ Lean Learning Cycles guide</a></li>
+            <li><a href="/playbook/culture/">→ Culture &amp; Leadership (Ch 9)</a></li>
+            <li><a href="/playbook/">→ Full Playbook</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main>
+
+        <!-- Section 1 -->
+        <section class="pb-section" id="why-sense-making">
+          <p class="pb-section-eyebrow">The core challenge</p>
+          <h2 class="pb-section-title">Why sense-making matters in product development</h2>
+          <div class="pb-prose">
+            <p>Product teams operate in moving environments: markets shift, technologies change, and organisations keep evolving. Many development failures are not caused by lack of effort or talent, but by slow or distorted sense-making &mdash; teams miss weak signals, cling to assumptions that were reasonable six months ago, or decide based on internal views rather than external reality.</p>
+            <p>Sense-making is the work of turning raw signals into shared understanding that can guide decisions. It is about noticing what is changing in the environment, interpreting what it means for the product or portfolio, and agreeing on a direction that the team can act on together.</p>
+            <p>Without a clear cycle for this, teams tend toward one of two failure modes: they react too slowly, because no one has made it anyone&rsquo;s job to notice and interpret incoming signals; or they change direction constantly without learning, because each new signal triggers a response before the previous one has been understood.</p>
+          </div>
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;Many development failures are not due to lack of effort. They are due to slow or distorted sense-making: teams decide on what they believe rather than what they know.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="pb-section" id="ooda-loop">
+          <p class="pb-section-eyebrow">A decision cycle for development</p>
+          <h2 class="pb-section-title">The OODA loop as a learning cycle</h2>
+          <div class="pb-prose">
+            <p>The OODA loop, developed by strategist John Boyd, describes a continuous cycle for operating and adapting in changing conditions. The four steps are simple, but the interactions between them are where the real value lies.</p>
+          </div>
+          <div class="pb-ooda">
+            <div class="pb-ooda-step">
+              <p class="pb-ooda-label">O</p>
+              <p class="pb-ooda-name">Observe</p>
+              <p class="pb-ooda-desc">Gather signals from the environment: customers, competitors, technology, operations, and internal performance.</p>
+            </div>
+            <div class="pb-ooda-step">
+              <p class="pb-ooda-label">O</p>
+              <p class="pb-ooda-name">Orient</p>
+              <p class="pb-ooda-desc">Interpret what those signals mean in context, using experience, mental models, and diverse perspectives.</p>
+            </div>
+            <div class="pb-ooda-step">
+              <p class="pb-ooda-label">D</p>
+              <p class="pb-ooda-name">Decide</p>
+              <p class="pb-ooda-desc">Choose a course of action based on the current orientation &mdash; one that is good enough to act on now.</p>
+            </div>
+            <div class="pb-ooda-step">
+              <p class="pb-ooda-label">A</p>
+              <p class="pb-ooda-name">Act</p>
+              <p class="pb-ooda-desc">Take action, then watch what happens and feed the results back into the next observation.</p>
+            </div>
+          </div>
+          <div class="pb-prose">
+            <p>In Lean Product Development, OODA can be read as a decision-focused learning cycle. The loop does not stand apart from the development system &mdash; it connects directly to the cycles already running: customer discovery, learning cycles, integration events, and knowledge-based milestones. Each of those is a turn of the OODA loop at a particular scope and timescale.</p>
+            <p>What the OODA framing adds is explicit attention to the Orient step: the interpretation of signals before deciding. This is where most failures quietly originate, and where deliberate improvement has the most leverage.</p>
+          </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="pb-section" id="sense-making-ooda">
+          <p class="pb-section-eyebrow">Where the real work happens</p>
+          <h2 class="pb-section-title">Sense-making inside OODA</h2>
+          <div class="pb-prose">
+            <p>Sense-making sits especially in the Observe and Orient steps, and the quality of what happens there determines the quality of everything that follows.</p>
+            <p>In <strong>Observe</strong>, teams collect data and stories: market movements, customer feedback, experiment results, supplier input, operational signals. The aim is not to collect everything, but to notice the right things early enough to matter. Useful observation is selective, shared, and structured around the questions that actually drive decisions.</p>
+            <p>In <strong>Orient</strong>, teams interpret what they see. This is where mental models, past experience, and cultural assumptions shape how signals are understood &mdash; sometimes helpfully, sometimes as filters that make inconvenient evidence invisible. Good orientation actively surfaces those assumptions and challenges them. Tools like simple problem maps, structured trade-off analysis, or deliberate red-teaming can help teams see complexity and ambiguity more clearly before converging on a direction.</p>
+            <p>Cognitive diversity matters here: teams with genuinely different backgrounds and roles in the room notice more and interpret more accurately. So does psychological safety: people can share what they actually see, including when it conflicts with the dominant story or the leader&rsquo;s current hypothesis.</p>
+            <p>When Observe and Orient are weak, Decide and Act are built on sand. Faster action makes things worse, not better, when the underlying orientation is wrong.</p>
+          </div>
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;When Observe and Orient are weak, faster action makes things worse. Improvement starts with what the team notices and how it interprets what it sees.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <!-- Section 4 -->
+        <section class="pb-section" id="teams-safety">
+          <p class="pb-section-eyebrow">The human side of the loop</p>
+          <h2 class="pb-section-title">OODA, teams, and psychological safety</h2>
+          <div class="pb-prose">
+            <p>OODA is not an individual loop. In development, it operates as a team process, and the conditions the team works in determine how well the loop functions.</p>
+            <p>Teams improve their loop when they make observation a shared responsibility rather than a leadership task alone, create space for different views of the same signals to be aired without social cost, clarify who decides what and at what scope, and agree how experimental actions will be evaluated &mdash; by what was learned, not only by whether the outcome matched the plan.</p>
+            <p>Planning and orientation are partly explicit &mdash; visible plans, documented decisions, A3s, and trade-off summaries &mdash; and partly implicit: the shared mental models that build up over time through experience and reviewed learning. Psychological safety allows teams to surface doubt, propose alternatives, and admit when they are wrong quickly. That is not a soft practice. It is what makes the loop fast and accurate rather than slow and distorted.</p>
+            <p>Leaders shape this more than they usually realise. A leader who uses reviews to check whether predictions were right closes the loop toward confirmation. A leader who uses reviews to surface what was surprising and what it means opens the loop toward genuine learning. The same event, the same data &mdash; the conversation is completely different depending on which orientation the leader brings.</p>
+          </div>
+        </section>
+
+        <!-- Section 5 -->
+        <section class="pb-section" id="competitive-advantage">
+          <p class="pb-section-eyebrow">Why this is a strategic capability</p>
+          <h2 class="pb-section-title">Competitive advantage from better loops</h2>
+          <div class="pb-prose">
+            <p>Organisations that run better OODA loops in development tend to notice changes earlier, because more people are engaged in observation and sense-making rather than waiting for leadership to translate external reality into internal direction. They adapt strategy, portfolio choices, and designs more quickly and coherently, because orientation is a shared activity rather than an individual leadership task. They reduce the cost of wrong bets, because decisions are revisited as learning accumulates rather than defended until the evidence of failure is impossible to ignore.</p>
+            <p>The advantage does not come from spinning the loop faster at any cost. It comes from making each turn of the loop more informed and more widely shared, so teams can act with confidence and adjust quickly when reality disagrees with the plan.</p>
+            <p>In Lean Product &amp; Process Development, this shows up as clearer strategy and value-creation logic, faster and more grounded decisions at integration events and reviews, and better alignment between what teams learn in the field and what leaders decide in planning sessions. The loops at different levels of the organisation reinforce each other when they are designed to share information across scales rather than filter it.</p>
+          </div>
+          <ul class="pb-list">
+            <li>Earlier signal detection: more people engaged in observation, not waiting for leadership translations.</li>
+            <li>Faster strategy adaptation: shared orientation means fewer alignment cycles before direction changes.</li>
+            <li>Lower cost of wrong bets: revisiting decisions as learning accumulates, not defending them until failure.</li>
+            <li>Better innovation environment: it is safe to propose, test, revise, and surface what did not work.</li>
+          </ul>
+        </section>
+
+        <!-- Put this into practice -->
+        <section class="pb-section" id="practice">
+          <p class="pb-section-eyebrow">Next steps</p>
+          <h2 class="pb-section-title">Put this into practice</h2>
+          <div class="pb-cta-box">
+            <p class="pb-cta-box-body">Use this article with leadership teams and chief engineers when you want to improve how decisions are made and revised in development. Start by walking through a few recent significant decisions using the OODA steps: what did we observe, how did we orient, what did we decide and why, what happened after we acted? Then define one or two concrete improvements to your Observe and Orient steps &mdash; who is in the room, which signals you look at, how assumptions are surfaced &mdash; and connect those changes to your existing learning cycles and strategy reviews.</p>
+          </div>
+          <div class="pb-chapter-links">
+            <a class="pb-chapter-link" href="/playbook/strategy/">
+              <span class="pb-chapter-link-num">3</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 3</p>
+                <p class="pb-chapter-link-title">Strategy &amp; Value Creation</p>
+                <p class="pb-chapter-link-desc">From True North to portfolio bets, strategy gemba, and measuring value &mdash; the outer loop of sense-making in LPPD.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/validate/">
+              <span class="pb-chapter-link-num">6</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 6</p>
+                <p class="pb-chapter-link-title">Validate &amp; Learn</p>
+                <p class="pb-chapter-link-desc">Learning cycles, prototyping, and knowledge-based milestones &mdash; OODA in action at the product and team level.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/culture/">
+              <span class="pb-chapter-link-num">9</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 9</p>
+                <p class="pb-chapter-link-title">Culture, Leadership &amp; Coaching</p>
+                <p class="pb-chapter-link-desc">The leadership behaviours and team conditions that make OODA loops fast and honest rather than slow and distorted.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- Related reading -->
+        <section class="pb-section" id="related">
+          <p class="pb-section-eyebrow">Go deeper</p>
+          <h2 class="pb-section-title">Related reading</h2>
+          <div class="pb-chapter-links">
+            <a class="pb-chapter-link" href="/playbook/strategy/">
+              <span class="pb-chapter-link-num">3</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 3</p>
+                <p class="pb-chapter-link-title">Strategy &amp; Value Creation</p>
+                <p class="pb-chapter-link-desc">Portfolio bets, strategy gemba, and how to deploy direction so teams can orient themselves without constant top-down guidance.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/validate/">
+              <span class="pb-chapter-link-num">6</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 6</p>
+                <p class="pb-chapter-link-title">Validate &amp; Learn</p>
+                <p class="pb-chapter-link-desc">Experiments, knowledge-based milestones, and the routines that keep the product-level OODA loop honest.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/lean-learning-cycles/">
+              <span class="pb-chapter-link-num" style="font-size:var(--lp-font-size-sm);letter-spacing:-.02em;">LLC</span>
+              <div>
+                <p class="pb-chapter-link-label">Resource Guide</p>
+                <p class="pb-chapter-link-title">What Are Lean Learning Cycles?</p>
+                <p class="pb-chapter-link-desc">Short, time-boxed loops that operationalise the OODA cycle at the team and experiment level.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+
+  <script>
+    (function () {
+      const allLinks = document.querySelectorAll('.pb-nav a');
+      const sections = Array.from(allLinks)
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const id = '#' + entry.target.id;
+              allLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+            }
+          });
+        },
+        { rootMargin: '-15% 0px -75% 0px', threshold: 0 }
+      );
+      sections.forEach(s => observer.observe(s));
+    })();
+  </script>
+
+  <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
+  <script defer>
+    (function () {
+      function init() { CustomGPT.init({ p_id: '89818', p_key: '263a30f8ca292918be27e31bd50d1074' }); }
+      document.readyState === 'complete' ? init() : window.addEventListener('load', init);
+    })();
+  </script>
+
+</body>
+</html>
