@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lean 3P and Industry 4.0: Designing Product and Production Together – LeanPeak Product Lab</title>
+  <meta name="description" content="How Lean 3P's collaborative design approach combines with Industry 4.0 and machine learning to design smarter products and production systems, faster.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Lean 3P and Industry 4.0: Designing Product and Production Together">
+  <meta property="og:description" content="How Lean 3P's collaborative design approach combines with Industry 4.0 and machine learning to design smarter products and production systems, faster.">
+  <meta property="og:image" content="https://leanpeakproductlab.com/articles/img/lean-3p-collaborative.png">
+  <meta property="og:url" content="https://leanpeakproductlab.com/articles/lean-3p-and-industry-4-0/">
+  <meta property="og:site_name" content="LeanPeak Product Lab">
+  <link rel="canonical" href="https://leanpeakproductlab.com/articles/lean-3p-and-industry-4-0/">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="../../leanpeak-theme.css">
+  <style>
+    .pb-page{max-width:1120px;margin:0 auto;padding:0 1.5rem 5rem}
+    .pb-chapter-header{padding:3rem 0 2.5rem;border-bottom:1px solid var(--lp-color-border-subtle);margin-bottom:2.5rem}
+    .pb-chapter-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-3xl);font-weight:400;letter-spacing:-.03em;line-height:1.1;color:var(--lp-color-text-main);margin:0 0 1rem}
+    .pb-chapter-lead{font-size:var(--lp-font-size-lg);color:var(--lp-color-text-muted);line-height:1.7;max-width:72ch}
+    .pb-chapter-lead p{margin:0 0 1rem}
+    .pb-chapter-lead p:last-child{margin:0}
+    .pb-chapter-img{margin:0 0 2.5rem;border-radius:var(--lp-radius-lg);overflow:hidden;border:1px solid var(--lp-color-border-subtle)}
+    .pb-chapter-img img{width:100%;height:auto;display:block;max-height:440px;object-fit:cover;object-position:center}
+    .pb-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:3.5rem;align-items:start}
+    .pb-sidebar{position:sticky;top:2rem;max-height:calc(100vh - 4rem);overflow-y:auto}
+    .pb-sidebar-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-nav{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.1rem}
+    .pb-nav>li>a{display:block;font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);text-decoration:none;padding:.35rem .75rem;border-radius:var(--lp-radius-sm);border-left:2px solid transparent;line-height:1.4;transition:color .15s,background .15s,border-color .15s}
+    .pb-nav>li>a:hover{color:var(--lp-color-primary);background:var(--lp-color-primary-soft)}
+    .pb-nav>li>a.active{color:var(--lp-color-primary);background:var(--lp-color-primary-soft);border-left-color:var(--lp-color-primary)}
+    .pb-resources-box{margin-top:2rem;padding:1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md)}
+    .pb-resources-label{font-size:var(--lp-font-size-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .75rem;font-family:var(--lp-font-sans)}
+    .pb-resources-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.35rem}
+    .pb-resources-list li a{font-size:var(--lp-font-size-sm);color:var(--lp-color-primary);text-decoration:none;display:flex;align-items:flex-start;gap:.4rem;line-height:1.4}
+    .pb-resources-list li a:hover{text-decoration:underline}
+    .pb-section{scroll-margin-top:5rem;margin-bottom:4rem}
+    .pb-section+.pb-section{padding-top:2.5rem;border-top:1px solid var(--lp-color-border-subtle)}
+    .pb-section-eyebrow{font-size:var(--lp-font-size-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .5rem;font-family:var(--lp-font-sans)}
+    .pb-section-title{font-family:var(--lp-font-display);font-size:var(--lp-font-size-2xl);font-weight:400;letter-spacing:-.02em;color:var(--lp-color-text-main);margin:0 0 1.25rem;line-height:1.15}
+    .pb-prose{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.75;max-width:70ch}
+    .pb-prose p{margin:0 0 1rem}
+    .pb-prose p:last-child{margin-bottom:0}
+    .pb-pullquote{margin:2rem 0;padding:1.25rem 1.5rem;border-left:3px solid var(--lp-color-primary);background:var(--lp-color-surface);border-radius:0 var(--lp-radius-md) var(--lp-radius-md) 0;max-width:68ch}
+    .pb-pullquote p{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);line-height:1.5;color:var(--lp-color-text-main);margin:0}
+    .pb-list{list-style:none;padding:0;margin:1rem 0;display:flex;flex-direction:column;gap:.5rem;max-width:68ch}
+    .pb-list li{font-size:var(--lp-font-size-md);color:var(--lp-color-text-muted);line-height:1.65;padding-left:1.25rem;position:relative}
+    .pb-list li::before{content:"→";position:absolute;left:0;color:var(--lp-color-primary);font-size:.85em;top:.15em}
+    .pb-chapter-links{display:flex;flex-direction:column;gap:.5rem;margin:1.25rem 0;max-width:70ch}
+    .pb-chapter-link{display:grid;grid-template-columns:2.5rem minmax(0,1fr) auto;gap:.75rem;align-items:center;padding:.85rem 1rem;background:var(--lp-color-surface);border:1px solid var(--lp-color-border-subtle);border-radius:var(--lp-radius-md);text-decoration:none;color:inherit;transition:background .15s,border-color .15s}
+    .pb-chapter-link:hover{background:var(--lp-color-primary-soft);border-color:var(--lp-color-primary)}
+    .pb-chapter-link:hover .pb-chapter-link-arrow{color:var(--lp-color-primary)}
+    .pb-chapter-link-num{font-family:var(--lp-font-display);font-size:var(--lp-font-size-lg);font-weight:400;color:var(--lp-color-border-strong);line-height:1;text-align:center}
+    .pb-chapter-link-label{font-size:var(--lp-font-size-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--lp-color-text-soft);margin:0 0 .2rem;font-family:var(--lp-font-sans)}
+    .pb-chapter-link-title{font-size:var(--lp-font-size-sm);font-weight:600;color:var(--lp-color-text-main);margin:0 0 .2rem;line-height:1.3}
+    .pb-chapter-link-desc{font-size:var(--lp-font-size-xs);color:var(--lp-color-text-muted);line-height:1.5;margin:0}
+    .pb-chapter-link-arrow{font-size:1.1rem;color:var(--lp-color-text-soft);flex-shrink:0;transition:color .15s}
+    .pb-cta-box{margin:0 0 1.5rem;padding:1.5rem 1.75rem;background:var(--lp-color-primary-soft);border:1px solid var(--lp-color-primary);border-radius:var(--lp-radius-lg);max-width:70ch}
+    .pb-cta-box-body{font-size:var(--lp-font-size-sm);color:var(--lp-color-text-muted);line-height:1.65;margin:0}
+    @media(max-width:860px){.pb-layout{grid-template-columns:1fr;gap:0}.pb-sidebar{position:static;max-height:none;padding-bottom:1.5rem;margin-bottom:2rem;border-bottom:1px solid var(--lp-color-border-subtle)}.pb-nav{flex-direction:row;flex-wrap:wrap;gap:.25rem}.pb-nav>li>a{border-left:none;padding:.3rem .6rem}.pb-chapter-link{grid-template-columns:2rem minmax(0,1fr)}.pb-chapter-link-arrow{display:none}}
+    @media(max-width:640px){.pb-chapter-title{font-size:2rem}}
+  </style>
+</head>
+<body>
+
+  <header class="lp-hero">
+    <div class="lp-hero-header" style="display:flex;align-items:center;gap:1rem;">
+      <a href="/" aria-label="LeanPeak Product Lab home" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="art-logo-title" class="lp-logo-image" style="height:64px;width:auto;">
+          <title id="art-logo-title">LeanPeakProductLab logo</title>
+          <g transform="translate(24 36)"><rect x="0" y="72" width="78" height="14" rx="7" fill="#D9D4CC"/><rect x="20" y="44" width="62" height="14" rx="7" fill="#555757"/><rect x="40" y="16" width="46" height="14" rx="7" fill="#2F6B67"/></g>
+          <g transform="translate(150 46)"><text x="0" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="600" letter-spacing="-0.03em" fill="#2F3131">LeanPeak</text><text x="218" y="58" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="44" font-weight="400" letter-spacing="-0.02em" fill="#555757">ProductLab</text><text x="2" y="92" font-family='Inter,"Segoe UI",Arial,sans-serif' font-size="15" font-weight="500" letter-spacing="0.18em" fill="#7A7C7C">READ &middot; DECIDE &middot; ACT</text></g>
+        </svg>
+      </a>
+      <div style="flex:1;"></div>
+      <nav style="display:flex;align-items:center;gap:1.5rem;margin-right:1rem;">
+        <a href="/playbook/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">Playbook</a>
+        <a href="/elearning/" style="font-size:.875rem;color:var(--lp-color-text-muted);text-decoration:none;" onmouseover="this.style.color='var(--lp-color-primary)'" onmouseout="this.style.color='var(--lp-color-text-muted)'">E-Learning</a>
+      </nav>
+      <div id="lp-header-auth" style="display:flex;align-items:center;gap:.5rem;"></div>
+    </div>
+  </header>
+
+  <div class="pb-page">
+
+    <div class="pb-chapter-header">
+      <p class="pb-chapter-eyebrow">Playbook Companion Article &bull; Lean 3P</p>
+      <h1 class="pb-chapter-title">Lean 3P and Industry&nbsp;4.0: Designing Product and Production Together</h1>
+      <div class="pb-chapter-lead">
+        <p>Lean 3P (Production Preparation Process) is about designing the product and the production system together, before decisions become expensive to change. Industry 4.0 and machine learning add new tools for seeing, simulating, and learning about those systems.</p>
+        <p>Used well, these digital tools do not replace Lean 3P. They extend it. They give cross-functional teams more ways to explore options, see consequences, and make better choices earlier &mdash; while keeping the experiment-first, people-centred mindset that makes 3P work.</p>
+      </div>
+    </div>
+
+    <div class="pb-chapter-img">
+      <img src="../img/lean-3p-collaborative.png" alt="Cross-functional team combining physical layout sketches with digital models for a production cell">
+    </div>
+
+    <div class="pb-layout">
+
+      <aside class="pb-sidebar">
+        <p class="pb-sidebar-label">On this page</p>
+        <ul class="pb-nav">
+          <li><a href="#why-together">Why they belong together</a></li>
+          <li><a href="#lean-3p">Lean 3P: the blank sheet</a></li>
+          <li><a href="#digital-tools">What Industry 4.0 and ML bring</a></li>
+          <li><a href="#examples">Examples working together</a></li>
+          <li><a href="#in-practice">Making it work in practice</a></li>
+          <li><a href="#practice">Put this into practice</a></li>
+          <li><a href="#related">Related reading</a></li>
+        </ul>
+        <div class="pb-resources-box">
+          <p class="pb-resources-label">Quick links</p>
+          <ul class="pb-resources-list">
+            <li><a href="/playbook/3p-why/">→ Why Lean 3P? (Ch 11)</a></li>
+            <li><a href="/playbook/3p-flow/">→ The 3P Flow (Ch 13)</a></li>
+            <li><a href="/playbook/3p-production/">→ Production 3P (Ch 16)</a></li>
+            <li><a href="/playbook/design/#mfg-early">→ Integrating Ops Early (5.5)</a></li>
+            <li><a href="/playbook/validate/">→ Validate &amp; Learn (Ch 6)</a></li>
+            <li><a href="/playbook/scaling/">→ Scaling &amp; Launch (Ch 8)</a></li>
+            <li><a href="/playbook/">→ Full Playbook</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main>
+
+        <!-- Section 1 -->
+        <section class="pb-section" id="why-together">
+          <p class="pb-section-eyebrow">The case for combining them</p>
+          <h2 class="pb-section-title">Why Lean 3P and Industry 4.0 belong together</h2>
+          <div class="pb-prose">
+            <p>Lean 3P is strongest when teams can see and experiment with product and process ideas quickly. Historically, that has meant cardboard, foam, tape on the floor, and simple physical mock-ups. Those remain powerful. Fast, cheap, and honest &mdash; a cardboard prototype of a workstation layout will tell a team more in two hours than a month of planning documents.</p>
+            <p>At the same time, more manufacturers now have access to rich data, connected equipment, and affordable simulation tools. Industry 4.0 and machine learning turn the production system itself into a source of insight: what is really happening in cells, lines, and flows &mdash; not just what the plan says should happen. Variation, downtime patterns, quality signals, and flow blockages become visible in ways that were previously hidden or expensive to measure.</p>
+            <p>When you combine these perspectives, Lean 3P events and industrialisation work can become faster, more informed, and more robust. The risk is treating them as substitutes rather than complements: replacing physical exploration and cross-functional teamwork with data dashboards, or dismissing digital tools as unnecessary complexity when the physical work is already going well.</p>
+          </div>
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;The risk is treating digital tools as substitutes for physical exploration rather than as ways to sharpen the judgment teams already bring to the room.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="pb-section" id="lean-3p">
+          <p class="pb-section-eyebrow">The foundation</p>
+          <h2 class="pb-section-title">Lean 3P: collaborative design from a blank sheet</h2>
+          <div class="pb-prose">
+            <p>Lean 3P is built around cross-functional teamwork. Instead of tweaking existing lines or inheriting past decisions, teams step back and design from a blank sheet &mdash; considering product concepts and variants, process concepts and flow, and equipment, layout, and ergonomics all at once.</p>
+            <p>People from engineering, operations, quality, supply chain, maintenance, and sometimes suppliers work together from the start. They generate multiple alternatives, build rough models, and converge on designs that support flow, quality, safety, and cost from day one &mdash; not as an afterthought during ramp-up.</p>
+            <p>The benefits are well established: early identification and removal of waste and complexity, simpler product and process designs that are easier to build and maintain, and higher engagement and ownership because people helped design the system they will run. What 3P adds that conventional design reviews cannot is the discipline of exploring many options in parallel before converging, and the discipline of designing product and process together rather than sequentially.</p>
+          </div>
+          <ul class="pb-list">
+            <li>Product concepts and variants explored concurrently with process options.</li>
+            <li>Simple physical models tested quickly before committing to tooling or equipment.</li>
+            <li>Cross-functional input early, when changes are still inexpensive.</li>
+            <li>Operator experience and ergonomics designed in, not retrofitted.</li>
+          </ul>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="pb-section" id="digital-tools">
+          <p class="pb-section-eyebrow">What the data layer adds</p>
+          <h2 class="pb-section-title">What Industry 4.0 and machine learning bring to the table</h2>
+          <div class="pb-prose">
+            <p>Industry 4.0 creates more connected production environments: machines, sensors, systems, and people share data in real time. Machine learning can analyse that data to uncover patterns that are hard to see by inspection alone &mdash; even by experienced engineers who have worked on a line for years.</p>
+            <p>For Lean 3P teams, this opens several possibilities. Data from current or similar processes can highlight recurring bottlenecks, variation sources, or quality issues that new designs should be built to avoid from the start. Realistic distributions and constraints &mdash; cycle time variation, downtime patterns, demand fluctuation &mdash; can make simulation models much more accurate than generic assumptions allow.</p>
+            <p>Machine learning models that forecast failures in current equipment can inform new equipment choices, maintenance concepts, and monitoring system designs. And as options narrow during a 3P event, virtual experiments using discrete-event simulation or digital twin tools can stress-test a few promising designs before committing to full-scale prototypes.</p>
+            <p>The key principle is that these tools sharpen judgment rather than replace it. A machine learning model that identifies a chronic quality problem does not tell the team what to do about it &mdash; it gives the team a better question to explore together in the 3P room.</p>
+          </div>
+          <blockquote class="pb-pullquote">
+            <p>&ldquo;A machine learning model that identifies a chronic quality problem gives the team a better question to explore together &mdash; it does not answer the question for them.&rdquo;</p>
+          </blockquote>
+        </section>
+
+        <!-- Section 4 -->
+        <section class="pb-section" id="examples">
+          <p class="pb-section-eyebrow">From principle to pattern</p>
+          <h2 class="pb-section-title">Examples of 3P and digital working together</h2>
+          <div class="pb-prose">
+            <p><strong>Data-informed design challenges.</strong> Before a 3P event, use production and field data to define the challenge precisely: which defects are most costly, where flow breaks most often, which tasks drive ergonomic issues or variation. Bring those insights into the room so teams spend their time solving the right problems rather than discussing which problems are worst.</p>
+            <p><strong>Virtual layout and flow experiments.</strong> As teams sketch alternative concepts on paper and with simple cardboard models, discrete-event simulation or digital twin tools can test a few promising options quickly. The value is not precision &mdash; it is the ability to check how alternatives behave under realistic variation, not just at average conditions. A layout that looks good on average may fail badly under normal demand and downtime patterns.</p>
+            <p><strong>Predictive maintenance in concept work.</strong> Machine learning models that forecast failures in current equipment can inform new equipment choices and maintenance concepts. Teams can design lines that are inherently easier to monitor and service &mdash; building reliability in rather than adding monitoring as an afterthought after the line is running.</p>
+            <p><strong>Runtime feedback into continuous 3P.</strong> After launch, Industry 4.0 data feeds continuous improvement. Teams can treat major design changes or new product introductions as ongoing 3P work, using current performance data as input rather than starting each iteration from scratch. The production system becomes a source of learning, not just a source of output.</p>
+          </div>
+        </section>
+
+        <!-- Section 5 -->
+        <section class="pb-section" id="in-practice">
+          <p class="pb-section-eyebrow">Principles for combining them</p>
+          <h2 class="pb-section-title">Making it work in practice</h2>
+          <div class="pb-prose">
+            <p>To combine Lean 3P and Industry 4.0 well, a few principles help avoid the most common failure modes.</p>
+          </div>
+          <ul class="pb-list">
+            <li><strong>Start from Lean 3P, not from the technology.</strong> Clarify the challenge, value stream, and desired flow first. Then decide which data and tools will help answer the most important open questions.</li>
+            <li><strong>Keep collaboration physical and visual.</strong> Use digital models to augment, not replace, simple physical models and gemba walks. When teams stop building things with their hands, they lose the fast, embodied learning that makes 3P events productive.</li>
+            <li><strong>Focus on decisions, not data.</strong> Use analytics and machine learning to clarify trade-offs, constraints, and consequences for specific design choices &mdash; rather than generating data for its own sake. If an analysis does not change what the team considers or decides, it was not the right analysis.</li>
+            <li><strong>Build joint capability.</strong> Bring digital specialists, manufacturing engineers, and product developers into the same 3P teams. Insights and constraints need to be shared in the room, not handed over between siloed functions.</li>
+          </ul>
+          <div class="pb-prose" style="margin-top:1.25rem;">
+            <p>When digital tools are pulled into Lean 3P this way &mdash; in response to real questions rather than as a technology adoption initiative &mdash; they become part of a disciplined learning system. They help teams design products and production systems that are robust, flexible, and easier to improve over time.</p>
+          </div>
+        </section>
+
+        <!-- Put this into practice -->
+        <section class="pb-section" id="practice">
+          <p class="pb-section-eyebrow">Next steps</p>
+          <h2 class="pb-section-title">Put this into practice</h2>
+          <div class="pb-cta-box">
+            <p class="pb-cta-box-body">Use this article with teams planning a Lean 3P effort where Industry 4.0 or machine learning tools are already available. Start by defining the challenge and value stream in lean terms. Then decide what data and models could sharpen the 3P work, which simulations are worth running for a few key options, and how runtime data after launch will feed back into the next 3P cycles.</p>
+          </div>
+          <div class="pb-chapter-links">
+            <a class="pb-chapter-link" href="/playbook/3p-why/">
+              <span class="pb-chapter-link-num">11</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 11</p>
+                <p class="pb-chapter-link-title">Why Lean 3P?</p>
+                <p class="pb-chapter-link-desc">The launch problems conventional approaches cannot fix, and what Lean 3P does differently.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/design/#mfg-early">
+              <span class="pb-chapter-link-num">5.5</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 5 &bull; Section 5</p>
+                <p class="pb-chapter-link-title">Integrating Manufacturing &amp; Operations Early</p>
+                <p class="pb-chapter-link-desc">How to bring operations into product design before decisions become expensive to change.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/validate/">
+              <span class="pb-chapter-link-num">6</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 6</p>
+                <p class="pb-chapter-link-title">Validate &amp; Learn</p>
+                <p class="pb-chapter-link-desc">Experiments, simulations, and learning cycles &mdash; the discipline behind rapid 3P exploration.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- Related reading -->
+        <section class="pb-section" id="related">
+          <p class="pb-section-eyebrow">Go deeper</p>
+          <h2 class="pb-section-title">Related reading</h2>
+          <div class="pb-chapter-links">
+            <a class="pb-chapter-link" href="/playbook/3p-why/">
+              <span class="pb-chapter-link-num">11</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 11</p>
+                <p class="pb-chapter-link-title">Why Lean 3P?</p>
+                <p class="pb-chapter-link-desc">The full case for collaborative product and process design, from launch problems to 3P results.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/design/">
+              <span class="pb-chapter-link-num">5</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 5</p>
+                <p class="pb-chapter-link-title">Design &amp; Flow</p>
+                <p class="pb-chapter-link-desc">Set-based design, development value streams, and how to integrate manufacturing early in the design process.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+            <a class="pb-chapter-link" href="/playbook/scaling/">
+              <span class="pb-chapter-link-num">8</span>
+              <div>
+                <p class="pb-chapter-link-label">Chapter 8</p>
+                <p class="pb-chapter-link-title">Scaling, Launch &amp; Lifecycle</p>
+                <p class="pb-chapter-link-desc">How 3P investments pay off at launch: ramp-up planning, variant management, and learning from scale.</p>
+              </div>
+              <span class="pb-chapter-link-arrow">→</span>
+            </a>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <span class="lp-footer-text">Powered by</span>
+      <a href="https://www.lean-peak-solutions.se/" class="lp-footer-link" target="_blank" rel="noopener noreferrer">
+        <img src="../../LeanPeak Logo.png" alt="Lean-Peak Solutions AB" class="lp-footer-logo">
+        <span class="lp-footer-brand">Lean-Peak Solutions AB</span>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../js/portal-auth.js"></script>
+
+  <script>
+    (function () {
+      const allLinks = document.querySelectorAll('.pb-nav a');
+      const sections = Array.from(allLinks)
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const id = '#' + entry.target.id;
+              allLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+            }
+          });
+        },
+        { rootMargin: '-15% 0px -75% 0px', threshold: 0 }
+      );
+      sections.forEach(s => observer.observe(s));
+    })();
+  </script>
+
+  <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
+  <script defer>
+    (function () {
+      function init() { CustomGPT.init({ p_id: '89818', p_key: '263a30f8ca292918be27e31bd50d1074' }); }
+      document.readyState === 'complete' ? init() : window.addEventListener('load', init);
+    })();
+  </script>
+
+</body>
+</html>
